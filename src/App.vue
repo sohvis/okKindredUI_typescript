@@ -1,31 +1,81 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
+    
+    <b-navbar toggleable="md" type="dark" variant="primary" v-bind:sticky="true" class="navbar-background">
+      <b-navbar-brand href="#"><strong>ok!Kindred {{debugMessage}}</strong></b-navbar-brand>
+      
+      <b-navbar-toggle target="nav_collapse" />
+
+      <b-collapse is-nav id="nav_collapse">
+        <b-navbar-nav>
+          <b-nav-item v-if="logged_in" to="/tree/">{{ $t("message.Tree") }}</b-nav-item>
+          <b-nav-item v-if="logged_in" to="/map/">{{ $t("message.Map") }}</b-nav-item>
+          <b-nav-item v-if="logged_in" href="#">{{ $t("message.Gallery") }}</b-nav-item>
+          <b-nav-item v-if="logged_in" href="#">{{ $t("message.Search") }}</b-nav-item>
+        </b-navbar-nav>
+
+        <!-- Right aligned nav items -->
+        <b-navbar-nav class="ml-auto">
+          <b-nav-item href="#">{{ $t("message.About") }}</b-nav-item>
+          <b-nav-item v-if="logged_in" href="#">{{ $t("message.Settings") }}</b-nav-item>
+          <b-nav-item v-if="logged_in" v-on:click="logout()" href="#">{{ $t("message.Logout") }}</b-nav-item>
+          <b-nav-item v-if="!logged_in" to="/accounts/login/">{{ $t("message.Login") }}</b-nav-item>
+        </b-navbar-nav>
+      </b-collapse>
+    </b-navbar>
+
+    <Loading v-show="loading"/>
+
     <router-view/>
+
   </div>
 </template>
 
+<script lang="ts">
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap-vue/dist/bootstrap-vue.css';
+import { Component, Vue } from 'vue-property-decorator';
+
+import Loading from '@/components/common/Loading.vue';
+
+@Component({
+  components: {
+    Loading,
+  },
+})
+export default class App extends Vue {
+
+  // Computed properties
+  get logged_in(this: any) {
+    return this.$store.state.logged_in;
+  }
+
+  get loading(this: any) {
+    return this.$store.getters.loading;
+  }
+
+  get debugMessage(this: any) {
+    return this.$store.state.debug_message;
+  }
+
+  protected mounted() {
+    window.console.log('App.vue mounted() call');
+  }
+
+  private logout(this: any) {
+    window.console.log('logout clicked on');
+    this.$store.dispatch('logout')
+    .then(() => {
+      this.$router.push('/accounts/login/');
+    });
+  }
+
+}
+</script>
+
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-}
+  .navbar-background {
+    background-color: #250042 !important;
+  }
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
 </style>
