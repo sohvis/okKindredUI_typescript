@@ -178,8 +178,8 @@ export default class TreeNode {
     public clearRenderValues() {
 
         if (!this.selected) {
-            this.x = null;
-            this.y = null;
+            this._x = null;
+            this._y = null;
         }
 
         this.rendered = false;
