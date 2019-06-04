@@ -1,8 +1,9 @@
 import Person from './person';
 import store from '../store/store';
+import Positionable from './positionable';
 
 // Represents a person in the family tree
-export default class TreeNode {
+export default class TreeNode extends  Positionable {
 
     // Person rectangle defaults
     public static width = 130;
@@ -24,7 +25,6 @@ export default class TreeNode {
     public static fontSize = 12;
 
     public readonly id: number;
-    private readonly ctx: CanvasRenderingContext2D;
 
     public readonly person: Person;
     public imagePath: string;
@@ -35,29 +35,12 @@ export default class TreeNode {
     public selected: boolean;
     public wrappedName: string[];
     public photo: any;
+    private readonly ctx: CanvasRenderingContext2D;
 
-    // Positioning
-    private _x: number | null;
-    private _y: number | null;
-    private _midpoint: number | null;
-
-    get x() {
-        return this._x;
-    }
-
-    get y() {
-        return this._y;
-    }
-
-    get midPoint() {
-        return this._midpoint;
-    }
 
     constructor(ctx: CanvasRenderingContext2D, x: number, y: number, person: Person) {
+        super(TreeNode.width, TreeNode.height);
         this.ctx = ctx;
-        this._x = null;
-        this._y = null;
-        this._midpoint = null;
 
         this.person = person;
         this.id = person.id;
@@ -73,11 +56,67 @@ export default class TreeNode {
 
         this.rendered = false;
         this.selected  = person.id === store.state.person_id;
-        this.wrappedName = new Array<string>();
+        this.wrappedName = this.wrapName(person.name);
         this.photo = null;
     }
 
-    public wrapName(name: string) {
+
+    public Render() {
+
+        window.console.log(`TreeNode: ${this.id} Render()`);
+        window.console.log(`x:${this.x} y:${this.y}`);
+
+        if (!this.x || !this.y) {
+            return;
+        }
+
+        this.roundRect(this.x, this.y);
+
+        this.ctx.fillStyle = '#000';
+        this.ctx.font = `${TreeNode.fontSize}px Arial`;
+        this.ctx.textBaseline = 'bottom';
+
+        const left = this.x + TreeNode.leftTextMargin;
+        const top = this.y + TreeNode.topTextMargin;
+        for (let i = 0; i < this.wrappedName.length; i++ ) {
+            this.ctx.fillText(this.wrappedName[i], left, top + (TreeNode.fontSize + 5) * i );
+        }
+
+        // Dev only
+        this.ctx.fillText(`id:${this.id}`, left, top + (TreeNode.fontSize + 5) * (this.wrappedName.length + 1));
+        this.ctx.fillText(`x:${this.x}`, left, top + (TreeNode.fontSize + 5) * (this.wrappedName.length + 2));
+
+        if (this.photo) {
+            this.ctx.drawImage(this.photo, this.x + TreeNode.leftMargin, this.y + TreeNode.topImageMargin);
+        } else {
+            this.photo = new Image();
+            this.photo.src = this.imagePath;
+
+            // Have to wait for photo to load before drawing it
+            this.photo.onload = () => {
+                if (this.x && this.y) {
+                    this.ctx.drawImage(this.photo, this.x + TreeNode.leftMargin, this.y + TreeNode.topImageMargin);
+                }
+            };
+        }
+
+        this.rendered = true;
+        this.ctx.save();
+    }
+
+    public clearRenderValues() {
+
+        if (!this.selected) {
+            this.ClearPosition();
+        }
+
+        this.rendered = false;
+
+    }
+
+    private wrapName(name: string): string[] {
+
+        const wrappedName = new Array<string>();
 
         const maxWidth = TreeNode.width - (2 * TreeNode.leftTextMargin + 5);
         const words = name.split(' ');
@@ -90,62 +129,15 @@ export default class TreeNode {
             if (width < maxWidth) {
                 currentLine += ' ' + word;
             } else {
-                this.wrappedName.push(currentLine);
+                wrappedName.push(currentLine);
                 currentLine = word;
             }
         }
-        this.wrappedName.push(currentLine);
+        wrappedName.push(currentLine);
+
+        return wrappedName;
     }
 
-    public SetPosition(x: number, y:number) {
-        this._x = x;
-        this._y = y;
-
-        this._midpoint = this._x + TreeNode.width / 2;
-    }
-
-    public Render() {
-
-        window.console.log(`TreeNode: ${this.id} Render()`);
-        window.console.log(`x:${this._x} y:${this._y}`);
-
-        if (!this._x || !this._y) {
-            return;
-        }
-
-        this.roundRect(this._x, this._y);
-
-        this.ctx.fillStyle = '#000';
-        this.ctx.font = `${TreeNode.fontSize}px Arial`;
-        this.ctx.textBaseline = 'bottom';
-
-        const left = this._x + TreeNode.leftTextMargin;
-        const top = this._y + TreeNode.topTextMargin;
-        for (let i = 0; i < this.wrappedName.length; i++ ) {
-            this.ctx.fillText(this.wrappedName[i], left, top + (TreeNode.fontSize + 5) * i );
-        }
-
-        // Dev only
-        this.ctx.fillText(`id:${this.id}`, left, top + (TreeNode.fontSize + 5) * (this.wrappedName.length + 1));
-        this.ctx.fillText(`x:${this.x}`, left, top + (TreeNode.fontSize + 5) * (this.wrappedName.length + 2));
-
-        if (this.photo) {
-            this.ctx.drawImage(this.photo, this._x + TreeNode.leftMargin, this._y + TreeNode.topImageMargin);
-        } else {
-            this.photo = new Image();
-            this.photo.src = this.imagePath;
-
-            // Have to wait for photo to load before drawing it
-            this.photo.onload = () => {
-                if (this._x && this._y) {
-                    this.ctx.drawImage(this.photo, this._x + TreeNode.leftMargin, this._y + TreeNode.topImageMargin);
-                }
-            };
-        }
-
-        this.rendered = true;
-        this.ctx.save();
-    }
 
     private roundRect(x: number, y: number) {
 
@@ -173,16 +165,5 @@ export default class TreeNode {
         this.ctx.stroke();
         this.ctx.fillStyle = fillstyle;
         this.ctx.fill();
-    }
-
-    public clearRenderValues() {
-
-        if (!this.selected) {
-            this._x = null;
-            this._y = null;
-        }
-
-        this.rendered = false;
-
     }
 }

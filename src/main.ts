@@ -12,14 +12,14 @@ import store from './store/store';
 // tslint:disable-next-line:max-line-length
 // https://stackoverflow.com/questions/41292559/could-not-find-a-declaration-file-for-module-module-name-path-to-module-nam
 const vueConfig = require('vue-config');
-const VueLocalStorage = require('vue-localstorage');
+const vueLocalStorage = require('vue-localstorage');
 
 Vue.config.productionTip = false;
 
 Vue.use(vueConfig, configs);
 Vue.use(BootstrapVue);
 Vue.use(VueI18n);
-Vue.use(VueLocalStorage);
+Vue.use(vueLocalStorage);
 
 
 // Create VueI18n instance with options
