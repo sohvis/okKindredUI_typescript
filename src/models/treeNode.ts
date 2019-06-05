@@ -6,25 +6,25 @@ import Positionable from './positionable';
 export default class TreeNode extends  Positionable {
 
     // Person rectangle defaults
-    public static width = 130;
-    public static height = 140;
-    public static rectStrokeStyle = '#2e6f9a';
-    public static rectLineWidth = 2;
-    public static rectRoundedCornerRadius = 15;
-    public static leftMargin = 25;
-    public static selectedRectFillstyle = 'rgb(150, 222, 152)';
-    public static rectFillstyle = '#FFFAFA';
-    public static minSpacing = 60;
+    public static WIDTH = 130;
+    public static HEIGHT = 140;
+    public static RECT_STROKE_STYLE = '#2e6f9a';
+    public static RECT_LINE_WIDTH = 2;
+    public static RECT_ROUNDED_CORNER_RADIUS = 15;
+    public static LEFT_MARGIN = 25;
+    public static SELECTED_RECT_FILL_STYLE = 'rgb(150, 222, 152)';
+    public static RECT_FILL_STYLE = '#FFFAFA';
+    public static MIN_SPACING = 60;
 
     // Image Defaults
-    public static topImageMargin = 10;
+    public static TOP_IMAGE_MARGIN = 10;
 
     // Text Defaults
-    public static topTextMargin = 115;
-    public static leftTextMargin = 10;
-    public static fontSize = 12;
+    public static TOP_TEXT_MARGIN = 115;
+    public static LEFT_TEXT_MARGIN = 10;
+    public static FONT_SIZE = 12;
 
-    public readonly id: number;
+    public readonly id: string;
 
     public readonly person: Person;
     public imagePath: string;
@@ -38,8 +38,8 @@ export default class TreeNode extends  Positionable {
     private readonly ctx: CanvasRenderingContext2D;
 
 
-    constructor(ctx: CanvasRenderingContext2D, x: number, y: number, person: Person) {
-        super(TreeNode.width, TreeNode.height);
+    constructor(ctx: CanvasRenderingContext2D, person: Person) {
+        super(TreeNode.WIDTH, TreeNode.HEIGHT);
         this.ctx = ctx;
 
         this.person = person;
@@ -61,7 +61,7 @@ export default class TreeNode extends  Positionable {
     }
 
 
-    public Render() {
+    public render() {
 
         window.console.log(`TreeNode: ${this.id} Render()`);
         window.console.log(`x:${this.x} y:${this.y}`);
@@ -73,21 +73,21 @@ export default class TreeNode extends  Positionable {
         this.roundRect(this.x, this.y);
 
         this.ctx.fillStyle = '#000';
-        this.ctx.font = `${TreeNode.fontSize}px Arial`;
+        this.ctx.font = `${TreeNode.FONT_SIZE}px Arial`;
         this.ctx.textBaseline = 'bottom';
 
-        const left = this.x + TreeNode.leftTextMargin;
-        const top = this.y + TreeNode.topTextMargin;
+        const left = this.x + TreeNode.LEFT_TEXT_MARGIN;
+        const top = this.y + TreeNode.TOP_TEXT_MARGIN;
         for (let i = 0; i < this.wrappedName.length; i++ ) {
-            this.ctx.fillText(this.wrappedName[i], left, top + (TreeNode.fontSize + 5) * i );
+            this.ctx.fillText(this.wrappedName[i], left, top + (TreeNode.FONT_SIZE + 5) * i );
         }
 
         // Dev only
-        this.ctx.fillText(`id:${this.id}`, left, top + (TreeNode.fontSize + 5) * (this.wrappedName.length + 1));
-        this.ctx.fillText(`x:${this.x}`, left, top + (TreeNode.fontSize + 5) * (this.wrappedName.length + 2));
+        this.ctx.fillText(`id:${this.id}`, left, top + (TreeNode.FONT_SIZE + 5) * (this.wrappedName.length + 1));
+        this.ctx.fillText(`x:${this.x}`, left, top + (TreeNode.FONT_SIZE + 5) * (this.wrappedName.length + 2));
 
         if (this.photo) {
-            this.ctx.drawImage(this.photo, this.x + TreeNode.leftMargin, this.y + TreeNode.topImageMargin);
+            this.ctx.drawImage(this.photo, this.x + TreeNode.LEFT_MARGIN, this.y + TreeNode.TOP_IMAGE_MARGIN);
         } else {
             this.photo = new Image();
             this.photo.src = this.imagePath;
@@ -95,7 +95,7 @@ export default class TreeNode extends  Positionable {
             // Have to wait for photo to load before drawing it
             this.photo.onload = () => {
                 if (this.x && this.y) {
-                    this.ctx.drawImage(this.photo, this.x + TreeNode.leftMargin, this.y + TreeNode.topImageMargin);
+                    this.ctx.drawImage(this.photo, this.x + TreeNode.LEFT_MARGIN, this.y + TreeNode.TOP_IMAGE_MARGIN);
                 }
             };
         }
@@ -107,7 +107,7 @@ export default class TreeNode extends  Positionable {
     public clearRenderValues() {
 
         if (!this.selected) {
-            this.ClearPosition();
+            this.clearPosition();
         }
 
         this.rendered = false;
@@ -118,11 +118,11 @@ export default class TreeNode extends  Positionable {
 
         const wrappedName = new Array<string>();
 
-        const maxWidth = TreeNode.width - (2 * TreeNode.leftTextMargin + 5);
+        const maxWidth = TreeNode.WIDTH - (2 * TreeNode.LEFT_TEXT_MARGIN + 5);
         const words = name.split(' ');
         let currentLine = words[0];
 
-        this.ctx.font = `${TreeNode.fontSize}px Arial`;
+        this.ctx.font = `${TreeNode.FONT_SIZE}px Arial`;
 
         for (const word of words) {
             const width = this.ctx.measureText(currentLine + ' ' + word).width;
@@ -141,22 +141,22 @@ export default class TreeNode extends  Positionable {
 
     private roundRect(x: number, y: number) {
 
-        let fillstyle = TreeNode.rectFillstyle;
+        let fillstyle = TreeNode.RECT_FILL_STYLE;
 
         if (this.selected) {
-            fillstyle = TreeNode.selectedRectFillstyle;
+            fillstyle = TreeNode.SELECTED_RECT_FILL_STYLE;
         }
 
-        const radius = TreeNode.rectRoundedCornerRadius;
-        const r = x + TreeNode.width;
-        const b = y + TreeNode.height;
+        const radius = TreeNode.RECT_ROUNDED_CORNER_RADIUS;
+        const r = x + TreeNode.WIDTH;
+        const b = y + TreeNode.HEIGHT;
         this.ctx.beginPath();
-        this.ctx.strokeStyle = TreeNode.rectStrokeStyle;
-        this.ctx.lineWidth = TreeNode.rectLineWidth;
+        this.ctx.strokeStyle = TreeNode.RECT_STROKE_STYLE;
+        this.ctx.lineWidth = TreeNode.RECT_LINE_WIDTH;
         this.ctx.moveTo(x + radius, y);
         this.ctx.lineTo(r - radius, y);
         this.ctx.quadraticCurveTo(r, y, r, y + radius);
-        this.ctx.lineTo(r, y + TreeNode.height - radius);
+        this.ctx.lineTo(r, y + TreeNode.HEIGHT - radius);
         this.ctx.quadraticCurveTo(r, b, r - radius, b);
         this.ctx.lineTo(x + radius, b);
         this.ctx.quadraticCurveTo(x, b, x, b - radius);

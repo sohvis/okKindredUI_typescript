@@ -10,14 +10,16 @@ import { Component, Vue } from 'vue-property-decorator';
 import { Promise } from 'q';
 import Person from './../models/person';
 import Relation from './../models/relation';
+import Tree from './../models/tree';
 import * as request from 'request-promise-native';
 
 
 @Component
 export default class FamilyTree extends Vue {
+
     public people: Person[] = [];
     public relations: Relation[] = [];
-    public tree = null;
+    public tree: Tree | null = null;
 
     protected mounted() {
 
@@ -47,10 +49,10 @@ export default class FamilyTree extends Vue {
               window.console.log(this.relations);
 
               window.console.log(`Building Tree`);
-              // this.tree = new Tree(htmlCanvas, this.people, this.relations);
+              this.tree = new Tree(htmlCanvas, this.people, this.relations);
 
               // Scroller.initialize(htmlCanvas, this.tree);
-              // this.tree.Render();
+              this.tree.render();
 
               window.addEventListener('resize', this.ResizeCanvasToFitWindow, false);
 

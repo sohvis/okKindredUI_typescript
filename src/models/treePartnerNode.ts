@@ -6,53 +6,53 @@ import Positionable from './positionable';
 
 export default class TreePartnerNode extends Positionable {
 
-    public static minSpacing = 30;
+    public static MIN_SPACING = 30;
 
-    public id: number;
+    public id: string;
     public mainNode: TreeNode;
     public partners: TreeNode[];
     public relationXStartPoints: { [id: string]: number; };
     private spacing: number;
 
     constructor(mainNode: TreeNode) {
-        const width = (mainNode.partners.length + 1) * TreeNode.width
-                        + (mainNode.partners.length) * TreePartnerNode.minSpacing;
-        super(width, TreeNode.height);
+        const width = (mainNode.partners.length + 1) * TreeNode.WIDTH
+                        + (mainNode.partners.length) * TreePartnerNode.MIN_SPACING;
+        super(width, TreeNode.HEIGHT);
 
         this.id = mainNode.id;
         this.mainNode = mainNode;
         this.partners = mainNode.partners;
-        this.spacing = TreeNode.minSpacing;
+        this.spacing = TreeNode.MIN_SPACING;
         this.relationXStartPoints = {};
     }
 
-    public SetPosition(x: number, y: number, spacing: number) {
+    public setPosition(x: number, y: number, spacing: number) {
         this.spacing = spacing;
-        const width = (this.mainNode.partners.length + 1) * TreeNode.width
+        const width = (this.mainNode.partners.length + 1) * TreeNode.WIDTH
                             + (this.mainNode.partners.length) * spacing;
-        this.width = width;
+        this.WIDTH = width;
 
-        this.mainNode.SetXYPosition(x, y);
+        this.mainNode.setXYPosition(x, y);
 
         let left = this.mainNode.xRight || 0 + spacing;
 
         this.relationXStartPoints[`${this.mainNode.id}`] = this.mainNode.xMid || 0;
 
         for (const partner of this.partners) {
-            partner.SetXYPosition(left, y);
+            partner.setXYPosition(left, y);
             left = partner.xRight || 0 + spacing;
 
             this.relationXStartPoints[`${this.mainNode.id}-${partner.id}`] = left -  spacing / 2;
         }
 
-        this.SetXYPosition(x, y);
+        this.setXYPosition(x, y);
     }
 
-    public Render() {
-        this.mainNode.Render();
+    public render() {
+        this.mainNode.render();
 
         for (const partner of this.partners) {
-            partner.Render();
+            partner.render();
         }
     }
 }

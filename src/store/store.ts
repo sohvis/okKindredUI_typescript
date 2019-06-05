@@ -20,8 +20,8 @@ export default new Vuex.Store({
     loading_count: 0,
 
     // The person that the app should be focused on.  On login it should be the user's person id
-    person_id: 0,
-    users_person_id: 0,
+    person_id: '0',
+    users_person_id: '0',
 
     debug_message: '',
   },
@@ -71,8 +71,8 @@ export default new Vuex.Store({
         state.access_token = '';
         state.refresh_token = '';
         state.logged_in = false;
-        state.person_id = 0;
-        state.users_person_id = 0;
+        state.person_id = '0';
+        state.users_person_id = '0';
     },
 
     // Sets the person on which app is focused on
@@ -152,8 +152,8 @@ export default new Vuex.Store({
             context.state.access_token = window.localStorage.getItem('access_token') || '';
             context.state.refresh_token = window.localStorage.getItem('refresh_token') || '';
             context.state.language = window.localStorage.getItem('language') || '';
-            context.state.person_id = parseInt(window.localStorage.getItem('person_id') || '0', 10);
-            context.state.users_person_id = parseInt(window.localStorage.getItem('users_person_id') || '0', 10);
+            context.state.person_id = window.localStorage.getItem('person_id') || '0';
+            context.state.users_person_id = window.localStorage.getItem('users_person_id') || '0';
 
             window.console.log(`access token: ${context.state.access_token}`);
             window.console.log(context.state);

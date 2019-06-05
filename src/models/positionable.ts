@@ -3,12 +3,12 @@ export default abstract class Positionable {
     public x: number | null;
     public xMid: number | null;
     public xRight: number | null;
-    public width: number;
+    public WIDTH: number;
 
     public y: number | null;
     public yMid: number | null;
     public yBottom: number | null;
-    public height: number;
+    public HEIGHT: number;
 
     constructor(width: number, height: number) {
         this.x = null;
@@ -17,11 +17,11 @@ export default abstract class Positionable {
         this.y = null;
         this.yMid = null;
         this.yBottom = null;
-        this.width = width;
-        this.height = height;
+        this.WIDTH = width;
+        this.HEIGHT = height;
     }
 
-    public ClearPosition() {
+    public clearPosition() {
         this.x = null;
         this.xMid = null;
         this.xRight = null;
@@ -30,27 +30,27 @@ export default abstract class Positionable {
         this.yBottom = null;
     }
 
-    public SetXYPosition(x: number, y: number) {
-        this.SetXPosition(x);
-        this.SetYPosition(y);
+    public setXYPosition(x: number, y: number) {
+        this.setXPosition(x);
+        this.setYPosition(y);
     }
 
-    public SetXPosition(x: number) {
+    public setXPosition(x: number) {
         this.x = x;
-        this.xMid = x + this.width / 2;
-        this.xRight = x + this.width;
+        this.xMid = x + this.WIDTH / 2;
+        this.xRight = x + this.WIDTH;
     }
 
-    public SetYPosition(y: number) {
+    public setYPosition(y: number) {
         this.y = y;
-        this.yMid = y + this.height / 2;
-        this.yBottom = this.height;
+        this.yMid = y + this.HEIGHT / 2;
+        this.yBottom = this.HEIGHT;
     }
 
-    public SetCentreXPosition(xCentre: number) {
+    public setCentreXPosition(xCentre: number) {
         this.xMid = xCentre;
-        this.x = xCentre - this.width / 2;
-        this.xRight = xCentre + this.width / 2;
+        this.x = xCentre - this.WIDTH / 2;
+        this.xRight = xCentre + this.WIDTH / 2;
     }
 
 }

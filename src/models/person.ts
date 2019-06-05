@@ -1,5 +1,5 @@
 export default interface Person {
-    id: number;
+    id: string;
     name: string;
     birth_year: number;
     gender: string;

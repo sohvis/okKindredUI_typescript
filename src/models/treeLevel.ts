@@ -6,6 +6,9 @@ import TreeNodeGroup from './treeNodeGroup';
 // Represents a level in the family tree
 export default class TreeLevel extends  Positionable {
 
+    public static TREE_LEVEL_SPACING = 100;
+
+    public id: string;
     public level: number;
     public groups: TreeNodeGroup[];
     public groupsById: { [id: string]: TreeNodeGroup; };
@@ -13,12 +16,13 @@ export default class TreeLevel extends  Positionable {
     public canvas: HTMLCanvasElement;
 
     constructor(canvas: HTMLCanvasElement, context: CanvasRenderingContext2D, level: number, y: number) {
-        super(0, TreeNode.height);
+        super(0, TreeNode.HEIGHT);
 
+        this.id = level.toString();
         this.level = level;
         this.canvas = canvas;
         this.ctx = context;
-        this.SetYPosition(y);
+        this.setYPosition(y);
         this.groupsById = {};
         this.groups = [];
     }
@@ -27,8 +31,8 @@ export default class TreeLevel extends  Positionable {
 
         // If already have position values, re-use them
         if (!node.y) {
-            node.x = (this.canvas.width - TreeNode.width) / 2;
-            node.y = (this.canvas.height - TreeNode.height) / 2;
+            node.x = (this.canvas.width - TreeNode.WIDTH) / 2;
+            node.y = (this.canvas.height - TreeNode.HEIGHT) / 2;
         }
 
         const group = new TreeNodeGroup(this.ctx, [], true, node.y);
@@ -55,6 +59,12 @@ export default class TreeLevel extends  Positionable {
         const spacing = TreeNodeGroup.minSpacing;
         for (const group of this.groups) {
             group.centreAmongRelatives(spacing);
+        }
+    }
+
+    public render() {
+        for (const group of this.groups) {
+            group.render();
         }
     }
 }

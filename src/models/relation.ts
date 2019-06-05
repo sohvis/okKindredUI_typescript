@@ -1,5 +1,5 @@
 export default interface Relation {
-    id: number;
+    id: string;
     from_person_id: number;
     to_person_id: number;
     relation_type: number;

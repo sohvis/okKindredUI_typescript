@@ -22,7 +22,7 @@ export default class TreeNodeGroup extends Positionable {
     public commonRelatives: TreeNode[];
     public groupedByAncestors: boolean;
     public nodes: TreePartnerNode[];
-    public nodesById: { [id: number]: TreePartnerNode; };
+    public nodesById: { [id: string]: TreePartnerNode; };
     public spacing: number;
 
     private ctx: CanvasRenderingContext2D;
@@ -32,8 +32,8 @@ export default class TreeNodeGroup extends Positionable {
         commonRelatives: TreeNode[],
         groupedByAncestors: boolean, y: number) {
 
-        super(0, TreeNode.height);
-        this.SetYPosition(y);
+        super(0, TreeNode.HEIGHT);
+        this.setYPosition(y);
         this.ctx = context;
         this.id = TreeNodeGroup.getGroupIdForCommonRelatives(commonRelatives);
         this.commonRelatives = commonRelatives;
@@ -55,8 +55,14 @@ export default class TreeNodeGroup extends Positionable {
 
     public centreAmongRelatives(spacing: number) {
         const xCentre = this.getCentrePositionOfCommonRelatives();
-        this.updateWidth();
+        this.updateWidth(spacing);
         this.setCentrePosition(xCentre, spacing);
+    }
+
+    public render() {
+        for (const partnerNode of this.nodes) {
+            partnerNode.render();
+        }
     }
 
     private getCentrePositionOfCommonRelatives() {
@@ -66,35 +72,39 @@ export default class TreeNodeGroup extends Positionable {
         let sumX = 0;
         let count = 0;
         for (const relative of this.commonRelatives) {
-            sumX += relative.x || 0;
-            count++;
+            if (relative.x) {
+                sumX += relative.x;
+                count++;
+            }
         }
 
-        sumX += count * (TreeNode.width / 2);
+        sumX += count * (TreeNode.WIDTH / 2);
 
         return sumX / count;
     }
 
-    private updateWidth() {
+    private updateWidth(spacing: number) {
+        this.spacing = spacing;
+
         let width = 0;
         for (const node of this.nodes) {
-            width += node.width;
+            width += node.WIDTH;
         }
 
         width += (this.nodes.length - 1) * this.spacing;
 
-        this.width = width;
+        this.WIDTH = width;
     }
 
 
 
     private setCentrePosition(x: number, spacing: number) {
         this.spacing = spacing;
-        let xLeft = x - this.width / 2;
-        this.SetXPosition(xLeft);
+        let xLeft = x - this.WIDTH / 2;
+        this.setXPosition(xLeft);
 
         for (const node of this.nodes) {
-            node.SetXPosition(xLeft);
+            node.setXPosition(xLeft);
             xLeft = node.xRight || xLeft + spacing;
         }
     }
