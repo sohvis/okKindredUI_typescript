@@ -32,16 +32,21 @@ export default class TreeLevel extends  Positionable {
 
         // If already have position values, re-use them
         if (!node.y) {
-            node.x = (this.canvas.width - TreeNode.WIDTH) / 2;
-            node.y = (this.canvas.height - TreeNode.HEIGHT) / 2;
+            const x = (this.canvas.width - TreeNode.WIDTH) / 2;
+            const y = (this.canvas.height - TreeNode.HEIGHT) / 2;
+            node.setXYPosition(x, y);
         }
 
-        const group = new TreeNodeGroup(this.ctx, [], true, node.y);
+        const group = new TreeNodeGroup(this.ctx, [], true, node.y || 0);
 
         this.groupsById[group.id] = group;
         this.groups.push(group);
 
         group.addNode(node);
+
+        group.updateWidth(TreeNode.WIDTH);
+        group.setLeftPostion(node.x || 0, TreeNode.WIDTH);
+        
     }
 
     public addNode(node: TreeNode, commonRelatives: TreeNode[], ancestor: boolean) {
@@ -68,6 +73,12 @@ export default class TreeLevel extends  Positionable {
     public render() {
         for (const group of this.groups) {
             group.render();
+        }
+    }
+
+    public clearRenderValues() {
+        for (const group of this.groups) {
+            group.clearRenderValues();
         }
     }
 }

@@ -15,6 +15,9 @@ export default class TreePartnerNode extends Positionable {
     private spacing: number;
 
     constructor(mainNode: TreeNode) {
+
+        window.console.log(`TreePartnerNode.constructor()`);
+
         const width = (mainNode.partners.length + 1) * TreeNode.WIDTH
                         + (mainNode.partners.length) * TreePartnerNode.MIN_SPACING;
         super(width, TreeNode.HEIGHT);
@@ -22,15 +25,23 @@ export default class TreePartnerNode extends Positionable {
         this.id = mainNode.id;
         this.mainNode = mainNode;
         this.partners = mainNode.partners;
+        window.console.log(`mainNode.partners`);
+        window.console.log(mainNode.partners);
+
         this.spacing = TreeNode.MIN_SPACING;
         this.relationXStartPoints = {};
+
+        mainNode.addToTree = true;
+        for (const partner of this.partners) {
+            partner.addToTree = true;
+        }
     }
 
     public setPosition(x: number, y: number, spacing: number) {
         this.spacing = spacing;
         const width = (this.mainNode.partners.length + 1) * TreeNode.WIDTH
                             + (this.mainNode.partners.length) * spacing;
-        this.WIDTH = width;
+        this.width = width;
 
         this.mainNode.setXYPosition(x, y);
 
@@ -53,6 +64,13 @@ export default class TreePartnerNode extends Positionable {
 
         for (const partner of this.partners) {
             partner.render();
+        }
+    }
+
+    public clearRenderValues() {
+        this.mainNode.clearRenderValues();
+        for (const partner of this.partners) {
+            partner.clearRenderValues();
         }
     }
 }

@@ -1,5 +1,5 @@
 
-export default Scroller = {   
+var Scroller = {   
 
     tree: null,
     canvas: null,
@@ -14,7 +14,7 @@ export default Scroller = {
 
     // Represents multitouch points 1 and 2
     dragStart: [null, null],
-    dragStartTime: null,
+    dragStartTime: new Date().getTime(),
     multiTouch: false,
 
     // Based on http://phrogz.net/tmp/canvas_zoom_to_cursor.html
@@ -48,6 +48,7 @@ export default Scroller = {
     },
 
     mousedown: (evt) => {
+
 
         Scroller.lastPoint.x = evt.pageX - Scroller.canvas.offsetLeft;
         Scroller.lastPoint.y = evt.pageY - Scroller.canvas.offsetTop;
@@ -89,7 +90,7 @@ export default Scroller = {
             let dy = pt.y - Scroller.dragStart[0].y;
 
             Scroller.ctx.translate(dx, dy);
-            Scroller.tree.Render();
+            Scroller.tree.render();
         }
     },
 
@@ -130,7 +131,7 @@ export default Scroller = {
         Scroller.ctx.translate(mdpt.x,mdpt.y);
         Scroller.ctx.scale(delta, delta);
         Scroller.ctx.translate(-mdpt.x,-mdpt.y);
-        Scroller.tree.Render();
+        Scroller.tree.render();
     },
 
     singleTouchMove: (pos) => {
@@ -144,7 +145,7 @@ export default Scroller = {
         let dy = pt.y - Scroller.dragStart[0].y;
 
         Scroller.ctx.translate(dx, dy);
-        Scroller.tree.Render();
+        Scroller.tree.render();
     },
 
     mouseUp: () => {
@@ -153,7 +154,7 @@ export default Scroller = {
         // Select if quick single tap
         if(elapsedClickTime < 150 && !Scroller.dragStart[1]) {
             var pt = Scroller.ctx.transformedPoint(Scroller.lastPoint.x,Scroller.lastPoint.y);
-            Scroller.tree.Click(pt.x, pt.y);
+            Scroller.tree.click(pt.x, pt.y);
         } 
 
         Scroller.dragStart[0] = null;
@@ -171,7 +172,7 @@ export default Scroller = {
             var factor = Math.pow(scaleFactor,delta);
             Scroller.ctx.scale(factor,factor);
             Scroller.ctx.translate(-pt.x,-pt.y);
-            Scroller.tree.Render();
+            Scroller.tree.render();
         }
 
         return evt.preventDefault() && false;
@@ -253,3 +254,5 @@ export default Scroller = {
         }
     }
 }
+
+export default Scroller;

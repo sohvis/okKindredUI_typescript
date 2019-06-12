@@ -83,7 +83,17 @@ export default class Tree {
         });
     }
 
+    public click(x: number, y: number) {
+        window.console.log(`Tree.click(x:${x} , y:${y})`);
+    }
+
     private clearCanvas() {
+
+        Object.keys(this.treeLevelsByLevel).forEach((id) => {
+            const treeLevel = this.treeLevelsByLevel[id];
+            treeLevel.clearRenderValues();
+        });
+
         this.treeLevelsByLevel = {};
         this.descendantFrontierById = {};
         this.ancestorFrontierById = {};
@@ -97,6 +107,7 @@ export default class Tree {
 
         // Restore the transform
         this.ctx.restore();
+
     }
 
     private addLevel0() {
@@ -133,11 +144,14 @@ export default class Tree {
                 const ancestors =  frontierPerson.ancestors;
 
                 for (const ancestor of ancestors) {
-                    treeLevel.addNode(ancestor, ancestor.descendants, false);
 
                     this.ancestorFrontierById[ancestor.id] = ancestor;
 
                     addLevel = true;
+
+                    if (ancestor.addToTree === false) {
+                        treeLevel.addNode(ancestor, ancestor.descendants, false);
+                    }
                 }
 
                 delete this.ancestorFrontierById[frontierId];
@@ -167,11 +181,12 @@ export default class Tree {
 
                 for (const descendant of descendants) {
 
-                    treeLevel.addNode(descendant, descendant.ancestors, true);
-
                     this.descendantFrontierById[descendant.id] = descendant;
-
                     addLevel = true;
+
+                    if (descendant.addToTree === false) {
+                        treeLevel.addNode(descendant, descendant.ancestors, true);
+                    }
                 }
 
                 delete this.descendantFrontierById[frontierId];
@@ -186,6 +201,10 @@ export default class Tree {
     }
 
     private positionLevels() {
+        this.positionLevelsInitial();
+    }
+
+    private positionLevelsInitial() {
         // Position levels around selected node
 
         // ancestor Levels

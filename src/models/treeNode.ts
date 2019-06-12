@@ -31,7 +31,7 @@ export default class TreeNode extends  Positionable {
     public ancestors: TreeNode[];
     public descendants: TreeNode[];
     public partners: TreeNode[];
-    public rendered: boolean;
+    public addToTree: boolean;
     public selected: boolean;
     public wrappedName: string[];
     public photo: any;
@@ -54,7 +54,7 @@ export default class TreeNode extends  Positionable {
         this.descendants = new Array<TreeNode>();
         this.partners = new Array<TreeNode>();
 
-        this.rendered = false;
+        this.addToTree = false;
         this.selected  = person.id === store.state.person_id;
         this.wrappedName = this.wrapName(person.name);
         this.photo = null;
@@ -63,8 +63,8 @@ export default class TreeNode extends  Positionable {
 
     public render() {
 
-        window.console.log(`TreeNode: ${this.id} Render()`);
-        window.console.log(`x:${this.x} y:${this.y}`);
+        //window.console.log(`TreeNode: ${this.id} Render()`);
+        //window.console.log(`x:${this.x} y:${this.y}`);
 
         if (!this.x || !this.y) {
             return;
@@ -100,7 +100,6 @@ export default class TreeNode extends  Positionable {
             };
         }
 
-        this.rendered = true;
         this.ctx.save();
     }
 
@@ -110,8 +109,7 @@ export default class TreeNode extends  Positionable {
             this.clearPosition();
         }
 
-        this.rendered = false;
-
+        this.addToTree = false;
     }
 
     private wrapName(name: string): string[] {
