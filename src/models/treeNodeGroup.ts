@@ -16,8 +16,8 @@ export default class TreeNodeGroup extends Positionable {
         } else {
             return '0';
         }
-
     }
+
     public id: string;
     public commonRelatives: TreeNode[];
     public groupedByAncestors: boolean;
@@ -68,12 +68,13 @@ export default class TreeNodeGroup extends Positionable {
     private getCentrePositionOfCommonRelatives() {
 
         window.console.log(`TreeNodeGroup.getCentrePositionOfCommonRelatives()`);
-
+        window.console.log(this.commonRelatives);
         let sumX = 0;
         let count = 0;
         for (const relative of this.commonRelatives) {
             if (relative.x) {
                 sumX += relative.x;
+                window.console.log(`relative.x: ${relative.x}`);
                 count++;
             }
         }
@@ -97,15 +98,15 @@ export default class TreeNodeGroup extends Positionable {
     }
 
 
-
     private setCentrePosition(x: number, spacing: number) {
+        window.console.log(`TreeNodeGroup.setCentrePosition(x: ${x}), spacing: ${spacing}`);
         this.spacing = spacing;
         let xLeft = x - this.WIDTH / 2;
         this.setXPosition(xLeft);
 
         for (const node of this.nodes) {
-            node.setXPosition(xLeft);
-            xLeft = node.xRight || xLeft + spacing;
+            node.setPosition(xLeft, this.y || 0, TreePartnerNode.MIN_SPACING);
+            xLeft = (node.xRight || xLeft) + spacing;
         }
     }
 

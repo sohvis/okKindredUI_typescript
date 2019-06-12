@@ -105,7 +105,7 @@ export default class Tree {
         this.selectedNode =  this.nodesById[store.state.person_id];
 
         level0.addSelectedNode(this.selectedNode);
-        this.treeLevelsByLevel[0] = level0;
+        this.treeLevelsByLevel[level0.id] = level0;
 
         this.descendantFrontierById[this.selectedNode.id] = this.selectedNode;
         this.ancestorFrontierById[this.selectedNode.id] = this.selectedNode;
@@ -117,9 +117,13 @@ export default class Tree {
         let level = -1;
         while (Object.keys(this.ancestorFrontierById).length > 0) {
 
-            // window.console.log(`Tree.AddAncestors() level:${level}`);
+            window.console.log(`Tree.AddAncestors() level:${level}`);
 
-            const y = this.selectedNode.y || 0 + level * (TreeNode.HEIGHT + TreeLevel.TREE_LEVEL_SPACING);
+            const y = (this.selectedNode.y || 0) + level * (TreeNode.HEIGHT + TreeLevel.TREE_LEVEL_SPACING);
+            window.console.log(`this.selectedNode.y: ${this.selectedNode.y}`);
+            window.console.log(`TreeNode.HEIGHT: ${TreeNode.HEIGHT}`);
+            window.console.log(`TreeLevel.TREE_LEVEL_SPACING: ${TreeLevel.TREE_LEVEL_SPACING}`);
+            window.console.log(`y: ${y}`);
 
             const treeLevel = new TreeLevel(this.canvas, this.ctx, level, y);
             let addLevel = false;
@@ -152,7 +156,7 @@ export default class Tree {
         let level = 1;
         while (Object.keys(this.descendantFrontierById).length > 0) {
 
-            const y = this.selectedNode.y || 0 + level * (TreeNode.HEIGHT + TreeLevel.TREE_LEVEL_SPACING);
+            const y = (this.selectedNode.y || 0) + level * (TreeNode.HEIGHT + TreeLevel.TREE_LEVEL_SPACING);
 
             const treeLevel = new TreeLevel(this.canvas, this.ctx, level, y);
             let addLevel = false;

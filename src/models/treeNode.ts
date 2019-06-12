@@ -124,7 +124,8 @@ export default class TreeNode extends  Positionable {
 
         this.ctx.font = `${TreeNode.FONT_SIZE}px Arial`;
 
-        for (const word of words) {
+        for (let i = 1; i < words.length; i++) {
+            const word = words[i];
             const width = this.ctx.measureText(currentLine + ' ' + word).width;
             if (width < maxWidth) {
                 currentLine += ' ' + word;

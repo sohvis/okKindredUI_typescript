@@ -12,6 +12,7 @@ import Person from './../models/person';
 import Relation from './../models/relation';
 import Tree from './../models/tree';
 import * as request from 'request-promise-native';
+import Scroller from './../models/scroller';
 
 
 @Component
@@ -51,7 +52,7 @@ export default class FamilyTree extends Vue {
               window.console.log(`Building Tree`);
               this.tree = new Tree(htmlCanvas, this.people, this.relations);
 
-              // Scroller.initialize(htmlCanvas, this.tree);
+              //Scroller.initialize(htmlCanvas, this.tree);
               this.tree.render();
 
               window.addEventListener('resize', this.ResizeCanvasToFitWindow, false);
@@ -70,7 +71,7 @@ export default class FamilyTree extends Vue {
         htmlCanvas.height = window.innerHeight;
 
         if (this.tree) {
-          // this.tree.Render();
+          this.tree.render();
         }
       }
 

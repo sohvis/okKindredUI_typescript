@@ -25,6 +25,7 @@ export default class TreeLevel extends  Positionable {
         this.setYPosition(y);
         this.groupsById = {};
         this.groups = [];
+        this.setYPosition(y);
     }
 
     public addSelectedNode(node: TreeNode) {
@@ -56,6 +57,8 @@ export default class TreeLevel extends  Positionable {
     }
 
     public positionGroups() {
+        window.console.log(`TreeLevel.positionGroups() level: ${this.level}`);
+
         const spacing = TreeNodeGroup.minSpacing;
         for (const group of this.groups) {
             group.centreAmongRelatives(spacing);

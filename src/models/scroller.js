@@ -1,5 +1,5 @@
 
-export const Scroller = {   
+export default Scroller = {   
 
     tree: null,
     canvas: null,
