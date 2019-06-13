@@ -53,6 +53,7 @@ export default class Tree {
         this.descendantFrontierById = {};
         this.ancestorFrontierById = {};
         this.selectedNode =  this.nodesById[store.state.person_id];
+        this.selectedNode.selected = true;
     }
 
     public render() {
@@ -70,27 +71,75 @@ export default class Tree {
         window.console.log(`Adding descendants`);
         this.addDescendants();
 
-        window.console.log(`Positioning levels`);
-        this.positionLevels();
+        window.console.log(`Positioning Ancestor levels`);
+        this.positionAncestorLevels();
+
+        window.console.log(`Positioning Descendant levels`);
+        this.positionDescendantLevels();
 
         window.console.log(`Rendering levels`);
         window.console.log(this.treeLevelsByLevel);
 
-        Object.keys(this.treeLevelsByLevel).forEach((id) => {
-            const treeLevel = this.treeLevelsByLevel[id];
-
+        Object.values(this.treeLevelsByLevel).forEach((treeLevel) => {
             treeLevel.render();
         });
     }
 
     public click(x: number, y: number) {
         window.console.log(`Tree.click(x:${x} , y:${y})`);
+
+        for (const node of this.getDrawnNodes()) {
+            if (node.x && node.y) {
+                if (Math.abs(node.x - x) < TreeNode.WIDTH
+                        && Math.abs(node.y - y) < TreeNode.HEIGHT) {
+
+                    this.changeSelectedPerson(node.id.toString()).then(() => {
+                        this.render();
+                    });
+
+                    return;
+                }
+            }
+        }
+    }
+
+    private changeSelectedPerson(newPersonId: string) {
+        return new Promise((resolve) => {
+            // Get old selected id
+            const oldSelectedId = store.state.person_id;
+
+            if (oldSelectedId !== newPersonId) {
+                this.nodesById[oldSelectedId].selected = false;
+                store.dispatch('changePerson', newPersonId).then(() => {
+                    this.nodesById[newPersonId].selected = true;
+                    resolve();
+                });
+
+            }
+        });
+
+    }
+
+    private getDrawnNodes(): TreeNode[] {
+
+        const result = new Array<TreeNode>();
+
+        Object.values(this.treeLevelsByLevel).forEach((level) => {
+            for (const group of level.groups) {
+                for (const partner of group.partnerNodes) {
+                    for (const node of partner.nodes) {
+                        result.push(node);
+                    }
+                }
+            }
+        });
+
+        return result;
     }
 
     private clearCanvas() {
 
-        Object.keys(this.treeLevelsByLevel).forEach((id) => {
-            const treeLevel = this.treeLevelsByLevel[id];
+        Object.values(this.treeLevelsByLevel).forEach((treeLevel) => {
             treeLevel.clearRenderValues();
         });
 
@@ -200,29 +249,76 @@ export default class Tree {
         }
     }
 
-    private positionLevels() {
-        this.positionLevelsInitial();
-    }
-
-    private positionLevelsInitial() {
-        // Position levels around selected node
-
-        // ancestor Levels
-        const ancestorLevels = Object.values(this.treeLevelsByLevel)
-                            .filter((item) => item.level < 0)
-                            .sort((a, b) => b.level - a. level);
-
-        for (const level of ancestorLevels) {
-            level.positionGroups();
-        }
-
+    private positionDescendantLevels() {
         // decendant levels
         const descendantLevels = Object.values(this.treeLevelsByLevel)
                             .filter((item) => item.level > 0)
                             .sort((a, b) => a.level - b. level);
+        // Levels that have beened positioned
+        const positionedLevels = new Array<TreeLevel>();
+        positionedLevels.push(this.treeLevelsByLevel['0']);
 
         for (const level of descendantLevels) {
-            level.positionGroups();
+            level.positionDescendantGroups(0, 0);
+
+            positionedLevels.unshift(level);
+
+            const levelsToReposition = new Array<TreeLevel>();
+
+            // if there is an overlap, we have to reposition previous level
+            // then check for overlaps on further down
+            for (const previousLevel of positionedLevels) {
+
+                levelsToReposition.unshift(previousLevel);
+                const maxOverlap = previousLevel.getLargestOverlap();
+                if (maxOverlap > 0) {
+                    const levelBelow = this.treeLevelsByLevel[(previousLevel.level - 1).toString()];
+                    levelBelow.positionDescendantGroups(0, maxOverlap);
+
+                    for (const levelToReposition of levelsToReposition) {
+                        levelToReposition.positionDescendantGroups(0, 0);
+                    }
+                }
+
+            }
         }
     }
+
+    private positionAncestorLevels() {
+
+        // ancestor Levels
+        const ancestorLevelsGoingUp = Object.values(this.treeLevelsByLevel)
+                            .filter((item) => item.level < 0)
+                            .sort((a, b) => b.level - a. level);
+
+        // Levels that have beened positioned
+        const positionedLevels = new Array<TreeLevel>();
+        positionedLevels.push(this.treeLevelsByLevel['0']);
+
+        for (const level of ancestorLevelsGoingUp) {
+            level.positionAncestorGroups(0, 0);
+            positionedLevels.unshift(level);
+
+            const levelsToReposition = new Array<TreeLevel>();
+
+            // if there is an overlap, we have to reposition previous level
+            // then check for overlaps on further down
+            for (const previousLevel of positionedLevels) {
+
+                levelsToReposition.unshift(previousLevel);
+                const maxOverlap = previousLevel.getLargestOverlap();
+                if (maxOverlap > 0) {
+                    const levelBelow = this.treeLevelsByLevel[(previousLevel.level + 1).toString()];
+                    levelBelow.positionAncestorGroups(0, maxOverlap);
+
+                    for (const levelToReposition of levelsToReposition) {
+                        levelToReposition.positionAncestorGroups(0, 0);
+                    }
+                }
+
+            }
+
+        }
+    }
+
 }

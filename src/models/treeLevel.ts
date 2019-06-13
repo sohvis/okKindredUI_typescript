@@ -44,9 +44,7 @@ export default class TreeLevel extends  Positionable {
 
         group.addNode(node);
 
-        group.updateWidth(TreeNode.WIDTH);
-        group.setLeftPostion(node.x || 0, TreeNode.WIDTH);
-        
+        group.setLeftPostion(node.x || 0, 0, 0);
     }
 
     public addNode(node: TreeNode, commonRelatives: TreeNode[], ancestor: boolean) {
@@ -61,19 +59,64 @@ export default class TreeLevel extends  Positionable {
         this.groupsById[id].addNode(node);
     }
 
-    public positionGroups() {
-        window.console.log(`TreeLevel.positionGroups() level: ${this.level}`);
+    public positionAncestorGroups(partnerAdditionalSpacing: number, nodeAdditionalSpacing: number) {
+        window.console.log(`TreeLevel.positionAncestorGroups() level: ${this.level}`);
 
-        const spacing = TreeNodeGroup.minSpacing;
         for (const group of this.groups) {
-            group.centreAmongRelatives(spacing);
+            group.centreAmongRelatives(partnerAdditionalSpacing, nodeAdditionalSpacing);
         }
+    }
+
+    public positionDescendantGroups(additionalGroupSpacing: number, partnerAdditionalSpacing: number) {
+        window.console.log(`TreeLevel.positionDescendantGroups() level: ${this.level}`);
+
+        let previousGroup;
+        for (const group of this.groups) {
+            group.spacing += additionalGroupSpacing;
+            if (!previousGroup || !previousGroup.hasCommonRelatives(group)) {
+                group.centreAmongRelatives(partnerAdditionalSpacing, 0);
+            } else {
+                window.console.log(`has common relatives`);
+                let xRight = (previousGroup.xRight || 0) + previousGroup.spacing;
+
+                window.console.log(`xRight: ${xRight}`);
+                group.setLeftPostion(xRight, partnerAdditionalSpacing, 0);
+            }
+            previousGroup = group;
+        }
+
+    }
+
+    public getLargestOverlap() {
+
+        window.console.log(`TreeLevel.getLargestOverlap()`);
+
+        let largestOverlap = 0;
+        let previousGroup;
+
+        for (const group of this.groups) {
+
+            if (previousGroup) {
+                const xRight1 = (previousGroup.xRight || 0) + TreeNode.MIN_SPACING;
+                const x2 = group.x || 0;
+                if (xRight1 > x2) {
+                    largestOverlap = Math.max(largestOverlap, xRight1 - x2);
+                }
+            }
+
+            previousGroup = group;
+        }
+
+        window.console.log(`largestOverlap: ${largestOverlap}`);
+        return largestOverlap;
     }
 
     public render() {
         for (const group of this.groups) {
             group.render();
         }
+
+
     }
 
     public clearRenderValues() {

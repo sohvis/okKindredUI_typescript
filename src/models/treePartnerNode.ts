@@ -1,5 +1,4 @@
 import TreeNode from './treeNode';
-import Point from './point';
 import Positionable from './positionable';
 
 // Represents a group of people who are partners in the family tree
@@ -9,54 +8,73 @@ export default class TreePartnerNode extends Positionable {
     public static MIN_SPACING = 30;
 
     public id: string;
+    public ctx: CanvasRenderingContext2D;
     public mainNode: TreeNode;
     public partners: TreeNode[];
     public relationXStartPoints: { [id: string]: number; };
-    private spacing: number;
+    public nodes: TreeNode[];
+    public spacing: number;
 
-    constructor(mainNode: TreeNode) {
+    constructor(ctx: CanvasRenderingContext2D, mainNode: TreeNode) {
 
-        window.console.log(`TreePartnerNode.constructor()`);
+        //window.console.log(`TreePartnerNode.constructor()`);
 
         const width = (mainNode.partners.length + 1) * TreeNode.WIDTH
-                        + (mainNode.partners.length) * TreePartnerNode.MIN_SPACING;
+                        + (mainNode.partners.length) * TreeNode.MIN_SPACING;
+
         super(width, TreeNode.HEIGHT);
 
         this.id = mainNode.id;
+        this.ctx = ctx;
         this.mainNode = mainNode;
         this.partners = mainNode.partners;
-        window.console.log(`mainNode.partners`);
-        window.console.log(mainNode.partners);
-
-        this.spacing = TreeNode.MIN_SPACING;
+        this.spacing = TreePartnerNode.MIN_SPACING;
         this.relationXStartPoints = {};
 
         mainNode.addToTree = true;
+        this.nodes = [];
+        this.nodes.push(mainNode);
+
         for (const partner of this.partners) {
             partner.addToTree = true;
+            this.nodes.push(partner);
         }
     }
 
-    public setPosition(x: number, y: number, spacing: number) {
-        this.spacing = spacing;
-        const width = (this.mainNode.partners.length + 1) * TreeNode.WIDTH
-                            + (this.mainNode.partners.length) * spacing;
-        this.width = width;
+    public setPosition(x: number, y: number) {
 
         this.mainNode.setXYPosition(x, y);
 
-        let left = (this.mainNode.xRight || 0) + spacing;
+        let nextNodeX = (this.mainNode.xRight || 0) + this.mainNode.spacing;
 
         this.relationXStartPoints[`${this.mainNode.id}`] = this.mainNode.xMid || 0;
 
         for (const partner of this.partners) {
-            partner.setXYPosition(left, y);
-            left = (partner.xRight || 0) + spacing;
+            partner.setXYPosition(nextNodeX, y);
+            nextNodeX = (partner.xRight || 0) + partner.spacing;
 
-            this.relationXStartPoints[`${this.mainNode.id}-${partner.id}`] = left -  spacing / 2;
+            this.relationXStartPoints[`${this.mainNode.id}-${partner.id}`] = nextNodeX -  partner.spacing / 2;
+        }
+        
+        this.setXYPosition(x, y);
+    }
+
+    public updateWidth(nodeSpacingChange: number) {
+
+        let lastPartner = this.mainNode;
+        this.mainNode.spacing += nodeSpacingChange;
+
+        let width = this.mainNode.width + this.mainNode.spacing;
+
+        for (const partner of this.partners) {
+            partner.spacing += nodeSpacingChange;
+            width += partner.width + partner.spacing;
+            lastPartner = partner;
         }
 
-        this.setXYPosition(x, y);
+        width -= lastPartner.spacing;
+
+        this.width = width;
     }
 
     public render() {
@@ -65,6 +83,8 @@ export default class TreePartnerNode extends Positionable {
         for (const partner of this.partners) {
             partner.render();
         }
+
+        // this.showBordersForDebugging(this.ctx);
     }
 
     public clearRenderValues() {
@@ -72,5 +92,7 @@ export default class TreePartnerNode extends Positionable {
         for (const partner of this.partners) {
             partner.clearRenderValues();
         }
+
+        this.spacing = TreePartnerNode.MIN_SPACING;
     }
 }

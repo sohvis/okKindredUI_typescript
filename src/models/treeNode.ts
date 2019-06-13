@@ -14,7 +14,7 @@ export default class TreeNode extends  Positionable {
     public static LEFT_MARGIN = 25;
     public static SELECTED_RECT_FILL_STYLE = 'rgb(150, 222, 152)';
     public static RECT_FILL_STYLE = '#FFFAFA';
-    public static MIN_SPACING = 60;
+    public static MIN_SPACING = 30;
 
     // Image Defaults
     public static TOP_IMAGE_MARGIN = 10;
@@ -35,6 +35,7 @@ export default class TreeNode extends  Positionable {
     public selected: boolean;
     public wrappedName: string[];
     public photo: any;
+    public spacing: number;
     private readonly ctx: CanvasRenderingContext2D;
 
 
@@ -58,13 +59,14 @@ export default class TreeNode extends  Positionable {
         this.selected  = person.id === store.state.person_id;
         this.wrappedName = this.wrapName(person.name);
         this.photo = null;
+        this.spacing = TreeNode.MIN_SPACING;
     }
 
 
     public render() {
 
-        //window.console.log(`TreeNode: ${this.id} Render()`);
-        //window.console.log(`x:${this.x} y:${this.y}`);
+        // window.console.log(`TreeNode: ${this.id} Render()`);
+        // window.console.log(`x:${this.x} y:${this.y}`);
 
         if (!this.x || !this.y) {
             return;
@@ -83,8 +85,8 @@ export default class TreeNode extends  Positionable {
         }
 
         // Dev only
-        this.ctx.fillText(`id:${this.id}`, left, top + (TreeNode.FONT_SIZE + 5) * (this.wrappedName.length + 1));
-        this.ctx.fillText(`x:${this.x}`, left, top + (TreeNode.FONT_SIZE + 5) * (this.wrappedName.length + 2));
+        // this.ctx.fillText(`id:${this.id}`, left, top + (TreeNode.FONT_SIZE + 5) * (this.wrappedName.length + 1));
+        // this.ctx.fillText(`x:${this.x}`, left, top + (TreeNode.FONT_SIZE + 5) * (this.wrappedName.length + 2));
 
         if (this.photo) {
             this.ctx.drawImage(this.photo, this.x + TreeNode.LEFT_MARGIN, this.y + TreeNode.TOP_IMAGE_MARGIN);
@@ -109,6 +111,7 @@ export default class TreeNode extends  Positionable {
             this.clearPosition();
         }
 
+        this.spacing = TreeNode.MIN_SPACING;
         this.addToTree = false;
     }
 

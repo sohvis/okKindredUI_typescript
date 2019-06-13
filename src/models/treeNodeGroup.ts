@@ -5,7 +5,7 @@ import Positionable from './positionable';
 
 export default class TreeNodeGroup extends Positionable {
 
-    public static minSpacing = 30;
+    public static MIN_SPACING = 30;
 
     public static getGroupIdForCommonRelatives(relatives: TreeNode[]) {
 
@@ -21,8 +21,9 @@ export default class TreeNodeGroup extends Positionable {
     public id: string;
     public commonRelatives: TreeNode[];
     public groupedByAncestors: boolean;
-    public nodes: TreePartnerNode[];
-    public nodesById: { [id: string]: TreePartnerNode; };
+    public partnerNodes: TreePartnerNode[];
+    public partnerNodesById: { [id: string]: TreePartnerNode; };
+    public mainNodesWidth: number;
     public spacing: number;
 
     private ctx: CanvasRenderingContext2D;
@@ -38,41 +39,51 @@ export default class TreeNodeGroup extends Positionable {
         this.id = TreeNodeGroup.getGroupIdForCommonRelatives(commonRelatives);
         this.commonRelatives = commonRelatives;
         this.groupedByAncestors = groupedByAncestors;
-        this.nodes = new Array<TreePartnerNode>();
-        this.nodesById = {};
-        this.spacing = TreeNodeGroup.minSpacing;
+        this.partnerNodes = new Array<TreePartnerNode>();
+        this.partnerNodesById = {};
+        this.mainNodesWidth = 0;
+        this.spacing = TreeNodeGroup.MIN_SPACING;
     }
 
     public addNode(node: TreeNode) {
 
-        if (!this.nodesById[node.id]) {
+        if (!this.partnerNodesById[node.id]) {
 
-            const treePartnerNode = new TreePartnerNode(node);
-            this.nodes.push(treePartnerNode);
-            this.nodesById[treePartnerNode.id] = treePartnerNode;
+            const treePartnerNode = new TreePartnerNode(this.ctx, node);
+            this.partnerNodes.push(treePartnerNode);
+            this.partnerNodesById[treePartnerNode.id] = treePartnerNode;
         }
     }
 
-    public centreAmongRelatives(spacing: number) {
+    public centreAmongRelatives(partnerAdditionalSpacing: number, nodeAdditionalSpacing: number) {
         const xCentre = this.getCentrePositionOfCommonRelatives();
-        this.updateWidth(spacing);
-        this.setCentrePosition(xCentre, spacing);
+        this.updateWidth(partnerAdditionalSpacing, nodeAdditionalSpacing);
+
+        const x = xCentre - this.width / 2;
+        let xStart = x;
+
+        for (const partnerNode of this.partnerNodes) {
+            partnerNode.setPosition(xStart, this.y || 0);
+            xStart = (partnerNode.xRight || xStart) + partnerNode.spacing;
+        }
+
+        this.setXPosition(x);
     }
 
-    public setLeftPostion(x: number, spacing: number) {
-        window.console.log(`TreeNodeGroup.setLeftPostion(x: ${x}), spacing: ${spacing}`);
-        this.spacing = spacing;
+    public setLeftPostion(x: number, partnerAdditionalSpacing: number, nodeAdditionalSpacing: number) {
         let xLeft = x;
-        this.setXPosition(xLeft);
+        this.updateWidth(partnerAdditionalSpacing, nodeAdditionalSpacing);
 
-        for (const node of this.nodes) {
-            node.setPosition(xLeft, this.y || 0, TreePartnerNode.MIN_SPACING);
-            xLeft = (node.xRight || xLeft) + spacing;
+        for (const partnerNode of this.partnerNodes) {
+            partnerNode.setPosition(xLeft, this.y || 0);
+            xLeft = (partnerNode.xRight || xLeft) + partnerNode.spacing;
         }
+
+        this.setXPosition(x);
     }
 
     public render() {
-        for (const partnerNode of this.nodes) {
+        for (const partnerNode of this.partnerNodes) {
             partnerNode.render();
         }
 
@@ -80,28 +91,48 @@ export default class TreeNodeGroup extends Positionable {
     }
 
     public clearRenderValues() {
-        for (const partnerNode of this.nodes) {
+        for (const partnerNode of this.partnerNodes) {
             partnerNode.clearRenderValues();
         }
     }
 
-    public updateWidth(spacing: number) {
-        this.spacing = spacing;
-
-        let width = 0;
-        for (const node of this.nodes) {
-            width += node.width;
+    public hasCommonRelatives(otherGroup: TreeNodeGroup): boolean {
+        for (const node of this.commonRelatives) {
+            for (const otherNode of otherGroup.commonRelatives) {
+                if (node.id === otherNode.id) {
+                    return true;
+                }
+            }
         }
 
-        width += (this.nodes.length - 1) * this.spacing;
+        return false;
+    }
+
+    private updateWidth(partnerAdditionalSpacing: number, nodeAdditionalSpacing: number) {
+
+        let width = 0;
+
+        let lastPartner;
+        for (const partnerNode of this.partnerNodes) {
+
+            partnerNode.updateWidth(nodeAdditionalSpacing);
+            partnerNode.spacing += partnerAdditionalSpacing;
+            width += partnerNode.width + partnerNode.spacing;
+            lastPartner = partnerNode;
+        }
+
+        if (lastPartner) {
+            width -= lastPartner.spacing;
+        }
 
         this.width = width;
+
     }
 
     private getCentrePositionOfCommonRelatives() {
 
-        window.console.log(`TreeNodeGroup.getCentrePositionOfCommonRelatives()`);
-        window.console.log(this.commonRelatives);
+        //window.console.log(`TreeNodeGroup.getCentrePositionOfCommonRelatives()`);
+        //window.console.log(this.commonRelatives);
         let sumX = 0;
         let count = 0;
         for (const relative of this.commonRelatives) {
@@ -116,18 +147,4 @@ export default class TreeNodeGroup extends Positionable {
 
         return sumX / count;
     }
-
-
-    private setCentrePosition(x: number, spacing: number) {
-        window.console.log(`TreeNodeGroup.setCentrePosition(x: ${x}), spacing: ${spacing}`);
-        this.spacing = spacing;
-        let xLeft = x - this.width / 2;
-        this.setXPosition(xLeft);
-
-        for (const node of this.nodes) {
-            node.setPosition(xLeft, this.y || 0, TreePartnerNode.MIN_SPACING);
-            xLeft = (node.xRight || xLeft) + spacing;
-        }
-    }
-
 }
