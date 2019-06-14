@@ -4,7 +4,7 @@ import TreePartnerNode from './treePartnerNode';
 import TreeNodeGroup from './treeNodeGroup';
 
 // Represents a level in the family tree
-export default class TreeLevel extends  Positionable {
+export default class TreeLevel extends Positionable {
 
     public static TREE_LEVEL_SPACING = 100;
 
@@ -77,7 +77,7 @@ export default class TreeLevel extends  Positionable {
                 group.centreAmongRelatives(partnerAdditionalSpacing, 0);
             } else {
                 window.console.log(`has common relatives`);
-                let xRight = (previousGroup.xRight || 0) + previousGroup.spacing;
+                const xRight = (previousGroup.xRight || 0) + previousGroup.spacing;
 
                 window.console.log(`xRight: ${xRight}`);
                 group.setLeftPostion(xRight, partnerAdditionalSpacing, 0);

@@ -87,7 +87,7 @@ export default class TreeNodeGroup extends Positionable {
             partnerNode.render();
         }
 
-        this.showBordersForDebugging(this.ctx);
+        // this.showBordersForDebugging(this.ctx);
     }
 
     public clearRenderValues() {
@@ -131,14 +131,13 @@ export default class TreeNodeGroup extends Positionable {
 
     private getCentrePositionOfCommonRelatives() {
 
-        //window.console.log(`TreeNodeGroup.getCentrePositionOfCommonRelatives()`);
-        //window.console.log(this.commonRelatives);
+        // window.console.log(`TreeNodeGroup.getCentrePositionOfCommonRelatives()`);
+        // window.console.log(this.commonRelatives);
         let sumX = 0;
         let count = 0;
         for (const relative of this.commonRelatives) {
             if (relative.x) {
                 sumX += relative.x;
-                window.console.log(`relative.x: ${relative.x}`);
                 count++;
             }
         }

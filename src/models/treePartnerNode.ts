@@ -1,5 +1,7 @@
 import TreeNode from './treeNode';
 import Positionable from './positionable';
+import TreeRelation from './treeRelation';
+import PartneredRelation from './partneredRelation';
 
 // Represents a group of people who are partners in the family tree
 
@@ -14,10 +16,11 @@ export default class TreePartnerNode extends Positionable {
     public relationXStartPoints: { [id: string]: number; };
     public nodes: TreeNode[];
     public spacing: number;
+    public relations: TreeRelation[];
 
     constructor(ctx: CanvasRenderingContext2D, mainNode: TreeNode) {
 
-        //window.console.log(`TreePartnerNode.constructor()`);
+        // window.console.log(`TreePartnerNode.constructor()`);
 
         const width = (mainNode.partners.length + 1) * TreeNode.WIDTH
                         + (mainNode.partners.length) * TreeNode.MIN_SPACING;
@@ -30,6 +33,7 @@ export default class TreePartnerNode extends Positionable {
         this.partners = mainNode.partners;
         this.spacing = TreePartnerNode.MIN_SPACING;
         this.relationXStartPoints = {};
+        this.relations = [];
 
         mainNode.addToTree = true;
         this.nodes = [];
@@ -38,6 +42,9 @@ export default class TreePartnerNode extends Positionable {
         for (const partner of this.partners) {
             partner.addToTree = true;
             this.nodes.push(partner);
+
+            const relation = new PartneredRelation(ctx, mainNode, partner);
+            this.relations.push(relation);
         }
     }
 
@@ -55,7 +62,7 @@ export default class TreePartnerNode extends Positionable {
 
             this.relationXStartPoints[`${this.mainNode.id}-${partner.id}`] = nextNodeX -  partner.spacing / 2;
         }
-        
+
         this.setXYPosition(x, y);
     }
 
@@ -84,6 +91,9 @@ export default class TreePartnerNode extends Positionable {
             partner.render();
         }
 
+        for (const relation of this.relations) {
+            relation.render();
+        }
         // this.showBordersForDebugging(this.ctx);
     }
 
