@@ -87,7 +87,10 @@ export default class TreeNodeGroup extends Positionable {
             partnerNode.render();
         }
 
-        // this.showBordersForDebugging(this.ctx);
+        this.showBordersForDebugging(this.ctx);
+
+        this.ctx.font = `25px Arial`;
+        this.ctx.fillText(this.id, this.x || 0, this.y || 0 );
     }
 
     public clearRenderValues() {

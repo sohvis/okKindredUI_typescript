@@ -70,7 +70,7 @@ export default class Tree {
         window.console.log(`Adding descendants`);
         this.addDescendants();
 
-        window.console.log(`Positioning Ancestor levels`);
+        //window.console.log(`Positioning Ancestor levels`);
         this.positionAncestorLevels();
 
         window.console.log(`Positioning Descendant levels`);
@@ -281,8 +281,8 @@ export default class Tree {
                 levelsToReposition.unshift(previousLevel);
                 const maxOverlap = previousLevel.getLargestOverlap();
                 if (maxOverlap > 0) {
-                    const levelBelow = this.treeLevelsByLevel[(previousLevel.level - 1).toString()];
-                    levelBelow.positionDescendantGroups(0, maxOverlap);
+                    const levelAbove = this.treeLevelsByLevel[(previousLevel.level - 1).toString()];
+                    levelAbove.positionDescendantGroups(0, Math.min(maxOverlap, 800));
 
                     for (const levelToReposition of levelsToReposition) {
                         levelToReposition.positionDescendantGroups(0, 0);
