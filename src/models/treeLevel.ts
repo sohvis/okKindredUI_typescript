@@ -37,21 +37,21 @@ export default class TreeLevel extends Positionable {
             node.setXYPosition(x, y);
         }
 
-        const group = new TreeNodeGroup(this.ctx, [], true, node.y || 0);
+        const group = new TreeNodeGroup(this.ctx, [], true, node.y);
 
         this.groupsById[group.id] = group;
         this.groups.push(group);
 
         group.addNode(node);
 
-        group.setLeftPostion(node.x || 0, 0, 0);
+        group.setLeftPostion(node.x, 0, 0);
     }
 
     public addNode(node: TreeNode, commonRelatives: TreeNode[], ancestor: boolean) {
         const id = TreeNodeGroup.getGroupIdForCommonRelatives(commonRelatives);
 
         if (!this.groupsById[id]) {
-            const group = new TreeNodeGroup(this.ctx, commonRelatives, ancestor, this.y || 0);
+            const group = new TreeNodeGroup(this.ctx, commonRelatives, ancestor, this.y);
             this.groupsById[group.id] = group;
             this.groups.push(group);
         }
@@ -66,7 +66,7 @@ export default class TreeLevel extends Positionable {
             group.centreAmongRelatives(partnerAdditionalSpacing, nodeAdditionalSpacing);
         }
 
-        //this.groups.sort((a, b) => { return (a.x || 0) - (b.x || 0) });
+        // this.groups.sort((a, b) => { return (a.x) - (b.x) });
     }
 
     public positionDescendantGroups(additionalGroupSpacing: number, partnerAdditionalSpacing: number) {
@@ -79,7 +79,7 @@ export default class TreeLevel extends Positionable {
                 group.centreAmongRelatives(partnerAdditionalSpacing, 0);
             } else {
                 window.console.log(`${previousGroup.id} & ${group.id} has common relatives`);
-                const xRight = (previousGroup.xRight || 0) + previousGroup.spacing;
+                const xRight = (previousGroup.xRight) + previousGroup.spacing;
 
                 window.console.log(`xRight: ${xRight}`);
                 group.setLeftPostion(xRight, partnerAdditionalSpacing, 0);
@@ -87,7 +87,7 @@ export default class TreeLevel extends Positionable {
             previousGroup = group;
         }
 
-        //this.groups.sort((a, b) => { return (a.x || 0) - (b.x || 0) });
+        // this.groups.sort((a, b) => { return (a.x) - (b.x) });
     }
 
     public getLargestOverlap() {
@@ -100,8 +100,8 @@ export default class TreeLevel extends Positionable {
         for (const group of this.groups) {
 
             if (previousGroup) {
-                const xRight1 = (previousGroup.xRight || 0) + TreeNode.MIN_SPACING;
-                const x2 = group.x || 0;
+                const xRight1 = (previousGroup.xRight) + TreeNode.MIN_SPACING;
+                const x2 = group.x;
                 if (xRight1 > x2) {
                     largestOverlap = Math.max(largestOverlap, xRight1 - x2);
                 }

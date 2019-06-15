@@ -1,33 +1,40 @@
 export default abstract class Positionable {
 
-    public x: number | null;
-    public xMid: number | null;
-    public xRight: number | null;
+    public x: number;
+    public xMid: number;
+    public xRight: number;
     public width: number;
 
-    public y: number | null;
-    public yMid: number | null;
-    public yBottom: number | null;
+    public y: number;
+    public yMid: number;
+    public yBottom: number;
     public height: number;
 
+    public hasXValue: boolean;
+    public hasYValue: boolean;
+
     constructor(width: number, height: number) {
-        this.x = null;
-        this.xMid = null;
-        this.xRight = null;
-        this.y = null;
-        this.yMid = null;
-        this.yBottom = null;
+        this.x = 0;
+        this.xMid = 0;
+        this.xRight = 0;
+        this.y = 0;
+        this.yMid = 0;
+        this.yBottom = 0;
         this.width = width;
         this.height = height;
+        this.hasXValue = false;
+        this.hasYValue = false;
     }
 
     public clearPosition() {
-        this.x = null;
-        this.xMid = null;
-        this.xRight = null;
-        this.y = null;
-        this.yMid = null;
-        this.yBottom = null;
+        this.x = 0;
+        this.xMid = 0;
+        this.xRight = 0;
+        this.y = 0;
+        this.yMid = 0;
+        this.yBottom = 0;
+        this.hasXValue = false;
+        this.hasYValue = false;
     }
 
     public setXYPosition(x: number, y: number) {
@@ -39,30 +46,33 @@ export default abstract class Positionable {
         this.x = x;
         this.xMid = x + this.width / 2;
         this.xRight = x + this.width;
+        this.hasXValue = true;
     }
 
     public setYPosition(y: number) {
         this.y = y;
         this.yMid = y + this.height / 2;
         this.yBottom = y + this.height;
+        this.hasYValue = true;
     }
 
     public setCentreXPosition(xCentre: number) {
         this.xMid = xCentre;
         this.x = xCentre - this.width / 2;
         this.xRight = xCentre + this.width / 2;
+        this.hasXValue = true;
     }
 
     public showBordersForDebugging(ctx: CanvasRenderingContext2D) {
         ctx.beginPath();
-        ctx.strokeStyle = this.rainbow(ctx.canvas.width, this.x || 0);
+        ctx.strokeStyle = this.rainbow(ctx.canvas.width, this.x );
         ctx.lineWidth = 1;
 
-        ctx.moveTo(this.x || 0, this.y || 0);
-        ctx.lineTo(this.xRight || 0, this.y || 0);
-        ctx.lineTo(this.xRight || 0, this.yBottom || 0);
-        ctx.lineTo(this.x || 0, this.yBottom || 0);
-        ctx.lineTo(this.x || 0, this.y || 0);
+        ctx.moveTo(this.x , this.y );
+        ctx.lineTo(this.xRight , this.y );
+        ctx.lineTo(this.xRight , this.yBottom );
+        ctx.lineTo(this.x , this.yBottom );
+        ctx.lineTo(this.x , this.y );
 
         ctx.stroke();
     }

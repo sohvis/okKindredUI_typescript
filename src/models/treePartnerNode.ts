@@ -52,13 +52,13 @@ export default class TreePartnerNode extends Positionable {
 
         this.mainNode.setXYPosition(x, y);
 
-        let nextNodeX = (this.mainNode.xRight || 0) + this.mainNode.spacing;
+        let nextNodeX = (this.mainNode.xRight) + this.mainNode.spacing;
 
-        this.relationXStartPoints[`${this.mainNode.id}`] = this.mainNode.xMid || 0;
+        this.relationXStartPoints[`${this.mainNode.id}`] = this.mainNode.xMid;
 
         for (const partner of this.partners) {
             partner.setXYPosition(nextNodeX, y);
-            nextNodeX = (partner.xRight || 0) + partner.spacing;
+            nextNodeX = (partner.xRight) + partner.spacing;
 
             this.relationXStartPoints[`${this.mainNode.id}-${partner.id}`] = nextNodeX -  partner.spacing / 2;
         }

@@ -68,7 +68,7 @@ export default class TreeNode extends  Positionable {
         // window.console.log(`TreeNode: ${this.id} Render()`);
         // window.console.log(`x:${this.x} y:${this.y}`);
 
-        if (!this.x || !this.y) {
+        if (!this.hasXValue || !this.hasYValue) {
             return;
         }
 
@@ -96,9 +96,7 @@ export default class TreeNode extends  Positionable {
 
             // Have to wait for photo to load before drawing it
             this.photo.onload = () => {
-                if (this.x && this.y) {
-                    this.ctx.drawImage(this.photo, this.x + TreeNode.LEFT_MARGIN, this.y + TreeNode.TOP_IMAGE_MARGIN);
-                }
+                this.ctx.drawImage(this.photo, this.x + TreeNode.LEFT_MARGIN, this.y + TreeNode.TOP_IMAGE_MARGIN);
             };
         }
 

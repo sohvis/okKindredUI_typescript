@@ -7,6 +7,8 @@ export default class PartneredRelation implements TreeRelation {
     public static STROKE_STYLE = '#2e6f9a';
     public static LINE_WIDTH = 2;
 
+    public static HEIGHT = 20;
+
     public id: string;
     public ctx: CanvasRenderingContext2D;
     public node1: TreeNode;
@@ -28,40 +30,42 @@ export default class PartneredRelation implements TreeRelation {
     public render() {
 
         // window.console.log(`PartneredRelation.Render() id:${this.id}`);
-        let start;
-        let end;
 
-        if (this.node1.x && this.node2.x && this.node1.y && this.node2.y) {
-            if (this.node1.x < this.node2.x) {
-                start = new Point(
-                    this.node1.x + this.node1.width,
-                    this.node1.y + this.node1.height / 2,
-                );
+        // Sort nodes into order left to right
+        const nodes = [this.node1, this.node2];
+        nodes.sort((a, b) => (a.x) - (b.x));
 
-                end = new Point(
-                    this.node2.x,
-                    this.node2.y + this.node2.height / 2,
-                );
-            } else {
-                start = new Point(
-                    this.node2.x + this.node2.width,
-                    this.node2.y + this.node2.height / 2,
-                );
+        // bottom of node 1
+        const point1 = new Point(
+            nodes[0].xMid,
+            nodes[1].yBottom,
+        );
 
-                end = new Point(
-                    this.node1.x,
-                    this.node1.y + this.node1.height / 2,
-                );
-            }
+        const point2 = new Point(
+            point1.x,
+            point1.y + PartneredRelation.HEIGHT,
+        );
 
-            this.ctx.beginPath();
-            this.ctx.strokeStyle = PartneredRelation.STROKE_STYLE;
-            this.ctx.lineWidth = PartneredRelation.LINE_WIDTH;
+        const point3 = new Point(
+            nodes[1].xMid,
+            point2.y,
+        );
 
-            this.ctx.moveTo(start.x, start.y);
-            this.ctx.lineTo(end.x, end.y);
-            this.ctx.stroke();
-        }
+        const point4 = new Point(
+            point3.x,
+            nodes[1].yBottom,
+        );
+
+        this.ctx.beginPath();
+        this.ctx.strokeStyle = PartneredRelation.STROKE_STYLE;
+        this.ctx.lineWidth = PartneredRelation.LINE_WIDTH;
+
+        this.ctx.moveTo(point1.x, point1.y);
+        this.ctx.lineTo(point2.x, point2.y);
+        this.ctx.lineTo(point3.x, point3.y);
+        this.ctx.lineTo(point4.x, point4.y);
+        this.ctx.stroke();
+
     }
 }
 

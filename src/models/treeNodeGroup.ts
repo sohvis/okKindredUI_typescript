@@ -63,7 +63,7 @@ export default class TreeNodeGroup extends Positionable {
         let xStart = x;
 
         for (const partnerNode of this.partnerNodes) {
-            partnerNode.setPosition(xStart, this.y || 0);
+            partnerNode.setPosition(xStart, this.y);
             xStart = (partnerNode.xRight || xStart) + partnerNode.spacing;
         }
 
@@ -75,7 +75,7 @@ export default class TreeNodeGroup extends Positionable {
         this.updateWidth(partnerAdditionalSpacing, nodeAdditionalSpacing);
 
         for (const partnerNode of this.partnerNodes) {
-            partnerNode.setPosition(xLeft, this.y || 0);
+            partnerNode.setPosition(xLeft, this.y);
             xLeft = (partnerNode.xRight || xLeft) + partnerNode.spacing;
         }
 
@@ -90,7 +90,7 @@ export default class TreeNodeGroup extends Positionable {
         this.showBordersForDebugging(this.ctx);
 
         this.ctx.font = `25px Arial`;
-        this.ctx.fillText(this.id, this.x || 0, this.y || 0 );
+        this.ctx.fillText(this.id, this.x, this.y);
     }
 
     public clearRenderValues() {
