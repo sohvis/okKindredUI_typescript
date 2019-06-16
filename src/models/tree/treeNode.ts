@@ -1,5 +1,5 @@
-import Person from './person';
-import store from '../store/store';
+import Person from '../data/person';
+import store from '../../store/store';
 import Positionable from './positionable';
 
 // Represents a person in the family tree

@@ -59,37 +59,6 @@ export default class TreeLevel extends Positionable {
         this.groupsById[id].addNode(node);
     }
 
-    public positionAncestorGroups(partnerAdditionalSpacing: number, nodeAdditionalSpacing: number) {
-        window.console.log(`TreeLevel.positionAncestorGroups() level: ${this.level}`);
-
-        for (const group of this.groups) {
-            group.centreAmongRelatives(partnerAdditionalSpacing, nodeAdditionalSpacing);
-        }
-
-        // this.groups.sort((a, b) => { return (a.x) - (b.x) });
-    }
-
-    public positionDescendantGroups(additionalGroupSpacing: number, partnerAdditionalSpacing: number) {
-        window.console.log(`TreeLevel.positionDescendantGroups() level: ${this.level}`);
-
-        let previousGroup;
-        for (const group of this.groups) {
-            group.spacing += additionalGroupSpacing;
-            if (!previousGroup || !previousGroup.hasCommonRelatives(group)) {
-                group.centreAmongRelatives(partnerAdditionalSpacing, 0);
-            } else {
-                window.console.log(`${previousGroup.id} & ${group.id} has common relatives`);
-                const xRight = (previousGroup.xRight) + previousGroup.spacing;
-
-                window.console.log(`xRight: ${xRight}`);
-                group.setLeftPostion(xRight, partnerAdditionalSpacing, 0);
-            }
-            previousGroup = group;
-        }
-
-        // this.groups.sort((a, b) => { return (a.x) - (b.x) });
-    }
-
     public getLargestOverlap() {
 
         window.console.log(`TreeLevel.getLargestOverlap()`);

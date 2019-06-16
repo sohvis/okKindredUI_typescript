@@ -1,10 +1,11 @@
-import Person from './person';
-import Relation from './relation';
+import Person from '../data/person';
+import Relation from '../data/relation';
 import TreeNode from './treeNode';
 import TreeLevel from './treeLevel';
-import store from '../store/store';
+import store from '../../store/store';
 import TreeRelation from './treeRelation';
 import RaisedRelation from './raisedRelation';
+import TreePositionerType1 from './treePositionerType1';
 
 export default class Tree {
 
@@ -13,10 +14,10 @@ export default class Tree {
 
     public raisedRelationsById: { [id: string]: TreeRelation; };
 
-    private canvas: HTMLCanvasElement;
-    private ctx: CanvasRenderingContext2D;
-    private nodesById: { [id: string]: TreeNode; };
-    private treeLevelsByLevel: { [id: string]: TreeLevel; };
+    public canvas: HTMLCanvasElement;
+    public ctx: CanvasRenderingContext2D;
+    public nodesById: { [id: string]: TreeNode; };
+    public treeLevelsByLevel: { [id: string]: TreeLevel; };
     private descendantFrontierById: { [id: string]: TreeNode; };
     private ancestorFrontierById: { [id: string]: TreeNode; };
     private selectedNode: TreeNode;
@@ -70,11 +71,9 @@ export default class Tree {
         window.console.log(`Adding descendants`);
         this.addDescendants();
 
-        // window.console.log(`Positioning Ancestor levels`);
-        this.positionAncestorLevels();
-
-        window.console.log(`Positioning Descendant levels`);
-        this.positionDescendantLevels();
+        window.console.log(`Positioning`);
+        const positioner = new TreePositionerType1(this);
+        positioner.position();
 
         window.console.log(`Rendering levels`);
         window.console.log(this.treeLevelsByLevel);
@@ -260,77 +259,4 @@ export default class Tree {
             }
         }
     }
-
-    private positionDescendantLevels() {
-        // decendant levels
-        const descendantLevels = Object.values(this.treeLevelsByLevel)
-                            .filter((item) => item.level > 0)
-                            .sort((a, b) => a.level - b. level);
-        // Levels that have beened positioned
-        const positionedLevels = new Array<TreeLevel>();
-        positionedLevels.push(this.treeLevelsByLevel['0']);
-
-        for (const level of descendantLevels) {
-            level.positionDescendantGroups(0, 0);
-
-            positionedLevels.unshift(level);
-
-            const levelsToReposition = new Array<TreeLevel>();
-
-            // if there is an overlap, we have to reposition previous level
-            // then check for overlaps on further down
-            for (const previousLevel of positionedLevels) {
-
-                levelsToReposition.unshift(previousLevel);
-                const maxOverlap = previousLevel.getLargestOverlap();
-                if (maxOverlap > 0) {
-                    const levelAbove = this.treeLevelsByLevel[(previousLevel.level - 1).toString()];
-                    levelAbove.positionDescendantGroups(0, Math.min(maxOverlap, 800));
-
-                    for (const levelToReposition of levelsToReposition) {
-                        levelToReposition.positionDescendantGroups(0, 0);
-                    }
-                }
-
-            }
-        }
-    }
-
-    private positionAncestorLevels() {
-
-        // ancestor Levels
-        const ancestorLevelsGoingUp = Object.values(this.treeLevelsByLevel)
-                            .filter((item) => item.level < 0)
-                            .sort((a, b) => b.level - a. level);
-
-        // Levels that have beened positioned
-        const positionedLevels = new Array<TreeLevel>();
-        positionedLevels.push(this.treeLevelsByLevel['0']);
-
-        for (const level of ancestorLevelsGoingUp) {
-            level.positionAncestorGroups(0, 0);
-            positionedLevels.unshift(level);
-
-            const levelsToReposition = new Array<TreeLevel>();
-
-            // if there is an overlap, we have to reposition previous level
-            // then check for overlaps on further down
-            for (const previousLevel of positionedLevels) {
-
-                levelsToReposition.unshift(previousLevel);
-                const maxOverlap = previousLevel.getLargestOverlap();
-                if (maxOverlap > 0) {
-                    const levelBelow = this.treeLevelsByLevel[(previousLevel.level + 1).toString()];
-                    levelBelow.positionAncestorGroups(0, maxOverlap);
-
-                    for (const levelToReposition of levelsToReposition) {
-                        levelToReposition.positionAncestorGroups(0, 0);
-                    }
-                }
-
-            }
-
-        }
-    }
-
 }
