@@ -8,12 +8,12 @@
 import { Component, Vue } from 'vue-property-decorator';
 
 import { Promise } from 'q';
-import Person from './../models/person';
-import Relation from './../models/relation';
-import Tree from './../models/tree';
+import Person from './../models/data/person';
+import Relation from './../models/data/relation';
+import Tree from './../models/tree/tree';
 import * as request from 'request-promise-native';
 
-import Scroller from './../models/scroller.js';
+import Scroller from './../models/tree/scroller.js';
 
 
 @Component

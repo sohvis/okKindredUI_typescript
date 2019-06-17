@@ -55,22 +55,7 @@ export default class TreeNodeGroup extends Positionable {
         }
     }
 
-    public centreAmongRelatives(partnerAdditionalSpacing: number, nodeAdditionalSpacing: number) {
-        const xCentre = this.getCentrePositionOfCommonRelatives();
-        this.updateWidth(partnerAdditionalSpacing, nodeAdditionalSpacing);
-
-        const x = xCentre - this.width / 2;
-        let xStart = x;
-
-        for (const partnerNode of this.partnerNodes) {
-            partnerNode.setPosition(xStart, this.y);
-            xStart = (partnerNode.xRight || xStart) + partnerNode.spacing;
-        }
-
-        this.setXPosition(x);
-    }
-
-    public setLeftPostion(x: number, partnerAdditionalSpacing: number, nodeAdditionalSpacing: number) {
+    public setLeftPosition(x: number, partnerAdditionalSpacing: number, nodeAdditionalSpacing: number) {
         let xLeft = x;
         this.updateWidth(partnerAdditionalSpacing, nodeAdditionalSpacing);
 
@@ -87,10 +72,9 @@ export default class TreeNodeGroup extends Positionable {
             partnerNode.render();
         }
 
-        this.showBordersForDebugging(this.ctx);
-
-        this.ctx.font = `25px Arial`;
-        this.ctx.fillText(this.id, this.x, this.y);
+        // this.showBordersForDebugging(this.ctx);
+        // this.ctx.font = `25px Arial`;
+        // this.ctx.fillText(this.id, this.x, this.y);
     }
 
     public clearRenderValues() {
@@ -111,7 +95,7 @@ export default class TreeNodeGroup extends Positionable {
         return false;
     }
 
-    private updateWidth(partnerAdditionalSpacing: number, nodeAdditionalSpacing: number) {
+    public updateWidth(partnerAdditionalSpacing: number, nodeAdditionalSpacing: number) {
 
         let width = 0;
 
@@ -132,7 +116,7 @@ export default class TreeNodeGroup extends Positionable {
 
     }
 
-    private getCentrePositionOfCommonRelatives() {
+    public getCentrePositionOfCommonRelatives() {
 
         // window.console.log(`TreeNodeGroup.getCentrePositionOfCommonRelatives()`);
         // window.console.log(this.commonRelatives);

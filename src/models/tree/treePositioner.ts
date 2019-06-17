@@ -1,7 +1,7 @@
 import Tree from './tree';
 
 export default interface TreePositioner {
-    tree: Tree
+    tree: Tree;
 
     position(): void;
 }

@@ -1,6 +1,7 @@
 import Person from '../data/person';
 import store from '../../store/store';
 import Positionable from './positionable';
+import Point from './point';
 
 // Represents a person in the family tree
 export default class TreeNode extends  Positionable {
@@ -10,11 +11,16 @@ export default class TreeNode extends  Positionable {
     public static HEIGHT = 140;
     public static RECT_STROKE_STYLE = '#2e6f9a';
     public static RECT_LINE_WIDTH = 2;
+    public static SELECTED_RECT_LINE_WIDTH = 6;
     public static RECT_ROUNDED_CORNER_RADIUS = 15;
     public static LEFT_MARGIN = 25;
-    public static SELECTED_RECT_FILL_STYLE = 'rgb(150, 222, 152)';
     public static RECT_FILL_STYLE = '#FFFAFA';
+    public static SELECTED_RECT_FILL_STYLE = 'rgb(150, 222, 152)';
+    public static HIGHLIGHTED_RECT_FILL_STYLE = 'rgb(200, 172, 232)';
     public static MIN_SPACING = 30;
+    public static MORE_ARROW_SPACING = 5;
+    public static MORE_ARROW_HEIGHT = 15;
+    public static MORE_ARROW_WIDTH = 10;
 
     // Image Defaults
     public static TOP_IMAGE_MARGIN = 10;
@@ -36,8 +42,8 @@ export default class TreeNode extends  Positionable {
     public wrappedName: string[];
     public photo: any;
     public spacing: number;
+    public highlighted: boolean;
     private readonly ctx: CanvasRenderingContext2D;
-
 
     constructor(ctx: CanvasRenderingContext2D, person: Person) {
         super(TreeNode.WIDTH, TreeNode.HEIGHT);
@@ -60,6 +66,7 @@ export default class TreeNode extends  Positionable {
         this.wrappedName = this.wrapName(person.name);
         this.photo = null;
         this.spacing = TreeNode.MIN_SPACING;
+        this.highlighted = false;
     }
 
 
@@ -72,7 +79,7 @@ export default class TreeNode extends  Positionable {
             return;
         }
 
-        this.roundRect(this.x, this.y);
+        this.roundRect();
 
         this.ctx.fillStyle = '#000';
         this.ctx.font = `${TreeNode.FONT_SIZE}px Arial`;
@@ -98,6 +105,13 @@ export default class TreeNode extends  Positionable {
             this.photo.onload = () => {
                 this.ctx.drawImage(this.photo, this.x + TreeNode.LEFT_MARGIN, this.y + TreeNode.TOP_IMAGE_MARGIN);
             };
+        }
+
+        // Any relations not show
+        if (this.descendants.some(x => { return !x.addToTree })
+            || this.partners.some(x => { return !x.addToTree })
+            || this.ancestors.some(x => { return !x.addToTree })) {
+            this.drawArrow();
         }
 
         this.ctx.save();
@@ -138,32 +152,68 @@ export default class TreeNode extends  Positionable {
         return wrappedName;
     }
 
-
-    private roundRect(x: number, y: number) {
+    private roundRect() {
 
         let fillstyle = TreeNode.RECT_FILL_STYLE;
+        let lineWidth = TreeNode.RECT_LINE_WIDTH;
 
         if (this.selected) {
             fillstyle = TreeNode.SELECTED_RECT_FILL_STYLE;
+            lineWidth = TreeNode.SELECTED_RECT_LINE_WIDTH;
         }
 
+        if(this.highlighted) {
+            fillstyle = TreeNode.HIGHLIGHTED_RECT_FILL_STYLE;
+        } 
+
         const radius = TreeNode.RECT_ROUNDED_CORNER_RADIUS;
-        const r = x + TreeNode.WIDTH;
-        const b = y + TreeNode.HEIGHT;
+        const r = this.xRight;
+        const b = this.yBottom;
         this.ctx.beginPath();
         this.ctx.strokeStyle = TreeNode.RECT_STROKE_STYLE;
-        this.ctx.lineWidth = TreeNode.RECT_LINE_WIDTH;
-        this.ctx.moveTo(x + radius, y);
-        this.ctx.lineTo(r - radius, y);
-        this.ctx.quadraticCurveTo(r, y, r, y + radius);
-        this.ctx.lineTo(r, y + TreeNode.HEIGHT - radius);
+        this.ctx.lineWidth = lineWidth;
+        this.ctx.moveTo(this.x + radius, this.y);
+        this.ctx.lineTo(r - radius, this.y);
+        this.ctx.quadraticCurveTo(r, this.y, r, this.y + radius);
+        this.ctx.lineTo(r, this.yBottom - radius);
         this.ctx.quadraticCurveTo(r, b, r - radius, b);
-        this.ctx.lineTo(x + radius, b);
-        this.ctx.quadraticCurveTo(x, b, x, b - radius);
-        this.ctx.lineTo(x, y + radius);
-        this.ctx.quadraticCurveTo(x, y, x + radius, y);
+        this.ctx.lineTo(this.x + radius, b);
+        this.ctx.quadraticCurveTo(this.x, b, this.x, b - radius);
+        this.ctx.lineTo(this.x, this.y + radius);
+        this.ctx.quadraticCurveTo(this.x, this.y, this.x + radius, this.y);
         this.ctx.stroke();
         this.ctx.fillStyle = fillstyle;
         this.ctx.fill();
+    }
+
+    private drawArrow() {
+
+        const point1 = new Point(
+            this.xRight + TreeNode.MORE_ARROW_SPACING, 
+            this.yMid - TreeNode.MORE_ARROW_WIDTH
+        );
+
+        const point2 = new Point(
+            point1.x + TreeNode.MORE_ARROW_HEIGHT, 
+            point1.y + TreeNode.MORE_ARROW_WIDTH
+        );
+
+        const point3 = new Point(
+            point1.x, 
+            point2.y + TreeNode.MORE_ARROW_WIDTH
+        );
+
+        this.ctx.beginPath();
+        this.ctx.strokeStyle = TreeNode.RECT_STROKE_STYLE;
+        this.ctx.lineWidth = 1;
+        this.ctx.moveTo(point1.x, point1.y);
+        this.ctx.lineTo(point2.x, point2.y);
+        this.ctx.lineTo(point3.x, point3.y);
+        this.ctx.lineTo(point1.x, point1.y);
+        this.ctx.stroke();
+        this.ctx.fillStyle = TreeNode.RECT_STROKE_STYLE;
+        this.ctx.fill();
+
+
     }
 }

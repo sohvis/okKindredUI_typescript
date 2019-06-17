@@ -6,6 +6,7 @@ import store from '../../store/store';
 import TreeRelation from './treeRelation';
 import RaisedRelation from './raisedRelation';
 import TreePositionerType1 from './treePositionerType1';
+import TreePositionerType2 from './treePositionerType2';
 
 export default class Tree {
 
@@ -18,9 +19,11 @@ export default class Tree {
     public ctx: CanvasRenderingContext2D;
     public nodesById: { [id: string]: TreeNode; };
     public treeLevelsByLevel: { [id: string]: TreeLevel; };
+    public selectedNode: TreeNode;
+    public hoverNode: TreeNode | null;
+
     private descendantFrontierById: { [id: string]: TreeNode; };
     private ancestorFrontierById: { [id: string]: TreeNode; };
-    private selectedNode: TreeNode;
 
     constructor(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D, people: Person[], relations: Relation[]) {
         this.canvas = canvas;
@@ -54,6 +57,7 @@ export default class Tree {
         this.ancestorFrontierById = {};
         this.selectedNode =  this.nodesById[store.state.person_id];
         this.selectedNode.selected = true;
+        this.hoverNode = null;
     }
 
     public render() {
@@ -72,7 +76,7 @@ export default class Tree {
         this.addDescendants();
 
         window.console.log(`Positioning`);
-        const positioner = new TreePositionerType1(this);
+        const positioner = new TreePositionerType2(this);
         positioner.position();
 
         window.console.log(`Rendering levels`);
@@ -90,19 +94,53 @@ export default class Tree {
     public click(x: number, y: number) {
         window.console.log(`Tree.click(x:${x} , y:${y})`);
 
+        const node = this.getNodeAtXY(x, y);
+        if (node) {
+            this.changeSelectedPerson(node.id.toString()).then(() => {
+                        this.render();
+            });
+        }
+    }
+
+    public hover(x: number, y: number) {
+        window.console.log(`Tree.hover(x:${x} , y:${y})`);
+    
+        const node = this.getNodeAtXY(x, y);
+
+        if (node !== this.hoverNode) {
+
+            // Unhighlight all nodes
+            Object.values(this.nodesById).forEach((otherNodes) => {
+                otherNodes.highlighted = false;
+            });
+
+            if (node) {
+
+                node.highlighted = true;
+
+                const relatives = node.ancestors.concat(node.descendants).concat(node.partners);
+                for (const relative of relatives) {
+                    relative.highlighted = true;
+                }
+            }
+
+            this.hoverNode = node;
+
+            this.render();
+        }
+    }
+
+    private getNodeAtXY(x: number, y: number): TreeNode | null {
         for (const node of this.getDrawnNodes()) {
             if (node.hasXValue && node.hasYValue) {
-                if (Math.abs(node.x - x) < TreeNode.WIDTH
-                        && Math.abs(node.y - y) < TreeNode.HEIGHT) {
-
-                    this.changeSelectedPerson(node.id.toString()).then(() => {
-                        this.render();
-                    });
-
-                    return;
+                if (node.x < x && node.xRight > x
+                    && node.y < y && node.yBottom > y) {
+                    return node;
                 }
             }
         }
+
+        return null;
     }
 
     private changeSelectedPerson(newPersonId: string) {

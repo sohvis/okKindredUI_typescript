@@ -82,15 +82,18 @@ export const Scroller = {
         // Records last mouse point
         Scroller.lastPoint.x = evt.pageX - Scroller.canvas.offsetLeft;
         Scroller.lastPoint.y = evt.pageY - Scroller.canvas.offsetTop;
+        let pt = Scroller.ctx.transformedPoint(Scroller.lastPoint.x,Scroller.lastPoint.y);
 
         if (Scroller.dragStart[0]){
-            let pt = Scroller.ctx.transformedPoint(Scroller.lastPoint.x,Scroller.lastPoint.y);
+            
 
             let dx = pt.x - Scroller.dragStart[0].x;
             let dy = pt.y - Scroller.dragStart[0].y;
 
             Scroller.ctx.translate(dx, dy);
             Scroller.tree.render();
+        } else {
+            Scroller.tree.hover(pt.x, pt.y)
         }
     },
 

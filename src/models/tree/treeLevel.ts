@@ -2,6 +2,7 @@ import Positionable from './positionable';
 import TreeNode from './treeNode';
 import TreePartnerNode from './treePartnerNode';
 import TreeNodeGroup from './treeNodeGroup';
+import { BInputGroupText } from 'bootstrap-vue';
 
 // Represents a level in the family tree
 export default class TreeLevel extends Positionable {
@@ -44,7 +45,7 @@ export default class TreeLevel extends Positionable {
 
         group.addNode(node);
 
-        group.setLeftPostion(node.x, 0, 0);
+        group.setLeftPosition(node.x, 0, 0);
     }
 
     public addNode(node: TreeNode, commonRelatives: TreeNode[], ancestor: boolean) {
@@ -83,12 +84,18 @@ export default class TreeLevel extends Positionable {
         return largestOverlap;
     }
 
+    public updateWidth() {
+        this.width = 0;
+        for (const group of this.groups) {
+            group.updateWidth(0, 0);
+            this.width += group.width;
+        }
+    }
+
     public render() {
         for (const group of this.groups) {
             group.render();
         }
-
-
     }
 
     public clearRenderValues() {
