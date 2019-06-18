@@ -65,6 +65,7 @@ export default class TreePositionerType2 implements TreePositioner {
 
     private setInitialLevelSpacing(level: TreeLevel) {
 
+
         for (const group of level.groups) {
             let spacing = group.spacing;
             for (const partnerNode of group.partnerNodes) {

@@ -18,17 +18,16 @@ export default class Tree {
     public canvas: HTMLCanvasElement;
     public ctx: CanvasRenderingContext2D;
     public nodesById: { [id: string]: TreeNode; };
+    public treeLevels: Array<TreeLevel>;
     public treeLevelsByLevel: { [id: string]: TreeLevel; };
     public selectedNode: TreeNode;
     public hoverNode: TreeNode | null;
-
-    private descendantFrontierById: { [id: string]: TreeNode; };
-    private ancestorFrontierById: { [id: string]: TreeNode; };
 
     constructor(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D, people: Person[], relations: Relation[]) {
         this.canvas = canvas;
         this.ctx = ctx;
         this.nodesById = {};
+        this.treeLevels = [];
         this.treeLevelsByLevel = {};
         this.raisedRelationsById = {};
 
@@ -53,8 +52,6 @@ export default class Tree {
             }
         }
 
-        this.descendantFrontierById = {};
-        this.ancestorFrontierById = {};
         this.selectedNode =  this.nodesById[store.state.person_id];
         this.selectedNode.selected = true;
         this.hoverNode = null;
@@ -82,9 +79,9 @@ export default class Tree {
         window.console.log(`Rendering levels`);
         window.console.log(this.treeLevelsByLevel);
 
-        Object.values(this.treeLevelsByLevel).forEach((treeLevel) => {
+        for (const treeLevel of this.treeLevels) {
             treeLevel.render();
-        });
+        }
 
         Object.values(this.raisedRelationsById).forEach((relation) => {
             relation.render();
@@ -164,7 +161,7 @@ export default class Tree {
 
         const result = new Array<TreeNode>();
 
-        Object.values(this.treeLevelsByLevel).forEach((level) => {
+        for (const level of this.treeLevels) {
             for (const group of level.groups) {
                 for (const partner of group.partnerNodes) {
                     for (const node of partner.nodes) {
@@ -172,20 +169,19 @@ export default class Tree {
                     }
                 }
             }
-        });
+        }
 
         return result;
     }
 
     private clearCanvas() {
 
-        Object.values(this.treeLevelsByLevel).forEach((treeLevel) => {
+        for (const treeLevel of this.treeLevels) {
             treeLevel.clearRenderValues();
-        });
+        }
 
         this.treeLevelsByLevel = {};
-        this.descendantFrontierById = {};
-        this.ancestorFrontierById = {};
+        this.treeLevels = [];
         this.raisedRelationsById = {};
 
         // Store the current transformation matrix
@@ -208,82 +204,73 @@ export default class Tree {
         level0.addSelectedNode(this.selectedNode);
         this.createRelations(this.selectedNode);
         this.treeLevelsByLevel[level0.id] = level0;
-
-        this.descendantFrontierById[this.selectedNode.id] = this.selectedNode;
-        this.ancestorFrontierById[this.selectedNode.id] = this.selectedNode;
+        this.treeLevels.push(level0);
     }
 
     private addAncestors() {
+        let frontier = new Array<TreeNode>();
+        frontier.push(this.selectedNode);
 
-        // Add ancestors using a frontier
         let level = -1;
-        while (Object.keys(this.ancestorFrontierById).length > 0) {
 
-            window.console.log(`Tree.AddAncestors() level:${level}`);
-
+        while (frontier.length > 0) {
             const y = (this.selectedNode.y) + level * (TreeNode.HEIGHT + TreeLevel.TREE_LEVEL_SPACING);
             const treeLevel = new TreeLevel(this.canvas, this.ctx, level, y);
-            let addLevel = false;
 
-            Object.values(this.ancestorFrontierById).forEach((frontierPerson) => {
-                const ancestors =  frontierPerson.ancestors;
+            const newFrontier = new Array<TreeNode>();
 
-                for (const ancestor of ancestors) {
+            for (const node of frontier) {
+                for (const ancestor of node.ancestors) {
 
-                    this.ancestorFrontierById[ancestor.id] = ancestor;
-
-                    addLevel = true;
-
+                    newFrontier.push(ancestor);
                     if (ancestor.addToTree === false) {
-                        treeLevel.addNode(ancestor, ancestor.descendants, false);
+                        treeLevel.addNode(ancestor, ancestor.descendants, true);
                     }
 
                     this.createRelations(ancestor);
                 }
-
-                delete this.ancestorFrontierById[frontierPerson.id];
-            });
-
-            if (addLevel) {
-                this.treeLevelsByLevel[treeLevel.id] = treeLevel;
             }
 
+            if (treeLevel.groups.length > 0) {
+                this.treeLevelsByLevel[treeLevel.id] = treeLevel;
+                this.treeLevels.push(treeLevel);
+            }
+
+            frontier = newFrontier;
             level--;
         }
     }
 
-
     private addDescendants() {
+        let frontier = new Array<TreeNode>();
+        frontier.push(this.selectedNode);
+
         let level = 1;
-        while (Object.keys(this.descendantFrontierById).length > 0) {
 
+        while (frontier.length > 0) {
             const y = (this.selectedNode.y) + level * (TreeNode.HEIGHT + TreeLevel.TREE_LEVEL_SPACING);
-
             const treeLevel = new TreeLevel(this.canvas, this.ctx, level, y);
-            let addLevel = false;
 
-            Object.values(this.descendantFrontierById).forEach((frontierPerson) => {
-                const descendants =  frontierPerson.descendants;
+            const newFrontier = new Array<TreeNode>();
 
-                for (const descendant of descendants) {
+            for (const node of frontier) {
+                for (const descendant of node.descendants) {
 
-                    this.descendantFrontierById[descendant.id] = descendant;
-                    addLevel = true;
-
+                    newFrontier.push(descendant);
                     if (descendant.addToTree === false) {
                         treeLevel.addNode(descendant, descendant.ancestors, true);
                     }
 
                     this.createRelations(descendant);
                 }
-
-                delete this.descendantFrontierById[frontierPerson.id];
-            });
-
-            if (addLevel) {
-                this.treeLevelsByLevel[treeLevel.id] = treeLevel;
             }
 
+            if (treeLevel.groups.length > 0) {
+                this.treeLevelsByLevel[treeLevel.id] = treeLevel;
+                this.treeLevels.push(treeLevel);
+            }
+
+            frontier = newFrontier;
             level++;
         }
     }
