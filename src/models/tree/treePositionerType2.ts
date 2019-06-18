@@ -3,6 +3,8 @@ import Tree from './tree';
 import TreeLevel from './treeLevel';
 import TreeNodeGroup from './treeNodeGroup';
 import TreeAncestorPositioner from './treeAncestorPositioner';
+import TreeNode from './treeNode';
+import TreePartnerNode from './treePartnerNode';
 
 export default class TreePositionerType2 implements TreePositioner {
 
@@ -37,8 +39,6 @@ export default class TreePositionerType2 implements TreePositioner {
 
     private positionDescendantLevels() {
 
-        const middle = this.tree.selectedNode.xMid;
-
         // decendant levels
         const descendantLevels = Object.values(this.tree.treeLevelsByLevel)
             .filter((item) => item.level > 0)
@@ -46,16 +46,47 @@ export default class TreePositionerType2 implements TreePositioner {
 
         for (const level of descendantLevels) {
 
-            level.updateWidth();
-            let left = middle - level.width / 2;
+            this.setInitialLevelSpacing(level);
 
+            let previousGroup;
             for (const group of level.groups) {
-                group.setLeftPosition(left, 0, 0);
-                left += group.width + group.spacing;
+                this.centreGroupAmongRelatives(group);
+
+                if (previousGroup && group.isOverlapped(previousGroup, TreeNodeGroup.MIN_SPACING)) {
+                    group.setLeftPosition(previousGroup.xRight + TreeNodeGroup.MIN_SPACING, 0, 0);
+                }
+
+                previousGroup = group;
             }
         }
 
-        this.expandDescendantLevels(descendantLevels, middle);
+        // this.expandDescendantLevels(descendantLevels, middle);
+    }
+
+    private setInitialLevelSpacing(level: TreeLevel) {
+
+        for (const group of level.groups) {
+            let spacing = group.spacing;
+            for (const partnerNode of group.partnerNodes) {
+
+                let lowerNodeCount = partnerNode.mainNode.descendants.length;
+
+                for (const desc of partnerNode.mainNode.descendants) {
+                    lowerNodeCount += desc.partners.length;
+                }
+
+                partnerNode.spacing = TreePartnerNode.MIN_SPACING +
+                                        lowerNodeCount * (TreeNode.WIDTH + TreeNode.MIN_SPACING) / 2;
+
+                if (partnerNode.spacing > spacing) {
+                    spacing = partnerNode.spacing;
+                }
+            }
+
+            group.spacing = spacing;
+        }
+
+        level.updateWidth();
     }
 
     private expandDescendantLevels(descendantLevels: TreeLevel[], middle: number) {
@@ -68,7 +99,7 @@ export default class TreePositionerType2 implements TreePositioner {
 
             // ancestor Levels of largest level
             const ancestorLevelsGoingUp = Object.values(this.tree.treeLevelsByLevel)
-                 .filter((item) => item.level > largestLevel.level && item.level != 0)
+                 .filter((item) => item.level > largestLevel.level && item.level !== 0)
                  .sort((a, b) => a.level - b.level);
 
             window.console.log(`expandDescendantLevels`);

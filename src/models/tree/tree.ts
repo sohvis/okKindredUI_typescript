@@ -104,7 +104,7 @@ export default class Tree {
 
     public hover(x: number, y: number) {
         window.console.log(`Tree.hover(x:${x} , y:${y})`);
-    
+
         const node = this.getNodeAtXY(x, y);
 
         if (node !== this.hoverNode) {

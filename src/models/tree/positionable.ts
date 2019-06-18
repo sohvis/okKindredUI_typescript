@@ -77,6 +77,23 @@ export default abstract class Positionable {
         ctx.stroke();
     }
 
+    public isOverlapped(otherPositionable: Positionable, border: number): boolean {
+
+        // Overlapped right
+        if (this.x < otherPositionable.x) {
+            if (this.xRight > otherPositionable.x + border) {
+                return true;
+            }
+        } else {
+            // Overlapped on the left
+            if (this.x < otherPositionable.xRight + border) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     private rainbow(numOfSteps: number, step: number) {
         // This function generates vibrant, "evenly spaced" colours (i.e. no clustering).
         let r;

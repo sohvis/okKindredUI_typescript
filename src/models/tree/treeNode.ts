@@ -108,9 +108,9 @@ export default class TreeNode extends  Positionable {
         }
 
         // Any relations not show
-        if (this.descendants.some(x => { return !x.addToTree })
-            || this.partners.some(x => { return !x.addToTree })
-            || this.ancestors.some(x => { return !x.addToTree })) {
+        if (this.descendants.some((x) => !x.addToTree)
+            || this.partners.some((x) => !x.addToTree)
+            || this.ancestors.some((x) => !x.addToTree)) {
             this.drawArrow();
         }
 
@@ -162,9 +162,9 @@ export default class TreeNode extends  Positionable {
             lineWidth = TreeNode.SELECTED_RECT_LINE_WIDTH;
         }
 
-        if(this.highlighted) {
+        if (this.highlighted) {
             fillstyle = TreeNode.HIGHLIGHTED_RECT_FILL_STYLE;
-        } 
+        }
 
         const radius = TreeNode.RECT_ROUNDED_CORNER_RADIUS;
         const r = this.xRight;
@@ -189,18 +189,18 @@ export default class TreeNode extends  Positionable {
     private drawArrow() {
 
         const point1 = new Point(
-            this.xRight + TreeNode.MORE_ARROW_SPACING, 
-            this.yMid - TreeNode.MORE_ARROW_WIDTH
+            this.xRight + TreeNode.MORE_ARROW_SPACING,
+            this.yMid - TreeNode.MORE_ARROW_WIDTH,
         );
 
         const point2 = new Point(
-            point1.x + TreeNode.MORE_ARROW_HEIGHT, 
-            point1.y + TreeNode.MORE_ARROW_WIDTH
+            point1.x + TreeNode.MORE_ARROW_HEIGHT,
+            point1.y + TreeNode.MORE_ARROW_WIDTH,
         );
 
         const point3 = new Point(
-            point1.x, 
-            point2.y + TreeNode.MORE_ARROW_WIDTH
+            point1.x,
+            point2.y + TreeNode.MORE_ARROW_WIDTH,
         );
 
         this.ctx.beginPath();
