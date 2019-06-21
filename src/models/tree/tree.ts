@@ -17,13 +17,27 @@ export default class Tree {
 
     public canvas: HTMLCanvasElement;
     public ctx: CanvasRenderingContext2D;
+    public dpr: number;
     public nodesById: { [id: string]: TreeNode; };
-    public treeLevels: Array<TreeLevel>;
+    public treeLevels: TreeLevel[];
     public treeLevelsByLevel: { [id: string]: TreeLevel; };
     public selectedNode: TreeNode;
     public hoverNode: TreeNode | null;
 
-    constructor(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D, people: Person[], relations: Relation[]) {
+    constructor(canvas: HTMLCanvasElement, people: Person[], relations: Relation[]) {
+
+        // Get the device pixel ratio, falling back to 1.
+        const dpr = window.devicePixelRatio || 1;
+
+        canvas.width = window.innerWidth * dpr;
+        canvas.height = window.innerHeight * dpr;
+        const ctx  = canvas.getContext('2d');
+        if (!ctx) {
+            throw new Error('No 2d canvas element!');
+        }
+        ctx.scale(dpr, dpr);
+
+        this.dpr = dpr;
         this.canvas = canvas;
         this.ctx = ctx;
         this.nodesById = {};
@@ -100,7 +114,7 @@ export default class Tree {
     }
 
     public hover(x: number, y: number) {
-        window.console.log(`Tree.hover(x:${x} , y:${y})`);
+        // window.console.log(`Tree.hover(x:${x} , y:${y})`);
 
         const node = this.getNodeAtXY(x, y);
 
@@ -201,7 +215,7 @@ export default class Tree {
         const level0 = new TreeLevel(this.canvas, this.ctx, 0, 0);
         this.selectedNode =  this.nodesById[store.state.person_id];
 
-        level0.addSelectedNode(this.selectedNode);
+        level0.addSelectedNode(this.selectedNode, this.dpr);
         this.createRelations(this.selectedNode);
         this.treeLevelsByLevel[level0.id] = level0;
         this.treeLevels.push(level0);

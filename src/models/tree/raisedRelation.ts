@@ -73,7 +73,7 @@ export default class RaisedRelation implements TreeRelation {
     private renderMultipleAncestors(fromNodes: TreeNode[]) {
 
         const point1 = new Point(
-            fromNodes[fromNodes.length - 1].x - fromNodes[fromNodes.length - 1].spacing / 2,
+            fromNodes[fromNodes.length - 1].leftMarginStart,
             fromNodes[fromNodes.length - 1].yBottom + PartneredRelation.HEIGHT,
         );
 

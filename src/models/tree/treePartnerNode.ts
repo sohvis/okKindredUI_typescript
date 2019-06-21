@@ -7,15 +7,13 @@ import PartneredRelation from './partneredRelation';
 
 export default class TreePartnerNode extends Positionable {
 
-    public static MIN_SPACING = 30;
+    public static MIN_SPACING = 15;
 
     public id: string;
     public ctx: CanvasRenderingContext2D;
     public mainNode: TreeNode;
     public partners: TreeNode[];
-    public relationXStartPoints: { [id: string]: number; };
     public nodes: TreeNode[];
-    public spacing: number;
     public relations: TreeRelation[];
 
     constructor(ctx: CanvasRenderingContext2D, mainNode: TreeNode) {
@@ -25,63 +23,73 @@ export default class TreePartnerNode extends Positionable {
         const width = (mainNode.partners.length + 1) * TreeNode.WIDTH
                         + (mainNode.partners.length) * TreeNode.MIN_SPACING;
 
-        super(width, TreeNode.HEIGHT);
+        super(width, TreeNode.HEIGHT, TreePartnerNode.MIN_SPACING);
 
         this.id = mainNode.id;
         this.ctx = ctx;
         this.mainNode = mainNode;
         this.partners = mainNode.partners;
         this.spacing = TreePartnerNode.MIN_SPACING;
-        this.relationXStartPoints = {};
         this.relations = [];
 
         mainNode.addToTree = true;
         this.nodes = [];
         this.nodes.push(mainNode);
 
-        for (const partner of this.partners) {
-            partner.addToTree = true;
-            this.nodes.push(partner);
+        let xLeft = mainNode.rightMarginEnd;
 
-            const relation = new PartneredRelation(ctx, mainNode, partner);
+        for (const partnerNode of this.partners) {
+            partnerNode.addToTree = true;
+            this.nodes.push(partnerNode);
+
+            if (mainNode.hasXValue) {
+                partnerNode.setXYPosition(xLeft + partnerNode.spacing, mainNode.y);
+                xLeft = partnerNode.rightMarginEnd;
+            }
+
+            const relation = new PartneredRelation(ctx, mainNode, partnerNode);
             this.relations.push(relation);
         }
+
+        if (mainNode.hasXValue) {
+            this.updateWidth();
+            this.setXYPosition(mainNode.leftMarginStart, mainNode.y);
+        }
     }
 
-    public setPosition(x: number, y: number) {
-
+    public setContentPosition(x: number, y: number) {
         this.mainNode.setXYPosition(x, y);
 
-        let nextNodeX = (this.mainNode.xRight) + this.mainNode.spacing;
-
-        this.relationXStartPoints[`${this.mainNode.id}`] = this.mainNode.xMid;
+        let nextNodeX = this.mainNode.rightMarginEnd;
 
         for (const partner of this.partners) {
-            partner.setXYPosition(nextNodeX, y);
-            nextNodeX = (partner.xRight) + partner.spacing;
-
-            this.relationXStartPoints[`${this.mainNode.id}-${partner.id}`] = nextNodeX -  partner.spacing / 2;
+            partner.setXYPosition(nextNodeX + partner.spacing, y);
+            nextNodeX = partner.rightMarginEnd;
         }
 
-        this.setXYPosition(x, y);
+        this.setXYPosition(this.mainNode.leftMarginStart, y);
     }
 
-    public updateWidth(nodeSpacingChange: number) {
+    public setPosition(xLeftMargin: number, y: number) {
 
-        let lastPartner = this.mainNode;
-        this.mainNode.spacing += nodeSpacingChange;
+        const x = xLeftMargin + this.spacing + this.mainNode.spacing;
 
-        let width = this.mainNode.width + this.mainNode.spacing;
+        this.setContentPosition(x, y);
+    }
+
+    public updateWidth(nodeSpacingChange = 0) {
+
+        this.mainNode.updateSpacing(this.mainNode.spacing + nodeSpacingChange);
+
+        let width = this.mainNode.widthAndSpacing;
 
         for (const partner of this.partners) {
-            partner.spacing += nodeSpacingChange;
-            width += partner.width + partner.spacing;
-            lastPartner = partner;
+            partner.updateSpacing(partner.spacing + nodeSpacingChange);
+            width += partner.widthAndSpacing;
         }
 
-        width -= lastPartner.spacing;
-
         this.width = width;
+        this.widthAndSpacing = this.width + this.spacing * 2;
     }
 
     public render() {
@@ -94,6 +102,7 @@ export default class TreePartnerNode extends Positionable {
         for (const relation of this.relations) {
             relation.render();
         }
+
         // this.showBordersForDebugging(this.ctx);
     }
 
@@ -104,5 +113,7 @@ export default class TreePartnerNode extends Positionable {
         }
 
         this.spacing = TreePartnerNode.MIN_SPACING;
+        this.relations = [];
+        this.nodes = [];
     }
 }

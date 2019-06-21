@@ -40,7 +40,7 @@ export default class Login extends Vue {
             password: this.loginDetails.password,
         })
         .then(() => {
-            this.$router.push('/map/');
+            this.$router.push('/tree/');
         }).catch((error) => {
             window.console.log(error);
             this.loginInvalid = true;

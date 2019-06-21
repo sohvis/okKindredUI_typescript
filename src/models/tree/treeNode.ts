@@ -11,16 +11,16 @@ export default class TreeNode extends  Positionable {
     public static HEIGHT = 140;
     public static RECT_STROKE_STYLE = '#2e6f9a';
     public static RECT_LINE_WIDTH = 2;
-    public static SELECTED_RECT_LINE_WIDTH = 6;
+    public static SELECTED_RECT_LINE_WIDTH = 10;
     public static RECT_ROUNDED_CORNER_RADIUS = 15;
     public static LEFT_MARGIN = 25;
     public static RECT_FILL_STYLE = '#FFFAFA';
-    public static SELECTED_RECT_FILL_STYLE = 'rgb(150, 222, 152)';
-    public static HIGHLIGHTED_RECT_FILL_STYLE = 'rgb(200, 172, 232)';
-    public static MIN_SPACING = 30;
-    public static MORE_ARROW_SPACING = 5;
-    public static MORE_ARROW_HEIGHT = 15;
-    public static MORE_ARROW_WIDTH = 10;
+    public static SELECTED_RECT_FILL_STYLE = 'rgb(255, 255, 255)';
+    public static HIGHLIGHTED_RECT_FILL_STYLE = 'rgb(70, 255, 70)';
+    public static MIN_SPACING = 10;
+    public static MORE_ARROW_SPACING = 3;
+    public static MORE_ARROW_HEIGHT = 12;
+    public static MORE_ARROW_WIDTH = 8;
 
     // Image Defaults
     public static TOP_IMAGE_MARGIN = 10;
@@ -41,12 +41,11 @@ export default class TreeNode extends  Positionable {
     public selected: boolean;
     public wrappedName: string[];
     public photo: any;
-    public spacing: number;
     public highlighted: boolean;
     private readonly ctx: CanvasRenderingContext2D;
 
     constructor(ctx: CanvasRenderingContext2D, person: Person) {
-        super(TreeNode.WIDTH, TreeNode.HEIGHT);
+        super(TreeNode.WIDTH, TreeNode.HEIGHT, TreeNode.MIN_SPACING);
         this.ctx = ctx;
 
         this.person = person;
@@ -65,7 +64,6 @@ export default class TreeNode extends  Positionable {
         this.selected  = person.id === store.state.person_id;
         this.wrappedName = this.wrapName(person.name);
         this.photo = null;
-        this.spacing = TreeNode.MIN_SPACING;
         this.highlighted = false;
     }
 
@@ -115,6 +113,8 @@ export default class TreeNode extends  Positionable {
         }
 
         this.ctx.save();
+
+        // this.showBordersForDebugging(this.ctx);
     }
 
     public clearRenderValues() {
@@ -154,7 +154,7 @@ export default class TreeNode extends  Positionable {
 
     private roundRect() {
 
-        let fillstyle = TreeNode.RECT_FILL_STYLE;
+        let fillstyle = this.rainbow(parseInt(this.id, 10), 10000 ); // TreeNode.RECT_FILL_STYLE;
         let lineWidth = TreeNode.RECT_LINE_WIDTH;
 
         if (this.selected) {
@@ -213,7 +213,5 @@ export default class TreeNode extends  Positionable {
         this.ctx.stroke();
         this.ctx.fillStyle = TreeNode.RECT_STROKE_STYLE;
         this.ctx.fill();
-
-
     }
 }

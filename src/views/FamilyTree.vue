@@ -59,17 +59,8 @@ export default class FamilyTree extends Vue {
 
       const htmlCanvas = document.getElementById('tree-canvas') as HTMLCanvasElement;
 
-    // Get the device pixel ratio, falling back to 1.
-      const dpr = window.devicePixelRatio || 1;
-
-      htmlCanvas.width = window.innerWidth * dpr;
-      htmlCanvas.height = window.innerHeight * dpr;
-      const ctx  = htmlCanvas.getContext('2d');
-      if (!ctx) {
-          throw new Error('No 2d canvas element!');
-      }
-      ctx.scale(dpr, dpr);
-      const tree = new Tree(htmlCanvas, ctx, this.people, this.relations);
+    
+      const tree = new Tree(htmlCanvas, this.people, this.relations);
 
       (Scroller as any).initialize(htmlCanvas, tree);
       tree.render();

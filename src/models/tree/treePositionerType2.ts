@@ -20,13 +20,22 @@ export default class TreePositionerType2 implements TreePositioner {
         this.positionDescendantLevels();
     }
 
-    private centreGroupAmongRelatives(
-        group: TreeNodeGroup) {
+    private centreGroupAmongRelatives(group: TreeNodeGroup) {
 
         const xCentre = group.getCentrePositionOfCommonRelatives();
         group.updateWidth(0, 0);
 
-        const x = xCentre - group.width / 2;
+        let x;
+
+        if (group.partnerNodes.length === 1) {
+            const partnerNode = group.partnerNodes[0];
+            x = xCentre - TreeNode.WIDTH / 2
+                    - partnerNode.mainNode.spacing
+                    - partnerNode.spacing;
+        } else {
+
+            x = xCentre - group.width / 2;
+        }
         let xStart = x;
 
         for (const partnerNode of group.partnerNodes) {
@@ -39,6 +48,8 @@ export default class TreePositionerType2 implements TreePositioner {
 
     private positionDescendantLevels() {
 
+        this.setInitialLevelSpacing();
+
         // decendant levels
         const descendantLevels = Object.values(this.tree.treeLevelsByLevel)
             .filter((item) => item.level > 0)
@@ -46,14 +57,14 @@ export default class TreePositionerType2 implements TreePositioner {
 
         for (const level of descendantLevels) {
 
-            this.setInitialLevelSpacing(level);
+
 
             let previousGroup;
             for (const group of level.groups) {
                 this.centreGroupAmongRelatives(group);
 
-                if (previousGroup && group.isOverlapped(previousGroup, TreeNodeGroup.MIN_SPACING)) {
-                    group.setLeftPosition(previousGroup.xRight + TreeNodeGroup.MIN_SPACING, 0, 0);
+                if (previousGroup && group.isOverlapped(previousGroup)) {
+                    group.setLeftPosition(previousGroup.rightMarginEnd + group.spacing / 2);
                 }
 
                 previousGroup = group;
@@ -63,31 +74,50 @@ export default class TreePositionerType2 implements TreePositioner {
         // this.expandDescendantLevels(descendantLevels, middle);
     }
 
-    private setInitialLevelSpacing(level: TreeLevel) {
+    private setInitialLevelSpacing() {
 
+        // decendant levels
+        const descendantLevelsSortedBottomUp = Object.values(this.tree.treeLevelsByLevel)
+                .filter((item) => item.level > 0)
+                .sort((a, b) => b.level - a.level);
 
-        for (const group of level.groups) {
-            let spacing = group.spacing;
-            for (const partnerNode of group.partnerNodes) {
+        let levelBelow;
+        for (const level of descendantLevelsSortedBottomUp) {
+            for (const group of level.groups) {
+                let spacing = group.spacing;
+                for (const partnerNode of group.partnerNodes) {
 
-                let lowerNodeCount = partnerNode.mainNode.descendants.length;
+                    let lowerNodeCount = partnerNode.mainNode.descendants.length;
+                    let extraSpacing = 0;
 
-                for (const desc of partnerNode.mainNode.descendants) {
-                    lowerNodeCount += desc.partners.length;
-                }
+                    for (const desc of partnerNode.mainNode.descendants) {
+                        lowerNodeCount += desc.partners.length;
+                        extraSpacing += desc.spacing - TreeNode.MIN_SPACING;
+                    }
 
-                partnerNode.spacing = TreePartnerNode.MIN_SPACING +
-                                        lowerNodeCount * (TreeNode.WIDTH + TreeNode.MIN_SPACING) / 2;
+                    const lowerNodeCorrection = Math.max(0, lowerNodeCount - partnerNode.partners.length - 0.5);
+                    const minspacing = TreeNode.WIDTH / 2 + TreeNode.MIN_SPACING;
+                    const extraSpacingFromNodes = lowerNodeCorrection * minspacing;
 
-                if (partnerNode.spacing > spacing) {
-                    spacing = partnerNode.spacing;
+                    // Get spacing from level below
+                    // let spacingFromBelow = 0;
+                    // if (levelBelow) {
+                    //     for (const group of levelBelow.groups.filter((g) => {g.commonRelatives.})) {
+                    //         group.commonRelatives.filter((r) => { r.id === partnerNode.mainNode.id }))
+                    //     }
+                    // }
+
+                    partnerNode.spacing = TreePartnerNode.MIN_SPACING + extraSpacingFromNodes;
+
+                    if (partnerNode.spacing > spacing) {
+                        spacing = partnerNode.spacing;
+                    }
                 }
             }
+            level.updateWidth();
 
-            group.spacing = spacing;
+            levelBelow = level;
         }
-
-        level.updateWidth();
     }
 
     private expandDescendantLevels(descendantLevels: TreeLevel[], middle: number) {

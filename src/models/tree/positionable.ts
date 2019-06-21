@@ -4,6 +4,9 @@ export default abstract class Positionable {
     public xMid: number;
     public xRight: number;
     public width: number;
+    public widthAndSpacing: number;
+    public leftMarginStart: number;
+    public rightMarginEnd: number;
 
     public y: number;
     public yMid: number;
@@ -12,11 +15,14 @@ export default abstract class Positionable {
 
     public hasXValue: boolean;
     public hasYValue: boolean;
+    public spacing: number;
 
-    constructor(width: number, height: number) {
+    constructor(width: number, height: number, spacing: number) {
         this.x = 0;
         this.xMid = 0;
         this.xRight = 0;
+        this.leftMarginStart = 0;
+        this.rightMarginEnd = 0;
         this.y = 0;
         this.yMid = 0;
         this.yBottom = 0;
@@ -24,6 +30,8 @@ export default abstract class Positionable {
         this.height = height;
         this.hasXValue = false;
         this.hasYValue = false;
+        this.spacing = spacing;
+        this.widthAndSpacing = width + spacing * 2;
     }
 
     public clearPosition() {
@@ -46,6 +54,7 @@ export default abstract class Positionable {
         this.x = x;
         this.xMid = x + this.width / 2;
         this.xRight = x + this.width;
+        this.updateMargins();
         this.hasXValue = true;
     }
 
@@ -60,33 +69,50 @@ export default abstract class Positionable {
         this.xMid = xCentre;
         this.x = xCentre - this.width / 2;
         this.xRight = xCentre + this.width / 2;
+        this.updateMargins();
         this.hasXValue = true;
     }
 
+    public updateSpacing(spacing: number) {
+        this.spacing = spacing;
+        this.widthAndSpacing = this.width + spacing * 2;
+        this.updateMargins();
+    }
+
     public showBordersForDebugging(ctx: CanvasRenderingContext2D) {
+
         ctx.beginPath();
         ctx.strokeStyle = this.rainbow(ctx.canvas.width, this.x );
         ctx.lineWidth = 1;
+        ctx.fillStyle = ctx.strokeStyle;
 
-        ctx.moveTo(this.x , this.y );
-        ctx.lineTo(this.xRight , this.y );
-        ctx.lineTo(this.xRight , this.yBottom );
-        ctx.lineTo(this.x , this.yBottom );
+        ctx.moveTo(this.leftMarginStart , this.y );
         ctx.lineTo(this.x , this.y );
+        ctx.lineTo(this.x , this.yBottom );
+        ctx.lineTo(this.leftMarginStart , this.yBottom );
+        ctx.lineTo(this.leftMarginStart , this.y );
+        ctx.fill();
+
+        ctx.moveTo(this.xRight , this.y );
+        ctx.lineTo(this.rightMarginEnd , this.y );
+        ctx.lineTo(this.rightMarginEnd , this.yBottom );
+        ctx.lineTo(this.xRight , this.yBottom );
+        ctx.lineTo(this.xRight , this.y );
+        ctx.fill();
 
         ctx.stroke();
     }
 
-    public isOverlapped(otherPositionable: Positionable, border: number): boolean {
+    public isOverlapped(otherPositionable: Positionable): boolean {
 
         // Overlapped right
         if (this.x < otherPositionable.x) {
-            if (this.xRight > otherPositionable.x + border) {
+            if (this.rightMarginEnd > otherPositionable.leftMarginStart) {
                 return true;
             }
         } else {
             // Overlapped on the left
-            if (this.x < otherPositionable.xRight + border) {
+            if (this.leftMarginStart < otherPositionable.rightMarginEnd) {
                 return true;
             }
         }
@@ -94,7 +120,7 @@ export default abstract class Positionable {
         return false;
     }
 
-    private rainbow(numOfSteps: number, step: number) {
+    protected rainbow(numOfSteps: number, step: number) {
         // This function generates vibrant, "evenly spaced" colours (i.e. no clustering).
         let r;
         let g;
@@ -111,10 +137,14 @@ export default abstract class Positionable {
             case 4: r = f; g = 0; b = 1; break;
             default: r = 1; g = 0; b = q; break;
         }
-        const c = '#' + ('00' + (Math.floor(r * 255)).toString(16)).slice(-2)
-                + ('00' + (Math.floor(g * 255)).toString(16)).slice(-2)
-                + ('00' + (Math.floor(b * 255)).toString(16)).slice(-2);
+        const c = `rgba(${r * 255},${g * 255},${b * 255}, 0.4`;
+
         return (c);
+    }
+
+    private updateMargins() {
+        this.leftMarginStart = this.x - this.spacing;
+        this.rightMarginEnd = this.xRight + this.spacing;
     }
 
 }

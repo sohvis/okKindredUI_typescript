@@ -36,7 +36,7 @@ export default class TreePositionerType1 implements TreePositioner {
                 const xRight = (previousGroup.xRight) + previousGroup.spacing;
 
                 window.console.log(`xRight: ${xRight}`);
-                group.setLeftPosition(xRight, partnerAdditionalSpacing, 0);
+                group.setLeftPosition(xRight);
             }
             previousGroup = group;
         }
