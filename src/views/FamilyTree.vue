@@ -59,7 +59,6 @@ export default class FamilyTree extends Vue {
 
       const htmlCanvas = document.getElementById('tree-canvas') as HTMLCanvasElement;
 
-    
       const tree = new Tree(htmlCanvas, this.people, this.relations);
 
       (Scroller as any).initialize(htmlCanvas, tree);

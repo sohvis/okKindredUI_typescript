@@ -19,6 +19,7 @@ export default class TreeNodeGroup extends Positionable {
 
     public id: string;
     public commonRelatives: TreeNode[];
+    public commonRelativesById: { [id: string]: TreeNode; };
     public groupedByAncestors: boolean;
     public partnerNodes: TreePartnerNode[];
     public partnerNodesById: { [id: string]: TreePartnerNode; };
@@ -42,6 +43,11 @@ export default class TreeNodeGroup extends Positionable {
         this.partnerNodesById = {};
         this.mainNodesWidth = 0;
         this.debugPrint = '';
+        this.commonRelativesById = {};
+
+        for (const rel of this.commonRelatives) {
+            this.commonRelativesById[rel.id.toString()] = rel;
+        }
     }
 
     public addNode(node: TreeNode) {
@@ -82,7 +88,7 @@ export default class TreeNodeGroup extends Positionable {
             partnerNode.render();
         }
 
-        // this.showBordersForDebugging(this.ctx);
+        this.showBordersForDebugging(this.ctx);
 
         // this.ctx.beginPath();
         // this.ctx.fillStyle = '#000';

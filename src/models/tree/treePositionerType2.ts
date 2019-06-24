@@ -100,12 +100,17 @@ export default class TreePositionerType2 implements TreePositioner {
                     const extraSpacingFromNodes = lowerNodeCorrection * minspacing;
 
                     // Get spacing from level below
-                    // let spacingFromBelow = 0;
-                    // if (levelBelow) {
-                    //     for (const group of levelBelow.groups.filter((g) => {g.commonRelatives.})) {
-                    //         group.commonRelatives.filter((r) => { r.id === partnerNode.mainNode.id }))
-                    //     }
-                    // }
+                    let spacingFromBelow = 0;
+                    if (levelBelow) {
+                        for (const levelBelowGroup of levelBelow.groups) {
+                            if (levelBelowGroup.commonRelativesById[partnerNode.id]) {
+
+                                for (const partnerNodeBelow of levelBelowGroup.partnerNodes) {
+                                    spacingFromBelow += partnerNodeBelow.spacing - TreePartnerNode.MIN_SPACING;
+                                }
+                            }
+                        }
+                    }
 
                     partnerNode.spacing = TreePartnerNode.MIN_SPACING + extraSpacingFromNodes;
 

@@ -103,7 +103,7 @@ export default class TreePartnerNode extends Positionable {
             relation.render();
         }
 
-        // this.showBordersForDebugging(this.ctx);
+        this.showBordersForDebugging(this.ctx);
     }
 
     public clearRenderValues() {

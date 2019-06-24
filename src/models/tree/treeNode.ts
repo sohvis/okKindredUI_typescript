@@ -114,7 +114,7 @@ export default class TreeNode extends  Positionable {
 
         this.ctx.save();
 
-        // this.showBordersForDebugging(this.ctx);
+        this.showBordersForDebugging(this.ctx);
     }
 
     public clearRenderValues() {

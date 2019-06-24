@@ -18,11 +18,11 @@ export const Scroller = {
     multiTouch: false,
 
     // Based on http://phrogz.net/tmp/canvas_zoom_to_cursor.html
-    initialize: (canvas, ctx, tree) => {
+    initialize: (canvas, tree) => {
 
         Scroller.tree = tree;
         Scroller.canvas = canvas;
-        Scroller.ctx = ctx;
+        Scroller.ctx = tree.ctx;
         
         Scroller.trackTransforms(Scroller.ctx);
 
