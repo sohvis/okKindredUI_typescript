@@ -5,8 +5,9 @@ import TreeLevel from './treeLevel';
 import store from '../../store/store';
 import TreeRelation from './treeRelation';
 import RaisedRelation from './raisedRelation';
-import TreePositionerType1 from './treePositionerType1';
-import TreePositionerType2 from './treePositionerType2';
+import TreeAncestorPositioner from './treeAncestorPositioner';
+import TreeDescendantPositioner from './treeDescendantPositioner';
+import Level0Positioner from './level0Positioner';
 
 export default class Tree {
 
@@ -71,27 +72,36 @@ export default class Tree {
         this.hoverNode = null;
     }
 
-    public render() {
+    public render(clearAll = true) {
 
-        window.console.log(`Tree.Render()`);
-        window.console.log(`Clearing Canvas`);
-        this.clearCanvas();
+        // window.console.log(`Tree.Render()`);
+        // window.console.log(`Clearing Canvas`);
+        this.clearCanvas(clearAll);
 
-        window.console.log(`Adding selected node`);
-        this.addLevel0();
+        if (clearAll) {
+            // window.console.log(`Adding selected node`);
+            this.addLevel0();
 
-        window.console.log(`Adding ancestors`);
-        this.addAncestors();
+            // window.console.log(`Adding ancestors`);
+            this.addAncestors();
 
-        window.console.log(`Adding descendants`);
-        this.addDescendants();
+            // window.console.log(`Adding descendants`);
+            this.addDescendants();
+        }
 
-        window.console.log(`Positioning`);
-        const positioner = new TreePositionerType2(this);
-        positioner.position();
+        // window.console.log(`Positioning`);
 
-        window.console.log(`Rendering levels`);
-        window.console.log(this.treeLevelsByLevel);
+        const level0Positioner = new Level0Positioner(this);
+        level0Positioner.position(clearAll);
+
+        const ancestorPositioner = new TreeAncestorPositioner(this);
+        ancestorPositioner.position(clearAll);
+
+        const descendantPositioner = new TreeDescendantPositioner(this);
+        descendantPositioner.position(clearAll);
+
+        // window.console.log(`Rendering levels`);
+        // window.console.log(this.treeLevelsByLevel);
 
         for (const treeLevel of this.treeLevels) {
             treeLevel.render();
@@ -108,7 +118,7 @@ export default class Tree {
         const node = this.getNodeAtXY(x, y);
         if (node) {
             this.changeSelectedPerson(node.id.toString()).then(() => {
-                        this.render();
+                this.render(true);
             });
         }
     }
@@ -137,7 +147,7 @@ export default class Tree {
 
             this.hoverNode = node;
 
-            this.render();
+            this.render(false);
         }
     }
 
@@ -188,15 +198,17 @@ export default class Tree {
         return result;
     }
 
-    private clearCanvas() {
+    private clearCanvas(clearAll = true) {
 
         for (const treeLevel of this.treeLevels) {
-            treeLevel.clearRenderValues();
+            treeLevel.clearRenderValues(clearAll);
         }
 
-        this.treeLevelsByLevel = {};
-        this.treeLevels = [];
-        this.raisedRelationsById = {};
+        if (clearAll) {
+            this.treeLevelsByLevel = {};
+            this.treeLevels = [];
+            this.raisedRelationsById = {};
+        }
 
         // Store the current transformation matrix
         this.ctx.save();

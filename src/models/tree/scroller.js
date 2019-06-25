@@ -44,6 +44,9 @@ export const Scroller = {
         canvas.addEventListener('DOMMouseScroll', Scroller.handleScroll,false);
         canvas.addEventListener('mousewheel',Scroller.handleScroll,false);
 
+        window.console.log(`Scroller.canvas.offsetTop: ${Scroller.canvas.offsetTop}`);
+        window.console.log(`Scroller.tree.dpr: ${Scroller.tree.dpr}`);
+
     },
 
     mousedown: (evt) => {
@@ -59,12 +62,12 @@ export const Scroller = {
 
         var pos = Scroller.getTouchPos(touchEvent);
 
-        Scroller.lastPoint.x = pos.x - Scroller.canvas.offsetLeft;
-        Scroller.lastPoint.y = pos.y - Scroller.canvas.offsetTop;
+        Scroller.lastPoint.x = pos.x; // - Scroller.canvas.offsetLeft;
+        Scroller.lastPoint.y = pos.y; // - Scroller.canvas.offsetTop;
 
         if (pos.multiTouch) {
-            Scroller.lastPoint.x2 = pos.x2 - Scroller.canvas.offsetLeft;
-            Scroller.lastPoint.y2 = pos.y2 - Scroller.canvas.offsetTop;
+            Scroller.lastPoint.x2 = pos.x2; // - Scroller.canvas.offsetLeft;
+            Scroller.lastPoint.y2 = pos.y2; // - Scroller.canvas.offsetTop;
             Scroller.multiTouch = true;
 
             Scroller.dragStart[1] = Scroller.ctx.transformedPoint(Scroller.lastPoint.x2, Scroller.lastPoint.y2);
@@ -90,7 +93,7 @@ export const Scroller = {
             let dy = pt.y - Scroller.dragStart[0].y;
 
             Scroller.ctx.translate(dx, dy);
-            Scroller.tree.render();
+            Scroller.tree.render(false);
         } else {
             Scroller.tree.hover(pt.x, pt.y)
         }
@@ -115,8 +118,10 @@ export const Scroller = {
 
     pinchZoom: (pos) => {
 
-        var pt = Scroller.ctx.transformedPoint(pos.x - Scroller.canvas.offsetLeft, pos.y - Scroller.canvas.offsetTop);
-        var pt2 = Scroller.ctx.transformedPoint(pos.x2 - Scroller.canvas.offsetLeft, pos.y2 - Scroller.canvas.offsetTop);
+        var pt = Scroller.ctx.transformedPoint(pos.x, pos.y);
+        var pt2 = Scroller.ctx.transformedPoint(pos.x2, pos.y2);
+        // var pt = Scroller.ctx.transformedPoint(pos.x - Scroller.canvas.offsetLeft, pos.y - Scroller.canvas.offsetTop);
+        // var pt2 = Scroller.ctx.transformedPoint(pos.x2 - Scroller.canvas.offsetLeft, pos.y2 - Scroller.canvas.offsetTop);
         
         // Use pythagoras theorem to get pinch zoom distance change
         var originalDistance = (Scroller.dragStart[0].x - Scroller.dragStart[1].x)**2 + (Scroller.dragStart[0].y - Scroller.dragStart[1].y)**2;
@@ -133,13 +138,13 @@ export const Scroller = {
         Scroller.ctx.translate(mdpt.x,mdpt.y);
         Scroller.ctx.scale(delta, delta);
         Scroller.ctx.translate(-mdpt.x,-mdpt.y);
-        Scroller.tree.render();
+        Scroller.tree.render(false);
     },
 
     singleTouchMove: (pos) => {
         // Single touch move
-        Scroller.lastPoint.x = pos.x - Scroller.canvas.offsetLeft;
-        Scroller.lastPoint.y = pos.y - Scroller.canvas.offsetTop;
+        Scroller.lastPoint.x = pos.x; // - Scroller.canvas.offsetLeft;
+        Scroller.lastPoint.y = pos.y; // - Scroller.canvas.offsetTop;
 
         var pt = Scroller.ctx.transformedPoint(Scroller.lastPoint.x,Scroller.lastPoint.y);
 
@@ -147,7 +152,7 @@ export const Scroller = {
         let dy = pt.y - Scroller.dragStart[0].y;
 
         Scroller.ctx.translate(dx, dy);
-        Scroller.tree.render();
+        Scroller.tree.render(false);
     },
 
     mouseUp: () => {
@@ -155,7 +160,7 @@ export const Scroller = {
         
         // Select if quick single tap
         if(elapsedClickTime < 150 && !Scroller.dragStart[1]) {
-            var pt = Scroller.ctx.transformedPoint(Scroller.lastPoint.x,Scroller.lastPoint.y);
+            var pt = Scroller.ctx.transformedPoint(Scroller.lastPoint.x, Scroller.lastPoint.y);
             Scroller.tree.click(pt.x, pt.y);
         } 
 
@@ -174,7 +179,7 @@ export const Scroller = {
             var factor = Math.pow(scaleFactor,delta);
             Scroller.ctx.scale(factor,factor);
             Scroller.ctx.translate(-pt.x,-pt.y);
-            Scroller.tree.render();
+            Scroller.tree.render(false);
         }
 
         return evt.preventDefault() && false;

@@ -11,7 +11,7 @@ export default class TreeAncestorPositioner implements TreePositioner {
         this.tree = tree;
     }
 
-    public position() {
+    public position(recalculateSpacing: boolean) {
 
         // ancestor Levels
         const ancestorLevelsGoingUp = Object.values(this.tree.treeLevelsByLevel)
@@ -21,7 +21,10 @@ export default class TreeAncestorPositioner implements TreePositioner {
 
         for (const level of ancestorLevelsGoingUp) {
             this.positionAncestorGroups(level, 0, 0);
-            this.expandIfOverlap(level);
+
+            if (recalculateSpacing) {
+                this.expandIfOverlap(level);
+            }
         }
     }
 
@@ -45,7 +48,7 @@ export default class TreeAncestorPositioner implements TreePositioner {
                 partnerAdditionalSpacing: number,
                 nodeAdditionalSpacing: number) {
 
-        window.console.log(`TreeLevel.positionAncestorGroups() level: ${level.level}`);
+        // window.console.log(`TreeLevel.positionAncestorGroups() level: ${level.level}`);
 
         for (const group of level.groups) {
             this.centreGroupAmongRelatives(group, partnerAdditionalSpacing, nodeAdditionalSpacing);

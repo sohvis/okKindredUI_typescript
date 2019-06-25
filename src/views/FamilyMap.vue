@@ -69,7 +69,7 @@ export default {
 
         window.console.log(`this.$store.state.person_id: ${this.$store.state.person_id}`);
         const focusedPeople = filteredData.filter((value) => {
-          return value.id === this.$store.state.person_id;
+          return value.id === parseInt(this.$store.state.person_id, 10);
         });
 
         window.console.log(focusedPeople);

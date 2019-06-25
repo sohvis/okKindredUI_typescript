@@ -1,6 +1,7 @@
 import TreeNode from './treeNode';
 import TreePartnerNode from './treePartnerNode';
 import Positionable from './positionable';
+import TreeLevel from './treeLevel';
 
 export default class TreeNodeGroup extends Positionable {
 
@@ -25,13 +26,16 @@ export default class TreeNodeGroup extends Positionable {
     public partnerNodesById: { [id: string]: TreePartnerNode; };
     public mainNodesWidth: number;
     public debugPrint: string;
+    public parent: TreeLevel | null;
 
     private ctx: CanvasRenderingContext2D;
 
     constructor(
         context: CanvasRenderingContext2D,
         commonRelatives: TreeNode[],
-        groupedByAncestors: boolean, y: number) {
+        groupedByAncestors: boolean,
+        y: number,
+        parent: TreeLevel) {
 
         super(0, TreeNode.HEIGHT, TreeNodeGroup.MIN_SPACING);
         this.setYPosition(y);
@@ -43,6 +47,7 @@ export default class TreeNodeGroup extends Positionable {
         this.partnerNodesById = {};
         this.mainNodesWidth = 0;
         this.debugPrint = '';
+        this.parent = parent;
         this.commonRelativesById = {};
 
         for (const rel of this.commonRelatives) {
@@ -54,7 +59,7 @@ export default class TreeNodeGroup extends Positionable {
 
         if (!this.partnerNodesById[node.id]) {
 
-            const treePartnerNode = new TreePartnerNode(this.ctx, node);
+            const treePartnerNode = new TreePartnerNode(this.ctx, node, this);
             this.partnerNodes.push(treePartnerNode);
             this.partnerNodesById[treePartnerNode.id] = treePartnerNode;
         }
@@ -77,7 +82,6 @@ export default class TreeNodeGroup extends Positionable {
     }
 
     public setLeftPosition(xLeftMargin: number) {
-
         const firstPartnerNode = this.partnerNodes[0];
         const x = xLeftMargin + this.spacing / 2 + firstPartnerNode.spacing + firstPartnerNode.nodes[0].spacing;
         this.setContentPosition(x);
@@ -88,7 +92,7 @@ export default class TreeNodeGroup extends Positionable {
             partnerNode.render();
         }
 
-        this.showBordersForDebugging(this.ctx);
+        // this.showBordersForDebugging(this.ctx);
 
         // this.ctx.beginPath();
         // this.ctx.fillStyle = '#000';
@@ -100,13 +104,15 @@ export default class TreeNodeGroup extends Positionable {
         // this.ctx.stroke();
     }
 
-    public clearRenderValues() {
+    public clearRenderValues(clearAll = true) {
         for (const partnerNode of this.partnerNodes) {
-            partnerNode.clearRenderValues();
+            partnerNode.clearRenderValues(clearAll);
         }
 
-        this.partnerNodes = new Array<TreePartnerNode>();
-        this.partnerNodesById = {};
+        if (clearAll) {
+            this.partnerNodes = new Array<TreePartnerNode>();
+            this.partnerNodesById = {};
+        }
     }
 
     public hasCommonRelatives(otherGroup: TreeNodeGroup): boolean {

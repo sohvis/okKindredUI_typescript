@@ -30,13 +30,13 @@ export default class TreeLevel extends Positionable {
     public addSelectedNode(node: TreeNode, dpr: number) {
 
         // If already have position values, re-use them
-        if (!node.y) {
+        if (!node.hasYValue) {
             const x = (this.canvas.width - TreeNode.WIDTH) / 2 / dpr;
             const y = (this.canvas.height - TreeNode.HEIGHT) / 2 / dpr;
             node.setXYPosition(x, y);
         }
 
-        const group = new TreeNodeGroup(this.ctx, [], true, node.y);
+        const group = new TreeNodeGroup(this.ctx, [], true, node.y, this);
 
         this.groupsById[group.id] = group;
         this.groups.push(group);
@@ -53,7 +53,7 @@ export default class TreeLevel extends Positionable {
         const id = TreeNodeGroup.getGroupIdForCommonRelatives(commonRelatives);
 
         if (!this.groupsById[id]) {
-            const group = new TreeNodeGroup(this.ctx, commonRelatives, ancestor, this.y);
+            const group = new TreeNodeGroup(this.ctx, commonRelatives, ancestor, this.y, this);
             this.groupsById[group.id] = group;
             this.groups.push(group);
         }
@@ -63,12 +63,11 @@ export default class TreeLevel extends Positionable {
 
     public getLargestOverlap() {
 
-        window.console.log(`TreeLevel.getLargestOverlap() level: ${this.level}`);
+        // window.console.log(`TreeLevel.getLargestOverlap() level: ${this.level}`);
 
         let largestOverlap = 0;
         let previousGroup;
 
-        window.console.log(this.groups);
         for (const group of this.groups) {
 
             if (previousGroup) {
@@ -79,7 +78,6 @@ export default class TreeLevel extends Positionable {
             previousGroup = group;
         }
 
-        window.console.log(`largestOverlap: ${largestOverlap}`);
         return largestOverlap;
     }
 
@@ -97,12 +95,15 @@ export default class TreeLevel extends Positionable {
         }
     }
 
-    public clearRenderValues() {
+    public clearRenderValues(clearAll = true) {
+
         for (const group of this.groups) {
-            group.clearRenderValues();
+            group.clearRenderValues(clearAll);
         }
 
-        this.groupsById = {};
-        this.groups = [];
+        if (clearAll) {
+            this.groupsById = {};
+            this.groups = [];
+        }
     }
 }

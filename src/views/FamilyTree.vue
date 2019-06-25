@@ -109,6 +109,7 @@ html, body, #tree-container, #tree-canvas {
   padding:0px;
   margin:0px;
   overflow: hidden;
+  background-color: thistle;
 }
 
 #tree-canvas { 

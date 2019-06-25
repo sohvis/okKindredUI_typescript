@@ -2,6 +2,7 @@ import Person from '../data/person';
 import store from '../../store/store';
 import Positionable from './positionable';
 import Point from './point';
+import TreePartnerNode from './treePartnerNode';
 
 // Represents a person in the family tree
 export default class TreeNode extends  Positionable {
@@ -10,11 +11,11 @@ export default class TreeNode extends  Positionable {
     public static WIDTH = 130;
     public static HEIGHT = 140;
     public static RECT_STROKE_STYLE = '#2e6f9a';
-    public static RECT_LINE_WIDTH = 2;
-    public static SELECTED_RECT_LINE_WIDTH = 10;
+    public static RECT_LINE_WIDTH = 4;
+    public static SELECTED_RECT_LINE_WIDTH = 16;
     public static RECT_ROUNDED_CORNER_RADIUS = 15;
     public static LEFT_MARGIN = 25;
-    public static RECT_FILL_STYLE = '#FFFAFA';
+    public static RECT_FILL_STYLE = '#EEEAEA';
     public static SELECTED_RECT_FILL_STYLE = 'rgb(255, 255, 255)';
     public static HIGHLIGHTED_RECT_FILL_STYLE = 'rgb(70, 255, 70)';
     public static MIN_SPACING = 10;
@@ -42,6 +43,7 @@ export default class TreeNode extends  Positionable {
     public wrappedName: string[];
     public photo: any;
     public highlighted: boolean;
+    public parent: TreePartnerNode | null;
     private readonly ctx: CanvasRenderingContext2D;
 
     constructor(ctx: CanvasRenderingContext2D, person: Person) {
@@ -65,6 +67,7 @@ export default class TreeNode extends  Positionable {
         this.wrappedName = this.wrapName(person.name);
         this.photo = null;
         this.highlighted = false;
+        this.parent = null;
     }
 
 
@@ -91,7 +94,10 @@ export default class TreeNode extends  Positionable {
 
         // Dev only
         // this.ctx.fillText(`id:${this.id}`, left, top + (TreeNode.FONT_SIZE + 5) * (this.wrappedName.length + 1));
-        // this.ctx.fillText(`x:${this.x}`, left, top + (TreeNode.FONT_SIZE + 5) * (this.wrappedName.length + 2));
+        // this.ctx.fillText(`x:${Math.round(this.x)} xRight:${Math.round(this.xRight)}`,
+        //                     left, top + (TreeNode.FONT_SIZE + 5) * (this.wrappedName.length + 2));
+        // this.ctx.fillText(`y:${Math.round(this.y)} yBottom:${Math.round(this.yBottom)}`,
+        //                     left, top + (TreeNode.FONT_SIZE + 5) * (this.wrappedName.length + 4));
 
         if (this.photo) {
             this.ctx.drawImage(this.photo, this.x + TreeNode.LEFT_MARGIN, this.y + TreeNode.TOP_IMAGE_MARGIN);
@@ -114,17 +120,20 @@ export default class TreeNode extends  Positionable {
 
         this.ctx.save();
 
-        this.showBordersForDebugging(this.ctx);
+        // this.showBordersForDebugging(this.ctx);
     }
 
-    public clearRenderValues() {
+    public clearRenderValues(clearAll = true) {
 
         if (!this.selected) {
             this.clearPosition();
         }
 
-        this.spacing = TreeNode.MIN_SPACING;
-        this.addToTree = false;
+        if (clearAll) {
+            this.spacing = TreeNode.MIN_SPACING;
+            this.addToTree = false;
+            this.parent = null;
+        }
     }
 
     private wrapName(name: string): string[] {
@@ -154,7 +163,8 @@ export default class TreeNode extends  Positionable {
 
     private roundRect() {
 
-        let fillstyle = this.rainbow(parseInt(this.id, 10), 10000 ); // TreeNode.RECT_FILL_STYLE;
+        let fillstyle = TreeNode.RECT_FILL_STYLE;
+        // let fillstyle = this.rainbow(parseInt(this.id, 10), 10000 );
         let lineWidth = TreeNode.RECT_LINE_WIDTH;
 
         if (this.selected) {

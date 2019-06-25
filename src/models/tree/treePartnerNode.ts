@@ -2,6 +2,7 @@ import TreeNode from './treeNode';
 import Positionable from './positionable';
 import TreeRelation from './treeRelation';
 import PartneredRelation from './partneredRelation';
+import TreeNodeGroup from './treeNodeGroup';
 
 // Represents a group of people who are partners in the family tree
 
@@ -15,8 +16,9 @@ export default class TreePartnerNode extends Positionable {
     public partners: TreeNode[];
     public nodes: TreeNode[];
     public relations: TreeRelation[];
+    public parent: TreeNodeGroup;
 
-    constructor(ctx: CanvasRenderingContext2D, mainNode: TreeNode) {
+    constructor(ctx: CanvasRenderingContext2D, mainNode: TreeNode, parent: TreeNodeGroup) {
 
         // window.console.log(`TreePartnerNode.constructor()`);
 
@@ -32,15 +34,19 @@ export default class TreePartnerNode extends Positionable {
         this.spacing = TreePartnerNode.MIN_SPACING;
         this.relations = [];
 
-        mainNode.addToTree = true;
         this.nodes = [];
         this.nodes.push(mainNode);
+        this.parent = parent;
+
+        mainNode.addToTree = true;
+        mainNode.parent = this;
 
         let xLeft = mainNode.rightMarginEnd;
 
         for (const partnerNode of this.partners) {
             partnerNode.addToTree = true;
             this.nodes.push(partnerNode);
+            partnerNode.parent = this;
 
             if (mainNode.hasXValue) {
                 partnerNode.setXYPosition(xLeft + partnerNode.spacing, mainNode.y);
@@ -103,17 +109,20 @@ export default class TreePartnerNode extends Positionable {
             relation.render();
         }
 
-        this.showBordersForDebugging(this.ctx);
+        // this.showBordersForDebugging(this.ctx);
     }
 
-    public clearRenderValues() {
-        this.mainNode.clearRenderValues();
+    public clearRenderValues(clearAll = true) {
+
+        this.mainNode.clearRenderValues(clearAll);
         for (const partner of this.partners) {
-            partner.clearRenderValues();
+            partner.clearRenderValues(clearAll);
         }
 
-        this.spacing = TreePartnerNode.MIN_SPACING;
-        this.relations = [];
-        this.nodes = [];
+        if (clearAll) {
+            this.spacing = TreePartnerNode.MIN_SPACING;
+            this.relations = [];
+            this.nodes = [];
+        }
     }
 }
