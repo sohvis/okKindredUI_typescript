@@ -25,6 +25,11 @@ export default class FamilyTree extends Vue {
     protected mounted() {
       window.console.log('FamilyTree.vue mounted() call');
 
+      const canvas = document.getElementById('tree-canvas') as HTMLCanvasElement;
+      const dpr = window.devicePixelRatio || 1;
+
+      canvas.width = window.innerWidth * dpr;
+      canvas.height = window.innerHeight * dpr;
 
       // Load jwt from cookie and login
       this.$store.dispatch('restoreSession')
@@ -109,7 +114,6 @@ html, body, #tree-container, #tree-canvas {
   padding:0px;
   margin:0px;
   overflow: hidden;
-  background-color: thistle;
 }
 
 #tree-canvas { 
