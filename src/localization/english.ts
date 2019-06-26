@@ -18,5 +18,8 @@ export const english = {
       SignIn: 'Sign In',
       IForgotMyPassword: 'I forgot my password',
       InvalidLogin: 'Invalid Login',
+
+      // Introduction
+      Welcome: 'Welcome to ok!Kindred',
     },
 };
