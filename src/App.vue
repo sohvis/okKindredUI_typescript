@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     
-    <b-navbar toggleable="md" type="dark" variant="primary" v-bind:sticky="true" class="navbar-background">
+    <b-navbar id="navbar" toggleable="md" type="dark" variant="primary" v-bind:sticky="true" class="navbar-background">
       <b-navbar-brand href="#"><strong>ok!Kindred {{debugMessage}}</strong></b-navbar-brand>
       
       <b-navbar-toggle target="nav_collapse" />

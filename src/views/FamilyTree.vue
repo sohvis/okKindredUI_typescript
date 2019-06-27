@@ -1,5 +1,5 @@
 <template>
-  <div class="tree-container">
+  <div id="tree-container" class="tree-container">
       <canvas id="tree-canvas"></canvas>
   </div>
 </template>
@@ -25,11 +25,11 @@ export default class FamilyTree extends Vue {
     protected mounted() {
       window.console.log('FamilyTree.vue mounted() call');
 
-      const canvas = document.getElementById('tree-canvas') as HTMLCanvasElement;
-      const dpr = window.devicePixelRatio || 1;
+      const navHeight = (document.getElementById('navbar') as HTMLElement).clientHeight;
+      const container = document.getElementById('tree-container') as HTMLDivElement;
 
-      canvas.width = window.innerWidth * dpr;
-      canvas.height = window.innerHeight * dpr;
+      container.style.width = `${window.innerWidth}px`;
+      container.style.height = `${window.innerHeight - navHeight}px`;
 
       // Load jwt from cookie and login
       this.$store.dispatch('restoreSession')
@@ -61,6 +61,11 @@ export default class FamilyTree extends Vue {
 
     private initializeTree() {
       window.console.log(`initializeTree()`);
+
+      const container = document.getElementById('tree-container') as HTMLDivElement;
+
+      container.style.width = `100%`;
+      container.style.height = `100%`;
 
       const htmlCanvas = document.getElementById('tree-canvas') as HTMLCanvasElement;
 
@@ -106,17 +111,15 @@ export default class FamilyTree extends Vue {
 </script>
 
 <!-- "scoped" attribute removed to fill screen -->
-<style>
+<style scoped>
 
-html, body, #tree-container, #tree-canvas {
+#tree-container, #tree-canvas {
   height:100%;
   width:100%;
   padding:0px;
   margin:0px;
   overflow: hidden;
-}
-
-#tree-canvas { 
   background-color: thistle;
 }
+
 </style>

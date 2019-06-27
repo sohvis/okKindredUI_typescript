@@ -1,7 +1,5 @@
 <template>
-  <div class="fullscreen_map">
     <div id="person-map" class="fullscreen_map"></div>
-  </div>
 </template>
 
 <script>
@@ -19,6 +17,9 @@ export default {
 
       window.console.log('FamilyMap.vue mounted() call');
 
+      this.initializeSize();
+      window.addEventListener('resize', this.initializeSize, false);
+
       // Load jwt from cookie and login
       this.$store.dispatch('restoreSession')
         .then(async (loggedIn) => {
@@ -35,6 +36,13 @@ export default {
   },
 
   methods: {
+      initializeSize() {
+        const navHeight = document.getElementById('navbar').clientHeight;
+
+        document.getElementById('person-map').style.height = `${window.innerHeight - navHeight}px`;
+        document.getElementById('person-map').style.width = `${window.innerWidth}px`;
+      },
+
       async loadMapPoints() {
 
         window.console.log('loadMapPoints() call');
@@ -141,17 +149,11 @@ export default {
 </script>
 
 <!-- "scoped" attribute removed to fill screen -->
-<style>
-  html, body, .fullscreen_map {
-    height:100%;
-    width:100%;
+<style scoped>
+  .fullscreen_map {
     padding:0px;
     margin:0px;
     overflow: hidden;
-  }
-
-  #app {
-    height:100%;
   }
 
   .map-popup-container {

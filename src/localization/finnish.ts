@@ -1,3 +1,5 @@
+// tslint:disable:max-line-length
+
 export const finnish = {
     message: {
 
@@ -18,5 +20,16 @@ export const finnish = {
       SignIn: 'Kirjaudu sisään',
       IForgotMyPassword: 'unohdin salasanani',
       InvalidLogin: 'Virheellinen kirjautuminen',
+
+      // Introduction
+      Slide1Header: 'Tervetuloa ok! Kindred',
+      Slide1Desc: 'Vapaan ja avoimen lähdekoodin yhteistyöhön sukupuu ja valokuvien jakamiseen verkkosivuilla',
+      Slide2Header: 'Luoda ja jakaa',
+      Slide2Desc: 'Luo ja jaa monikielinen sukupuu perheen kanssa ja kutsu perheenjäseniä nähdäksesi osoitteen ja liittää siihen',
+      Slide3Header: 'Kartta perheesi',
+      Slide3Desc: 'Plot the locations of each of your relatives on a map',
+      Slide4Header: 'Jaa valokuvia',
+      Slide4Desc: 'Jaa valokuvia yksityisesti välillä perheen ja merkitä perheenjäsenet',
+      SignUpButton: 'Kirjaudu',
     },
 };
