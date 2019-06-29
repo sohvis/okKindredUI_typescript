@@ -31,5 +31,161 @@ export const polish = {
       Slide4Header: 'Dzielić się zdjęciami',
       Slide4Desc: 'Udostępnianie zdjęć prywatnie między rodziną i naklejki członków rodziny',
       SignUpButton: 'Zapisz się',
+
+      // About
+      ViewDetails: 'Pokaż szczegóły',
+      OurStory: 'Nasza historia',
+      OurStoryStub: 'Chciałbyś poznać historię, jak i dlaczego stworzyliśmy tę stronę?',
+      ContactUs: 'Skontaktuj się z nami',
+      ContactUsStub: `Jeśli masz jakieś pytania, chcesz zgłosić błąd, prosić o funkcji lub
+      przyczynić się do kodu źródłowego.`,
+      FAQ: 'FAQ',
+      FAQStub: 'Często Zadawane Pytania',
+
+      StoryHeading: 'Jak to się zaczęło',
+      StoryText1: `Cześć. Jestem Justin po lewej stronie. I jestem Adrian po prawej stronie.`,
+      StoryText2: `Jest to strona, aby nagrać nasze drzewo genealogiczne i działają trochę jak
+      sieci społecznej. Można utrzymywać profil tutaj i zobacz, jak daleko sięga
+      drzewo!
+      Jako osoba zostanie dodana do drzewa genealogicznego, otrzymują
+      e-mail, więc mogą one zostać użytkownikiem i dodać do niej więcej ludzi.
+      Witryna została zainspirowana przez naszych rodzinnych spotkań i
+      trudności wyjaśniając, jak wszyscy jesteśmy spokrewnieni. Nasza rodzina jest
+      bardzo zróżnicowany z wielu grup etnicznych i rozprzestrzenił się na całym
+      świecie.
+      Jako rodzina rośnie i ewoluuje, chcieliśmy sposób dokumentowania
+      wszystkich i pozostać w kontakcie.`,
+
+      ContactHeading: 'Kontakt',
+      ContactEmail: `Skontaktuj się z nami poprzez e-mail <a href="mailto:info@okkindred.com">info@okkindred.com</a>`,
+      ContactText1: `Jeśli jesteś w naszej rodzinie chcemy usłyszeć od ciebie i zapraszamy do
+      odwiedzenia i pobyt rundy w każdej chwili.
+      Jeśli masz login do tego miejscu i są częścią mojej rodziny,
+      można dostać mój numer telefonu i adres z mojego profilu!`,
+      ContactText2: `Ewentualnie, jeśli szukasz jakiejś pomocy z tej witryny, a nawet jeśli
+      chcesz nam pomóc założyć własną podobna strona prosimy daj nam znać!`,
+      ContactText3: `Jesteśmy bardzo mili ludzie i lubisz rozmawiać z ludźmi zainteresowanych
+      sames rzeczy jesteśmy Geek Stuff, oprogramowania, muzyki i szalony pan
+      globalnych chińskich rodzin ...`,
+
+      FAQHeading: 'Często Zadawane Pytania',
+      Question1: 'Czy ktoś może zobaczyć informacje na mojej rodziny?',
+      Answer1: `Nie, tylko ludzie w swoim drzewie genealogicznym, które zostały zaproszone
+      mogą zobaczyć informacje wejściowe. Informacja nie jest również przeszukiwać
+      przez zewnętrznych użytkowników i wyszukiwarek.`,
+
+      Question2: `Czy moje dane są bezpieczne?`,
+      Answer2: `Traktujemy bezpieczeństwo i prywatność bardzo poważnie. Trzymamy szczegóły
+      naszej rodziny na tej stronie, a my nigdy nie zrobi nic, aby zaszkodzić te
+      dane!
+      Tylko własne członkowie rodziny, które zapraszają do dzielenia
+      drzewa są w stanie zobaczyć informacje, które należy wpisać na stronie.
+      Ponadto, nie sprzedawać, ani nie wynajmujemy osobistych
+      informacji identyfikacyjnych dla innych.`,
+      Answer2a: `Witryna jest utrzymywana z
+      <a href="https://www.pythonanywhere.com/?affiliate_id=00022aed">PythonAnywhere</a>
+      którzy sami podejmują prywatność bardzo poważnie.
+      Używamy również <a href="https://aws.amazon.com/s3/">Amazon S3</a>
+      przechowywać żadnych obrazów, które przesyłasz.
+      Robimy korzystać z usług TRZECIĄ
+      <a href="https://en.wikipedia.org/wiki/Geocoding">geokodowanie</a>
+      (Google i Microsoft). To jest
+      konwersja lokalizację na długości i szerokości geograficznej, dzięki czemu
+      możemy wykreślić go na mapie.
+      Jednak żadne inne identyfikujące fragmenty informacji (na przykład nazwa)
+      dostarczane są z tego miejsca do tych stron trzecich.
+      Tak na przykład wyślemy jedynie termin "Hongkongu" do Google,
+      który będzie następnie dać nam szerokości i długości geograficznej, dzięki
+      czemu możemy wykreślić go na mapie.`,
+      Answer2b: `Jeśli obawiasz się, że witryna jest całkowicie open source, więc można wziąć
+      kopię kodu źródłowego (patrz poniżej), spojrzeć w jaki sposób informacje są
+      przechowywane lub nawet gościć własną wersję tej strony.
+      Będziemy bardziej niż szczęśliwi, aby pomóc Ci go skonfigurować.`,
+
+      Question3: `Mogę zobaczyć kod źródłowy?`,
+      Answer3: `Kod źródłowy znajduje się na stronie
+      <a href="https://github.com/JustinWingChungHui/okKindred">Github.com</a>.
+      Co widać na okKindred.com pochodzi z "production" oddział.`,
+      Answer3a: `Mamy wydał go z
+      <a href="https://en.wikipedia.org/wiki/MIT_License">licencji MIT</a>
+      co oznacza, że ​​mogą swobodnie używać, kopiować i
+      modyfikować kod do własnych celów"
+      <a href="https://github.com/JustinWingChungHui/okKindred/blob/master/README.rst">README</a>
+      zawiera podstawowy przegląd tego, jak to
+      działa i instrukcje krok po kroku wdrożyć własną instancję`,
+      Answer3b: `Zapraszamy każdego, kto ma jakieś pomysły lub kto chce przyczynić się do
+      tego projektu i zrobić to lepiej! Szczególnie potrzebna jest pomoc z
+      tłumaczeniem na inne języki.
+      <a href="mailto:info@okkindred.com?subject=Development">skontaktuje</a>
+      jeśli chcesz przyczynić się, lub (nawet lepiej) złożyć wniosek ciągnij
+      Github :)`,
+
+      Question4: `Co to oznacza dla Ciebie, jeśli to nic nie kosztuje?`,
+      Answer4: `Jesteśmy programistów, a jest to projekt stworzony w naszym wolnym czasie,
+      aby rozwinąć naszą Skillset i dodać do naszego portfela, aby pokazać innym.
+      To był najlepszy sposób na porządkowanie informacji na temat
+      naszej własnej rodziny i mamy nadzieję, że nowi użytkownicy będą oferować
+      propozycje w celu poprawy witryny lub nawet przyczynić się kod.`,
+
+      Question5: `Jakie przeglądarki to działa dalej?`,
+      Answer5: `Witryna jest testowany na najnowszej wersji z najlepszych przeglądarek na
+      komputerach i urządzeniach mobilnych.
+      Nie mogą być problemy na nieobsługiwanych przeglądarek, takich
+      jak Android starszych przeglądarek, Internet Explorer 9 i poniżej.`,
+
+      Question6: `Czy istnieje limit zdjęć mogę przesłać?`,
+      Answer6: `Nie w tej chwili nie ma. Obrazy są zapisywane na
+      <a href="https://aws.amazon.com/s3/">Amazon S3</a>
+      który jest bardzo tanie, więc nie przeszkadza
+      pokryje koszty.
+      Jeśli jednak wielu użytkowników zacznie przesyłać tysiące zdjęć,
+      będziemy musieli stworzyć granicę.`,
+
+      Question7: `Czy mogę reklamować na swojej stronie?`,
+      Answer7: `Nie mamy żadnych planów, aby zebrać pieniądze poprzez reklamy na stronie
+      głównie jako nie chcemy narażać nasze babcie do dowolnego więcej reklam niż
+      obecnie dostać.`,
+
+      Question8: `Znalazłem błąd!`,
+      Answer8: `Daj nam znać! Możesz
+      <a href="mailto:info@okkindred.com?Subject=I%%20found%%20a%%20bug!">napisz do nas</a>
+      lub można ją dodać do <a href = "https://github.com/JustinWingChungHui/okKindred/issues">issues</a>
+      na Github.
+      Jeśli jest to błąd bezpieczeństwa trzeba wiedzieć jak
+      najszybciej, abyśmy mogli go naprawić`,
+
+      Question9: `Można dodać funkcję, dzięki czemu można zrobić xxxxx proszę?`,
+      Answer9: `Zapraszam do żądania nowe funkcje poprzez
+      <a href="mailto:info@okkindred.com?Subject=Feature%%20Request">info@okkindred.com</a>.
+      Na pewno uważają je
+      zwłaszcza jeśli będzie to korzystne dla wielu ludzi (czyli naszej rodziny).
+      Ta strona jest wykonywana w wolnym czasie, więc wnioski funkcja
+      zostanie wykonane, kiedy skończysz.`,
+
+      Question10: `Inne strony genealogiczne patrzeć lokalne rekordy do tworzenia drzewa, można
+      zrobić to samo?`,
+      Answer10: `Nie mamy żadnych planów, aby zaimplementować to jeszcze. Powodem jest to, że
+      większość naszej rodziny pochodzi z Chin.
+      Z powodu wojen domowych, które wystąpiły w Chinach w 20 wieku i
+      niestabilności w ostatnich dziesięcioleciach dynastii Qing,
+      Kilka użytecznych istnieją zapisy, które byłyby korzystne dla
+      "nas.`,
+      Answer10a: `Biorąc pod uwagę, że wiele stron internetowych, genealogia to zrobić już, to
+      staramy się bardziej skupić się na stronie społecznościowej tego projektu.
+      Jednak to nie znaczy, że jeśli w czasie wielkie zapotrzebowanie
+      stało się jasne, że nie będzie patrzeć na realizację takiej funkcji.`,
+
+      Question11: `Do opisywania relacji masz "Współpracę", ale nie "Married", trzeba
+      "Raised", ale nie "zrodził"?`,
+      Answer11: `Staraliśmy się utrzymać stronę tak proste, jak to możliwe i możliwie "
+      "wszechstronnej. Definicje "Raised", "Raised by" i "Współpracę 'dać "
+      wystarczająco dużo informacji, by stworzyć drzewo.
+      Są włącznie z relacji międzykulturowych, które nie mają pojęcia
+      małżeństwa.
+      Mogą one obejmować partnerstwa obywatelskiego, partnerami common
+      law rozwódki, przysposobionych i innych definicji, które mogą lub nie mogą
+      występować w różnych kulturach.`,
+
+      AboutFooter: `Justin Wing Chung Hui & Adrian Chu`,
     },
 };

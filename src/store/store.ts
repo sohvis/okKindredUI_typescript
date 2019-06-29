@@ -2,8 +2,10 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import { configs } from '../config';
 import * as request from 'request-promise-native';
+import { localeMatch } from '../localization/localization';
 
 Vue.use(Vuex);
+
 
 export default new Vuex.Store({
 
@@ -28,12 +30,10 @@ export default new Vuex.Store({
 
   getters: {
     language: (state) => {
+        const locale = localeMatch.match(state.language);
 
-        if (state.language) {
-            return state.language;
-        } else {
-            return 'en';
-        }
+        window.console.log(`store.language(state) locale: ${locale}`);
+        return locale;
     },
 
     loading: (state) => state.loading_count > 0,

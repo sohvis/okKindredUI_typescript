@@ -10,8 +10,6 @@ export const configs = {
     RelationAPI: '/api/relation/',
 
     MapboxToken: 'pk.eyJ1Ijoib2traW5kcmVkIiwiYSI6Ild2MnY5dDQifQ.EHr6blIYPYeg4bWmSStT-g',
-
-
 };
 
 // tslint:disable-next-line:max-line-length

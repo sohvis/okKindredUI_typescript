@@ -22,3 +22,45 @@ export const messages = {
     fi: finnish,
     fr: french,
 };
+
+
+export const localeMatch = {
+    match(lang: string) :string {
+
+        if (!lang) {
+            lang = navigator.language;
+        }
+
+        // Language not found use english
+        if (!lang) {
+            return 'en';
+        }
+
+        lang = lang.replace('-','_').toLowerCase();
+        window.console.log(`localeMatch: ${lang}`);
+
+        // Particular exceptions
+        // Switch Hong Kong Chinese to Taiwan Chinese
+        if (lang === 'zh_hk') {
+            return 'zh_tw';
+        }
+
+        if (lang === 'zh') {
+            return 'zh_cn';
+        }
+
+        // general locale matching
+        for (const supportedLang of Object.keys(localeStrings)) {
+            if (lang.startsWith(supportedLang, 0)) {
+                return supportedLang;
+            }
+
+            if (supportedLang.startsWith(lang, 0)) {
+                return supportedLang;
+            }
+        }
+
+        // default return English
+        return 'en';
+    }
+}

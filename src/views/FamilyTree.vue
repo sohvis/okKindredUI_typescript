@@ -63,7 +63,6 @@ export default class FamilyTree extends Vue {
       window.console.log(`initializeTree()`);
 
       const container = document.getElementById('tree-container') as HTMLDivElement;
-
       container.style.width = `100%`;
       container.style.height = `100%`;
 
