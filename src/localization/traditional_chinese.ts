@@ -111,7 +111,7 @@ export const traditionalChinese = {
 
       Question5: `哪些瀏覽器這項工作呢？`,
       Answer5: `"該網站是在桌面和移動上的瀏覽器的最新版本進行測試。
-      有可能是不支持的瀏覽器，如較舊的Android瀏覽器，Internet Explorer 
+      有可能是不支持的瀏覽器，如較舊的Android瀏覽器，Internet Explorer
       9的以下問題。`,
 
       Question6: `是否有圖像的限制，我可以上傳？`,

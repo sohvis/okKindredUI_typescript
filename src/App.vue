@@ -16,7 +16,7 @@
 
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
-          <b-nav-item href="#">{{ $t("message.About") }}</b-nav-item>
+          <b-nav-item to="/about/">{{ $t("message.About") }}</b-nav-item>
           <b-nav-item v-if="logged_in" href="#">{{ $t("message.Settings") }}</b-nav-item>
           <b-nav-item v-if="logged_in" v-on:click="logout()" href="#">{{ $t("message.Logout") }}</b-nav-item>
           <b-nav-item v-if="!logged_in" to="/accounts/login/">{{ $t("message.Login") }}</b-nav-item>

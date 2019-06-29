@@ -19,6 +19,3 @@ import AboutComponent from '@/components/AboutComponent.vue';
 })
 export default class Home extends Vue {}
 </script>
-
-<style scoped>
-</style>

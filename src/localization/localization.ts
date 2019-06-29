@@ -25,7 +25,7 @@ export const messages = {
 
 
 export const localeMatch = {
-    match(lang: string) :string {
+    match(lang: string): string {
 
         if (!lang) {
             lang = navigator.language;
@@ -36,7 +36,7 @@ export const localeMatch = {
             return 'en';
         }
 
-        lang = lang.replace('-','_').toLowerCase();
+        lang = lang.replace('-', '_').toLowerCase();
         window.console.log(`localeMatch: ${lang}`);
 
         // Particular exceptions
@@ -62,5 +62,5 @@ export const localeMatch = {
 
         // default return English
         return 'en';
-    }
-}
+    },
+};
