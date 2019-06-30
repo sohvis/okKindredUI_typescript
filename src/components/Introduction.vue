@@ -8,7 +8,7 @@
       indicators
       img-height="500">
 
-        <b-carousel-slide  img-src="img/introduction/family_tree.png">
+        <b-carousel-slide img-src="img/introduction/family_tree.png">
             <h1>{{ $t("message.Slide1Header") }}</h1>
             <p>{{ $t("message.Slide1Desc") }}</p>
             <p><a class="btn btn-success" href="#" role="button">{{ $t("message.SignUpButton") }}</a></p>

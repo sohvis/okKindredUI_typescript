@@ -8,8 +8,9 @@
 
       <b-collapse is-nav id="nav_collapse">
         <b-navbar-nav>
-          <b-nav-item v-if="logged_in" to="/tree/">{{ $t("message.Tree") }}</b-nav-item>
-          <b-nav-item v-if="logged_in" to="/map/">{{ $t("message.Map") }}</b-nav-item>
+          <b-nav-item v-if="logged_in" to="/family/">Family</b-nav-item>
+          <!-- <b-nav-item v-if="logged_in" to="/tree/">{{ $t("message.Tree") }}</b-nav-item>
+          <b-nav-item v-if="logged_in" to="/map/">{{ $t("message.Map") }}</b-nav-item> -->
           <b-nav-item v-if="logged_in" href="#">{{ $t("message.Gallery") }}</b-nav-item>
           <b-nav-item v-if="logged_in" href="#">{{ $t("message.Search") }}</b-nav-item>
         </b-navbar-nav>

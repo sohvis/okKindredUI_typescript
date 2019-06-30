@@ -1,5 +1,5 @@
 <template>
-<div class="container">
+<div class="container about-container">
     <div class="row">
         <div class="col-md-4">
             <h2>{{ $t("message.OurStory") }}</h2>
@@ -23,7 +23,7 @@
     <hr>
     <div id="story">
         <h2>{{ $t("message.StoryHeading") }}</h2>
-        <img src="img/about/justin_and_adrian.jpg" alt="Justin and Adrian"/>
+        <img class="fluid-image" src="img/about/justin_and_adrian.jpg" alt="Justin and Adrian"/>
         <p>{{ $t("message.StoryText1") }}</p>
         <p>{{ $t("message.StoryText2") }}</p>
 
@@ -127,5 +127,14 @@ export default class AboutComponent extends Vue {
 
     .about-footer {
         margin-top: 30px;
+    }
+
+    .about-container {
+        margin-top: 2.5em;
+    }
+
+    .fluid-image {
+        max-width: 100%;
+        height: auto;
     }
 </style>

@@ -2,72 +2,61 @@
     <div id="person-map" class="fullscreen_map"></div>
 </template>
 
+
 <script>
+// Not using typescript with this as no offical bindings for Leaflet
 import L from 'leaflet';
 import 'leaflet.markercluster';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet.markercluster/dist/MarkerCluster.css';
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
 import * as request from 'request-promise-native';
+import store from '../store/store';
 
 export default {
   name: 'FamilyMap',
+  data() {
+    return {
+      people: [],
+      map: any,
+    };
+  },
 
   mounted() {
-
-      window.console.log('FamilyMap.vue mounted() call');
-
-      this.initializeSize();
-      window.addEventListener('resize', this.initializeSize, false);
-
-      // Load jwt from cookie and login
-      this.$store.dispatch('restoreSession')
-        .then(async (loggedIn) => {
-
-        window.console.log(`loggedIn: ${loggedIn}`);
-
-        if (loggedIn) {
-          await this.loadMapPoints();
-        } else {
-          this.$router.push('/accounts/login/');
-        }
-      });
-
+    window.console.log('FamilyMap.vue mounted() call');
+    window.addEventListener('resize', this.initializeSize, false);
   },
 
   methods: {
+
       initializeSize() {
-        const navHeight = document.getElementById('navbar').clientHeight;
+        const personMap = document.getElementById('person-map');
+        const computedStyle = window.getComputedStyle(personMap);
 
-        document.getElementById('person-map').style.height = `${window.innerHeight - navHeight}px`;
-        document.getElementById('person-map').style.width = `${window.innerWidth}px`;
+        if (computedStyle.display !== 'none') {
+          const height = window.innerHeight - personMap.getBoundingClientRect().top - 3;
+          personMap.style.height = `${height}px`;
+          personMap.style.width = `${window.innerWidth - 3}px`;
+        }
       },
 
-      async loadMapPoints() {
+      renderMap(people) {
 
-        window.console.log('loadMapPoints() call');
-        this.$store.commit('updateLoading', true);
-
-        const options = {
-            uri: `${this.$config.BaseApiUrl}${this.$config.PersonAPI}`,
-            headers: this.$store.getters.ajaxHeader,
-            json: true,
-        };
-
-        const response = await request.get(options);
-        window.console.debug(response);
-        this.loadMap(response);
-
-        this.$store.commit('updateLoading', false);
-      },
-
-
-      loadMap(data) {
+        this.initializeSize(people);
+        this.people = people;
+        const data = this.people;
 
         // Remove data points without a longitude and latitude
         const filteredData = data.filter((value) => {
           return value.longitude !== 0 && value.latitude !== 0;
         });
+
+        // Remove any existing map
+        if (this.map) {
+          this.map.off();
+          this.map.remove();
+          // this.map.invalidateSize();
+        }
 
         const tiles = L.tileLayer('https://api.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.jpg70?access_token={token}', {
           token: this.$config.MapboxToken,
@@ -86,9 +75,9 @@ export default {
           center = [focusedPeople[0].latitude, focusedPeople[0].longitude];
         }
 
-        const map = L.map('person-map', {
+        this.map = L.map('person-map', {
             center,
-            zoom: 6,
+            zoom: 10,
             zoomControl: true,
             minZoom: 2,
             scrollWheelZoom: true,
@@ -106,12 +95,18 @@ export default {
           shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
         });
 
-        map.addControl( L.control.zoom({position: 'bottomleft'}));
+        this.map.addControl( L.control.zoom({position: 'bottomleft'}));
 
-        this.displayMapPoints(map, filteredData);
+        this.displayMapPoints(filteredData);
+
+        // Selected person sync
+        this.map.on('popupopen', (e) => {
+            window.console.log(e.popup._source.options.id.toString());
+            store.dispatch('changePerson', e.popup._source.options.id.toString());
+        });
       },
 
-      displayMapPoints(map, data) {
+      displayMapPoints(data) {
 
         const markers = L.markerClusterGroup();
 
@@ -136,13 +131,12 @@ export default {
 
             // window.console.debug(html);
 
-            const marker = L.marker(new L.LatLng(loc.latitude, loc.longitude), { title: loc.name });
+            const marker = L.marker(new L.LatLng(loc.latitude, loc.longitude), { id: loc.id , title: loc.name });
             marker.bindPopup(html);
             markers.addLayer(marker);
         }
 
-        map.addLayer(markers);
-
+        this.map.addLayer(markers);
       },
   },
 };
@@ -155,10 +149,13 @@ export default {
     margin:0px;
     overflow: hidden;
   }
+</style>
 
+<style>
   .map-popup-container {
     overflow: hidden; 
     width:90px;
+    max-width:90px;
   }
 
   .map-popup-content {

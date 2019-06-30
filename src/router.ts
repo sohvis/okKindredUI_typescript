@@ -3,28 +3,29 @@ import Router from 'vue-router';
 import Home from './views/Home.vue';
 import Login from './views/accounts/Login.vue';
 import About from './views/About.vue';
-import FamilyMap from './views/FamilyMap.vue';
-import FamilyTree from './views/FamilyTree.vue';
+import Family from './views/Family.vue';
+import FamilyMapView from './views/FamilyMapView.vue';
+import FamilyTreeView from './views/FamilyTreeView.vue';
 
 Vue.use(Router);
 
 export default new Router({
   routes: [
     {
-      path: '/tree/',
-      name: 'FamilyTree',
-      component: FamilyTree,
+      path: '/family/',
+      name: 'Family',
+      component: Family,
     },
-    {
-      path: '/accounts/login/',
-      name: 'Login',
-      component: Login,
-    },
-    {
-      path: '/map/',
-      name: 'FamilyMap',
-      component: FamilyMap,
-    },
+    // {
+    //   path: '/tree/',
+    //   name: 'FamilyTreeView',
+    //   component: FamilyTreeView,
+    // },
+    // {
+    //   path: '/map/',
+    //   name: 'FamilyMapView',
+    //   component: FamilyMapView,
+    // },
     {
       path: '/',
       name: 'home',
@@ -34,6 +35,11 @@ export default new Router({
       path: '/about',
       name: 'about',
       component: About,
+    },
+    {
+      path: '/accounts/login/',
+      name: 'Login',
+      component: Login,
     },
   ],
 });

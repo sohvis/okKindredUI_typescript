@@ -44,6 +44,7 @@ export default class Loading extends Vue {
 /* :not(:required) hides these rules from IE9 and below */
 .loading:not(:required) {
     /* hide "loading..." text */
+    position: fixed;
     font: 0/0 a;
     color: transparent;
     text-shadow: none;
@@ -52,6 +53,7 @@ export default class Loading extends Vue {
 }
 
 .loading:not(:required):after {
+    position: fixed;
     content: '';
     display: block;
     font-size: 20px;

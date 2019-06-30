@@ -51,7 +51,6 @@ export const Scroller = {
 
     mousedown: (evt) => {
 
-
         Scroller.lastPoint.x = evt.pageX - Scroller.canvas.offsetLeft;
         Scroller.lastPoint.y = evt.pageY - Scroller.canvas.offsetTop;
         Scroller.dragStart[0] = Scroller.ctx.transformedPoint(Scroller.lastPoint.x, Scroller.lastPoint.y);
@@ -82,6 +81,7 @@ export const Scroller = {
     mouseMove: (evt) => {
 
         // Records last mouse point
+        const pos = Scroller.canvas.getBoundingClientRect();
         Scroller.lastPoint.x = evt.pageX - Scroller.canvas.offsetLeft;
         Scroller.lastPoint.y = evt.pageY - Scroller.canvas.offsetTop;
         let pt = Scroller.ctx.transformedPoint(Scroller.lastPoint.x,Scroller.lastPoint.y);
