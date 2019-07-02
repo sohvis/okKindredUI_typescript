@@ -1,18 +1,28 @@
 <template>
 <b-card no-body>
     <b-tabs card justified>
-        <b-tab title="Tree" @click="treeInit()" active>
+        <b-tab @click="treeInit()" active>
+            <template slot="title">
+                {{ $t('message.Tree') }}
+            </template>
             <b-card-text>
                 <FamilyTree 
                     ref="tree"/>
             </b-card-text>
         </b-tab>
-        <b-tab title="Details" @click="detailsInit()">
+        <b-tab @click="profileInit()">
+            <template slot="title">
+                {{ $t('message.Profile') }}
+            </template>
             <b-card-text>
-                <FamilyDetails />
+                <Profile 
+                    ref="profile"/>
             </b-card-text>
         </b-tab>
-        <b-tab title="Map" @click="mapInit()">
+        <b-tab @click="mapInit()">
+            <template slot="title">
+                {{ $t('message.Map') }}
+            </template>
             <b-card-text>
                 <FamilyMap 
                     ref="map" />
@@ -27,14 +37,17 @@ import { Component, Vue } from 'vue-property-decorator';
 import * as request from 'request-promise-native';
 import FamilyTree from '../components/FamilyTree.vue';
 import FamilyMap from '../components/FamilyMap.vue';
-import FamilyDetails from '../components/FamilyDetails.vue';
+import Profile from '../components/Profile.vue';
 import Person from './../models/data/person';
 import Relation from './../models/data/relation';
+import store from '../store/store';
+import { configs } from '../config';
 
 @Component({
   components: {
     FamilyTree,
     FamilyMap,
+    Profile,
   },
 })
 
@@ -48,7 +61,7 @@ export default class Family extends Vue {
         this.state = 'tree';
         const tree = this.$refs.tree as FamilyTree;
         if (tree && this.people && this.relations) {
-            tree.initializeTree(this.people, this.relations);
+            setTimeout(() => tree.initializeTree(this.people, this.relations), 100);
         }
     }
 
@@ -61,18 +74,23 @@ export default class Family extends Vue {
         }
     }
 
-    public detailsInit() {
-        this.state = 'details';
+    public profileInit() {
+        window.console.log(`profileInit()`);
+        this.state = 'profile';
+        const profile = this.$refs.profile as Profile;
+        if (profile) {
+            setTimeout(async () => await profile.initialize(), 10);
+        }
     }
 
-    protected mounted() {
+    protected async mounted() {
       window.console.log('Family.vue mounted() call');
-      this.initialize();
+      await this.initialize();
     }
 
-    private initialize() {
+    private async initialize() {
       // Load jwt from cookie and login
-      this.$store.dispatch('restoreSession')
+      store.dispatch('restoreSession')
           .then(async (loggedIn) => {
 
           window.console.log(`loggedIn: ${loggedIn}`);
@@ -107,37 +125,37 @@ export default class Family extends Vue {
       });
     }
 
-    private async LoadPersonData(this: any) {
+    private async LoadPersonData() {
 
       window.console.log('LoadPersonData() call');
 
-      this.$store.commit('updateLoading', true);
+      store.commit('updateLoading', true);
 
       const options = {
-          uri: `${this.$config.BaseApiUrl}${this.$config.PersonAPI}`,
-          headers: this.$store.getters.ajaxHeader,
+          uri: `${configs.BaseApiUrl}${configs.PersonAPI}`,
+          headers: store.getters.ajaxHeader,
           json: true,
       };
 
       this.people = await request.get(options);
 
-      this.$store.commit('updateLoading', false);
+      store.commit('updateLoading', false);
     }
 
-    private async LoadRelationsData(this: any) {
+    private async LoadRelationsData() {
       window.console.log('LoadRelationsData() call');
 
-      this.$store.commit('updateLoading', true);
+      store.commit('updateLoading', true);
 
       const options = {
-          uri: `${this.$config.BaseApiUrl}${this.$config.RelationAPI}`,
-          headers: this.$store.getters.ajaxHeader,
+          uri: `${configs.BaseApiUrl}${configs.RelationAPI}`,
+          headers: store.getters.ajaxHeader,
           json: true,
       };
 
       this.relations = await request.get(options);
 
-      this.$store.commit('updateLoading', false);
+      store.commit('updateLoading', false);
     }
 }
 </script>

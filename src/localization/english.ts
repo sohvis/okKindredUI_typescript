@@ -3,7 +3,7 @@
 export const english = {
     message: {
 
-      // Navbar
+      // Navbar & Menus
       Tree: 'Tree',
       Map: 'Map',
       Gallery: 'Gallery',
@@ -12,6 +12,7 @@ export const english = {
       Settings: 'Settings',
       Logout: 'Logout',
       Login: 'Log In',
+      Profile: 'Profile',
 
       // Login
       PleaseSignIn: 'Please sign in',
@@ -114,5 +115,25 @@ export const english = {
       They can include civil partnerships, common law partners, divorcees, adoptees and any other definitions that may or may not exist in different cultures.`,
 
       AboutFooter: `Justin Wing Chung Hui & Adrian Chu`,
+
+      // Profile
+      Name: `Name`,
+      Gender: `Gender`,
+      BirthYear: `Birth Year`,
+      DeathYear: `Death Year`,
+      SpokenLanguages: `Spoken Languages`,
+      Email: `Email`,
+      Occupation: `Occupation`,
+      TelephoneNumber: `Telephone Number`,
+      Location: `Location`,
+      Website: `Website`,
+      SkypeName: `Skype Name`,
+      Facebook: `Facebook`,
+      Twitter: `Twitter`,
+      LinkedIn: `LinkedIn`,
+
+      Female: `Female`,
+      Male: `Male`,
+      Other: `Other`,
     },
 };

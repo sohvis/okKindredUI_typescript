@@ -3,7 +3,7 @@
 export const simplifiedChinese = {
     message: {
 
-      // Navbar
+      // Navbar & Menus
       Tree: '树',
       Map: '地图',
       Gallery: '画廊',
@@ -12,6 +12,7 @@ export const simplifiedChinese = {
       Settings: '设置',
       Logout: '登出',
       Login: '登录',
+      Profile: '轮廓',
 
       // Login
       PleaseSignIn: '请登录',
@@ -157,5 +158,25 @@ export const simplifiedChinese = {
       任何其他的定义可能会或可能不会在不同的文化存在。`,
 
       AboutFooter: `許頴聰 和 朱俊豪`,
+
+      // Profile
+      Name: `名称`,
+      Gender: `性别`,
+      BirthYear: `出生年`,
+      DeathYear: `卒年`,
+      SpokenLanguages: `讲什么语言`,
+      Email: `电子邮件`,
+      Occupation: `占用`,
+      TelephoneNumber: `电话号码`,
+      Location: `位置`,
+      Website: `网站`,
+      SkypeName: `Skype用户名`,
+      Facebook: `Facebook`,
+      Twitter: `Twitter`,
+      LinkedIn: `LinkedIn`,
+
+      Female: `女`,
+      Male: `男`,
+      Other: `其他`,
     },
 };

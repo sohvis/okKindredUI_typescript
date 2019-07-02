@@ -2,6 +2,7 @@ export default interface Person {
     id: string;
     name: string;
     birth_year: number;
+    year_of_death: number;
     gender: string;
     locked: boolean;
     language: string;

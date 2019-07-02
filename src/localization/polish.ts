@@ -12,6 +12,7 @@ export const polish = {
       Settings: 'Ustawienia',
       Logout: 'Wyloguj',
       Login: 'Zaloguj się',
+      Profile: 'Profil',
 
       // Login
       PleaseSignIn: 'Zaloguj się',
@@ -187,5 +188,25 @@ export const polish = {
       występować w różnych kulturach.`,
 
       AboutFooter: `Justin Wing Chung Hui & Adrian Chu`,
+
+      // Profile
+      Name: `Imię`,
+      Gender: `Płeć`,
+      BirthYear: `Rok Urodzenia`,
+      DeathYear: `Rok Śmierci`,
+      SpokenLanguages: `Zna Następujące Języki`,
+      Email: `E-mai`,
+      Occupation: `Zawód`,
+      TelephoneNumber: `Numer Telefonu`,
+      Location: `Lokalizacja`,
+      Website: `Stronia Internetowa`,
+      SkypeName: `Nazwa Skype`,
+      Facebook: `Facebook`,
+      Twitter: `Twitter`,
+      LinkedIn: `LinkedIn`,
+
+      Female: `Kobieta`,
+      Male: `Mężczyzna`,
+      Other: `Inna Płeć`,
     },
 };

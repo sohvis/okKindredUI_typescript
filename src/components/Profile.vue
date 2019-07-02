@@ -1,0 +1,195 @@
+<template>
+  <div class="container profile-container">
+    <div class="row">
+      <!--Left column-->
+      <div v-if="person" class="col-md-4 photo-column">
+        <img :src="person.large_thumbnail" :alt="person.name"/>
+        <b-button class="btn-profile" variant="primary" v-if="invite_allowed">{{ $t('message.Invite') }}</b-button>
+      </div>
+
+      <!-- Right info column -->
+      <div class="col-md-8">
+
+        <table class="table table-striped">
+          <tbody>
+            <tr>
+                  <th>{{ $t('message.Name') }}</th>
+                  <td>{{ person.name }}</td>
+            </tr>
+
+            <tr>
+              <th>{{ $t('message.Gender') }}</th>
+              <td>{{ gender }}</td>
+            </tr>
+
+            <tr>
+              <th>{{ $t('message.BirthYear') }}</th>
+              <td>{{ person.birth_year }}</td>
+            </tr>
+
+            <tr v-if="person.year_of_death">
+              <th>{{ $t('message.DeathYear') }}</th>
+              <td>{{ person.year_of_death }}</td>
+            </tr>
+
+
+            <tr>
+              <th>{{ $t('message.SpokenLanguages') }}</th>
+              <td>{{ person.spoken_languages }}</td>
+            </tr>
+
+            <tr>
+              <th>{{ $t('message.Email') }}</th>
+              <td><a :href="'mailto:'+ person.email">{{ person.email }}</a></td>
+            </tr>
+
+            <tr>
+              <th>{{ $t('message.Occupation') }}</th>
+              <td>{{ person.occupation }}</td>
+            </tr>
+
+            <tr>
+              <th>{{ $t('message.TelephoneNumber') }}</th>
+              <td>{{ person.telephone_number }}</td>
+            </tr>
+
+            <tr>
+              <th>{{ $t('message.Location') }}</th>
+              <td>{{ person.address }}</td>
+            </tr>
+
+            <tr>
+              <th>{{ $t('message.Website') }}</th>
+              <td><a :href="person.website">{{ person.website }}</a></td>
+            </tr>
+
+            <tr>
+              <th>{{ $t('message.SkypeName') }}</th>
+              <td>{{ person.skype_name }}</td>
+            </tr>
+
+            <tr>
+              <th>{{ $t('message.Facebook') }}</th>
+              <td>{{ person.facebook }}</td>
+            </tr>
+
+            <tr>
+                <th>{{ $t('message.Twitter') }}</th>
+                <td>
+                    {{ person.twitter }}
+                </td>
+            </tr>
+
+            <tr>
+              <th>{{ $t('message.LinkedIn') }}</th>
+              <td>{{ person.linkedin }}</td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+      <div class="row">
+        <!-- Biography -->
+      </div>
+    </div>
+  </div>
+</template>
+
+<script lang="ts">
+import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Promise } from 'q';
+import Person from './../models/data/person';
+import Gender from './../models/data/gender';
+import * as request from 'request-promise-native';
+import store from '../store/store';
+import { configs } from '../config';
+
+
+@Component
+export default class Profile extends Vue {
+
+  person: Person | null = null;
+
+  gender: string = '';
+
+  constructor() {
+    super();
+  }
+
+  get profileIsCurrentUser(): boolean {
+    if (this.person) {
+      return store.state.users_person_id === this.person.id;
+    } else {
+      return false;
+    }
+  }
+
+  get invite_allowed(): boolean {
+
+    if (!this.person || this.profileIsCurrentUser) {
+      return false;
+    }
+
+    // Can invite if person is not already a user and not dead
+    if (!this.person.user_id && this.person.year_of_death === 0) {
+          return true;
+    } else {
+      return false;
+    }
+  }
+
+  public async initialize() {
+      window.console.log('FamilyDetails.vue initialize() called');
+
+      await this.LoadPersonData();
+
+      window.console.log(this.person);
+  }
+
+  protected mounted() {
+    window.console.log('FamilyDetails.vue mounted() called');
+  }
+
+  private async LoadPersonData() {
+
+    window.console.log('LoadPersonData() call');
+
+    this.person = null;
+
+    store.commit('updateLoading', true);
+    const selectedPerson = store.state.person_id;
+
+    const options = {
+        uri: `${configs.BaseApiUrl}${configs.PersonAPI}/${selectedPerson}`,
+        headers: store.getters.ajaxHeader,
+        json: true,
+    };
+
+    this.person = await request.get(options);
+
+    if (this.person) {
+      const gender = new Gender(this);
+      this.gender = gender.localisedGendersByKey[this.person.gender];
+    }
+
+    store.commit('updateLoading', false);
+  }
+}
+
+</script>
+
+<!-- "scoped" attribute removed to fill screen -->
+<style scoped>
+  .photo-column {
+    max-width:300px;
+  }
+
+  .btn-profile {
+      width: 200px;
+      margin: 5px 0px 5px 0px;
+  }
+
+  .profile-container {
+    margin-top: 20px;
+  }
+</style>

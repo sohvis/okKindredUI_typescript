@@ -16,16 +16,6 @@ export default new Router({
       name: 'Family',
       component: Family,
     },
-    // {
-    //   path: '/tree/',
-    //   name: 'FamilyTreeView',
-    //   component: FamilyTreeView,
-    // },
-    // {
-    //   path: '/map/',
-    //   name: 'FamilyMapView',
-    //   component: FamilyMapView,
-    // },
     {
       path: '/',
       name: 'home',

@@ -12,6 +12,7 @@ export const traditionalChinese = {
       Settings: '設置',
       Logout: '登出',
       Login: '登錄',
+      Profile: '輪廓',
 
       // Login
       PleaseSignIn: '請登錄',
@@ -155,5 +156,25 @@ export const traditionalChinese = {
       任何其他的定義可能會或可能不會在不同的文化存在。`,
 
       AboutFooter: `許頴聰 和 朱俊豪`,
+
+      // Profile
+      Name: `名稱`,
+      Gender: `性別`,
+      BirthYear: `出生年`,
+      DeathYear: `卒年`,
+      SpokenLanguages: `講什麼語言`,
+      Email: `電子郵件`,
+      Occupation: `佔用`,
+      TelephoneNumber: `電話號碼`,
+      Location: `位置`,
+      Website: `網站`,
+      SkypeName: `Skype用戶名`,
+      Facebook: `Facebook`,
+      Twitter: `Twitter`,
+      LinkedIn: `LinkedIn`,
+
+      Female: `女`,
+      Male: `男`,
+      Other: `其他`,
     },
 };

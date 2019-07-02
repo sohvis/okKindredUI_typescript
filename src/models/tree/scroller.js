@@ -16,6 +16,7 @@ export const Scroller = {
     dragStart: [null, null],
     dragStartTime: new Date().getTime(),
     multiTouch: false,
+    mousePosErrorFactor: 1.09,
 
     // Based on http://phrogz.net/tmp/canvas_zoom_to_cursor.html
     initialize: (canvas, tree) => {
@@ -45,14 +46,18 @@ export const Scroller = {
         canvas.addEventListener('mousewheel',Scroller.handleScroll,false);
 
         window.console.log(`Scroller.canvas.offsetTop: ${Scroller.canvas.offsetTop}`);
+        window.console.log(`Scroller.canvasOffset().top: ${Scroller.canvasOffset().top}`);
         window.console.log(`Scroller.tree.dpr: ${Scroller.tree.dpr}`);
 
     },
 
     mousedown: (evt) => {
-
-        Scroller.lastPoint.x = evt.pageX - Scroller.canvas.offsetLeft;
-        Scroller.lastPoint.y = evt.pageY - Scroller.canvas.offsetTop;
+        window.console.log(`mousedown`);
+        window.console.log(evt);
+        const offset = Scroller.canvasOffset();
+        // window.console.log(`evt.clientY - offset.top: ${evt.clientY - offset.top}`);
+        Scroller.lastPoint.x = evt.clientX - offset.left; // Scroller.canvas.offsetLeft;
+        Scroller.lastPoint.y = evt.clientY - offset.top; //  - Scroller.canvas.offsetTop;
         Scroller.dragStart[0] = Scroller.ctx.transformedPoint(Scroller.lastPoint.x, Scroller.lastPoint.y);
         Scroller.dragStartTime = new Date().getTime();
     },
@@ -79,11 +84,10 @@ export const Scroller = {
     },
 
     mouseMove: (evt) => {
-
         // Records last mouse point
-        const pos = Scroller.canvas.getBoundingClientRect();
-        Scroller.lastPoint.x = evt.pageX - Scroller.canvas.offsetLeft;
-        Scroller.lastPoint.y = evt.pageY - Scroller.canvas.offsetTop;
+        const offset = Scroller.canvasOffset();
+        Scroller.lastPoint.x = evt.pageX - offset.left; // Scroller.canvas.offsetLeft;
+        Scroller.lastPoint.y = evt.pageY - offset.top; //  - Scroller.canvas.offsetTop;
         let pt = Scroller.ctx.transformedPoint(Scroller.lastPoint.x,Scroller.lastPoint.y);
 
         if (Scroller.dragStart[0]){
@@ -95,7 +99,7 @@ export const Scroller = {
             Scroller.ctx.translate(dx, dy);
             Scroller.tree.render(false);
         } else {
-            Scroller.tree.hover(pt.x, pt.y)
+            Scroller.tree.hover(pt.x, pt.y * Scroller.mousePosErrorFactor)
         }
     },
 
@@ -161,7 +165,7 @@ export const Scroller = {
         // Select if quick single tap
         if(elapsedClickTime < 150 && !Scroller.dragStart[1]) {
             var pt = Scroller.ctx.transformedPoint(Scroller.lastPoint.x, Scroller.lastPoint.y);
-            Scroller.tree.click(pt.x, pt.y);
+            Scroller.tree.click(pt.x, pt.y * Scroller.mousePosErrorFactor);
         } 
 
         Scroller.dragStart[0] = null;
@@ -170,7 +174,7 @@ export const Scroller = {
     },
 
     handleScroll: (evt) => {
-        var delta = evt.wheelDelta ? evt.wheelDelta/40 : evt.detail ? -evt.detail : 0;
+        var delta = evt.wheelDelta ? evt.wheelDelta / 80 : evt.detail ? -evt.detail : 0;
         
         if (delta) {
             var scaleFactor = 1.1;
@@ -259,7 +263,14 @@ export const Scroller = {
 			pt.x=x; pt.y=y;
 			return pt.matrixTransform(xform.inverse());
         }
-    }
+    },
+
+    canvasOffset() {
+	    var rect = this.canvas.getBoundingClientRect(),
+	    scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
+	    scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+	    return { top: rect.top + scrollTop, left: rect.left + scrollLeft }
+	}
 }
 
 export default Scroller;

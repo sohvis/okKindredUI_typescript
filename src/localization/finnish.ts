@@ -3,7 +3,7 @@
 export const finnish = {
     message: {
 
-      // Navbar
+      // Navbar & Menus
       Tree: 'Puu',
       Map: 'Kartta',
       Gallery: 'Galleria',
@@ -12,6 +12,7 @@ export const finnish = {
       Settings: 'Asetukset',
       Logout: 'Kirjautua ulos',
       Login: 'Kirjaudu sisään',
+      Profile: 'Profiili',
 
       // Login
       PleaseSignIn: 'Ole hyvä ja kirjaudu sisään',
@@ -119,5 +120,25 @@ export const finnish = {
       Ne voivat sisältää parisuhteiden, common law kumppanit, eronneita, adoptoidut ja muita määritelmiä, jotka voidaan tai ei ole eri kulttuureissa`,
 
       AboutFooter: `Justin Wing Chung Hui & Adrian Chu`,
+
+      // Profile
+      Name: `Nimi`,
+      Gender: `Sukupuoli`,
+      BirthYear: `Syntymä Vuosi`,
+      DeathYear: `Kuoleman Vuosi`,
+      SpokenLanguages: `Puhutut Kielet`,
+      Email: `Sähköposti`,
+      Occupation: `Ammatti`,
+      TelephoneNumber: `Tel Number`,
+      Location: `Sijainti`,
+      Website: `Verkkosivusto`,
+      SkypeName: `Skype Nimi`,
+      Facebook: `Facebook`,
+      Twitter: `Twitter`,
+      LinkedIn: `LinkedIn`,
+
+      Female: `Nainen`,
+      Male: `Uros`,
+      Other: `Muut`,
     },
 };

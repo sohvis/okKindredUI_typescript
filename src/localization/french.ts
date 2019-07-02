@@ -3,7 +3,7 @@
 export const french = {
     message: {
 
-      // Navbar
+      // Navbar & Menus
       Tree: 'Arbre',
       Map: 'Carte',
       Gallery: 'Galerie',
@@ -12,6 +12,7 @@ export const french = {
       Settings: 'Paramètres',
       Logout: 'Déconnecter',
       Login: 'Connecter',
+      Profile: 'Profil',
 
       // Login
       PleaseSignIn: 'S\'il vous plaît vous connecter',
@@ -177,5 +178,25 @@ export const french = {
       peuvent ou peuvent ne pas exister dans différentes cultures.`,
 
       AboutFooter: `Justin Wing Chung Hui & Adrian Chu`,
+
+      // Profile
+      Name: `Nom`,
+      Gender: `Sexe`,
+      BirthYear: `Année de Naissance`,
+      DeathYear: `Année de la Mort`,
+      SpokenLanguages: `Langues Parlées`,
+      Email: `Email`,
+      Occupation: `Occupation`,
+      TelephoneNumber: `Numéro de Téléphone`,
+      Location: `Emplacement`,
+      Website: `Numéro de téléphone`,
+      SkypeName: `Nom Skype`,
+      Facebook: `Facebook`,
+      Twitter: `Twitter`,
+      LinkedIn: `LinkedIn`,
+
+      Female: `Femelle`,
+      Male: `Mâle`,
+      Other: `Autre`,
     },
 };

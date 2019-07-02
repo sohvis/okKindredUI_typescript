@@ -34,9 +34,9 @@ export default {
         const computedStyle = window.getComputedStyle(personMap);
 
         if (computedStyle.display !== 'none') {
-          const height = window.innerHeight - personMap.getBoundingClientRect().top - 3;
+          const height = window.innerHeight - personMap.getBoundingClientRect().top - 10;
           personMap.style.height = `${height}px`;
-          personMap.style.width = `${window.innerWidth - 3}px`;
+          personMap.style.width = `${window.innerWidth - 10}px`;
         }
       },
 
