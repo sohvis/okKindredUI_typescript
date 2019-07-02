@@ -35,6 +35,8 @@
 <script lang="ts">
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
+import 'open-iconic/font/css/open-iconic-bootstrap.css';
+
 import { Component, Vue } from 'vue-property-decorator';
 
 import Loading from '@/components/common/Loading.vue';

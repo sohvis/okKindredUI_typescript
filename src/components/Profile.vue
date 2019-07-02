@@ -90,6 +90,9 @@
       </div>
       <div class="row">
         <!-- Biography -->
+        <Biography 
+          v-bind:biography="person.biography" 
+          v-bind:locked="person.locked"/>
       </div>
     </div>
   </div>
@@ -103,18 +106,18 @@ import Gender from './../models/data/gender';
 import * as request from 'request-promise-native';
 import store from '../store/store';
 import { configs } from '../config';
+import Biography from './Biography.vue';
 
-
-@Component
+@Component({
+  components: {
+      Biography,
+  },
+})
 export default class Profile extends Vue {
 
   person: Person | null = null;
 
   gender: string = '';
-
-  constructor() {
-    super();
-  }
 
   get profileIsCurrentUser(): boolean {
     if (this.person) {
@@ -139,7 +142,7 @@ export default class Profile extends Vue {
   }
 
   public async initialize() {
-      window.console.log('FamilyDetails.vue initialize() called');
+      window.console.log('Profile.vue initialize() called');
 
       await this.LoadPersonData();
 
@@ -147,7 +150,7 @@ export default class Profile extends Vue {
   }
 
   protected mounted() {
-    window.console.log('FamilyDetails.vue mounted() called');
+    window.console.log('Profile.vue mounted() called');
   }
 
   private async LoadPersonData() {
