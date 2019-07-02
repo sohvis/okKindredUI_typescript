@@ -115,9 +115,9 @@ import Biography from './Biography.vue';
 })
 export default class Profile extends Vue {
 
-  person: Person | null = null;
+  public person: Person | null = null;
 
-  gender: string = '';
+  public gender: string = '';
 
   get profileIsCurrentUser(): boolean {
     if (this.person) {
@@ -178,7 +178,6 @@ export default class Profile extends Vue {
     store.commit('updateLoading', false);
   }
 }
-
 </script>
 
 <!-- "scoped" attribute removed to fill screen -->

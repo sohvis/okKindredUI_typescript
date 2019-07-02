@@ -17,16 +17,15 @@ import Person from './../models/data/person';
 export default class Biography extends Vue {
 
   @Prop({default: ''})
-  biography?: string;
+  public biography?: string;
 
   @Prop({default: false})
-  locked?: boolean;
+  public locked?: boolean;
 
   protected mounted() {
     window.console.log('Biography.vue mounted() called');
   }
 }
-
 </script>
 
 <!-- "scoped" attribute removed to fill screen -->

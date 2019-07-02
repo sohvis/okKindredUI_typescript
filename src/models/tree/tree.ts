@@ -167,7 +167,7 @@ export default class Tree {
     }
 
     private changeSelectedPerson(newPersonId: string) {
-        window.console.log(`state.changeSelectedPerson(newPersonId: ${newPersonId})`)
+        window.console.log(`state.changeSelectedPerson(newPersonId: ${newPersonId})`);
         return new Promise((resolve) => {
             // Get old selected id
             const oldSelectedId = store.state.person_id;
