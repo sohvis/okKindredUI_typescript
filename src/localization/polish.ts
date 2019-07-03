@@ -208,5 +208,9 @@ export const polish = {
       Female: `Kobieta`,
       Male: `Mężczyzna`,
       Other: `Inna Płeć`,
+
+      Biography: `Biografia`,
+      BiographyNotExist: `Biografia jeszcze nie zostało napisane w tym języku.`,
+      InviteToJoin: `Zaproś do przyłączenia`,
     },
 };

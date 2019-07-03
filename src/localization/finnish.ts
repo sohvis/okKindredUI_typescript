@@ -140,5 +140,9 @@ export const finnish = {
       Female: `Nainen`,
       Male: `Uros`,
       Other: `Muut`,
+
+      Biography: `Elämäkerta`,
+      BiographyNotExist: `Elämäkerta ei ole vielä kirjoitettu tällä kielellä.`,
+      InviteToJoin: `Kutsu liittymään`,
     },
 };

@@ -198,5 +198,9 @@ export const french = {
       Female: `Femelle`,
       Male: `Mâle`,
       Other: `Autre`,
+
+      Biography: `Biographie`,
+      BiographyNotExist: `Une biographie n'a pas encore été écrit.`,
+      InviteToJoin: `Inviter à rejoindre`,
     },
 };

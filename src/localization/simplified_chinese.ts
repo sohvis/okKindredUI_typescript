@@ -178,5 +178,9 @@ export const simplifiedChinese = {
       Female: `女`,
       Male: `男`,
       Other: `其他`,
+
+      Biography: `传`,
+      BiographyNotExist: `传记还没有为这个语言编写`,
+      InviteToJoin: `邀请加入`,
     },
 };

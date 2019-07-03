@@ -176,5 +176,9 @@ export const traditionalChinese = {
       Female: `女`,
       Male: `男`,
       Other: `其他`,
+
+      Biography: `傳`,
+      BiographyNotExist: `傳記還沒有為這個語言編寫`,
+      InviteToJoin: `邀請加入`,
     },
 };

@@ -135,5 +135,9 @@ export const english = {
       Female: `Female`,
       Male: `Male`,
       Other: `Other`,
+
+      Biography: `Biography`,
+      BiographyNotExist: `A biography has not yet been written.`,
+      InviteToJoin: `Invite to Join`,
     },
 };

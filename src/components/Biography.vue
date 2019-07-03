@@ -1,10 +1,10 @@
 <template>
     <div class="col-md-12">
         <h4>{{ $t('message.Biography') }}</h4>
-        <b-button class="btn-profile" variant="primary" v-if="!locked">
+        <!-- <b-button class="btn-profile" variant="primary" v-if="!locked">
             <span class="oi oi-pencil" aria-hidden="true"></span>
-        </b-button>
-        <p v-html="biography">
+        </b-button> -->
+        <p v-html="biographyDisplay">
         </p>
     </div>
 </template>
@@ -18,6 +18,14 @@ export default class Biography extends Vue {
 
   @Prop({default: ''})
   public biography?: string;
+
+  get biographyDisplay(): string {
+    if (!this.biography) {
+      return this.$t('message.BiographyNotExist').toString();
+    }
+
+    return this.biography;
+  }
 
   @Prop({default: false})
   public locked?: boolean;
