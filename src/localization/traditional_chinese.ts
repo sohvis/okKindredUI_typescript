@@ -180,5 +180,6 @@ export const traditionalChinese = {
       Biography: `傳`,
       BiographyNotExist: `傳記還沒有為這個語言編寫`,
       InviteToJoin: `邀請加入`,
+      Photos: `相片`,
     },
 };

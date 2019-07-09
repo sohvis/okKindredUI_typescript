@@ -212,5 +212,6 @@ export const polish = {
       Biography: `Biografia`,
       BiographyNotExist: `Biografia jeszcze nie zostało napisane w tym języku.`,
       InviteToJoin: `Zaproś do przyłączenia`,
+      Photos: `Zdjęcia`,
     },
 };

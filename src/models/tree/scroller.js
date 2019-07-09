@@ -17,6 +17,8 @@ export const Scroller = {
     dragStartTime: new Date().getTime(),
     multiTouch: false,
     mousePosErrorFactor: 1.09,
+    minZoom: 0.2,
+    maxZoom: 6,
 
     // Based on http://phrogz.net/tmp/canvas_zoom_to_cursor.html
     initialize: (canvas, tree) => {
@@ -178,11 +180,18 @@ export const Scroller = {
         
         if (delta) {
             var scaleFactor = 1.1;
-            var pt = Scroller.ctx.transformedPoint(Scroller.lastPoint.x, Scroller.lastPoint.y);
-            Scroller.ctx.translate(pt.x,pt.y);
-            var factor = Math.pow(scaleFactor,delta);
-            Scroller.ctx.scale(factor,factor);
-            Scroller.ctx.translate(-pt.x,-pt.y);
+            var factor = Math.pow(scaleFactor, delta);
+
+            window.console.log(`factor: ${factor}`);
+            window.console.log(`Scroller.ctx.getTransform().a: ${Scroller.ctx.getTransform().a}`);
+
+            if ((factor > 1 && Scroller.ctx.getTransform().a < Scroller.maxZoom)
+            || (factor < 1 && Scroller.ctx.getTransform().a > Scroller.minZoom)) {
+                var pt = Scroller.ctx.transformedPoint(Scroller.lastPoint.x, Scroller.lastPoint.y);
+                Scroller.ctx.translate(pt.x,pt.y);
+                Scroller.ctx.scale(factor,factor);
+                Scroller.ctx.translate(-pt.x,-pt.y);
+            }
             Scroller.tree.render(false);
         }
 
@@ -228,7 +237,9 @@ export const Scroller = {
 
 		var scale = ctx.scale;
 		ctx.scale = function(sx,sy){
-			xform = xform.scaleNonUniform(sx,sy);
+            window.console.log(`zoom Level: ${sx}`);
+            xform = xform.scaleNonUniform(sx,sy);
+            window.console.log(xform);
 			return scale.call(ctx,sx,sy);
 		};
 		var rotate = ctx.rotate;

@@ -182,5 +182,6 @@ export const simplifiedChinese = {
       Biography: `传`,
       BiographyNotExist: `传记还没有为这个语言编写`,
       InviteToJoin: `邀请加入`,
+      Photos: `相片`,
     },
 };

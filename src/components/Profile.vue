@@ -4,7 +4,9 @@
       <!--Left column-->
       <div v-if="person" class="col-md-4 photo-column">
         <img :src="profileImage" :alt="person.name"/>
-        <InviteToJoinButton 
+        <ProfileGalleryButton
+            v-bind:personId="person.id"/>
+        <ProfileInviteToJoinButton 
             v-bind:personId="person.id"
             v-bind:yearOfDeath="person.year_of_death"
             v-bind:personUserId="person.user_id"/>
@@ -114,12 +116,14 @@ import * as request from 'request-promise-native';
 import store from '../store/store';
 import { configs } from '../config';
 import Biography from './Biography.vue';
-import InviteToJoinButton from './InviteToJoinButton.vue';
+import ProfileInviteToJoinButton from './ProfileInviteToJoinButton.vue';
+import ProfileGalleryButton from './ProfileGalleryButton.vue'
 
 @Component({
   components: {
       Biography,
-      InviteToJoinButton,
+      ProfileInviteToJoinButton,
+      ProfileGalleryButton,
   },
 })
 export default class Profile extends Vue {

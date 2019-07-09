@@ -9,6 +9,7 @@ export const configs = {
     PersonAPI: '/api/person/',
     RelationAPI: '/api/relation/',
     InviteEmailAPI: '/api/invite_email/',
+    ImageAPI: '/api/image/',
 
     MapboxToken: 'pk.eyJ1Ijoib2traW5kcmVkIiwiYSI6Ild2MnY5dDQifQ.EHr6blIYPYeg4bWmSStT-g',
 };

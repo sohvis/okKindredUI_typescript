@@ -12,7 +12,7 @@ import store from '../store/store';
 import { configs } from '../config';
 
 @Component({})
-export default class InviteToJoinButton extends Vue {
+export default class ProfileInviteToJoinButton extends Vue {
 
   @Prop({default: null})
   public personId?: string | null;
@@ -28,6 +28,16 @@ export default class InviteToJoinButton extends Vue {
   // Look to do something with this is UI
   public pendingInvite?: InviteEmail;
 
+
+  public async initialize() {
+      window.console.log('ProfileInviteToJoinButton.vue initialize() called');
+  }
+
+  protected async mounted() {
+    window.console.log('ProfileInviteToJoinButton.vue mounted() called');
+    this.displayButton = await this.invite_allowed();
+  }
+
   private profileIsCurrentUser(): boolean {
     if (this.personId) {
       return store.state.users_person_id === this.personId;
@@ -37,7 +47,7 @@ export default class InviteToJoinButton extends Vue {
   }
 
   private async invite_allowed() {
-    window.console.log('InviteToJoinButton.vue invite_allowed() called');
+    window.console.log('ProfileInviteToJoinButton.vue invite_allowed() called');
     if (!this.personId || this.profileIsCurrentUser()) {
       return false;
     }
@@ -57,26 +67,16 @@ export default class InviteToJoinButton extends Vue {
 
         try {
             const inviteEmail = await request.get(options) as InviteEmail;
-            window.console.log(`Invite Email found:`);
+            window.console.log(`Image response:`);
             window.console.log(inviteEmail);
             this.pendingInvite = inviteEmail;
             return false;
 
         } catch (error) {
-            window.console.log(error)
+            window.console.log(error);
             return true;
         }
     }
-  }
-
- 
-  public async initialize() {
-      window.console.log('InviteToJoinButton.vue initialize() called');
-  }
-
-  protected async mounted() {
-    window.console.log('InviteToJoinButton.vue mounted() called');
-    this.displayButton = await this.invite_allowed();
   }
 }
 </script>
@@ -88,4 +88,5 @@ export default class InviteToJoinButton extends Vue {
       width: 200px;
       margin: 5px 0px 5px 0px;
   }
+
 </style>
