@@ -85,7 +85,9 @@ export default class Family extends Vue {
 
     protected async mounted() {
       window.console.log('Family.vue mounted() call');
+      document.body.scrollTop = document.documentElement.scrollTop = 0;
       await this.initialize();
+      document.body.scrollTop = document.documentElement.scrollTop = 0;
     }
 
     private async initialize() {

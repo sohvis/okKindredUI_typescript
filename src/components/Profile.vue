@@ -100,8 +100,10 @@
     <div v-if="person" class="row">
       <!-- Biography -->
       <Biography 
+        v-bind:personId="person.id"
         v-bind:biography="person.biography" 
-        v-bind:locked="person.locked"/>
+        v-bind:locked="isLocked"
+        @biographyUpdated="biographyUpdated"/>
     </div>
     
   </div>
@@ -117,7 +119,7 @@ import store from '../store/store';
 import { configs } from '../config';
 import Biography from './Biography.vue';
 import ProfileInviteToJoinButton from './ProfileInviteToJoinButton.vue';
-import ProfileGalleryButton from './ProfileGalleryButton.vue'
+import ProfileGalleryButton from './ProfileGalleryButton.vue';
 
 @Component({
   components: {
@@ -133,6 +135,20 @@ export default class Profile extends Vue {
   public profileImage?: string;
 
   public gender: string = '';
+
+  get isLocked(): boolean {
+
+    if (!this.person) {
+      return true;
+    } 
+
+    if (this.person.locked) {
+      return !this.profileIsCurrentUser;
+    } else {
+      return false;
+    }
+
+  }
 
   get profileIsCurrentUser(): boolean {
     if (this.person) {
@@ -183,6 +199,12 @@ export default class Profile extends Vue {
     }
 
     store.commit('updateLoading', false);
+  }
+
+  private biographyUpdated(newBiography: string) {
+    if (this.person) {
+      this.person.biography = newBiography;
+    }
   }
 }
 </script>

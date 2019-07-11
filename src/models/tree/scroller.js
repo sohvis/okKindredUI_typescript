@@ -134,16 +134,22 @@ export const Scroller = {
         var newDistance = (pt.x- pt2.x)**2 + (pt.y - pt2.y)**2;
 
         var delta = (newDistance / originalDistance)**0.5;
-        
-        // Midpoint of zoom
-        var mdpt = {
-             x: (pt.x + pt2.x) / 2,
-             y: (pt.y + pt2.y) / 2,
-         };
 
-        Scroller.ctx.translate(mdpt.x,mdpt.y);
-        Scroller.ctx.scale(delta, delta);
-        Scroller.ctx.translate(-mdpt.x,-mdpt.y);
+        // Limit zoom levels
+        if ((delta > 1 && Scroller.ctx.getTransform().a < Scroller.maxZoom)
+            || (delta < 1 && Scroller.ctx.getTransform().a > Scroller.minZoom)) {
+
+            // Midpoint of zoom
+            var mdpt = {
+                x: (pt.x + pt2.x) / 2,
+                y: (pt.y + pt2.y) / 2,
+            };
+
+            Scroller.ctx.translate(mdpt.x,mdpt.y);
+            Scroller.ctx.scale(delta, delta);
+            Scroller.ctx.translate(-mdpt.x,-mdpt.y);
+        }
+
         Scroller.tree.render(false);
     },
 
@@ -182,9 +188,7 @@ export const Scroller = {
             var scaleFactor = 1.1;
             var factor = Math.pow(scaleFactor, delta);
 
-            window.console.log(`factor: ${factor}`);
-            window.console.log(`Scroller.ctx.getTransform().a: ${Scroller.ctx.getTransform().a}`);
-
+            // Limit zoom levels
             if ((factor > 1 && Scroller.ctx.getTransform().a < Scroller.maxZoom)
             || (factor < 1 && Scroller.ctx.getTransform().a > Scroller.minZoom)) {
                 var pt = Scroller.ctx.transformedPoint(Scroller.lastPoint.x, Scroller.lastPoint.y);

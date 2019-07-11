@@ -1,13 +1,13 @@
 export default class PagedResults<T> {
-    count: number;
-    next: string;
-    previous: string;
-    results: T[];
+    public count: number;
+    public next: string;
+    public previous: string;
+    public results: T[];
 
     constructor() {
         this.count = 0;
-        this.previous = "";
-        this.next = "";
+        this.previous = '';
+        this.next = '';
         this.results = [];
     }
 }
