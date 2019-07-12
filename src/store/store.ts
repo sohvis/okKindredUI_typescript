@@ -25,6 +25,7 @@ export default new Vuex.Store({
     person_id: '0',
     users_person_id: '0',
 
+    error_message: '',
     debug_message: '',
   },
 
@@ -78,6 +79,13 @@ export default new Vuex.Store({
     // Sets the person on which app is focused on
     changePerson: (state, newPersonId) => {
         state.person_id = newPersonId;
+    },
+
+    setErrorMessage: (state, message) => {
+
+        const text = message.toString();
+        window.console.log(`state.setErrorMessage() message: ${text}`);
+        state.error_message = text;
     },
 
     setDebugMessage: (state, message) => {

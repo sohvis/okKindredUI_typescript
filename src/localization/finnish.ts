@@ -145,5 +145,7 @@ export const finnish = {
       BiographyNotExist: `Elämäkerta ei ole vielä kirjoitettu tällä kielellä.`,
       InviteToJoin: `Kutsu liittymään`,
       Photos: `Valokuvat`,
+
+      ClickToEdit: `Napsauta Muokkaa`,
     },
 };

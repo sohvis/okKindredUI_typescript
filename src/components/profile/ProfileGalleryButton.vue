@@ -5,11 +5,11 @@
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 import { Promise } from 'q';
-import Image from './../models/data/image';
-import PagedResult from './../models/data/paged_results';
+import Image from '../../models/data/image';
+import PagedResult from '../../models/data/paged_results';
 import * as request from 'request-promise-native';
-import store from '../store/store';
-import { configs } from '../config';
+import store from '../../store/store';
+import { configs } from '../../config';
 
 @Component({})
 export default class ProfileGalleryButton extends Vue {

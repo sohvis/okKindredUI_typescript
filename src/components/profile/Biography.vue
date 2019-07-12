@@ -2,7 +2,7 @@
     <div class="col-md-12">
         <h4>
           {{ $t('message.Biography') }}
-          <b-button class="btn-profile" variant="outline-secondary" v-if="!locked && !editMode" v-on:click="edit()" >
+          <b-button variant="outline-secondary" v-if="!locked && !editMode" v-on:click="edit()" >
               <span class="oi oi-pencil" aria-hidden="true"></span>
           </b-button>
         </h4>
@@ -20,12 +20,13 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import store from '../store/store';
-import Person from './../models/data/person';
+import store from '../../store/store';
+import Person from '../../models/data/person';
 import Editor from '@tinymce/tinymce-vue';
-import configs from '../config';
+import configs from '../../config';
 import { setTimeout } from 'timers';
 import * as request from 'request-promise-native';
+import ProfileEmitArgs from '../../models/profile_emit_args';
 
 @Component({
   components: {
@@ -55,7 +56,7 @@ export default class Biography extends Vue {
 
   public editMode: boolean = false;
 
-  public saveCalled: boolean = false;
+  private timeOutHandle: any;
 
   protected mounted() {
     window.console.log('Biography.vue mounted() called');
@@ -70,42 +71,54 @@ export default class Biography extends Vue {
     window.console.log(`Biography.onBlur() called`);
 
     this.editMode = false;
-    if (!this.saveCalled) {
-      await this.save();
+
+    if (this.timeOutHandle) {
+      window.clearTimeout(this.timeOutHandle);
     }
+
+    store.commit('updateLoading', true);
+    await this.save();
+    store.commit('updateLoading', false);
   }
 
   private async onChange() {
     window.console.log(`Biography.onChange() called`);
 
-    if (!this.saveCalled) {
-      this.saveCalled = true;
-
-      setTimeout(async () => {
-        await this.save();
-      }, 3000);
+    if (this.timeOutHandle) {
+      window.clearTimeout(this.timeOutHandle);
     }
+
+    this.timeOutHandle = setTimeout(async () => {
+      await this.save();
+    }, 3000);
   }
 
   private async save() {
 
     window.console.log(`Biography.save() called`);
 
-    this.saveCalled = false;
-    
-    const options = {
-        uri: `${configs.BaseApiUrl}${configs.PersonAPI}/${this.personId}`,
-        headers: store.getters.ajaxHeader,
-        body: {
-          fieldName: 'biography',
-          value: this.biographyEdited,
-        },
-        json: true,
-    };
+    if (this.biography !== this.biographyEdited) {
 
-    const response = await request.put(options);
-    window.console.log(response);
-    this.$emit('biographyUpdated', this.biographyEdited);
+      const options = {
+          uri: `${configs.BaseApiUrl}${configs.PersonAPI}/${this.personId}`,
+          headers: store.getters.ajaxHeader,
+          body: {
+            fieldName: 'biography',
+            value: this.biographyEdited,
+          },
+          json: true,
+      };
+
+      const response = await request.put(options) as Person;
+      window.console.log(response);
+      const param = new ProfileEmitArgs(
+                    response, 
+                    'biography', 
+                    this.biographyEdited, 
+                    this.biography);
+
+      this.$emit('biographyUpdated', param);
+    }
   }
 }
 </script>

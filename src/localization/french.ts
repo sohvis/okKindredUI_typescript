@@ -203,5 +203,7 @@ export const french = {
       BiographyNotExist: `Une biographie n'a pas encore été écrit.`,
       InviteToJoin: `Inviter à rejoindre`,
       Photos: `Photos`,
+
+      ClickToEdit: `Cliquez pour éditer`,
     },
 };

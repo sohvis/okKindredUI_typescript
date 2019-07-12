@@ -181,5 +181,7 @@ export const traditionalChinese = {
       BiographyNotExist: `傳記還沒有為這個語言編寫`,
       InviteToJoin: `邀請加入`,
       Photos: `相片`,
+
+      ClickToEdit: `點擊編輯`,
     },
 };

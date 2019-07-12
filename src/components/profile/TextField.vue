@@ -1,0 +1,141 @@
+<template>
+    <div>
+      <a class="editable-link" v-if="!editMode" href="#" v-on:click="edit()">
+        {{value}}
+      </a>
+
+      <a class="editable-link" v-if="!value && !editMode" href="#" v-on:click="edit()">
+        {{ $t('message.ClickToEdit') }}
+      </a>
+      <b-form-input 
+          :id="id"
+          :maxlength="maxFieldLength"
+          v-show="editMode" 
+          v-model="valueEdited"
+          @blur="onBlur">
+      </b-form-input>
+    </div>
+</template>
+
+<script lang="ts">
+import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
+import store from '../../store/store';
+import Person from '../../models/data/person';
+import configs from '../../config';
+import { setTimeout } from 'timers';
+import * as request from 'request-promise-native';
+import Guid from '../../models/guid';
+import ProfileEmitArgs from '../../models/profile_emit_args';
+
+@Component({
+  components: {
+  },
+})
+export default class TextField extends Vue {
+
+  public id: string;
+
+  @Prop({default: ''})
+  public personId?: string;
+
+  @Prop({default: ''})
+  public propertyName?: string;
+
+  @Prop({default: 10})
+  public maxFieldLength?: number;
+
+  @Prop({default: ''})
+  public value?: string;
+
+  public valueEdited?: string = '';
+
+  public editMode: boolean = false;
+
+  constructor() {
+    super();
+    this.id = Guid.newGuid();
+  }
+
+  protected mounted() {
+    window.console.log('TextField.vue mounted() called');
+
+    const input = document.getElementById(this.id) as HTMLInputElement;
+    if (input) {
+      input.addEventListener('keyup', async (e) => {
+        if (e.keyCode === 13) {
+          await this.endEdit();
+        }
+      });
+    }
+  }
+
+  private edit() {
+    window.console.log(`TextField.edit() propertyName:${this.propertyName}`);
+    this.valueEdited = this.value;
+    this.editMode = true;
+    const textbox = document.getElementById(this.id) as HTMLInputElement;
+
+    if (textbox) {
+      setTimeout(() => {
+        textbox.focus();
+        textbox.select();
+      }, 100);
+
+    }
+  }
+
+  private async onBlur() {
+    window.console.log(`TextField.onBlur() called`);
+    await this.endEdit();
+  }
+
+  private async endEdit() {
+    this.editMode = false;
+
+    store.commit('updateLoading', true);
+    await this.save();
+    store.commit('updateLoading', false);
+  }
+
+  private async save() {
+
+    window.console.log(`TextField.save() called`);
+
+    if (this.value !== this.valueEdited) {
+
+      const options = {
+          uri: `${configs.BaseApiUrl}${configs.PersonAPI}/${this.personId}`,
+          headers: store.getters.ajaxHeader,
+          body: {
+            fieldName: this.propertyName,
+            value: this.valueEdited,
+          },
+          json: true,
+      };
+
+      try {
+        const response = await request.put(options) as Person;
+        window.console.log(response);
+        const param = new ProfileEmitArgs(
+                            response, 
+                            this.propertyName || '', 
+                            this.valueEdited, 
+                            this.value);
+
+        this.$emit('valueUpdated', param);
+      } catch (ex) {
+        window.console.log(ex);
+        store.commit('setErrorMessage', ex);
+      }
+    }
+  }
+}
+</script>
+
+<!-- "scoped" attribute removed to fill screen -->
+<style scoped>
+  .editable-link {
+    border-bottom: 1px dotted #007bff;
+    text-decoration: none;
+  }
+</style>

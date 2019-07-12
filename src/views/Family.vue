@@ -16,7 +16,8 @@
             </template>
             <b-card-text>
                 <Profile 
-                    ref="profile"/>
+                    ref="profile"
+                    @personUpdated="personUpdated"/>
             </b-card-text>
         </b-tab>
         <b-tab @click="mapInit()">
@@ -37,11 +38,12 @@ import { Component, Vue } from 'vue-property-decorator';
 import * as request from 'request-promise-native';
 import FamilyTree from '../components/FamilyTree.vue';
 import FamilyMap from '../components/FamilyMap.vue';
-import Profile from '../components/Profile.vue';
+import Profile from '../components/profile/Profile.vue';
 import Person from './../models/data/person';
 import Relation from './../models/data/relation';
 import store from '../store/store';
 import { configs } from '../config';
+import ProfileEmitArgs from '../../models/profile_emit_args';
 
 @Component({
   components: {
@@ -90,6 +92,17 @@ export default class Family extends Vue {
       document.body.scrollTop = document.documentElement.scrollTop = 0;
     }
 
+    private personUpdated(args: ProfileEmitArgs) {
+        for (let i =0; i < this.people.length; i++) {
+            const person = this.people[i];
+            if (person && args.person) {
+                if (person.id === args.person.id) {
+                    this.people[i] = args.person;
+                }
+            }
+        }
+    }
+
     private async initialize() {
       // Load jwt from cookie and login
       store.dispatch('restoreSession')
@@ -99,14 +112,7 @@ export default class Family extends Vue {
 
           if (loggedIn) {
 
-            const task1 = this.LoadPersonData();
-            const task2 = this.LoadRelationsData();
-
-            await task1;
-            await task2;
-
-            window.console.log(this.people);
-            window.console.log(this.relations);
+            await this.LoadData();
 
             switch (this.state) {
                 case 'tree':
@@ -125,6 +131,17 @@ export default class Family extends Vue {
             this.$router.push('/accounts/login/');
           }
       });
+    }
+
+    private async LoadData() {
+        const task1 = this.LoadPersonData();
+            const task2 = this.LoadRelationsData();
+
+            await task1;
+            await task2;
+
+            window.console.log(this.people);
+            window.console.log(this.relations);
     }
 
     private async LoadPersonData() {

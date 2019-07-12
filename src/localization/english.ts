@@ -140,5 +140,7 @@ export const english = {
       BiographyNotExist: `A biography has not yet been written.`,
       InviteToJoin: `Invite to Join`,
       Photos: `Photos`,
+
+      ClickToEdit: `Click to Edit`,
     },
 };

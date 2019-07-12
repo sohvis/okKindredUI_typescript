@@ -1,6 +1,6 @@
 export const configs = {
-    BaseApiUrl: 'https://www.okkindred.com',
-    // BaseApiUrl:'https://justinhui.pythonanywhere.com',
+    // BaseApiUrl: 'https://www.okkindred.com',
+    BaseApiUrl: 'https://justinhui.pythonanywhere.com',
 
     ObtainTokenAPI: '/api/auth/obtain_token/',
     RefreshTokenAPI: '/api/auth/refresh_token/',

@@ -26,7 +26,7 @@
     </b-navbar>
 
     <Loading v-show="loading"/>
-
+    <ErrorModal v-bind:errorMessage="errorMessage"/>
     <router-view/>
 
   </div>
@@ -40,10 +40,12 @@ import 'open-iconic/font/css/open-iconic-bootstrap.css';
 import { Component, Vue } from 'vue-property-decorator';
 
 import Loading from '@/components/common/Loading.vue';
+import ErrorModal from './components/common/ErrorModal.vue';
 
 @Component({
   components: {
     Loading,
+    ErrorModal,
   },
 })
 export default class App extends Vue {
@@ -55,6 +57,10 @@ export default class App extends Vue {
 
   get loading(this: any) {
     return this.$store.getters.loading;
+  }
+
+  get errorMessage(this: any) {
+    return this.$store.state.error_message;
   }
 
   get debugMessage(this: any) {
