@@ -43,7 +43,7 @@ import Person from './../models/data/person';
 import Relation from './../models/data/relation';
 import store from '../store/store';
 import { configs } from '../config';
-import ProfileEmitArgs from '../../models/profile_emit_args';
+import ProfileEmitArgs from '../models/profile_emit_args';
 
 @Component({
   components: {
