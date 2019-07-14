@@ -2,11 +2,18 @@
     <div class="col-md-12">
         <h4>
           {{ $t('message.Biography') }}
-          <b-button variant="outline-secondary" v-if="!locked && !editMode" v-on:click="edit()" >
-              <span class="oi oi-pencil" aria-hidden="true"></span>
+          <b-button class="btn-edit" variant="outline-secondary" v-if="!locked && !editMode" v-on:click="edit()" >
+            <span class="oi oi-pencil" aria-hidden="true"></span>
+            {{ $t('message.Edit') }} 
+          </b-button>
+
+          <b-button class="btn-edit" variant="outline-success" v-if="editMode" v-on:click="doneEditing()" >
+            <span class="oi oi-pencil" aria-hidden="true"></span>
+            {{ $t('message.Done') }} 
           </b-button>
         </h4>
         <p v-if="!editMode" v-html="biographyDisplay"></p>
+
         <tinymce-editor 
             v-if="editMode" 
             class="biography-editor" 
@@ -70,6 +77,13 @@ export default class Biography extends Vue {
   private async onBlur() {
     window.console.log(`Biography.onBlur() called`);
 
+    await this.doneEditing();
+  }
+
+  private async doneEditing() {
+
+    window.console.log(`Biography.doneEditing() called`);
+
     this.editMode = false;
 
     if (this.timeOutHandle) {
@@ -112,9 +126,9 @@ export default class Biography extends Vue {
       const response = await request.put(options) as Person;
       window.console.log(response);
       const param = new ProfileEmitArgs(
-                    response, 
-                    'biography', 
-                    this.biographyEdited, 
+                    response,
+                    'biography',
+                    this.biographyEdited,
                     this.biography);
 
       this.$emit('biographyUpdated', param);

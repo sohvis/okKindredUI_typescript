@@ -3,6 +3,10 @@
 export const english = {
     message: {
 
+      // Global
+      Edit: `Edit`,
+      Done: `Done`,
+
       // Navbar & Menus
       Tree: 'Tree',
       Map: 'Map',
@@ -142,5 +146,6 @@ export const english = {
       Photos: `Photos`,
 
       ClickToEdit: `Click to Edit`,
+      UploadNewPhoto: `Upload New Photo`,
     },
 };

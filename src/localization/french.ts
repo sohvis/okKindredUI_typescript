@@ -3,6 +3,10 @@
 export const french = {
     message: {
 
+      // Global
+      Edit: `Modifier`,
+      Done: `Terminé`,
+
       // Navbar & Menus
       Tree: 'Arbre',
       Map: 'Carte',
@@ -205,5 +209,6 @@ export const french = {
       Photos: `Photos`,
 
       ClickToEdit: `Cliquez pour éditer`,
+      UploadNewPhoto: `Télécharger une nouvelle photo`,
     },
 };

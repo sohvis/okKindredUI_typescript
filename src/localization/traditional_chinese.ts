@@ -3,6 +3,10 @@
 export const traditionalChinese = {
     message: {
 
+      // Global
+      Edit: `編輯`,
+      Done: `做`,
+
       // Navbar
       Tree: '樹',
       Map: '地圖',
@@ -183,5 +187,6 @@ export const traditionalChinese = {
       Photos: `相片`,
 
       ClickToEdit: `點擊編輯`,
+      UploadNewPhoto: `上傳新照片`,
     },
 };

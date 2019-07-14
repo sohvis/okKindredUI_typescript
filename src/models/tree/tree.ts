@@ -27,13 +27,13 @@ export default class Tree {
 
     constructor(canvas: HTMLCanvasElement, people: Person[], relations: Relation[]) {
 
-        const navHeight = (document.getElementById('navbar') as HTMLElement).clientHeight;
+        const canvasTop = canvas.getBoundingClientRect().top;
 
         // Get the device pixel ratio, falling back to 1.
         const dpr = window.devicePixelRatio || 1;
 
         canvas.width = window.innerWidth * dpr;
-        canvas.height = (window.innerHeight - navHeight) * dpr;
+        canvas.height = (window.innerHeight - canvasTop) * dpr;
         const ctx  = canvas.getContext('2d');
         if (!ctx) {
             throw new Error('No 2d canvas element!');

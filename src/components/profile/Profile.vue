@@ -4,12 +4,6 @@
       <div class="col-md-12">
         <h4>
           {{ $t('message.Profile') }}
-          <b-button variant="outline-secondary" v-if="!isLocked && !editMode" v-on:click="edit()" >
-            <span class="oi oi-pencil" aria-hidden="true"></span>
-          </b-button>
-          <b-button variant="outline-success" v-if="editMode" v-on:click="finishEdit()" >
-            <span class="oi oi-check" aria-hidden="true"></span>
-          </b-button>
         </h4>
       </div>
     </div>
@@ -17,9 +11,28 @@
       <!--Left column-->
       <div v-if="person" class="col-md-4 photo-column">
         <img :src="profileImage" :alt="person.name"/>
+
         <ProfileGalleryButton
+            v-if="!editMode"
             v-bind:personId="person.id"/>
+
+        <b-button class="btn-edit" variant="outline-primary" v-if="editMode" v-on:click="edit()" >
+          <span class="oi oi-data-transfer-upload" aria-hidden="true"></span>
+          <small>{{ $t('message.UploadNewPhoto') }}</small>
+        </b-button>
+
+        <b-button class="btn-edit" variant="outline-secondary" v-if="!isLocked && !editMode" v-on:click="edit()" >
+          <span class="oi oi-pencil" aria-hidden="true"></span>
+          {{ $t('message.Edit') }} 
+        </b-button>
+
+        <b-button class="btn-edit" variant="outline-success" v-if="editMode" v-on:click="finishEdit()" >
+          <span class="oi oi-check" aria-hidden="true"></span>
+          {{ $t('message.Done') }} 
+        </b-button>
+
         <ProfileInviteToJoinButton 
+            v-if="!editMode"
             v-bind:personId="person.id"
             v-bind:yearOfDeath="person.year_of_death"
             v-bind:personUserId="person.user_id"/>
@@ -39,7 +52,7 @@
                     v-bind:personId="person.id"
                     v-bind:propertyName="'name'"
                     v-bind:value="person.name"
-                    v-bind:maxFieldLength="255" 
+                    v-bind:max="5" 
                     @valueUpdated="personUpdated"/>
               </td>
             </tr>
@@ -49,9 +62,18 @@
               <td>{{ gender }}</td>
             </tr>
 
-            <tr>
+            <tr v-if="person.birth_year || editMode">
               <th>{{ $t('message.BirthYear') }}</th>
-              <td>{{ person.birth_year }}</td>
+              <td>
+                <div v-if="!editMode">{{ person.birth_year }}</div>
+                <NumberField 
+                    v-if="editMode"
+                    v-bind:personId="person.id"
+                    v-bind:propertyName="'birth_year'"
+                    v-bind:value="person.birth_year"
+                    v-bind:maxFieldLength="4" 
+                    @valueUpdated="personUpdated"/>
+              </td>
             </tr>
 
             <tr v-if="person.year_of_death">
@@ -234,6 +256,7 @@ import Biography from './Biography.vue';
 import ProfileInviteToJoinButton from './ProfileInviteToJoinButton.vue';
 import ProfileGalleryButton from './ProfileGalleryButton.vue';
 import TextField from './TextField.vue';
+import NumberField from './NumberField.vue';
 import ProfileEmitArgs from '../../models/profile_emit_args';
 
 @Component({
@@ -242,6 +265,7 @@ import ProfileEmitArgs from '../../models/profile_emit_args';
       ProfileInviteToJoinButton,
       ProfileGalleryButton,
       TextField,
+      NumberField,
   },
 })
 export default class Profile extends Vue {
@@ -349,5 +373,10 @@ export default class Profile extends Vue {
 
   .profile-container {
     margin-top: 20px;
+  }
+
+  .btn-edit {
+      width: 200px;
+      margin: 5px 0px 5px 0px;
   }
 </style>

@@ -1,5 +1,8 @@
 <template>
-    <b-button class="btn-profile" variant="primary" v-if="displayButton">{{ $t('message.Photos') }}</b-button>
+    <b-button class="btn-profile" variant="primary" v-if="displayButton">
+      <span class="oi oi-image" aria-hidden="true"></span>
+      {{ $t('message.Photos') }}
+    </b-button>
 </template>
 
 <script lang="ts">

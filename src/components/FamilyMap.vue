@@ -121,10 +121,8 @@ export default {
             const html = `
               <div class="map-popup-container">
                 <div class="map-popup-content">
-                    <a href="/profile/${loc.id}">
-                        <img src="${imageUrl}" alt="${loc.name}"/>
-                        ${loc.name}
-                    </a>
+                  <img src="${imageUrl}" alt="${loc.name}"/>
+                  ${loc.name}
                 </div>
               </div>
             `;

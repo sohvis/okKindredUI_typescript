@@ -3,6 +3,10 @@
 export const finnish = {
     message: {
 
+      // Global
+      Edit: `Muokata`,
+      Done: `Tehty`,
+
       // Navbar & Menus
       Tree: 'Puu',
       Map: 'Kartta',
@@ -147,5 +151,6 @@ export const finnish = {
       Photos: `Valokuvat`,
 
       ClickToEdit: `Napsauta Muokkaa`,
+      UploadNewPhoto: `Lataa uusi valokuva`,
     },
 };

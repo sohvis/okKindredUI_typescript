@@ -16,7 +16,7 @@ export const Scroller = {
     dragStart: [null, null],
     dragStartTime: new Date().getTime(),
     multiTouch: false,
-    mousePosErrorFactor: 1.09,
+    mousePosErrorFactor: 1,
     minZoom: 0.2,
     maxZoom: 6,
 

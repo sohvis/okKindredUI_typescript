@@ -1,5 +1,8 @@
 <template>
-    <b-button class="btn-profile" variant="primary" v-if="displayButton">{{ $t('message.InviteToJoin') }}</b-button>
+    <b-button class="btn-profile" variant="outline-secondary" v-if="displayButton">
+      <span class="oi oi-envelope-closed" aria-hidden="true"></span>
+      {{ $t('message.InviteToJoin') }}
+    </b-button>
 </template>
 
 <script lang="ts">

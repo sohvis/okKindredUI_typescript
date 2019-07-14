@@ -3,6 +3,10 @@
 export const simplifiedChinese = {
     message: {
 
+      // Global
+      Edit: `编辑`,
+      Done: `做`,
+
       // Navbar & Menus
       Tree: '树',
       Map: '地图',
@@ -185,5 +189,6 @@ export const simplifiedChinese = {
       Photos: `相片`,
 
       ClickToEdit: `点击编辑`,
+      UploadNewPhoto: `上传新照片`,
     },
 };

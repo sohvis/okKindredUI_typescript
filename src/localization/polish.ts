@@ -3,6 +3,10 @@
 export const polish = {
     message: {
 
+      // Global
+      Edit: `Edytuj`,
+      Done: `Gotowe`,
+
       // Navbar
       Tree: 'Drzewo',
       Map: 'Mapa',
@@ -215,5 +219,6 @@ export const polish = {
       Photos: `Zdjęcia`,
 
       ClickToEdit: `Kliknij aby edytowac`,
+      UploadNewPhoto: `Prześlij nowe zdjęcie`,
     },
 };

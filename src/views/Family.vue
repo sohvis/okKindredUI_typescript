@@ -93,7 +93,7 @@ export default class Family extends Vue {
     }
 
     private personUpdated(args: ProfileEmitArgs) {
-        for (let i =0; i < this.people.length; i++) {
+        for (let i = 0; i < this.people.length; i++) {
             const person = this.people[i];
             if (person && args.person) {
                 if (person.id === args.person.id) {
@@ -135,13 +135,13 @@ export default class Family extends Vue {
 
     private async LoadData() {
         const task1 = this.LoadPersonData();
-            const task2 = this.LoadRelationsData();
+        const task2 = this.LoadRelationsData();
 
-            await task1;
-            await task2;
+        await task1;
+        await task2;
 
-            window.console.log(this.people);
-            window.console.log(this.relations);
+        window.console.log(this.people);
+        window.console.log(this.relations);
     }
 
     private async LoadPersonData() {

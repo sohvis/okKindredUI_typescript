@@ -30,9 +30,9 @@ export default class FamilyTree extends Vue {
       const computedStyle = window.getComputedStyle(canvas);
 
       if (computedStyle.display !== 'none') {
-      this.setCanvasSize();
+        this.setCanvasSize();
 
-      if (people && relations) {
+        if (people && relations) {
           this.people = people;
           this.relations = relations;
 
@@ -71,8 +71,8 @@ export default class FamilyTree extends Vue {
 <style scoped>
 
 #tree-container, #tree-canvas {
-  height:100%;
-  width:100%;
+  /* height:100%;
+  width:100%; */
   padding:0px;
   margin:0px;
   overflow: hidden;
