@@ -8,6 +8,7 @@ export const finnish = {
       Done: `Tehty`,
 
       // Navbar & Menus
+      Family: `Perhe`,
       Tree: 'Puu',
       Map: 'Kartta',
       Gallery: 'Galleria',

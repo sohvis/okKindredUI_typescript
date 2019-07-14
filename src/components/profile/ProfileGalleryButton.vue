@@ -49,12 +49,10 @@ export default class ProfileGalleryButton extends Vue {
 
     try {
         const images = await request.get(options) as PagedResult<Image>;
-        window.console.log(`Invite Email found:`);
-        window.console.log(images);
         return images.count > 0;
 
     } catch (error) {
-        window.console.log(error);
+        store.commit('setErrorMessage', error);
         return false;
     }
 

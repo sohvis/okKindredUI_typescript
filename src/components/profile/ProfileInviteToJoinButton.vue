@@ -70,7 +70,6 @@ export default class ProfileInviteToJoinButton extends Vue {
 
         try {
             const inviteEmail = await request.get(options) as InviteEmail;
-            window.console.log(`Image response:`);
             window.console.log(inviteEmail);
             this.pendingInvite = inviteEmail;
             return false;

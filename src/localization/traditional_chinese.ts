@@ -7,7 +7,8 @@ export const traditionalChinese = {
       Edit: `編輯`,
       Done: `做`,
 
-      // Navbar
+      // Navbar & Menus
+      Family: `家庭`,
       Tree: '樹',
       Map: '地圖',
       Gallery: '畫廊',

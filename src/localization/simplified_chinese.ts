@@ -8,6 +8,7 @@ export const simplifiedChinese = {
       Done: `做`,
 
       // Navbar & Menus
+      Family: `家庭`,
       Tree: '树',
       Map: '地图',
       Gallery: '画廊',

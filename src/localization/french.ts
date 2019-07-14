@@ -8,6 +8,7 @@ export const french = {
       Done: `Terminé`,
 
       // Navbar & Menus
+      Family: `Famille`,
       Tree: 'Arbre',
       Map: 'Carte',
       Gallery: 'Galerie',

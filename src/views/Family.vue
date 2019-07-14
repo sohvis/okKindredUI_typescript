@@ -3,6 +3,7 @@
     <b-tabs card justified>
         <b-tab @click="treeInit()" active>
             <template slot="title">
+                <span class="oi oi-people" aria-hidden="true"></span>
                 {{ $t('message.Tree') }}
             </template>
             <b-card-text>
@@ -12,6 +13,7 @@
         </b-tab>
         <b-tab @click="profileInit()">
             <template slot="title">
+                <span class="oi oi-person" aria-hidden="true"></span>
                 {{ $t('message.Profile') }}
             </template>
             <b-card-text>
@@ -22,6 +24,7 @@
         </b-tab>
         <b-tab @click="mapInit()">
             <template slot="title">
+                <span class="oi oi-map" aria-hidden="true"></span>
                 {{ $t('message.Map') }}
             </template>
             <b-card-text>
@@ -134,14 +137,20 @@ export default class Family extends Vue {
     }
 
     private async LoadData() {
-        const task1 = this.LoadPersonData();
-        const task2 = this.LoadRelationsData();
 
-        await task1;
-        await task2;
+        try {
+            const task1 = this.LoadPersonData();
+            const task2 = this.LoadRelationsData();
 
-        window.console.log(this.people);
-        window.console.log(this.relations);
+            await task1;
+            await task2;
+
+            window.console.log(this.people);
+            window.console.log(this.relations);
+        } catch (ex) {
+            window.console.log(ex);
+            store.commit('setErrorMessage', ex);
+        }
     }
 
     private async LoadPersonData() {

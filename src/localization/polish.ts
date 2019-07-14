@@ -8,6 +8,7 @@ export const polish = {
       Done: `Gotowe`,
 
       // Navbar
+      Family: `Rodzina`,
       Tree: 'Drzewo',
       Map: 'Mapa',
       Gallery: 'Galeria',

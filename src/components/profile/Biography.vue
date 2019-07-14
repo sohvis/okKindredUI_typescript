@@ -117,25 +117,30 @@ export default class Biography extends Vue {
 
     if (this.biography !== this.biographyEdited) {
 
-      const options = {
-          uri: `${configs.BaseApiUrl}${configs.PersonAPI}/${this.personId}`,
-          headers: store.getters.ajaxHeader,
-          body: {
-            fieldName: 'biography',
-            value: this.biographyEdited,
-          },
-          json: true,
-      };
+      try {
+        const options = {
+            uri: `${configs.BaseApiUrl}${configs.PersonAPI}/${this.personId}`,
+            headers: store.getters.ajaxHeader,
+            body: {
+              fieldName: 'biography',
+              value: this.biographyEdited,
+            },
+            json: true,
+        };
 
-      const response = await request.put(options) as Person;
-      window.console.log(response);
-      const param = new ProfileEmitArgs(
-                    response,
-                    'biography',
-                    this.biographyEdited,
-                    this.biography);
+        const response = await request.put(options) as Person;
+        window.console.log(response);
+        const param = new ProfileEmitArgs(
+                      response,
+                      'biography',
+                      this.biographyEdited,
+                      this.biography);
 
-      this.$emit('biographyUpdated', param);
+        this.$emit('biographyUpdated', param);
+
+      } catch (ex) {
+        store.commit('setErrorMessage', ex);
+      }
     }
   }
 }

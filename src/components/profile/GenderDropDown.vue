@@ -102,7 +102,6 @@ export default class GenderDropDown extends Vue {
 
         this.$emit('valueUpdated', param);
       } catch (ex) {
-        window.console.log(ex);
         store.commit('setErrorMessage', ex);
       }
     }

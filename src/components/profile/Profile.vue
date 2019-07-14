@@ -1,12 +1,5 @@
 <template>
   <div class="container profile-container">
-    <!-- <div class="row">
-      <div class="col-md-12">
-        <h4>
-          {{ $t('message.Profile') }}
-        </h4>
-      </div>
-    </div> -->
     <div class="row">      
       <!--Left column-->
       <div v-if="person" class="col-md-4 photo-column">
@@ -321,9 +314,13 @@ export default class Profile extends Vue {
   public async initialize() {
       window.console.log('Profile.vue initialize() called');
 
-      await this.LoadPersonData();
+      try {
+        await this.LoadPersonData();
+        window.console.log(this.person);
 
-      window.console.log(this.person);
+      } catch (ex) {
+        store.commit('setErrorMessage', ex);
+      }
   }
 
   protected mounted() {

@@ -8,6 +8,7 @@ export const english = {
       Done: `Done`,
 
       // Navbar & Menus
+      Family: `Family`,
       Tree: 'Tree',
       Map: 'Map',
       Gallery: 'Gallery',
