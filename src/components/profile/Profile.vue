@@ -1,12 +1,12 @@
 <template>
   <div class="container profile-container">
-    <div class="row">
+    <!-- <div class="row">
       <div class="col-md-12">
         <h4>
           {{ $t('message.Profile') }}
         </h4>
       </div>
-    </div>
+    </div> -->
     <div class="row">      
       <!--Left column-->
       <div v-if="person" class="col-md-4 photo-column">
@@ -59,7 +59,14 @@
 
             <tr>
               <th>{{ $t('message.Gender') }}</th>
-              <td>{{ gender }}</td>
+              <td>
+                <div v-if="!editMode">{{ gender }}</div>
+                <GenderDropDown
+                    v-if="editMode"
+                    v-bind:personId="person.id"
+                    v-bind:value="person.gender"
+                    @valueUpdated="personUpdated"/>
+              </td>
             </tr>
 
             <tr v-if="person.birth_year || editMode">
@@ -76,9 +83,18 @@
               </td>
             </tr>
 
-            <tr v-if="person.year_of_death">
+            <tr v-if="person.year_of_death || editMode">
               <th>{{ $t('message.DeathYear') }}</th>
-              <td>{{ person.year_of_death }}</td>
+              <td>
+                <div v-if="!editMode">{{ person.year_of_death }}</div>
+                <NumberField 
+                    v-if="editMode"
+                    v-bind:personId="person.id"
+                    v-bind:propertyName="'year_of_death'"
+                    v-bind:value="person.year_of_death"
+                    v-bind:maxFieldLength="4" 
+                    @valueUpdated="personUpdated"/>
+              </td>
             </tr>
 
             <tr v-if="person.spoken_languages || editMode">
@@ -248,7 +264,7 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { Promise } from 'q';
 import Person from '../../models/data/person';
-import Gender from '../../models/data/gender';
+import GenderOptionsBuilder from '../../models/data/gender_options_builder';
 import * as request from 'request-promise-native';
 import store from '../../store/store';
 import { configs } from '../../config';
@@ -257,6 +273,7 @@ import ProfileInviteToJoinButton from './ProfileInviteToJoinButton.vue';
 import ProfileGalleryButton from './ProfileGalleryButton.vue';
 import TextField from './TextField.vue';
 import NumberField from './NumberField.vue';
+import GenderDropDown from './GenderDropDown.vue';
 import ProfileEmitArgs from '../../models/profile_emit_args';
 
 @Component({
@@ -266,6 +283,7 @@ import ProfileEmitArgs from '../../models/profile_emit_args';
       ProfileGalleryButton,
       TextField,
       NumberField,
+      GenderDropDown,
   },
 })
 export default class Profile extends Vue {
@@ -338,8 +356,8 @@ export default class Profile extends Vue {
     this.person = await request.get(options);
 
     if (this.person) {
-      const gender = new Gender(this);
-      this.gender = gender.localisedGendersByKey[this.person.gender];
+      const genderBuilder = new GenderOptionsBuilder(this);
+      this.gender = genderBuilder.localisedGendersByKey[this.person.gender];
 
       if (this.person.large_thumbnail) {
         this.profileImage = this.person.large_thumbnail;

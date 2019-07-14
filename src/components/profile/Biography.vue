@@ -12,7 +12,11 @@
             {{ $t('message.Done') }} 
           </b-button>
         </h4>
-        <p v-if="!editMode" v-html="biographyDisplay"></p>
+        <p 
+          v-if="!editMode" 
+          v-html="biographyDisplay"
+          class="biography-paragraph">
+        </p>
 
         <tinymce-editor 
             v-if="editMode" 
@@ -140,6 +144,11 @@ export default class Biography extends Vue {
 <!-- "scoped" attribute removed to fill screen -->
 <style>
   .biography-editor {
+    min-height: 500px;
+    margin-bottom: 50px;
+  }
+
+  .biography-paragraph {
     min-height: 500px;
     margin-bottom: 50px;
   }
