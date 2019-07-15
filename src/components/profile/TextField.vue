@@ -82,7 +82,6 @@ export default class TextField extends Vue {
         textbox.focus();
         textbox.select();
       }, 100);
-
     }
   }
 

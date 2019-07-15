@@ -20,7 +20,6 @@ import Person from '../../models/data/person';
 import configs from '../../config';
 import { setTimeout } from 'timers';
 import * as request from 'request-promise-native';
-import Guid from '../../models/guid';
 import GenderOptionsBuilder from '../../models/data/gender_options_builder';
 import GenderOption from '../../models/data/gender_option';
 import ProfileEmitArgs from '../../models/profile_emit_args';

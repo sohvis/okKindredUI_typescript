@@ -191,5 +191,8 @@ export const simplifiedChinese = {
 
       ClickToEdit: `点击编辑`,
       UploadNewPhoto: `上传新照片`,
+
+      // Search
+      SearchName: `搜索名称`,
     },
 };

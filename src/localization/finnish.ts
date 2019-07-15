@@ -153,5 +153,8 @@ export const finnish = {
 
       ClickToEdit: `Napsauta Muokkaa`,
       UploadNewPhoto: `Lataa uusi valokuva`,
+
+      // Search
+      SearchName: `Haku Name`,
     },
 };

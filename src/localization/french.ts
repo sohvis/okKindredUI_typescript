@@ -211,5 +211,8 @@ export const french = {
 
       ClickToEdit: `Cliquez pour éditer`,
       UploadNewPhoto: `Télécharger une nouvelle photo`,
+
+      // Search
+      SearchName: `Recherche Nom`,
     },
 };

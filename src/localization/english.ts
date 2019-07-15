@@ -148,5 +148,8 @@ export const english = {
 
       ClickToEdit: `Click to Edit`,
       UploadNewPhoto: `Upload New Photo`,
+
+      // Search
+      SearchName: `Search Name`,
     },
 };

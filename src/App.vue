@@ -16,7 +16,7 @@
             <span class="oi oi-image" aria-hidden="true"></span>
             {{ $t("message.Gallery") }}
           </b-nav-item>
-          <b-nav-item v-if="logged_in" href="#">
+          <b-nav-item v-if="logged_in" to="/search/">
             <span class="oi oi-magnifying-glass" aria-hidden="true"></span>
             {{ $t("message.Search") }}
           </b-nav-item>

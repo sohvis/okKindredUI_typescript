@@ -221,5 +221,8 @@ export const polish = {
 
       ClickToEdit: `Kliknij aby edytowac`,
       UploadNewPhoto: `Prześlij nowe zdjęcie`,
+
+      // Search
+      SearchName: `Szukaj`,
     },
 };

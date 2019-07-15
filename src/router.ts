@@ -4,8 +4,8 @@ import Home from './views/Home.vue';
 import Login from './views/accounts/Login.vue';
 import About from './views/About.vue';
 import Family from './views/Family.vue';
-import FamilyMapView from './views/FamilyMapView.vue';
-import FamilyTreeView from './views/FamilyTreeView.vue';
+import Search from './views/Search.vue';
+
 
 Vue.use(Router);
 
@@ -20,6 +20,11 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home,
+    },
+    {
+      path: '/search/',
+      name: 'Search',
+      component: Search,
     },
     {
       path: '/about',
