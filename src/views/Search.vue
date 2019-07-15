@@ -48,9 +48,9 @@ export default class Search extends Vue {
 
     public people: Person[] = [];
 
-    private timeOutHandle: any;
-
     public loadingResults: boolean = false;
+
+    private timeOutHandle: any;
 
     protected mounted() {
         window.console.log('Searchbox.vue mounted() call');
@@ -97,7 +97,7 @@ export default class Search extends Vue {
             }
 
             this.people = result;
-        } catch(ex) {
+        } catch (ex) {
             store.commit('setErrorMessage', ex);
         }
 
