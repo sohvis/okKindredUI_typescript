@@ -10,6 +10,7 @@ export const configs = {
     RelationAPI: '/api/relation/',
     InviteEmailAPI: '/api/invite_email/',
     ImageAPI: '/api/image/',
+    PasswordResetAPI: '/api/reset-password/',
 
     MapboxToken: 'pk.eyJ1Ijoib2traW5kcmVkIiwiYSI6Ild2MnY5dDQifQ.EHr6blIYPYeg4bWmSStT-g',
     TinyMceApiToken: 'enx50wn3zw6ekck6y0dsoz784z5mo5c936go697ncer7lpzb',

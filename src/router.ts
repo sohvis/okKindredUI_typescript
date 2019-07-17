@@ -5,6 +5,8 @@ import Login from './views/accounts/Login.vue';
 import About from './views/About.vue';
 import Family from './views/Family.vue';
 import Search from './views/Search.vue';
+import PasswordReset from './views/accounts/PasswordReset.vue'
+import PasswordResetConfirmation from './views/accounts/PasswordResetConfirmation.vue'
 
 
 Vue.use(Router);
@@ -35,6 +37,17 @@ export default new Router({
       path: '/accounts/login/',
       name: 'Login',
       component: Login,
+    },
+    {
+      path: '/accounts/password_reset/',
+      name: 'PasswordReset',
+      component: PasswordReset,
+    },
+    {
+      path: '/accounts/password_reset_confirmation:token',
+      name: 'PasswordResetConfirmation',
+      component: PasswordResetConfirmation,
+      props: true,
     },
   ],
 });

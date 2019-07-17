@@ -13,9 +13,8 @@
         <div class="alert alert-danger" v-show="loginInvalid">{{ $t("message.InvalidLogin") }}</div>
         <button class="btn btn-lg btn-primary btn-block" type="submit">{{ $t("message.SignIn") }}</button>
 
-        <a href="#">{{ $t("message.IForgotMyPassword") }}</a>
-        
-        
+        <router-link to="/accounts/password_reset/">{{ $t("message.IForgotMyPassword") }}</router-link>
+
     </form>
   </div>
 </template>

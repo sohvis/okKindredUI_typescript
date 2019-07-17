@@ -3,7 +3,7 @@
     <div class="container">
       <b-alert 
         class="alert-position"
-        v-model="showDismissibleAlert" 
+        v-bind="showDismissibleAlert" 
         variant="danger" 
         dismissible
         @dismissed="onDismissed">
