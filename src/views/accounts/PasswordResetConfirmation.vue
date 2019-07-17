@@ -11,8 +11,8 @@
             <input type="password" class="form-control" v-model="password" required>
         </div>
         <div class="form-group">
-            <label for="password">{{ $t("message.PasswordConfirmation") }}</label>
-            <input type="password2" class="form-control" v-model="password2" required>
+            <label for="password2">{{ $t("message.PasswordConfirmation") }}</label>
+            <input type="password" class="form-control" v-model="password2" required>
         </div>
 
         <div class="alert alert-danger" v-show="passwordsNotMatching">{{ $t("message.PasswordsNotMatching") }}</div>
@@ -33,8 +33,7 @@ import { configs } from '../../config';
 @Component
 export default class PasswordResetConfirmation extends Vue {
 
-    @Prop({default: ''})
-    public token?: string;
+    public token: string = '';
 
     public password: string = '';
 
@@ -42,10 +41,23 @@ export default class PasswordResetConfirmation extends Vue {
 
     public passwordsNotMatching: boolean = false;
 
-    public async OnSubmit() {
+    protected mounted() {
+
+        try {
+            // Get token from get parameter
+            window.console.log(this.$route.query.token);
+            this.token = this.$route.query.token as string;
+
+        } catch {
+            window.console.log(`no token specified, redirecting to login screen`);
+            this.$router.push('/accounts/login/');
+        }
+    }
+
+    private async OnSubmit() {
         window.console.log(`PasswordResetConfirmation.OnSubmit()`);
 
-        if (this.password != this.password2) {
+        if (this.password !== this.password2) {
             this.passwordsNotMatching = true;
             return;
         }
@@ -54,10 +66,10 @@ export default class PasswordResetConfirmation extends Vue {
         try {
             const textbox = document.getElementById('search-box') as HTMLInputElement;
             const options = {
-                uri: `${configs.BaseApiUrl}${configs.PasswordResetAPI}/confirm/`,
+                uri: `${configs.BaseApiUrl}${configs.PasswordResetAPI}confirm/`,
                 body: {
                     password: this.password,
-                    token: this.token
+                    token: this.token,
                 },
                 json: true,
             };
@@ -68,7 +80,7 @@ export default class PasswordResetConfirmation extends Vue {
         } catch (ex) {
             store.commit('setErrorMessage', ex);
         }
-        
+
         store.commit('updateLoading', false);
     }
 }

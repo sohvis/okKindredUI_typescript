@@ -54,7 +54,7 @@ export default class PasswordReset extends Vue {
         } catch (ex) {
             store.commit('setErrorMessage', ex);
         }
-        
+
         store.commit('updateLoading', false);
     }
 }
