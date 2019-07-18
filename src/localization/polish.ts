@@ -224,5 +224,19 @@ export const polish = {
 
       // Search
       SearchName: `Szukaj`,
+
+      // Password reset
+      PasswordReset: `Zresetowanie Hasła`,
+      PasswordResetDescription: `Wprowadź swój adres e-mail, aby rozpocząć proces resetowania hasła:`,
+      ResetMyPassword: `Zresetować moje Hasło`,
+      PasswordResetRequested: `Zażądano Zresetowania Hasła`,
+      CheckYourEmailForReset: `Sprawdź swój e-mail, aby uzyskać dalsze instrukcje.`,
+
+      // Password Reset Confirmation
+      PasswordResetConfirmation: `Potwierdzenie Resetowania Hasła`,
+      PasswordResetConfirmationDescription: `Wprowadź nowe hasło`,
+      PasswordConfirmation: `Potwierdź nowe hasło`,
+      PasswordsNotMatching: `Hasła nie pasują do siebie`,
+      UpdateMyPassword: 'Zaktualizuj moje Hasło',
     },
 };

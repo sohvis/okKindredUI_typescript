@@ -194,5 +194,19 @@ export const simplifiedChinese = {
 
       // Search
       SearchName: `搜索名称`,
+
+      // Password reset
+      PasswordReset: `重设密码`,
+      PasswordResetDescription: `请输入您的电子邮件以开始重置密码的过程：`,
+      ResetMyPassword: `重置我的密码`,
+      PasswordResetRequested: `请求密码重置`,
+      CheckYourEmailForReset: `请查看您的电子邮件以获取更多说明`,
+
+      // Password Reset Confirmation
+      PasswordResetConfirmation: `密码重置确认`,
+      PasswordResetConfirmationDescription: `请输入您的新密码`,
+      PasswordConfirmation: `确认您的新密码`,
+      PasswordsNotMatching: `密码不匹配`,
+      UpdateMyPassword: `更新我的密码`,
     },
 };

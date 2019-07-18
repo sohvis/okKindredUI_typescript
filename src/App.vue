@@ -28,7 +28,7 @@
             <span class="oi oi-info" aria-hidden="true"></span>
             {{ $t("message.About") }}
           </b-nav-item>
-          <b-nav-item v-if="logged_in" href="#">
+          <b-nav-item v-if="logged_in" to="/accounts/settings/">
               <span class="oi oi-cog" aria-hidden="true"></span>
               {{ $t("message.Settings") }}
           </b-nav-item>

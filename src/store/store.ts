@@ -3,6 +3,7 @@ import Vuex from 'vuex';
 import { configs } from '../config';
 import * as request from 'request-promise-native';
 import { localeMatch } from '../localization/localization';
+import { i18n } from '../main';
 
 Vue.use(Vuex);
 
@@ -66,6 +67,7 @@ export default new Vuex.Store({
         state.logged_in = true;
         state.person_id = payload.person_id;
         state.users_person_id = payload.person_id;
+        i18n.locale = state.language;
     },
 
     logout: (state) => {
@@ -74,6 +76,12 @@ export default new Vuex.Store({
         state.logged_in = false;
         state.person_id = '0';
         state.users_person_id = '0';
+    },
+
+    changeLanguage:(state, newLanguage) => {
+        const value = newLanguage.replace('-','_');
+        state.language = value;
+        i18n.locale = value;
     },
 
     // Sets the person on which app is focused on
@@ -165,6 +173,8 @@ export default new Vuex.Store({
 
             window.console.log(`access token: ${context.state.access_token}`);
             window.console.log(context.state);
+
+            i18n.locale = context.state.language;
             resolve();
         });
     },

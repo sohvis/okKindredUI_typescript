@@ -55,13 +55,23 @@ export default class Search extends Vue {
     protected mounted() {
         window.console.log('Searchbox.vue mounted() call');
 
-        const textbox = document.getElementById('search-box') as HTMLInputElement;
-        if (textbox) {
-            setTimeout(() => {
-                textbox.focus();
-                textbox.select();
-            }, 100);
-        }
+        store.dispatch('restoreSession')
+          .then(async (loggedIn) => {
+
+          if (loggedIn) {
+            const textbox = document.getElementById('search-box') as HTMLInputElement;
+            if (textbox) {
+                setTimeout(() => {
+                    textbox.focus();
+                    textbox.select();
+                }, 100);
+            }
+          } else {
+            this.$router.push('/accounts/login/');
+          }
+
+        });
+
     }
 
     private async onChange() {

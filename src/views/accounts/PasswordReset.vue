@@ -4,8 +4,8 @@
         v-if="!submitted"
         role="form" 
         v-on:submit.prevent="OnSubmit()">
-        <h2>{{ $t("message.ForgottenPassword") }}</h2>
-        <p>{{ $t("message.ForgottenPasswordDescription") }}</p>
+        <h2>{{ $t("message.PasswordReset") }}</h2>
+        <p>{{ $t("message.PasswordResetDescription") }}</p>
         <div class="form-group form-password-reset">
             <label for="username">{{ $t("message.EmailAddress") }}</label>
             <input type="email" id="username" name="username" class="form-control" v-model="email" required autofocus>

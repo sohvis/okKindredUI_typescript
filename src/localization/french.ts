@@ -214,5 +214,19 @@ export const french = {
 
       // Search
       SearchName: `Recherche Nom`,
+
+      // Password reset
+      PasswordReset: `Réinitialisation du Mot de Passe`,
+      PasswordResetDescription: `Veuillez entrer votre email pour lancer le processus de réinitialisation de votre mot de passe:`,
+      ResetMyPassword: `Réinitialiser`,
+      PasswordResetRequested: `Mot de Passe Réinitialisation Demandé`,
+      CheckYourEmailForReset: `S'il vous plaît vérifier votre email pour plus d'instructions.`,
+
+      // Password Reset Confirmation
+      PasswordResetConfirmation: `Confirmation de Réinitialisation du Mot de Passe`,
+      PasswordResetConfirmationDescription: `Please enter your new password`,
+      PasswordConfirmation: `Veuillez entrer votre nouveau mot de passe`,
+      PasswordsNotMatching: `Les mots de passe ne correspondent pas`,
+      UpdateMyPassword: 'Réviser mon mot de passe',
     },
 };

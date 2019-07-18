@@ -5,7 +5,7 @@ import { french } from './french';
 import { traditionalChinese } from './traditional_chinese';
 import { simplifiedChinese } from './simplified_chinese';
 
-export const localeStrings = {
+export const localeStrings: { [id: string]: string; } = {
     en: 'English',
     zh_tw: '繁體中文',
     zh_cn: '简体中文',

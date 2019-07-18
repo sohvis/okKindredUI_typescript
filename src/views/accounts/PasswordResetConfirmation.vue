@@ -17,7 +17,7 @@
 
         <div class="alert alert-danger" v-show="passwordsNotMatching">{{ $t("message.PasswordsNotMatching") }}</div>
 
-        <b-button type="submit" variant="primary">{{ $t("message.ResetMyPassword") }}</b-button>
+        <b-button type="submit" variant="primary">{{ $t("message.UpdateMyPassword") }}</b-button>
 
     </form>
 

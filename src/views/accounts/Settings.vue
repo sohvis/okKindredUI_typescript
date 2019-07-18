@@ -1,0 +1,93 @@
+<template>
+<div class="container">
+    <b-card no-body>
+        <b-tabs card justified>
+            <b-tab @click="userSettingsInit()" active>
+                <template slot="title">
+                    <span class="oi oi-wrench" aria-hidden="true"></span>
+                    {{ $t('message.UserSettings') }}
+                </template>
+                <b-card-text>
+                    <UserSettings ref="userSettings" />
+                </b-card-text>
+            </b-tab>
+            <b-tab @click="changePasswordInit()">
+                <template slot="title">
+                    <span class="oi oi-key" aria-hidden="true"></span>
+                    {{ $t('message.ChangePassword') }}
+                </template>
+                <b-card-text>
+                    lorem ipsum change password
+                </b-card-text>
+            </b-tab>
+            <b-tab @click="leaveInit()">
+                <template slot="title">
+                    <span class="oi oi-warning" aria-hidden="true"></span>
+                    {{ $t('message.LeaveokKindred') }}
+                </template>
+                <b-card-text>
+                    lorem ipsum leave ok!Kindred
+                </b-card-text>
+            </b-tab>
+        </b-tabs>
+    </b-card>
+</div>
+</template>
+
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
+import UserSettings from '../../components/settings/UserSettings.vue';
+import store from '../../store/store';
+
+@Component({
+  components: {
+    UserSettings,
+  },
+})
+export default class Settings extends Vue {
+
+    public state:  string = 'usersettings';
+
+    protected async mounted() {
+        window.console.log(`Settings.mounted()`);
+
+        store.dispatch('restoreSession')
+          .then(async (loggedIn) => {
+
+          if (loggedIn) {
+            const userSettings = this.$refs.userSettings as UserSettings;
+            await userSettings.initialize();
+          } else {
+            this.$router.push('/accounts/login/');
+          }
+          
+        });
+    }
+
+    public userSettingsInit() {
+        window.console.log(`Settings.userSettingsInit()`);
+
+        this.state = 'usersettings';
+        const userSettings = this.$refs.userSettings as UserSettings;
+        if (userSettings) {
+            setTimeout(async () => await userSettings.initialize(), 100);
+        }
+    }
+
+    public changePasswordInit() {
+        window.console.log(`Settings.changePasswordInit()`);
+
+        this.state = 'changePassword';
+    }
+
+    public leaveInit() {
+        window.console.log(`Settings.leaveInit()`);
+
+        this.state = 'leave';
+    }
+}
+</script>
+
+<style scoped>
+
+</style>

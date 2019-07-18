@@ -156,5 +156,19 @@ export const finnish = {
 
       // Search
       SearchName: `Haku Name`,
+
+      // Password reset
+      PasswordReset: `Salasanan Nollaus`,
+      PasswordResetDescription: `Anna sähköpostiosoitteesi salasanan palauttamisen aloittamiseksi:`,
+      ResetMyPassword: `Nollaa Salasanani`,
+      PasswordResetRequested: `Salasanan palautus pyydetty`,
+      CheckYourEmailForReset: `Tarkista sähköpostisi saadaksesi lisätietoja.`,
+
+      // Password Reset Confirmation
+      PasswordResetConfirmation: `Salasanan Palautuksen Vahvistus`,
+      PasswordResetConfirmationDescription: `Anna uusi salasana`,
+      PasswordConfirmation: `Vahvista uusi salasana`,
+      PasswordsNotMatching: `Salasanat eivät täsmää`,
+      UpdateMyPassword: 'Päivitä Salasanani',
     },
 };

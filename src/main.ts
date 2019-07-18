@@ -23,7 +23,7 @@ Vue.use(vueLocalStorage);
 
 
 // Create VueI18n instance with options
-const i18n = new VueI18n({
+export const i18n = new VueI18n({
   locale: store.getters.language, // set locale
   messages, // set locale messages
 });

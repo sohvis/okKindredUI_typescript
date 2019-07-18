@@ -151,5 +151,20 @@ export const english = {
 
       // Search
       SearchName: `Search Name`,
+
+      // Password reset
+      PasswordReset: `Password Reset`,
+      PasswordResetDescription: `Please enter your email to start the process to reset your password:`,
+      ResetMyPassword: `Reset my Password`,
+      PasswordResetRequested: `Password Reset Requested`,
+      CheckYourEmailForReset: `Please check your email for further instructions.`,
+
+      // Password Reset Confirmation
+      PasswordResetConfirmation: `Password Reset Confirmation`,
+      PasswordResetConfirmationDescription: `Please enter your new password`,
+      PasswordConfirmation: `Confirm your new password`,
+      PasswordsNotMatching: `Passwords do not match`,
+      UpdateMyPassword: 'Update my Password',
+
     },
 };

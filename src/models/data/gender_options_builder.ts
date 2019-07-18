@@ -1,5 +1,5 @@
 import { Vue } from 'vue-property-decorator';
-import GenderOption from './gender_option';
+import SelectOption from './select_option';
 
 export default class GenderOptionsBuilder {
     public static FEMALE = 'F';
@@ -15,11 +15,11 @@ export default class GenderOptionsBuilder {
         this.localisedGendersByKey[GenderOptionsBuilder.OTHER] = v.$t('message.Other').toString();
     }
 
-    public createDropDownOptions(): GenderOption[] {
-        const options = new Array<GenderOption>();
+    public createDropDownOptions(): SelectOption[] {
+        const options = new Array<SelectOption>();
 
         Object.keys(this.localisedGendersByKey).forEach((key) => {
-            options.push(new GenderOption(key, this.localisedGendersByKey[key]));
+            options.push(new SelectOption(key, this.localisedGendersByKey[key]));
         });
 
         return options;

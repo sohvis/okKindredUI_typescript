@@ -1,4 +1,4 @@
-export default class GenderOption {
+export default class SelectOption {
     public value: string;
     public text: string;
 

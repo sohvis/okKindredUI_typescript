@@ -21,7 +21,7 @@ import configs from '../../config';
 import { setTimeout } from 'timers';
 import * as request from 'request-promise-native';
 import GenderOptionsBuilder from '../../models/data/gender_options_builder';
-import GenderOption from '../../models/data/gender_option';
+import SelectOption from '../../models/data/select_option';
 import ProfileEmitArgs from '../../models/profile_emit_args';
 import { Dictionary } from 'vuex';
 
@@ -39,7 +39,7 @@ export default class GenderDropDown extends Vue {
   @Prop({default: ''})
   public value?: string;
 
-  public options: GenderOption[] = [];
+  public options: SelectOption[] = [];
 
   public genderDisplayByValue: { [id: string]: string; } = {};
 

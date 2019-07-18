@@ -7,6 +7,7 @@ import Family from './views/Family.vue';
 import Search from './views/Search.vue';
 import PasswordReset from './views/accounts/PasswordReset.vue';
 import PasswordResetConfirmation from './views/accounts/PasswordResetConfirmation.vue';
+import Settings from './views/accounts/Settings.vue';
 
 
 Vue.use(Router);
@@ -47,6 +48,11 @@ export default new Router({
       path: '/accounts/password_reset_confirmation/',
       name: 'PasswordResetConfirmation',
       component: PasswordResetConfirmation,
+    },
+    {
+      path: '/accounts/settings/',
+      name: 'Settings',
+      component: Settings,
     },
   ],
 });

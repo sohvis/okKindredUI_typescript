@@ -192,5 +192,19 @@ export const traditionalChinese = {
 
       // Search
       SearchName: `搜索名稱`,
+
+      // Password reset
+      PasswordReset: `重設密碼`,
+      PasswordResetDescription: `請輸入您的電子郵件以開始重置密碼的過程：`,
+      ResetMyPassword: `重置我的密碼`,
+      PasswordResetRequested: `請求密碼重置`,
+      CheckYourEmailForReset: `請查看您的電子郵件以獲取更多說明`,
+
+      // Password Reset Confirmation
+      PasswordResetConfirmation: `密碼重置確認`,
+      PasswordResetConfirmationDescription: `請輸入您的新密碼`,
+      PasswordConfirmation: `確認您的新密碼`,
+      PasswordsNotMatching: `密碼不匹配`,
+      UpdateMyPassword: '更新我的密碼',
     },
 };
