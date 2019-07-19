@@ -7,20 +7,20 @@ import { simplifiedChinese } from './simplified_chinese';
 
 export const localeStrings: { [id: string]: string; } = {
     en: 'English',
-    zh_tw: '繁體中文',
-    zh_cn: '简体中文',
+    fr: 'Français',
     pl: 'Polski',
     fi: 'Suomalainen',
-    fr: 'Français',
+    zh_cn: '简体中文',
+    zh_tw: '繁體中文',
 };
 
 export const messages = {
     en: english,
-    zh_tw: traditionalChinese,
-    zh_cn: simplifiedChinese,
-    pl: polish,
     fi: finnish,
     fr: french,
+    pl: polish,
+    zh_tw: traditionalChinese,
+    zh_cn: simplifiedChinese,
 };
 
 

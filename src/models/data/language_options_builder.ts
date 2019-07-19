@@ -1,6 +1,6 @@
 import { Vue } from 'vue-property-decorator';
 import SelectOption from './select_option';
-import { localeStrings } from '../../localization/localization'
+import { localeStrings } from '../../localization/localization';
 
 export default class LanguageOptionsBuilder {
 

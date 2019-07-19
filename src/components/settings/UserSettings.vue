@@ -5,7 +5,7 @@
     <b-form>
 
         <b-form-group
-            :label="$t('message.Language')"
+            :label="$t('message.LanguageLabel')"
             label-for="language">
 
             <b-form-select 
@@ -31,13 +31,17 @@
                 name="check-button" 
                 switch
                 @change="onChange">
-            {{ $t('message.ReceivePhotoEmailUpdates') }}
+            {{ $t('message.ReceivePhotoTaggingEmailUpdates') }}
             </b-form-checkbox>
         </b-form-group>
 
         <p class="spinner-container">
             <b-spinner v-show="saving"></b-spinner>
-            <span v-show="saved" class="saved-message">{{ $t('message.Saved') }}</span>
+
+            <span v-show="saved" class="saved-message">
+                <span class="oi oi-check" aria-hidden="true"></span>
+                {{ $t('message.UserSettingsSaved') }}
+            </span>
         </p>
     </b-form>
   </div>
@@ -59,7 +63,7 @@ export default class UserSettings extends Vue {
         language: 'en',
         receive_update_emails: false,
         receive_photo_update_emails: false,
-        date_joined: new Date(1900, 1, 1)
+        date_joined: new Date(1900, 1, 1),
     };
 
     public languageOptions: SelectOption[] = [];
@@ -69,12 +73,6 @@ export default class UserSettings extends Vue {
     public saved: boolean = false;
 
     private timeOutHandle: any;
-
-    protected async mounted() {
-        window.console.log(`UserSettings.mounted()`);
-
-        this.languageOptions = LanguageOptionsBuilder.createDropDownOptions();
-    }
 
     public async initialize() {
         window.console.log(`UserSettings.initialize()`);
@@ -105,10 +103,15 @@ export default class UserSettings extends Vue {
     }
 
     public async onLanguageChange() {
+
+        store.commit('updateLoading', true);
         await this.save();
 
         // Change language in UI
-        store.commit('changeLanguage', this.userProperties.language);
+        store.dispatch('changeLanguage', this.userProperties.language)
+        .finally(() => {
+            store.commit('updateLoading', false);
+        });
     }
 
     public onChange() {
@@ -151,6 +154,12 @@ export default class UserSettings extends Vue {
 
         this.saving = false;
 
+    }
+
+    protected async mounted() {
+        window.console.log(`UserSettings.mounted()`);
+
+        this.languageOptions = LanguageOptionsBuilder.createDropDownOptions();
     }
 }
 </script>

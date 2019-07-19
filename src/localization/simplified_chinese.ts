@@ -208,5 +208,16 @@ export const simplifiedChinese = {
       PasswordConfirmation: `确认您的新密码`,
       PasswordsNotMatching: `密码不匹配`,
       UpdateMyPassword: `更新我的密码`,
+
+      // Settings
+      UserSettings: `用户设置`,
+      ChangePassword: `更改密码`,
+      LeaveokKindred: `退出 ok！Kindred`,
+
+      // User Settings
+      LanguageLabel: `语言:`,
+      ReceiveFamilyEmailUpdates: `在更新家庭信息时接收电子邮件通知`,
+      ReceivePhotoTaggingEmailUpdates: '在照片中标记时接收电子邮件通知',
+      UserSettingsSaved: `用户设置已保存`,
     },
 };

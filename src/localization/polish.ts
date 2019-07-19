@@ -238,5 +238,16 @@ export const polish = {
       PasswordConfirmation: `Potwierdź nowe hasło`,
       PasswordsNotMatching: `Hasła nie pasują do siebie`,
       UpdateMyPassword: 'Zaktualizuj moje Hasło',
+
+      // Settings
+      UserSettings: `Ustawienia Użytkownika`,
+      ChangePassword: `Zmień Hasło`,
+      LeaveokKindred: `Zamknij ok!Kindred`,
+
+      // User Settings
+      LanguageLabel: `Język:`,
+      ReceiveFamilyEmailUpdates: `Otrzymuj powiadomienia e-mail, gdy informacje o rodzinie zostaną zaktualizowane`,
+      ReceivePhotoTaggingEmailUpdates: 'Otrzymuj powiadomienia e-mail, gdy jesteś oznaczony na zdjęciach',
+      UserSettingsSaved: `Zapisane Ustawienia Użytkownika`,
     },
 };

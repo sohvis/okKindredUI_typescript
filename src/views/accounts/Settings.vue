@@ -46,23 +46,7 @@ import store from '../../store/store';
 })
 export default class Settings extends Vue {
 
-    public state:  string = 'usersettings';
-
-    protected async mounted() {
-        window.console.log(`Settings.mounted()`);
-
-        store.dispatch('restoreSession')
-          .then(async (loggedIn) => {
-
-          if (loggedIn) {
-            const userSettings = this.$refs.userSettings as UserSettings;
-            await userSettings.initialize();
-          } else {
-            this.$router.push('/accounts/login/');
-          }
-          
-        });
-    }
+    public state: string = 'usersettings';
 
     public userSettingsInit() {
         window.console.log(`Settings.userSettingsInit()`);
@@ -84,6 +68,22 @@ export default class Settings extends Vue {
         window.console.log(`Settings.leaveInit()`);
 
         this.state = 'leave';
+    }
+
+    protected async mounted() {
+        window.console.log(`Settings.mounted()`);
+
+        store.dispatch('restoreSession')
+          .then(async (loggedIn) => {
+
+          if (loggedIn) {
+            const userSettings = this.$refs.userSettings as UserSettings;
+            await userSettings.initialize();
+          } else {
+            this.$router.push('/accounts/login/');
+          }
+
+        });
     }
 }
 </script>

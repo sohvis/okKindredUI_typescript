@@ -228,5 +228,16 @@ export const french = {
       PasswordConfirmation: `Veuillez entrer votre nouveau mot de passe`,
       PasswordsNotMatching: `Les mots de passe ne correspondent pas`,
       UpdateMyPassword: 'Réviser mon mot de passe',
+
+      // Settings
+      UserSettings: `Paramètres Utilisateur`,
+      ChangePassword: `Changer le Mot de Passe`,
+      LeaveokKindred: `Quitter ok!Kindred`,
+
+      // User Settings
+      LanguageLabel: `Langage:`,
+      ReceiveFamilyEmailUpdates: `Recevoir des notifications par email lorsque les informations sur la famille sont mises à jour`,
+      ReceivePhotoTaggingEmailUpdates: 'Recevoir des notifications par e-mail lorsque vous êtes identifié sur des photos',
+      UserSettingsSaved: `Paramètres Utilisateur Enregistrés`,
     },
 };

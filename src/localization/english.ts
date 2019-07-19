@@ -166,5 +166,15 @@ export const english = {
       PasswordsNotMatching: `Passwords do not match`,
       UpdateMyPassword: 'Update my Password',
 
+      // Settings
+      UserSettings: `User Settings`,
+      ChangePassword: `Change Password`,
+      LeaveokKindred: `Leave ok!Kindred`,
+
+      // User Settings
+      LanguageLabel: `Language:`,
+      ReceiveFamilyEmailUpdates: `Receive email notifications when family information gets updated`,
+      ReceivePhotoTaggingEmailUpdates: 'Receive email notifications when you are tagged in photos',
+      UserSettingsSaved: `User Settings Saved`,
     },
 };

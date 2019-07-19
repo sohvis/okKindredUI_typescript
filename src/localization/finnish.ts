@@ -170,5 +170,16 @@ export const finnish = {
       PasswordConfirmation: `Vahvista uusi salasana`,
       PasswordsNotMatching: `Salasanat eivät täsmää`,
       UpdateMyPassword: 'Päivitä Salasanani',
+
+      // Settings
+      UserSettings: `Käyttäjäasetukset`,
+      ChangePassword: `Vaihda Salasana`,
+      LeaveokKindred: `Jätä ok!Kindred`,
+
+      // User Settings
+      LanguageLabel: `Kieli:`,
+      ReceiveFamilyEmailUpdates: `Vastaanota sähköpostiviestejä, kun perheen tietoja päivitetään`,
+      ReceivePhotoTaggingEmailUpdates: 'Vastaanota sähköpostiviestejä, kun olet merkitty valokuviin',
+      UserSettingsSaved: `Käyttäjän Asetukset Tallennettu`,
     },
 };

@@ -67,7 +67,10 @@ export default new Vuex.Store({
         state.logged_in = true;
         state.person_id = payload.person_id;
         state.users_person_id = payload.person_id;
-        i18n.locale = state.language;
+
+        if (i18n.locale !== state.language) {
+            i18n.locale = state.language;
+        }
     },
 
     logout: (state) => {
@@ -78,10 +81,13 @@ export default new Vuex.Store({
         state.users_person_id = '0';
     },
 
-    changeLanguage:(state, newLanguage) => {
-        const value = newLanguage.replace('-','_');
-        state.language = value;
-        i18n.locale = value;
+    changeLanguage: (state, newLanguage) => {
+        state.language = newLanguage;
+
+        // Cause language switch in UI
+        if (i18n.locale !== newLanguage) {
+            i18n.locale = newLanguage;
+        }
     },
 
     // Sets the person on which app is focused on
@@ -101,7 +107,19 @@ export default new Vuex.Store({
         state.debug_message = message;
     },
   },
+
   actions: {
+    changeLanguage: (context, payload) => {
+        window.console.log(`changeLanguage called new language: ${payload}`);
+
+        const value = payload.replace('-', '_');
+        context.commit('changeLanguage', value);
+
+        return new Promise((resolve) => {
+            window.localStorage.setItem('language', value);
+            resolve();
+        });
+    },
 
     changePerson: (context, payload) => {
         window.console.log(`changePerson called new person id: ${payload}`);
@@ -174,7 +192,10 @@ export default new Vuex.Store({
             window.console.log(`access token: ${context.state.access_token}`);
             window.console.log(context.state);
 
-            i18n.locale = context.state.language;
+            if (i18n.locale !== context.state.language) {
+                i18n.locale = context.state.language;
+            }
+
             resolve();
         });
     },

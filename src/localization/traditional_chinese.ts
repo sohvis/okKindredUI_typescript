@@ -206,5 +206,16 @@ export const traditionalChinese = {
       PasswordConfirmation: `確認您的新密碼`,
       PasswordsNotMatching: `密碼不匹配`,
       UpdateMyPassword: '更新我的密碼',
+
+      // Settings
+      UserSettings: `用戶設置`,
+      ChangePassword: `更改密碼`,
+      LeaveokKindred: `退出 ok！Kindred`,
+
+      // User Settings
+      LanguageLabel: `語言:`,
+      ReceiveFamilyEmailUpdates: `在更新家庭信息時接收電子郵件通知`,
+      ReceivePhotoTaggingEmailUpdates: '在照片中標記時接收電子郵件通知',
+      UserSettingsSaved: `用戶設置已保存`,
     },
 };
