@@ -7,6 +7,12 @@ export const english = {
       Edit: `Edit`,
       Done: `Done`,
 
+      PasswordBreach1: `This password is unsafe!`,
+      PasswordBreach2: `It has been used in other sites which have had privacy breaches and should be 
+      changed to keep your ok!Kindred account secure`, 
+      PasswordBreach3: `Please change your password by going to `,
+      ForMoreInformation: `For more information:`,
+
       // Navbar & Menus
       Family: `Family`,
       Tree: 'Tree',

@@ -1,13 +1,29 @@
 <template>
-  <div class="error-overlay">
+  <div class="error-overlay" v-show="true">
     <div class="container">
-      <b-alert 
-        class="alert-position"
-        v-bind="showDismissibleAlert" 
-        variant="danger" 
-        dismissible
-        @dismissed="onDismissed">
+      <b-alert class="alert-position"
+          variant="danger" 
+          dismissible
+          @dismissed="onDismissed"
+          v-model="showStandardError">
         {{ errorMessage }}
+      </b-alert>
+
+      <b-alert class="alert-position"
+          variant="danger" 
+          dismissible
+          @dismissed="onDismissed"
+          v-model="showPasswordBreach">
+        <strong>{{ $t('message.PasswordBreach1') }}</strong>
+        <div>{{ $t('message.PasswordBreach2') }}</div>
+        <div>
+          {{ $t('message.PasswordBreach3') }}
+          <router-link to="/accounts/change_password/">{{ $t("message.Settings") }}</router-link>
+        </div>
+        <div>
+          {{ $t('message.ForMoreInformation') }}
+          <a href="https://haveibeenpwned.com/Passwords">https://haveibeenpwned.com/Passwords</a>
+        </div>
       </b-alert>
     </div>
   </div>
@@ -21,15 +37,28 @@ import store from '../../store/store';
 @Component({})
 export default class ErrorModal extends Vue {
 
-  @Prop({default: ''})
-  public errorMessage!: string;
+  // Special errors
+  static passwordBreached = "passwordBreached";
 
-  get showDismissibleAlert() {
-    if (this.errorMessage) {
-      return this.errorMessage.length > 0;
+  public specialErrors: string[] = [
+    ErrorModal.passwordBreached,
+  ];
+
+  get errorMessage(): string {
+    return store.state.error_message;
+  }
+
+  get showStandardError() {
+    if (store.state.error_message 
+        && this.specialErrors.indexOf(store.state.error_message) < 0) {
+      return store.state.error_message.length > 0;
     }
 
     return false;
+  }
+
+  get showPasswordBreach() {
+     return store.state.error_message === ErrorModal.passwordBreached;
   }
 
   private onDismissed() {

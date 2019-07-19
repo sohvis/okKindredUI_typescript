@@ -45,7 +45,7 @@
     </b-navbar>
 
     <Loading v-show="loading"/>
-    <ErrorModal v-bind:errorMessage="errorMessage"/>
+    <ErrorModal />
     <router-view/>
 
   </div>
@@ -76,10 +76,6 @@ export default class App extends Vue {
 
   get loading(this: any) {
     return this.$store.getters.loading;
-  }
-
-  get errorMessage(this: any) {
-    return this.$store.state.error_message;
   }
 
   get debugMessage(this: any) {

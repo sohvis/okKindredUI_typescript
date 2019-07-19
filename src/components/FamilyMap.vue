@@ -18,7 +18,7 @@ export default {
   data() {
     return {
       people: [],
-      map: any,
+      map: null,
     };
   },
 

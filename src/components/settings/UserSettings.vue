@@ -88,7 +88,7 @@ export default class UserSettings extends Vue {
 
         try {
             const options = {
-                uri: `${configs.BaseApiUrl}${configs.AccountAPI}`,
+                uri: `${configs.BaseApiUrl}${configs.UserSettingsAPI}`,
                 headers: store.getters.ajaxHeader,
                 json: true,
             };
@@ -138,7 +138,7 @@ export default class UserSettings extends Vue {
 
         try {
             const options = {
-                uri: `${configs.BaseApiUrl}${configs.AccountAPI}`,
+                uri: `${configs.BaseApiUrl}${configs.UserSettingsAPI}`,
                 headers: store.getters.ajaxHeader,
                 body: this.userProperties,
                 json: true,

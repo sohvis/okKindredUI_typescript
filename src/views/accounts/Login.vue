@@ -21,6 +21,9 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import PwnedPasswordChecker from '../../models/pwnedPasswordChecker';
+import store from '../../store/store';
+import ErrorModal from '../../components/common/ErrorModal.vue';
 
 @Component
 export default class Login extends Vue {
@@ -38,7 +41,15 @@ export default class Login extends Vue {
             email: this.loginDetails.email,
             password: this.loginDetails.password,
         })
-        .then(() => {
+        .then(async () => {
+
+            // Check if password is used in a breach
+            const numBreaches = await PwnedPasswordChecker.getNumberOfPasswordBreaches(this.loginDetails.password);
+            if (numBreaches > 0) {
+                window.console.log(`Password breach, numBreaches: ${numBreaches}`);
+                store.commit('setErrorMessage', ErrorModal.passwordBreached);
+            }
+
             this.$router.push('/family/');
         }).catch((error) => {
             window.console.log(error);
