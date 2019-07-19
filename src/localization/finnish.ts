@@ -181,5 +181,12 @@ export const finnish = {
       ReceiveFamilyEmailUpdates: `Vastaanota sähköpostiviestejä, kun perheen tietoja päivitetään`,
       ReceivePhotoTaggingEmailUpdates: 'Vastaanota sähköpostiviestejä, kun olet merkitty valokuviin',
       UserSettingsSaved: `Käyttäjän Asetukset Tallennettu`,
+
+      // Password breach
+      PasswordBreach1: `Tämä salasana ei ole turvallinen!`,
+      PasswordBreach2: `Sitä on käytetty muissa sivustoissa, joissa on rikottu yksityisyyttä ja joiden pitäisi olla
+      muutettu pitämään ok! Kindred -tilisi turvallisena`,
+      PasswordBreach3: `Ole hyvä ja vaihda salasanasi menemällä `,
+      ForMoreInformation: `Lisätietoja:`,
     },
 };

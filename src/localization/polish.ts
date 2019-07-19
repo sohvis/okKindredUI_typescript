@@ -249,5 +249,12 @@ export const polish = {
       ReceiveFamilyEmailUpdates: `Otrzymuj powiadomienia e-mail, gdy informacje o rodzinie zostaną zaktualizowane`,
       ReceivePhotoTaggingEmailUpdates: 'Otrzymuj powiadomienia e-mail, gdy jesteś oznaczony na zdjęciach',
       UserSettingsSaved: `Zapisane Ustawienia Użytkownika`,
+
+      // Password breach
+      PasswordBreach1: `To hasło jest niebezpieczne!`,
+      PasswordBreach2: `Został on wykorzystany w innych witrynach, które miały naruszenia prywatności i powinny być
+      zmienione, aby zapewnić bezpieczeństwo konta ok!Kindred`,
+      PasswordBreach3: `Zmień hasło, przechodząc do `,
+      ForMoreInformation: `Po więcej informacji:`,
     },
 };

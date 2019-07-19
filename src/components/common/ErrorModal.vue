@@ -38,7 +38,7 @@ import store from '../../store/store';
 export default class ErrorModal extends Vue {
 
   // Special errors
-  static passwordBreached = "passwordBreached";
+  public static passwordBreached = 'passwordBreached';
 
   public specialErrors: string[] = [
     ErrorModal.passwordBreached,
@@ -49,7 +49,7 @@ export default class ErrorModal extends Vue {
   }
 
   get showStandardError() {
-    if (store.state.error_message 
+    if (store.state.error_message
         && this.specialErrors.indexOf(store.state.error_message) < 0) {
       return store.state.error_message.length > 0;
     }

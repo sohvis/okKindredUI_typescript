@@ -217,5 +217,12 @@ export const traditionalChinese = {
       ReceiveFamilyEmailUpdates: `在更新家庭信息時接收電子郵件通知`,
       ReceivePhotoTaggingEmailUpdates: '在照片中標記時接收電子郵件通知',
       UserSettingsSaved: `用戶設置已保存`,
+
+      // Password breach
+      PasswordBreach1: `這個密碼不安全！`,
+      PasswordBreach2: `它已被用於其他有隱私洩露的網站，應該是
+      更改為保持您的 ok！Kindred 帳戶安全`,
+      PasswordBreach3: `請轉到，更改密碼 `,
+      ForMoreInformation: `欲獲得更多信息：`,
     },
 };

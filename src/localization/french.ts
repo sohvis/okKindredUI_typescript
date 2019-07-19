@@ -239,5 +239,12 @@ export const french = {
       ReceiveFamilyEmailUpdates: `Recevoir des notifications par email lorsque les informations sur la famille sont mises à jour`,
       ReceivePhotoTaggingEmailUpdates: 'Recevoir des notifications par e-mail lorsque vous êtes identifié sur des photos',
       UserSettingsSaved: `Paramètres Utilisateur Enregistrés`,
+
+      // Password breach
+      PasswordBreach1: `Ce mot de passe n'est pas sécurisé!`,
+      PasswordBreach2: `Il a été utilisé dans d'autres sites qui ont eu des violation de données et devrait être
+      changé pour garder votre compte ok!Kindred sécurisé`,
+      PasswordBreach3: `Veuillez changer votre mot de passe en allant à `,
+      ForMoreInformation: `Pour plus d'informations:`,
     },
 };
