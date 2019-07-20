@@ -4,12 +4,20 @@
         v-if="!submitted"
         role="form" 
         v-on:submit.prevent="OnSubmit()">
-        <h2>{{ $t("message.PasswordResetConfirmation") }}</h2>
-        <p>{{ $t("message.PasswordResetConfirmationDescription") }}</p>
+
+        <h2>{{ $t("message.ChangePassword") }}</h2>
+        <p>{{ $t("message.ChangePasswordDescription") }}</p>
+
         <div class="form-group">
-            <label for="password">{{ $t("message.Password") }}</label>
+            <label for="old_password">{{ $t("message.OldPassword") }}</label>
+            <input type="password" class="form-control" v-model="oldPassword" required>
+        </div>
+
+        <div class="form-group">
+            <label for="password">{{ $t("message.NewPassword") }}</label>
             <input type="password" class="form-control" v-model="password" required>
         </div>
+
         <div class="form-group">
             <label for="password2">{{ $t("message.PasswordConfirmation") }}</label>
             <input type="password" class="form-control" v-model="password2" required>
@@ -26,6 +34,14 @@
 
         <b-button type="submit" :disabled="submitDisabled" variant="primary">{{ $t("message.UpdateMyPassword") }}</b-button>
 
+        <p class="spinner-container">
+            <b-spinner v-show="saving"></b-spinner>
+
+            <span v-show="saved" class="saved-message">
+                <span class="oi oi-check" aria-hidden="true"></span>
+                {{ $t('message.PasswordUpdated') }}
+            </span>
+        </p>
     </form>
 
   </div>
@@ -39,9 +55,9 @@ import { configs } from '../../config';
 import PwnedPasswordChecker from '../../models/pwnedPasswordChecker';
 
 @Component
-export default class PasswordResetConfirmation extends Vue {
+export default class ChangePassword extends Vue {
 
-    public token: string = '';
+    public oldPassword: string = '';
 
     public password: string = '';
 
@@ -50,6 +66,10 @@ export default class PasswordResetConfirmation extends Vue {
     public isPwnedPassword: boolean = false;
 
     get submitDisabled() {
+
+        if (!this.oldPassword || this.oldPassword.length < 5) {
+            return true;
+        }
 
         if (!this.password || this.password.length < 8) {
             return true;
@@ -62,45 +82,36 @@ export default class PasswordResetConfirmation extends Vue {
         return false;
     }
 
-    protected mounted() {
-
-        try {
-            // Get token from get parameter
-            window.console.log(this.$route.query.token);
-            this.token = this.$route.query.token as string;
-
-        } catch {
-            window.console.log(`no token specified, redirecting to login screen`);
-            this.$router.push('/accounts/login/');
-        }
-    }
-
     private async OnSubmit() {
         window.console.log(`PasswordResetConfirmation.OnSubmit()`);
 
-        store.commit('updateLoading', true);
+        // Check for pwned password
         this.isPwnedPassword = false;
+
         const breachCount = await PwnedPasswordChecker.getNumberOfPasswordBreaches(this.password);
         if (breachCount > 0) {
             this.isPwnedPassword = true;
             return;
         }
 
+        store.commit('updateLoading', true);
         try {
             const textbox = document.getElementById('search-box') as HTMLInputElement;
             const options = {
-                uri: `${configs.BaseApiUrl}${configs.PasswordResetAPI}confirm/`,
+                uri: `${configs.BaseApiUrl}${configs.PasswordChangeAPI}`,
+                headers: store.getters.ajaxHeader,
                 body: {
-                    password: this.password,
-                    token: this.token,
+                    old_password: this.oldPassword,
+                    new_password: this.password,
                 },
                 json: true,
             };
 
             const result = await request.post(options);
-            this.$router.push('/accounts/login/');
 
         } catch (ex) {
+
+            // TODO Various error messages based on exception
             store.commit('setErrorMessage', ex);
         }
 

@@ -166,7 +166,7 @@ export const finnish = {
 
       // Password Reset Confirmation
       PasswordResetConfirmation: `Salasanan Palautuksen Vahvistus`,
-      PasswordResetConfirmationDescription: `Anna uusi salasana`,
+      PasswordResetConfirmationDescription: `Anna uusi salasana. Uuden salasanasi on oltava vähintään 8 merkkiä pitkä.`,
       PasswordConfirmation: `Vahvista uusi salasana`,
       PasswordsNotMatching: `Salasanat eivät täsmää`,
       UpdateMyPassword: 'Päivitä Salasanani',
@@ -188,5 +188,11 @@ export const finnish = {
       muutettu pitämään ok! Kindred -tilisi turvallisena`,
       PasswordBreach3: `Ole hyvä ja vaihda salasanasi menemällä `,
       ForMoreInformation: `Lisätietoja:`,
+
+      // Change Password
+      ChangePasswordDescription: `Anna vanha salasana ja luo uusi salasana ja vahvista se. Sinun pitäisi olla uusi salasana
+      oltava vähintään 8 merkkiä pitkä`,
+      OldPassword: `Vanha Salasana`,
+      NewPassword: `Uusi Salasana`,
     },
 };

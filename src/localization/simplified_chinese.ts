@@ -204,7 +204,7 @@ export const simplifiedChinese = {
 
       // Password Reset Confirmation
       PasswordResetConfirmation: `密码重置确认`,
-      PasswordResetConfirmationDescription: `请输入您的新密码`,
+      PasswordResetConfirmationDescription: `请输入您的新密码. 您的新密码至少应为8个字符。`,
       PasswordConfirmation: `确认您的新密码`,
       PasswordsNotMatching: `密码不匹配`,
       UpdateMyPassword: `更新我的密码`,
@@ -226,5 +226,11 @@ export const simplifiedChinese = {
       更改为保持您的 ok！Kindred 帐户安全`,
       PasswordBreach3: `请转到，更改密码`,
       ForMoreInformation: `欲获得更多信息：`,
+
+      // Change Password
+      ChangePasswordDescription: `输入旧密码，然后创建一个新密码并确认。 你的新密码应该
+      至少8个字符`,
+      OldPassword: `旧密码`,
+      NewPassword: `新密码`,
     },
 };

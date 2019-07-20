@@ -234,7 +234,7 @@ export const polish = {
 
       // Password Reset Confirmation
       PasswordResetConfirmation: `Potwierdzenie Resetowania Hasła`,
-      PasswordResetConfirmationDescription: `Wprowadź nowe hasło`,
+      PasswordResetConfirmationDescription: `Wprowadź nowe hasło. Twoje nowe hasło powinno mieć co najmniej 8 znaków.`,
       PasswordConfirmation: `Potwierdź nowe hasło`,
       PasswordsNotMatching: `Hasła nie pasują do siebie`,
       UpdateMyPassword: 'Zaktualizuj moje Hasło',
@@ -256,5 +256,11 @@ export const polish = {
       zmienione, aby zapewnić bezpieczeństwo konta ok!Kindred`,
       PasswordBreach3: `Zmień hasło, przechodząc do `,
       ForMoreInformation: `Po więcej informacji:`,
+
+      // Change Password
+      ChangePasswordDescription: `Wprowadź stare hasło, a następnie utwórz nowe hasło i potwierdź je. Twoje nowe hasło powinno
+      mieć co najmniej 8 znaków`,
+      OldPassword: `Stare Hasło`,
+      NewPassword: `Nowe Hasło`,
     },
 };

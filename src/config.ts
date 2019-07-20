@@ -1,6 +1,6 @@
 export const configs = {
-    // BaseApiUrl: 'https://www.okkindred.com',
-    BaseApiUrl: 'https://justinhui.pythonanywhere.com',
+    BaseApiUrl: 'https://www.okkindred.com',
+    // BaseApiUrl: 'https://justinhui.pythonanywhere.com',
 
     ObtainTokenAPI: '/api/auth/obtain_token/',
     RefreshTokenAPI: '/api/auth/refresh_token/',
@@ -12,6 +12,7 @@ export const configs = {
     ImageAPI: '/api/image/',
     PasswordResetAPI: '/api/reset-password/',
     UserSettingsAPI: '/api/usersettings/',
+    PasswordChangeAPI: '/api/password_change/',
 
     MapboxToken: 'pk.eyJ1Ijoib2traW5kcmVkIiwiYSI6Ild2MnY5dDQifQ.EHr6blIYPYeg4bWmSStT-g',
     TinyMceApiToken: 'enx50wn3zw6ekck6y0dsoz784z5mo5c936go697ncer7lpzb',

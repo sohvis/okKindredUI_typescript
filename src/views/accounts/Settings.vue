@@ -17,7 +17,7 @@
                     {{ $t('message.ChangePassword') }}
                 </template>
                 <b-card-text>
-                    lorem ipsum change password
+                    <ChangePassword ref="changePassword"/>
                 </b-card-text>
             </b-tab>
             <b-tab @click="leaveInit()">
@@ -37,11 +37,13 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import UserSettings from '../../components/settings/UserSettings.vue';
+import ChangePassword from '../../components/settings/ChangePassword.vue';
 import store from '../../store/store';
 
 @Component({
   components: {
     UserSettings,
+    ChangePassword,
   },
 })
 export default class Settings extends Vue {

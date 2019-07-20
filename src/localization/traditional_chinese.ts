@@ -202,7 +202,7 @@ export const traditionalChinese = {
 
       // Password Reset Confirmation
       PasswordResetConfirmation: `密碼重置確認`,
-      PasswordResetConfirmationDescription: `請輸入您的新密碼`,
+      PasswordResetConfirmationDescription: `請輸入您的新密碼. 您的新密碼至少應為8個字符。`,
       PasswordConfirmation: `確認您的新密碼`,
       PasswordsNotMatching: `密碼不匹配`,
       UpdateMyPassword: '更新我的密碼',
@@ -224,5 +224,11 @@ export const traditionalChinese = {
       更改為保持您的 ok！Kindred 帳戶安全`,
       PasswordBreach3: `請轉到，更改密碼 `,
       ForMoreInformation: `欲獲得更多信息：`,
+
+      // Change Password
+      ChangePasswordDescription: `輸入舊密碼，然後創建一個新密碼並確認。 你的新密碼應該
+      至少8個字符`,
+      OldPassword: `舊密碼`,
+      NewPassword: `新密碼`,
     },
 };

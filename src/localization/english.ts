@@ -161,7 +161,7 @@ export const english = {
 
       // Password Reset Confirmation
       PasswordResetConfirmation: `Password Reset Confirmation`,
-      PasswordResetConfirmationDescription: `Please enter your new password`,
+      PasswordResetConfirmationDescription: `Please enter your new password.  Your new password should be at least 8 characters long.`,
       PasswordConfirmation: `Confirm your new password`,
       PasswordsNotMatching: `Passwords do not match`,
       UpdateMyPassword: 'Update my Password',
@@ -183,5 +183,11 @@ export const english = {
       changed to keep your ok!Kindred account secure`,
       PasswordBreach3: `Please change your password by going to `,
       ForMoreInformation: `For more information:`,
+
+      // Change Password
+      ChangePasswordDescription: `Enter your old password, then create a new password and confirm it.  Your new password should
+      be at least 8 characters long`,
+      OldPassword: `Old Password`,
+      NewPassword: `New Password`,
     },
 };

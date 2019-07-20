@@ -225,7 +225,7 @@ export const french = {
       // Password Reset Confirmation
       PasswordResetConfirmation: `Confirmation de Réinitialisation du Mot de Passe`,
       PasswordResetConfirmationDescription: `Please enter your new password`,
-      PasswordConfirmation: `Veuillez entrer votre nouveau mot de passe`,
+      PasswordConfirmation: `Mot de Passe Confirmation.`,
       PasswordsNotMatching: `Les mots de passe ne correspondent pas`,
       UpdateMyPassword: 'Réviser mon mot de passe',
 
@@ -246,5 +246,11 @@ export const french = {
       changé pour garder votre compte ok!Kindred sécurisé`,
       PasswordBreach3: `Veuillez changer votre mot de passe en allant à `,
       ForMoreInformation: `Pour plus d'informations:`,
+
+      // Change Password
+      ChangePasswordDescription: `Entrez votre ancien mot de passe, puis créez un nouveau mot de passe et confirmez-le. Votre nouveau mot de passe devrait
+      être d'au moins 8 caractères`,
+      OldPassword: `Ancien Mot de Passe`,
+      NewPassword: `Nouveau Mot de Passe`,
     },
 };
