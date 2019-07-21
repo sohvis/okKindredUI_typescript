@@ -8,11 +8,11 @@
         <p>{{ $t("message.PasswordResetConfirmationDescription") }}</p>
         <div class="form-group">
             <label for="password">{{ $t("message.Password") }}</label>
-            <input type="password" class="form-control" v-model="password" required>
+            <PasswordBox v-model="password" />
         </div>
         <div class="form-group">
             <label for="password2">{{ $t("message.PasswordConfirmation") }}</label>
-            <input type="password" class="form-control" v-model="password2" required>
+            <PasswordBox v-model="password2" />
         </div>
 
         <div class="alert alert-danger" v-show="isPwnedPassword">
@@ -37,8 +37,13 @@ import { Component, Vue, Prop} from 'vue-property-decorator';
 import store from '../../store/store';
 import { configs } from '../../config';
 import PwnedPasswordChecker from '../../models/pwnedPasswordChecker';
+import PasswordBox from '../../components/common/PasswordBox.vue';
 
-@Component
+@Component({
+  components: {
+    PasswordBox,
+  },
+})
 export default class PasswordResetConfirmation extends Vue {
 
     public token: string = '';
@@ -79,31 +84,32 @@ export default class PasswordResetConfirmation extends Vue {
         window.console.log(`PasswordResetConfirmation.OnSubmit()`);
 
         store.commit('updateLoading', true);
+
         this.isPwnedPassword = false;
         const breachCount = await PwnedPasswordChecker.getNumberOfPasswordBreaches(this.password);
+
         if (breachCount > 0) {
             this.isPwnedPassword = true;
-            return;
+        } else {
+
+            try {
+                const textbox = document.getElementById('search-box') as HTMLInputElement;
+                const options = {
+                    uri: `${configs.BaseApiUrl}${configs.PasswordResetAPI}confirm/`,
+                    body: {
+                        password: this.password,
+                        token: this.token,
+                    },
+                    json: true,
+                };
+
+                const result = await request.post(options);
+                this.$router.push('/accounts/login/');
+
+            } catch (ex) {
+                store.commit('setErrorMessage', ex);
+            }
         }
-
-        try {
-            const textbox = document.getElementById('search-box') as HTMLInputElement;
-            const options = {
-                uri: `${configs.BaseApiUrl}${configs.PasswordResetAPI}confirm/`,
-                body: {
-                    password: this.password,
-                    token: this.token,
-                },
-                json: true,
-            };
-
-            const result = await request.post(options);
-            this.$router.push('/accounts/login/');
-
-        } catch (ex) {
-            store.commit('setErrorMessage', ex);
-        }
-
         store.commit('updateLoading', false);
     }
 }

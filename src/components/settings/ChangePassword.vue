@@ -10,17 +10,17 @@
 
         <div class="form-group">
             <label for="old_password">{{ $t("message.OldPassword") }}</label>
-            <input type="password" class="form-control" v-model="oldPassword" required>
+            <PasswordBox v-model="oldPassword" />
         </div>
 
         <div class="form-group">
             <label for="password">{{ $t("message.NewPassword") }}</label>
-            <input type="password" class="form-control" v-model="password" required>
+            <PasswordBox v-model="password" />
         </div>
 
         <div class="form-group">
             <label for="password2">{{ $t("message.PasswordConfirmation") }}</label>
-            <input type="password" class="form-control" v-model="password2" required>
+            <PasswordBox v-model="password2" />
         </div>
 
         <div class="alert alert-danger" v-show="isPwnedPassword">
@@ -54,7 +54,13 @@ import store from '../../store/store';
 import { configs } from '../../config';
 import PwnedPasswordChecker from '../../models/pwnedPasswordChecker';
 
-@Component
+import PasswordBox from '../../components/common/PasswordBox.vue';
+
+@Component({
+  components: {
+    PasswordBox,
+  },
+})
 export default class ChangePassword extends Vue {
 
     public oldPassword: string = '';

@@ -55,7 +55,6 @@ import ProfileEmitArgs from '../models/profile_emit_args';
     Profile,
   },
 })
-
 export default class Family extends Vue {
     public people: Person[] = [];
     public relations: Relation[] = [];

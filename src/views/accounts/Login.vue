@@ -8,7 +8,7 @@
         </div>
         <div class="form-group">
             <label for="password">{{ $t("message.Password") }}</label>
-            <input type="password" id="password" name="password" class="form-control" v-model="loginDetails.password" required>
+            <PasswordBox v-model="loginDetails.password" />
         </div>
         <div class="alert alert-danger" v-show="loginInvalid">{{ $t("message.InvalidLogin") }}</div>
         <button class="btn btn-lg btn-primary btn-block" type="submit">{{ $t("message.SignIn") }}</button>
@@ -24,14 +24,19 @@ import { Component, Vue } from 'vue-property-decorator';
 import PwnedPasswordChecker from '../../models/pwnedPasswordChecker';
 import store from '../../store/store';
 import ErrorModal from '../../components/common/ErrorModal.vue';
+import PasswordBox from '../../components/common/PasswordBox.vue';
 
-@Component
+@Component({
+  components: {
+    PasswordBox,
+  },
+})
 export default class Login extends Vue {
 
     public loginDetails = {
                 email: '',
                 password: '',
-        };
+    };
 
     public loginInvalid = false;
 
