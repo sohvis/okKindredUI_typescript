@@ -11,10 +11,10 @@ export const configs = {
     InviteEmailAPI: '/api/invite_email/',
     ImageAPI: '/api/image/',
     PasswordResetAPI: '/api/reset-password/',
-    UserSettingsAPI: '/api/usersettings/',
+    UserSettingsAPI: '/api/user_settings/',
     UsersAPI: '/api/users/',
     PasswordChangeAPI: '/api/password_change/',
-    LeaveSiteAPI: '',
+    LeaveSiteAPI: '/api/delete_account/',
 
     MapboxToken: 'pk.eyJ1Ijoib2traW5kcmVkIiwiYSI6Ild2MnY5dDQifQ.EHr6blIYPYeg4bWmSStT-g',
     TinyMceApiToken: 'enx50wn3zw6ekck6y0dsoz784z5mo5c936go697ncer7lpzb',
