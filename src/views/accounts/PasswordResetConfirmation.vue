@@ -1,11 +1,15 @@
 <template>
   <div class="container">
+
+    <h2>{{ $t("message.PasswordResetConfirmation") }}</h2>
+    <p>{{ $t("message.PasswordResetConfirmationDescription") }}</p>
+
     <form 
         v-if="!submitted"
         role="form" 
-        v-on:submit.prevent="OnSubmit()">
-        <h2>{{ $t("message.PasswordResetConfirmation") }}</h2>
-        <p>{{ $t("message.PasswordResetConfirmationDescription") }}</p>
+        v-on:submit.prevent="OnSubmit()"
+        class="form-password-reset">
+
         <div class="form-group">
             <label for="password">{{ $t("message.Password") }}</label>
             <PasswordBox v-model="password" />

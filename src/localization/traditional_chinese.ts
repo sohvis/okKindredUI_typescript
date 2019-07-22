@@ -230,5 +230,6 @@ export const traditionalChinese = {
       至少8個字符`,
       OldPassword: `舊密碼`,
       NewPassword: `新密碼`,
+      PasswordUpdated: `密碼已更新`,
     },
 };

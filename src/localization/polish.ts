@@ -262,5 +262,6 @@ export const polish = {
       mieć co najmniej 8 znaków`,
       OldPassword: `Stare Hasło`,
       NewPassword: `Nowe Hasło`,
+      PasswordUpdated: `Hasło Zaktualizowane`,
     },
 };

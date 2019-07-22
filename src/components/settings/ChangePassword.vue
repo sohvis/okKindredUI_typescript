@@ -1,12 +1,12 @@
 <template>
   <div class="container">
+    <h2>{{ $t("message.ChangePassword") }}</h2>
+    <p>{{ $t("message.ChangePasswordDescription") }}</p>
+
     <form 
-        v-if="!submitted"
+        class="form-password-reset"
         role="form" 
         v-on:submit.prevent="OnSubmit()">
-
-        <h2>{{ $t("message.ChangePassword") }}</h2>
-        <p>{{ $t("message.ChangePasswordDescription") }}</p>
 
         <div class="form-group">
             <label for="old_password">{{ $t("message.OldPassword") }}</label>
@@ -34,14 +34,14 @@
 
         <b-button type="submit" :disabled="submitDisabled" variant="primary">{{ $t("message.UpdateMyPassword") }}</b-button>
 
-        <p class="spinner-container">
-            <b-spinner v-show="saving"></b-spinner>
+ 
+        <b-spinner class="password-spinner" small v-show="saving"></b-spinner>
 
-            <span v-show="saved" class="saved-message">
-                <span class="oi oi-check" aria-hidden="true"></span>
-                {{ $t('message.PasswordUpdated') }}
-            </span>
-        </p>
+        <span v-show="saved" class="saved-message">
+            <span class="oi oi-check" aria-hidden="true"></span>
+            {{ $t('message.PasswordUpdated') }}
+        </span>
+
     </form>
 
   </div>
@@ -71,7 +71,15 @@ export default class ChangePassword extends Vue {
 
     public isPwnedPassword: boolean = false;
 
+    public saving: boolean = false;
+
+    public saved: boolean = false;
+
     get submitDisabled() {
+
+        if (this.saving) {
+            return true;
+        }
 
         if (!this.oldPassword || this.oldPassword.length < 5) {
             return true;
@@ -91,37 +99,42 @@ export default class ChangePassword extends Vue {
     private async OnSubmit() {
         window.console.log(`PasswordResetConfirmation.OnSubmit()`);
 
+        this.saving = true;
+        this.saved = false;
+
         // Check for pwned password
         this.isPwnedPassword = false;
 
         const breachCount = await PwnedPasswordChecker.getNumberOfPasswordBreaches(this.password);
         if (breachCount > 0) {
             this.isPwnedPassword = true;
-            return;
+
+        } else {
+
+            try {
+                const textbox = document.getElementById('search-box') as HTMLInputElement;
+                const options = {
+                    uri: `${configs.BaseApiUrl}${configs.PasswordChangeAPI}`,
+                    headers: store.getters.ajaxHeader,
+                    body: {
+                        old_password: this.oldPassword,
+                        new_password: this.password,
+                    },
+                    json: true,
+                };
+
+                const result = await request.post(options);
+                this.saved = true;
+
+            } catch (ex) {
+
+                // TODO Various error messages based on exception
+                store.commit('setErrorMessage', ex);
+            }
+
         }
 
-        store.commit('updateLoading', true);
-        try {
-            const textbox = document.getElementById('search-box') as HTMLInputElement;
-            const options = {
-                uri: `${configs.BaseApiUrl}${configs.PasswordChangeAPI}`,
-                headers: store.getters.ajaxHeader,
-                body: {
-                    old_password: this.oldPassword,
-                    new_password: this.password,
-                },
-                json: true,
-            };
-
-            const result = await request.post(options);
-
-        } catch (ex) {
-
-            // TODO Various error messages based on exception
-            store.commit('setErrorMessage', ex);
-        }
-
-        store.commit('updateLoading', false);
+        this.saving = false;
     }
 }
 </script>
@@ -129,6 +142,15 @@ export default class ChangePassword extends Vue {
 <style scoped>
     .form-password-reset {
         max-width: 500px;
+    }
+
+    .password-spinner {
+        margin-left: 15px;
+    }
+
+    .saved-message {
+        color: darkgreen;
+        margin-left: 15px;
     }
 
 </style>

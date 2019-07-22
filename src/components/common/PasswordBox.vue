@@ -1,5 +1,6 @@
 <template>
-  <b-input-group  class="mt-3">
+<div>
+  <b-input-group>
     <b-form-input 
         v-model="valueInternal"
         @input="handleInput"
@@ -10,11 +11,13 @@
       <b-button 
         variant="outline-secondary" 
         @click="toggle()"
-        :pressed="showPassword">
+        :pressed="showPassword"
+        tabIndex="-1">
         <span class="oi oi-eye" aria-hidden="true"></span>
       </b-button>
     </b-input-group-append>
   </b-input-group>
+</div>
 </template>
 
 <script lang="ts">
@@ -50,5 +53,7 @@ export default class PasswordBox extends Vue {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+    .smaller-top-margin {
 
+    }
 </style>

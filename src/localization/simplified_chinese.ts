@@ -232,5 +232,6 @@ export const simplifiedChinese = {
       至少8个字符`,
       OldPassword: `旧密码`,
       NewPassword: `新密码`,
+      PasswordUpdated: `密码已更新`,
     },
 };

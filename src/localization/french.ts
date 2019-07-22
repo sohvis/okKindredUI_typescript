@@ -252,5 +252,6 @@ export const french = {
       être d'au moins 8 caractères`,
       OldPassword: `Ancien Mot de Passe`,
       NewPassword: `Nouveau Mot de Passe`,
+      PasswordUpdated: `Nouveau Mot de Passe Enregistré`,
     },
 };

@@ -189,5 +189,6 @@ export const english = {
       be at least 8 characters long`,
       OldPassword: `Old Password`,
       NewPassword: `New Password`,
+      PasswordUpdated: `Password Updated`,
     },
 };

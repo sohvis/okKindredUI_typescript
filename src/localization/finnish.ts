@@ -194,5 +194,6 @@ export const finnish = {
       oltava vähintään 8 merkkiä pitkä`,
       OldPassword: `Vanha Salasana`,
       NewPassword: `Uusi Salasana`,
+      PasswordUpdated: `Salasana Päivitetty`,
     },
 };
