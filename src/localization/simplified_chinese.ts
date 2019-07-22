@@ -233,5 +233,16 @@ export const simplifiedChinese = {
       OldPassword: `旧密码`,
       NewPassword: `新密码`,
       PasswordUpdated: `密码已更新`,
+
+      // Leave Site
+      LeaveSite: `放弃 ok!Kindred`,
+      LeaveSiteSingleUserDescription: `离开 ok！Kindred 将删除您的所有个人资料，所有家庭数据和图片。`,
+      EnterYourPasswordToConfirm: `输入您的密码进行确认：`,
+      CurrentUsersAccessToFamilyData: `这些是目前策划家庭数据的所有用户：`,
+      LeaveSiteMultipleUsersDescription: `您可以选择删除自己的个人资料，也可以为家庭中的其他用户保留该个人资料。`,
+      LeaveSiteMultipleUsersDescription2: `如果以上所有用户都离开了该站点，则将删除整个家庭数据。`,
+      DeleteMyProfile: `删除我的个人资料`,
+      LeaveSiteKeepMyProfile: `个人资料将被保留`,
+      LeaveSiteDeleteMyProfile: `个人资料将被删除`,
     },
 };

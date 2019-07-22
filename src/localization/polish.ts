@@ -263,5 +263,16 @@ export const polish = {
       OldPassword: `Stare Hasło`,
       NewPassword: `Nowe Hasło`,
       PasswordUpdated: `Hasło Zaktualizowane`,
+
+      // Leave Site
+      LeaveSite: `Porzucić ok!Kindred`,
+      LeaveSiteSingleUserDescription: `Pozostawienie ok!Kindred spowoduje usunięcie całego profilu, wszystkich danych rodzinnych i obrazów.`,
+      EnterYourPasswordToConfirm: `Wprowadź swoje hasło, aby potwierdzić:`,
+      CurrentUsersAccessToFamilyData: `Są to wszyscy użytkownicy, którzy obecnie wikary danych rodziny:`,
+      LeaveSiteMultipleUsersDescription: `Możesz usunąć swój profil lub zachować go dla innych użytkowników w swojej rodzinie.`,
+      LeaveSiteMultipleUsersDescription2: `Jeśli wszyscy powyżsi użytkownicy opuszczą witrynę, całe dane rodziny zostaną usunięte.`,
+      DeleteMyProfile: `Usuń mój profil`,
+      LeaveSiteKeepMyProfile: `Profil zostanie zachowany`,
+      LeaveSiteDeleteMyProfile: `Profil zostanie usunięty`,
     },
 };

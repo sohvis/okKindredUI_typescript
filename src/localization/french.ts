@@ -253,5 +253,16 @@ export const french = {
       OldPassword: `Ancien Mot de Passe`,
       NewPassword: `Nouveau Mot de Passe`,
       PasswordUpdated: `Nouveau Mot de Passe Enregistré`,
+
+      // Leave Site
+      LeaveSite: `Quitter ok!Kindred`,
+      LeaveSiteSingleUserDescription: `En quitant ok!Kindred, votre profil, toutes les données de la famille et les images seront supprimés`,
+      EnterYourPasswordToConfirm: `Entrez votre mot de passe pour confirmer:`,
+      CurrentUsersAccessToFamilyData: `Ce sont tous les utilisateurs qui gèrent les données sur la famille:`,
+      LeaveSiteMultipleUsersDescription: `Vous pouvez choisir de supprimer votre profil ou de le conserver pour les autres utilisateurs de votre famille.`,
+      LeaveSiteMultipleUsersDescription2: `Si tous les utilisateurs ci-dessus quittent le site, toutes les données relatives à la famille seront supprimées.`,
+      DeleteMyProfile: `Supprimer mon profil`,
+      LeaveSiteKeepMyProfile: `Votre profil sera préservé`,
+      LeaveSiteDeleteMyProfile: `Votre profil sera supprimé`,
     },
 };

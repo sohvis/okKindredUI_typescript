@@ -195,5 +195,16 @@ export const finnish = {
       OldPassword: `Vanha Salasana`,
       NewPassword: `Uusi Salasana`,
       PasswordUpdated: `Salasana Päivitetty`,
+
+      // Leave Site
+      LeaveSite: `Jätä ok!Kindred`,
+      LeaveSiteSingleUserDescription: `Poistuessasi ok! Kindred -toiminnosta kaikki profiilisi, kaikki perheen tiedot ja kuvat poistetaan.`,
+      EnterYourPasswordToConfirm: `Anna salasana vahvistaaksesi:`,
+      CurrentUsersAccessToFamilyData: `Nämä ovat kaikkia käyttäjiä, jotka nykyään hallitsevat perhesivuja:`,
+      LeaveSiteMultipleUsersDescription: `Nämä ovat kaikkia käyttäjiä, jotka nykyään hallitsevat perhesivuja:`,
+      LeaveSiteMultipleUsersDescription2: `Jos kaikki edellä mainitut käyttäjät poistuvat sivustosta, koko perheen tiedot poistetaan.`,
+      DeleteMyProfile: `Poista profiili`,
+      LeaveSiteKeepMyProfile: `Profiili säilyy`,
+      LeaveSiteDeleteMyProfile: `Profiili poistetaan`,
     },
 };

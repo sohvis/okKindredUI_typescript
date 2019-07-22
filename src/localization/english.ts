@@ -190,5 +190,16 @@ export const english = {
       OldPassword: `Old Password`,
       NewPassword: `New Password`,
       PasswordUpdated: `Password Updated`,
+
+      // Leave Site
+      LeaveSite: `Leave ok!Kindred`,
+      LeaveSiteSingleUserDescription: `Leaving ok!Kindred will delete all your profile, all the family data and images.`,
+      EnterYourPasswordToConfirm: `Enter your password to confirm:`,
+      CurrentUsersAccessToFamilyData: `These are all the users who currently curate the family data:`,
+      LeaveSiteMultipleUsersDescription: `You can choose to delete your profile or you can preserve it for the other users in your family.`,
+      LeaveSiteMultipleUsersDescription2: `If all the above users leave the site, then the entire family data will be deleted.`,
+      DeleteMyProfile: `Delete my Profile`,
+      LeaveSiteKeepMyProfile: `Profile will be preserved`,
+      LeaveSiteDeleteMyProfile: `Profile will be deleted`,
     },
 };

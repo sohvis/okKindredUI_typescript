@@ -85,7 +85,7 @@ export default class ChangePassword extends Vue {
             return true;
         }
 
-        if (!this.password || this.password.length < 8) {
+        if (!this.password || this.password.length < configs.MinPasswordLength) {
             return true;
         }
 

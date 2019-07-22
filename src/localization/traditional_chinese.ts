@@ -231,5 +231,16 @@ export const traditionalChinese = {
       OldPassword: `舊密碼`,
       NewPassword: `新密碼`,
       PasswordUpdated: `密碼已更新`,
+
+      // Leave Site
+      LeaveSite: `放棄 ok!Kindred`,
+      LeaveSiteSingleUserDescription: `離開 ok！Kindred 將刪除您的所有個人資料，所有家庭數據和圖片。`,
+      EnterYourPasswordToConfirm: `輸入您的密碼進行確認：`,
+      CurrentUsersAccessToFamilyData: `這些是目前策劃家庭數據的所有用戶：`,
+      LeaveSiteMultipleUsersDescription: `您可以選擇刪除自己的個人資料，也可以為家庭中的其他用戶保留該個人資料。`,
+      LeaveSiteMultipleUsersDescription2: `如果以上所有用戶都離開了該站點，則將刪除整個家庭數據。`,
+      DeleteMyProfile: `刪除我的個人資料`,
+      LeaveSiteKeepMyProfile: `個人資料將被保留`,
+      LeaveSiteDeleteMyProfile: `個人資料將被刪除`,
     },
 };

@@ -97,7 +97,11 @@ export default new Vuex.Store({
 
     setErrorMessage: (state, message) => {
 
-        const text = message.toString();
+        let text = message.toString();
+        if (text.length > 500) {
+            text = text.substring(0, 500);
+        }
+
         window.console.log(`state.setErrorMessage() message: ${text}`);
         state.error_message = text;
     },

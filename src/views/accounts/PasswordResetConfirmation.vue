@@ -60,7 +60,7 @@ export default class PasswordResetConfirmation extends Vue {
 
     get submitDisabled() {
 
-        if (!this.password || this.password.length < 8) {
+        if (!this.password || this.password.length < configs.MinPasswordLength) {
             return true;
         }
 

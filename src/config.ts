@@ -12,11 +12,15 @@ export const configs = {
     ImageAPI: '/api/image/',
     PasswordResetAPI: '/api/reset-password/',
     UserSettingsAPI: '/api/usersettings/',
+    UsersAPI: '/api/users/',
     PasswordChangeAPI: '/api/password_change/',
+    LeaveSiteAPI: '',
 
     MapboxToken: 'pk.eyJ1Ijoib2traW5kcmVkIiwiYSI6Ild2MnY5dDQifQ.EHr6blIYPYeg4bWmSStT-g',
     TinyMceApiToken: 'enx50wn3zw6ekck6y0dsoz784z5mo5c936go697ncer7lpzb',
     PwnedPasswordsAPI: 'https://api.pwnedpasswords.com/range/',
+
+    MinPasswordLength: 8,
 };
 
 export default configs;

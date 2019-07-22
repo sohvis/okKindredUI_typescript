@@ -26,7 +26,7 @@
                     {{ $t('message.LeaveokKindred') }}
                 </template>
                 <b-card-text>
-                    lorem ipsum leave ok!Kindred
+                    <LeaveSite ref="leaveSite"/>
                 </b-card-text>
             </b-tab>
         </b-tabs>
@@ -38,12 +38,14 @@
 import { Component, Vue } from 'vue-property-decorator';
 import UserSettings from '../../components/settings/UserSettings.vue';
 import ChangePassword from '../../components/settings/ChangePassword.vue';
+import LeaveSite from '../../components/settings/LeaveSite.vue';
 import store from '../../store/store';
 
 @Component({
   components: {
     UserSettings,
     ChangePassword,
+    LeaveSite,
   },
 })
 export default class Settings extends Vue {
@@ -69,7 +71,11 @@ export default class Settings extends Vue {
     public leaveInit() {
         window.console.log(`Settings.leaveInit()`);
 
-        this.state = 'leave';
+        this.state = 'leaveSite';
+        const leaveSite = this.$refs.leaveSite as UserSettings;
+        if (leaveSite) {
+            setTimeout(async () => await leaveSite.initialize(), 100);
+        }
     }
 
     protected async mounted() {
