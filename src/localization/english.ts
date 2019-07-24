@@ -122,6 +122,7 @@ export const english = {
       AboutFooter: `Justin Wing Chung Hui & Adrian Chu`,
 
       // Profile
+      LockedForOtherUsers: `Locked for Other Users`,
       Name: `Name`,
       Gender: `Gender`,
       BirthYear: `Birth Year`,

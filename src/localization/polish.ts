@@ -195,6 +195,7 @@ export const polish = {
       AboutFooter: `Justin Wing Chung Hui & Adrian Chu`,
 
       // Profile
+      LockedForOtherUsers: `Zablokowany dla innych użytkowników`,
       Name: `Imię`,
       Gender: `Płeć`,
       BirthYear: `Rok Urodzenia`,

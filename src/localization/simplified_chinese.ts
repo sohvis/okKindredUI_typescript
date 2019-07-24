@@ -165,6 +165,7 @@ export const simplifiedChinese = {
       AboutFooter: `許頴聰 和 朱俊豪`,
 
       // Profile
+      LockedForOtherUsers: `锁定其他用户`,
       Name: `名称`,
       Gender: `性别`,
       BirthYear: `出生年`,

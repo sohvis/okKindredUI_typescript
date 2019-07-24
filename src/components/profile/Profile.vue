@@ -36,6 +36,18 @@
 
         <table v-if="person" class="table table-striped">
           <tbody>
+
+            <tr v-show="showLockedControl">
+              <th>{{ $t('message.LockedForOtherUsers') }}</th>
+              <td>
+                <BooleanField 
+                    v-bind:personId="person.id"
+                    v-bind:propertyName="'locked'"
+                    v-bind:value="person.locked"
+                    @valueUpdated="personUpdated"/>
+              </td>
+            </tr>
+
             <tr>
               <th>{{ $t('message.Name') }}</th>
               <td>
@@ -266,6 +278,7 @@ import ProfileInviteToJoinButton from './ProfileInviteToJoinButton.vue';
 import ProfileGalleryButton from './ProfileGalleryButton.vue';
 import TextField from './TextField.vue';
 import NumberField from './NumberField.vue';
+import BooleanField from './BooleanField.vue';
 import GenderDropDown from './GenderDropDown.vue';
 import ProfileEmitArgs from '../../models/profile_emit_args';
 
@@ -277,6 +290,7 @@ import ProfileEmitArgs from '../../models/profile_emit_args';
       TextField,
       NumberField,
       GenderDropDown,
+      BooleanField,
   },
 })
 export default class Profile extends Vue {
@@ -305,10 +319,14 @@ export default class Profile extends Vue {
 
   get profileIsCurrentUser(): boolean {
     if (this.person) {
-      return store.state.users_person_id === this.person.id;
+      return Number(store.state.users_person_id) === Number(this.person.id);
     } else {
       return false;
     }
+  }
+
+  get showLockedControl(): boolean {
+    return this.editMode && this.profileIsCurrentUser;
   }
 
   public async initialize() {

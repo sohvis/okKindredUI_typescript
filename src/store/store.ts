@@ -178,7 +178,7 @@ export default new Vuex.Store({
             window.localStorage.setItem('refresh_token', context.state.refresh_token);
             window.localStorage.setItem('language', context.state.language);
             window.localStorage.setItem('person_id', context.state.person_id.toString());
-            window.localStorage.setItem('users_person_id', context.state.users_person_id.toString());
+            window.localStorage.setItem('users_person_id', context.state.users_person_id);
             resolve();
         });
     },

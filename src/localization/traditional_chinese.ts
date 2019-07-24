@@ -163,6 +163,7 @@ export const traditionalChinese = {
       AboutFooter: `許頴聰 和 朱俊豪`,
 
       // Profile
+      LockedForOtherUsers: `鎖定其他用戶`,
       Name: `名稱`,
       Gender: `性別`,
       BirthYear: `出生年`,
