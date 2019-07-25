@@ -318,7 +318,11 @@ export default class Profile extends Vue {
   }
 
   get profileIsCurrentUser(): boolean {
+    window.console.log('Profile.vue profileIsCurrentUser() called');
+
     if (this.person) {
+      window.console.log(`store.state.users_person_id: ${store.state.users_person_id}`);
+      window.console.log(`this.person.id: ${this.person.id}`);
       return Number(store.state.users_person_id) === Number(this.person.id);
     } else {
       return false;

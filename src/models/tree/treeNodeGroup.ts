@@ -146,17 +146,23 @@ export default class TreeNodeGroup extends Positionable {
 
         // window.console.log(`TreeNodeGroup.getCentrePositionOfCommonRelatives()`);
         // window.console.log(this.commonRelatives);
-        let sumX = 0;
-        let count = 0;
-        for (const relative of this.commonRelatives) {
-            if (relative.hasXValue) {
-                sumX += relative.xMid;
-                count++;
+        if (this.commonRelatives.length > 0) {
+            let sumX = 0;
+            let count = 0;
+            for (const relative of this.commonRelatives) {
+                if (relative.hasXValue) {
+                    sumX += relative.xMid;
+                    count++;
+                }
             }
-        }
 
-        const result = sumX / count;
-        // this.debugPrint =  this.debugPrint.concat(` centreRelatives: ${result}`);
-        return result;
+            const result = sumX / count;
+
+            return result;
+
+        } else {
+            // no change
+            return this.xMid;
+        }
     }
 }

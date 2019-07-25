@@ -29,7 +29,11 @@ export default class TreeAncestorPositioner implements TreePositioner {
     }
 
     private expandIfOverlap(level: TreeLevel) {
+        window.console.log(`TreeLevel.expandIfOverlap() level: ${level.level}`);
+
         const overlap = level.getLargestOverlap();
+        window.console.log(`overlap: ${overlap}`);
+
         if (overlap > 0) {
 
             // if overlap, increase node spacing of previous level
@@ -48,10 +52,18 @@ export default class TreeAncestorPositioner implements TreePositioner {
                 partnerAdditionalSpacing: number,
                 nodeAdditionalSpacing: number) {
 
-        // window.console.log(`TreeLevel.positionAncestorGroups() level: ${level.level}`);
-
+        window.console.log(`TreeLevel.positionAncestorGroups() level: ${level.level}`);
+        
+        let previousGroup;
         for (const group of level.groups) {
             this.centreGroupAmongRelatives(group, partnerAdditionalSpacing, nodeAdditionalSpacing);
+
+            // This can happen if raised by distinct groups
+            if (previousGroup && Math.abs(previousGroup.xMid - group.xMid) < 2 ) {
+                group.setLeftPosition(previousGroup.rightMarginEnd);
+            }
+
+            previousGroup = group;
         }
     }
 
@@ -59,12 +71,15 @@ export default class TreeAncestorPositioner implements TreePositioner {
                 group: TreeNodeGroup,
                 partnerAdditionalSpacing: number,
                 nodeAdditionalSpacing: number) {
-
+        
+        window.console.log(`TreeLevel.centreGroupAmongRelatives()`);
         const xCentre = group.getCentrePositionOfCommonRelatives();
+
         group.updateWidth(partnerAdditionalSpacing, nodeAdditionalSpacing);
 
         const x = xCentre - (group.widthAndSpacing / 2);
 
         group.setLeftPosition(x);
+        window.console.log(group);
     }
 }

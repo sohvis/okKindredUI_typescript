@@ -39,7 +39,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import * as request from 'request-promise-native';
-import FamilyTree from '../components/FamilyTree.vue';
+import FamilyTree from '../components/family_tree/FamilyTree.vue';
 import FamilyMap from '../components/FamilyMap.vue';
 import Profile from '../components/profile/Profile.vue';
 import Person from './../models/data/person';

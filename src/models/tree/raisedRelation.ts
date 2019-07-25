@@ -29,6 +29,8 @@ export default class RaisedRelation implements TreeRelation {
             .filter((n) => n.hasXValue && n.hasYValue)
             .sort((a, b) => a.x - b.x);
 
+        // TODO split into groups
+
         if (fromNodes.length > 1) {
             this.renderMultipleAncestors(fromNodes);
         } else {

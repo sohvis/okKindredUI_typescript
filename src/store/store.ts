@@ -24,7 +24,7 @@ export default new Vuex.Store({
 
     // The person that the app should be focused on.  On login it should be the user's person id
     person_id: '0',
-    users_person_id: '0',
+    users_person_id: '',
 
     error_message: '',
     debug_message: '',

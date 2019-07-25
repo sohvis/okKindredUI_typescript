@@ -16,7 +16,6 @@ export const Scroller = {
     dragStart: [null, null],
     dragStartTime: new Date().getTime(),
     multiTouch: false,
-    mousePosErrorFactor: 1,
     minZoom: 0.2,
     maxZoom: 6,
 
@@ -101,7 +100,7 @@ export const Scroller = {
             Scroller.ctx.translate(dx, dy);
             Scroller.tree.render(false);
         } else {
-            Scroller.tree.hover(pt.x, pt.y * Scroller.mousePosErrorFactor)
+            Scroller.tree.hover(pt.x, pt.y)
         }
     },
 
@@ -153,10 +152,29 @@ export const Scroller = {
         Scroller.tree.render(false);
     },
 
+    smoothTranslateTo: (x, y) => {
+
+        window.console.log(`Scroller.smoothTranslateTo(x: ${x}, y: ${y})`);
+
+        const currentPos = Scroller.ctx.transformedPoint(Scroller.canvas.width / 2, Scroller.canvas.height / 2);
+        window.console.log(`currentPos.x: ${currentPos.x}, currentPos.y: ${currentPos.y})`);
+
+        const steps = 10;
+        const dx = (currentPos.x - x) / steps;
+        const dy = (currentPos.y - y) / steps;
+        
+        for (var i = 1; i <= steps; i++) {
+            window.setTimeout(() => {
+                Scroller.ctx.translate(dx, dy);
+                Scroller.tree.render(false);
+            }, i * 10);
+        }
+    },
+
     singleTouchMove: (pos) => {
         // Single touch move
-        Scroller.lastPoint.x = pos.x; // - Scroller.canvas.offsetLeft;
-        Scroller.lastPoint.y = pos.y; // - Scroller.canvas.offsetTop;
+        Scroller.lastPoint.x = pos.x;
+        Scroller.lastPoint.y = pos.y;
 
         var pt = Scroller.ctx.transformedPoint(Scroller.lastPoint.x,Scroller.lastPoint.y);
 
@@ -173,7 +191,7 @@ export const Scroller = {
         // Select if quick single tap
         if(elapsedClickTime < 150 && !Scroller.dragStart[1]) {
             var pt = Scroller.ctx.transformedPoint(Scroller.lastPoint.x, Scroller.lastPoint.y);
-            Scroller.tree.click(pt.x, pt.y * Scroller.mousePosErrorFactor);
+            Scroller.tree.click(pt.x, pt.y);
         } 
 
         Scroller.dragStart[0] = null;
@@ -224,68 +242,66 @@ export const Scroller = {
 
     trackTransforms: (ctx) => {
         var svg = document.createElementNS("http://www.w3.org/2000/svg",'svg');
-		var xform = svg.createSVGMatrix();
+        var xform = svg.createSVGMatrix();
         ctx.getTransform = () => { return xform; };      
 
         var savedTransforms = [];
-		var save = ctx.save;
-		ctx.save = function(){
-			savedTransforms.push(xform.translate(0,0));
-			return save.call(ctx);
-		};
-		var restore = ctx.restore;
-		ctx.restore = function(){
-			xform = savedTransforms.pop();
-			return restore.call(ctx);
-		};
+        var save = ctx.save;
+        ctx.save = function(){
+            savedTransforms.push(xform.translate(0,0));
+            return save.call(ctx);
+        };
+        var restore = ctx.restore;
+        ctx.restore = function(){
+            xform = savedTransforms.pop();
+            return restore.call(ctx);
+        };
 
-		var scale = ctx.scale;
-		ctx.scale = function(sx,sy){
-            window.console.log(`zoom Level: ${sx}`);
+        var scale = ctx.scale;
+        ctx.scale = function(sx,sy){
             xform = xform.scaleNonUniform(sx,sy);
-            window.console.log(xform);
-			return scale.call(ctx,sx,sy);
-		};
-		var rotate = ctx.rotate;
-		ctx.rotate = function(radians){
-			xform = xform.rotate(radians*180/Math.PI);
-			return rotate.call(ctx,radians);
-		};
-		var translate = ctx.translate;
-		ctx.translate = function(dx,dy){
-			xform = xform.translate(dx,dy);
-			return translate.call(ctx,dx,dy);
-		};
-		var transform = ctx.transform;
-		ctx.transform = function(a,b,c,d,e,f){
-			var m2 = svg.createSVGMatrix();
-			m2.a=a; m2.b=b; m2.c=c; m2.d=d; m2.e=e; m2.f=f;
-			xform = xform.multiply(m2);
-			return transform.call(ctx,a,b,c,d,e,f);
-		};
-		var setTransform = ctx.setTransform;
-		ctx.setTransform = function(a,b,c,d,e,f){
-			xform.a = a;
-			xform.b = b;
-			xform.c = c;
-			xform.d = d;
-			xform.e = e;
-			xform.f = f;
-			return setTransform.call(ctx,a,b,c,d,e,f);
-		};
-		var pt  = svg.createSVGPoint();
-		ctx.transformedPoint = function(x,y){
-			pt.x=x; pt.y=y;
-			return pt.matrixTransform(xform.inverse());
+            return scale.call(ctx,sx,sy);
+        };
+        var rotate = ctx.rotate;
+        ctx.rotate = function(radians){
+            xform = xform.rotate(radians*180/Math.PI);
+            return rotate.call(ctx,radians);
+        };
+        var translate = ctx.translate;
+        ctx.translate = function(dx,dy){
+            xform = xform.translate(dx,dy);
+            return translate.call(ctx,dx,dy);
+        };
+        var transform = ctx.transform;
+        ctx.transform = function(a,b,c,d,e,f){
+            var m2 = svg.createSVGMatrix();
+            m2.a=a; m2.b=b; m2.c=c; m2.d=d; m2.e=e; m2.f=f;
+            xform = xform.multiply(m2);
+            return transform.call(ctx,a,b,c,d,e,f);
+        };
+        var setTransform = ctx.setTransform;
+        ctx.setTransform = function(a,b,c,d,e,f){
+            xform.a = a;
+            xform.b = b;
+            xform.c = c;
+            xform.d = d;
+            xform.e = e;
+            xform.f = f;
+            return setTransform.call(ctx,a,b,c,d,e,f);
+        };
+        var pt  = svg.createSVGPoint();
+        ctx.transformedPoint = function(x,y){
+            pt.x=x; pt.y=y;
+            return pt.matrixTransform(xform.inverse());
         }
     },
 
     canvasOffset() {
-	    var rect = this.canvas.getBoundingClientRect(),
-	    scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
-	    scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-	    return { top: rect.top + scrollTop, left: rect.left + scrollLeft }
-	}
+        var rect = this.canvas.getBoundingClientRect(),
+        scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
+        scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        return { top: rect.top + scrollTop, left: rect.left + scrollLeft }
+    }
 }
 
 export default Scroller;

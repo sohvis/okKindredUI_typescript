@@ -28,6 +28,7 @@ export default class TreeLevel extends Positionable {
     }
 
     public addSelectedNode(node: TreeNode, dpr: number) {
+        window.console.log(`TreeLevel.addSelectedNode()`);
 
         // If already have position values, re-use them
         if (!node.hasYValue) {
@@ -35,6 +36,9 @@ export default class TreeLevel extends Positionable {
             const y = (this.canvas.height - TreeNode.HEIGHT) / 2 / dpr;
             node.setXYPosition(x, y);
         }
+
+        window.console.log(`node.x: ${node.x}`);
+        window.console.log(`node.y: ${node.y}`);
 
         const group = new TreeNodeGroup(this.ctx, [], true, node.y, this);
 
@@ -63,7 +67,7 @@ export default class TreeLevel extends Positionable {
 
     public getLargestOverlap() {
 
-        // window.console.log(`TreeLevel.getLargestOverlap() level: ${this.level}`);
+        window.console.log(`TreeLevel.getLargestOverlap() level: ${this.level}`);
 
         let largestOverlap = 0;
         let previousGroup;
@@ -71,6 +75,12 @@ export default class TreeLevel extends Positionable {
         for (const group of this.groups) {
 
             if (previousGroup) {
+                window.console.log('previousGroup');
+                window.console.log(previousGroup);
+                window.console.log('group');
+                window.console.log(group);
+                window.console.log(`previousGroup.rightMarginEnd: ${previousGroup.rightMarginEnd}`);
+                window.console.log(`group.leftMarginStart: ${group.leftMarginStart}`);
                 const overlap = previousGroup.rightMarginEnd - group.leftMarginStart;
                 largestOverlap = Math.max(largestOverlap, overlap);
             }

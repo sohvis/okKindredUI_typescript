@@ -55,7 +55,6 @@ export default {
         if (this.map) {
           this.map.off();
           this.map.remove();
-          // this.map.invalidateSize();
         }
 
         const tiles = L.tileLayer('https://api.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.jpg70?access_token={token}', {
@@ -78,7 +77,7 @@ export default {
         this.map = L.map('person-map', {
             center,
             zoom: 10,
-            zoomControl: true,
+            zoomControl: false,
             minZoom: 2,
             scrollWheelZoom: true,
             detectRetina: true,

@@ -76,22 +76,22 @@ export default class Tree {
 
     public render(clearAll = true) {
 
-        // window.console.log(`Tree.Render()`);
-        // window.console.log(`Clearing Canvas`);
+        window.console.log(`Tree.Render()`);
+        window.console.log(`Clearing Canvas`);
         this.clearCanvas(clearAll);
 
         if (clearAll) {
-            // window.console.log(`Adding selected node`);
+            window.console.log(`Adding selected node`);
             this.addLevel0();
 
-            // window.console.log(`Adding ancestors`);
+            window.console.log(`Adding ancestors`);
             this.addAncestors();
 
-            // window.console.log(`Adding descendants`);
+            window.console.log(`Adding descendants`);
             this.addDescendants();
         }
 
-        // window.console.log(`Positioning`);
+        window.console.log(`Positioning`);
 
         const level0Positioner = new Level0Positioner(this);
         level0Positioner.position(clearAll);
@@ -102,8 +102,8 @@ export default class Tree {
         const descendantPositioner = new TreeDescendantPositioner(this);
         descendantPositioner.position(clearAll);
 
-        // window.console.log(`Rendering levels`);
-        // window.console.log(this.treeLevelsByLevel);
+        window.console.log(`Rendering levels`);
+        window.console.log(this.treeLevelsByLevel);
 
         for (const treeLevel of this.treeLevels) {
             treeLevel.render();
@@ -227,8 +227,12 @@ export default class Tree {
 
     private addLevel0() {
 
+        window.console.log(`Tree.addLevel0()`);
         const level0 = new TreeLevel(this.canvas, this.ctx, 0, 0);
+
+        window.console.log(`store.state.person_id: ${store.state.person_id}`);
         this.selectedNode =  this.nodesById[store.state.person_id];
+        window.console.log(this.selectedNode);
 
         level0.addSelectedNode(this.selectedNode, this.dpr);
         this.createRelations(this.selectedNode);

@@ -1,6 +1,8 @@
 <template>
   <div id="tree-container" class="tree-container">
       <canvas id="tree-canvas"></canvas>
+      <TreeNavControls @zoomIn="zoomIn" @zoomOut="zoomOut"/>
+      <TreeEditControl @click="edit"/>
   </div>
 </template>
 
@@ -8,15 +10,20 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
 import { Promise } from 'q';
-import Person from './../models/data/person';
-import Relation from './../models/data/relation';
-import Tree from './../models/tree/tree';
+import Person from '../../models/data/person';
+import Relation from '../../models/data/relation';
+import Tree from '../../models/tree/tree';
 import * as request from 'request-promise-native';
+import Scroller from '../../models/tree/scroller.js';
+import TreeNavControls from './TreeNavControls.vue';
+import TreeEditControl from './TreeEditControl.vue';
 
-import Scroller from './../models/tree/scroller.js';
-
-
-@Component
+@Component({
+  components: {
+    TreeNavControls,
+    TreeEditControl,
+  },
+})
 export default class FamilyTree extends Vue {
 
     public people: Person[] = [];
@@ -50,6 +57,37 @@ export default class FamilyTree extends Vue {
       this.setCanvasSize();
 
       window.addEventListener('resize', () => this.initializeTree(this.people, this.relations), false);
+    }
+
+    private zoomIn() {
+
+      const midy = (Scroller as any).canvas.height / 2;
+      const midx = (Scroller as any).canvas.width / 2;
+
+      (Scroller as any).ctx.translate(-midx,-midy);
+      (Scroller as any).ctx.scale(1.1, 1.1);
+      (Scroller as any).ctx.translate(midx,midy);
+
+      (Scroller as any).tree.render();
+    }
+
+    private edit() {
+
+      window.console.log('FamilyTree.vue edit() call');
+      const tree = (Scroller as any).tree as Tree;
+      (Scroller as any).smoothTranslateTo(tree.selectedNode.x, tree.selectedNode.y);
+    }
+
+
+    private zoomOut() {
+      const midy = (Scroller as any).canvas.height / 2;
+      const midx = (Scroller as any).canvas.width / 2;
+
+      (Scroller as any).ctx.translate(-midx,-midy);
+      (Scroller as any).ctx.scale(0.9, 0.9);
+      (Scroller as any).ctx.translate(midx,midy);
+
+      (Scroller as any).tree.render();
     }
 
     private setCanvasSize() {
