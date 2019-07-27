@@ -64,9 +64,9 @@ export default class FamilyTree extends Vue {
       const midy = (Scroller as any).canvas.height / 2;
       const midx = (Scroller as any).canvas.width / 2;
 
-      (Scroller as any).ctx.translate(-midx,-midy);
+      (Scroller as any).ctx.translate(-midx, -midy);
       (Scroller as any).ctx.scale(1.1, 1.1);
-      (Scroller as any).ctx.translate(midx,midy);
+      (Scroller as any).ctx.translate(midx, midy);
 
       (Scroller as any).tree.render();
     }
@@ -75,7 +75,7 @@ export default class FamilyTree extends Vue {
 
       window.console.log('FamilyTree.vue edit() call');
       const tree = (Scroller as any).tree as Tree;
-      (Scroller as any).smoothTranslateTo(tree.selectedNode.x, tree.selectedNode.y);
+      (Scroller as any).smoothTranslateAndZoomTo(tree.selectedNode.xMid, tree.selectedNode.yMid, 1);
     }
 
 
@@ -83,9 +83,9 @@ export default class FamilyTree extends Vue {
       const midy = (Scroller as any).canvas.height / 2;
       const midx = (Scroller as any).canvas.width / 2;
 
-      (Scroller as any).ctx.translate(-midx,-midy);
+      (Scroller as any).ctx.translate(-midx, -midy);
       (Scroller as any).ctx.scale(0.9, 0.9);
-      (Scroller as any).ctx.translate(midx,midy);
+      (Scroller as any).ctx.translate(midx, midy);
 
       (Scroller as any).tree.render();
     }

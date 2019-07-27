@@ -29,12 +29,38 @@ export default class RaisedRelation implements TreeRelation {
             .filter((n) => n.hasXValue && n.hasYValue)
             .sort((a, b) => a.x - b.x);
 
-        // TODO split into groups
+        // Split into groups if some nodes aren't partnered
+        const groups = new Array<TreeNode[]>();
+        let firstInGroup;
+        let group = new Array<TreeNode>();
 
-        if (fromNodes.length > 1) {
-            this.renderMultipleAncestors(fromNodes);
-        } else {
-            this.renderSingleAncestor(fromNodes[0]);
+        for (const fromNode of fromNodes) {
+
+            if (!firstInGroup || firstInGroup.partners.indexOf(fromNode) === -1) {
+
+                if (group.length > 0) {
+                    groups.push(group);
+                }
+
+                group = new Array<TreeNode>();
+                group.push(fromNode);
+                firstInGroup = fromNode;
+
+            } else {
+                group.push(fromNode);
+            }
+        }
+
+        if (group.length > 0) {
+            groups.push(group);
+        }
+
+        for (const relGroup of groups) {
+            if (relGroup.length > 1) {
+                this.renderMultipleAncestors(relGroup);
+            } else {
+                this.renderSingleAncestor(relGroup[0]);
+            }
         }
     }
 

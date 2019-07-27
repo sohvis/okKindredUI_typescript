@@ -16,8 +16,8 @@ export const Scroller = {
     dragStart: [null, null],
     dragStartTime: new Date().getTime(),
     multiTouch: false,
-    minZoom: 0.2,
-    maxZoom: 6,
+    minZoom: 0.1,
+    maxZoom: 5,
 
     // Based on http://phrogz.net/tmp/canvas_zoom_to_cursor.html
     initialize: (canvas, tree) => {
@@ -56,9 +56,9 @@ export const Scroller = {
         window.console.log(`mousedown`);
         window.console.log(evt);
         const offset = Scroller.canvasOffset();
-        // window.console.log(`evt.clientY - offset.top: ${evt.clientY - offset.top}`);
-        Scroller.lastPoint.x = evt.clientX - offset.left; // Scroller.canvas.offsetLeft;
-        Scroller.lastPoint.y = evt.clientY - offset.top; //  - Scroller.canvas.offsetTop;
+
+        Scroller.lastPoint.x = evt.clientX - offset.left;
+        Scroller.lastPoint.y = evt.clientY - offset.top;
         Scroller.dragStart[0] = Scroller.ctx.transformedPoint(Scroller.lastPoint.x, Scroller.lastPoint.y);
         Scroller.dragStartTime = new Date().getTime();
     },
@@ -67,12 +67,12 @@ export const Scroller = {
 
         var pos = Scroller.getTouchPos(touchEvent);
 
-        Scroller.lastPoint.x = pos.x; // - Scroller.canvas.offsetLeft;
-        Scroller.lastPoint.y = pos.y; // - Scroller.canvas.offsetTop;
+        Scroller.lastPoint.x = pos.x;
+        Scroller.lastPoint.y = pos.y;
 
         if (pos.multiTouch) {
-            Scroller.lastPoint.x2 = pos.x2; // - Scroller.canvas.offsetLeft;
-            Scroller.lastPoint.y2 = pos.y2; // - Scroller.canvas.offsetTop;
+            Scroller.lastPoint.x2 = pos.x2;
+            Scroller.lastPoint.y2 = pos.y2;
             Scroller.multiTouch = true;
 
             Scroller.dragStart[1] = Scroller.ctx.transformedPoint(Scroller.lastPoint.x2, Scroller.lastPoint.y2);
@@ -87,8 +87,8 @@ export const Scroller = {
     mouseMove: (evt) => {
         // Records last mouse point
         const offset = Scroller.canvasOffset();
-        Scroller.lastPoint.x = evt.pageX - offset.left; // Scroller.canvas.offsetLeft;
-        Scroller.lastPoint.y = evt.pageY - offset.top; //  - Scroller.canvas.offsetTop;
+        Scroller.lastPoint.x = evt.pageX - offset.left;
+        Scroller.lastPoint.y = evt.pageY - offset.top;
         let pt = Scroller.ctx.transformedPoint(Scroller.lastPoint.x,Scroller.lastPoint.y);
 
         if (Scroller.dragStart[0]){
@@ -99,6 +99,8 @@ export const Scroller = {
 
             Scroller.ctx.translate(dx, dy);
             Scroller.tree.render(false);
+            window.console.log(`Scroller.ctx.getTransform()`);
+            window.console.log(Scroller.ctx.getTransform());
         } else {
             Scroller.tree.hover(pt.x, pt.y)
         }
@@ -125,9 +127,7 @@ export const Scroller = {
 
         var pt = Scroller.ctx.transformedPoint(pos.x, pos.y);
         var pt2 = Scroller.ctx.transformedPoint(pos.x2, pos.y2);
-        // var pt = Scroller.ctx.transformedPoint(pos.x - Scroller.canvas.offsetLeft, pos.y - Scroller.canvas.offsetTop);
-        // var pt2 = Scroller.ctx.transformedPoint(pos.x2 - Scroller.canvas.offsetLeft, pos.y2 - Scroller.canvas.offsetTop);
-        
+
         // Use pythagoras theorem to get pinch zoom distance change
         var originalDistance = (Scroller.dragStart[0].x - Scroller.dragStart[1].x)**2 + (Scroller.dragStart[0].y - Scroller.dragStart[1].y)**2;
         var newDistance = (pt.x- pt2.x)**2 + (pt.y - pt2.y)**2;
@@ -156,18 +156,69 @@ export const Scroller = {
 
         window.console.log(`Scroller.smoothTranslateTo(x: ${x}, y: ${y})`);
 
-        const currentPos = Scroller.ctx.transformedPoint(Scroller.canvas.width / 2, Scroller.canvas.height / 2);
-        window.console.log(`currentPos.x: ${currentPos.x}, currentPos.y: ${currentPos.y})`);
+        const centerPos = Scroller.ctx.transformedPoint(
+            Scroller.canvas.width / 2 / Scroller.tree.dpr, 
+            Scroller.canvas.height / 2 / Scroller.tree.dpr);
 
         const steps = 10;
-        const dx = (currentPos.x - x) / steps;
-        const dy = (currentPos.y - y) / steps;
+        const dx = (centerPos.x - x) / steps;
+        const dy = (centerPos.y - y) / steps;
         
-        for (var i = 1; i <= steps; i++) {
+        Scroller.animateMove(1, steps, dx, dy);
+    },
+
+    animateMove: (i, steps, dx, dy) => {
+        Scroller.ctx.translate(dx, dy);
+        Scroller.tree.render(false);
+
+        if (i < steps) {
             window.setTimeout(() => {
-                Scroller.ctx.translate(dx, dy);
-                Scroller.tree.render(false);
-            }, i * 10);
+                Scroller.animateMove(i + 1, steps, dx, dy);
+            });
+        }
+    },
+
+    smoothTranslateAndZoomTo: (x, y, zoom) => {
+
+        window.console.log(`Scroller.smoothTranslateAndZoomTo(x: ${x}, y: ${y}), zoom: ${zoom}`);
+        const centerPos = Scroller.ctx.transformedPoint(
+                            Scroller.canvas.width / 2 / Scroller.tree.dpr, 
+                            Scroller.canvas.height / 2 / Scroller.tree.dpr);
+        const pos = Scroller.ctx.transformedPoint(x, y);
+        window.console.log(`pos.x: ${pos.x}, pos.y: ${pos.y})`);
+
+        const steps = 10;
+        const frameDelay = 100;
+        const dx = (centerPos.x - x) / steps;
+        const dy = (centerPos.y - y) / steps;
+
+        const dz = Math.pow((zoom / Scroller.ctx.getTransform().a), 1 / steps);
+        window.console.log(`dz: ${dz}`);
+        
+        Scroller.animateMoveAndZoom(1, steps, dx, dy, steps, dz, x, y);
+    },
+
+    animateMoveAndZoom: (i, moveSteps, dx, dy, zoomSteps, dz, x, y) => {
+        if (i < moveSteps) {
+
+            Scroller.ctx.translate(dx, dy);
+            Scroller.tree.render(false);
+
+            window.setTimeout(() => {
+                Scroller.animateMoveAndZoom(i + 1, moveSteps, dx, dy, zoomSteps, dz, x, y);
+            });
+
+        } else if (i < zoomSteps + moveSteps) {
+            Scroller.ctx.translate(x, y);
+            Scroller.ctx.scale(dz, dz);
+            Scroller.ctx.translate(-x, -y);
+            Scroller.tree.render(false);
+            window.setTimeout(() => {
+                Scroller.animateMoveAndZoom(i + 1, moveSteps, dx, dy, zoomSteps, dz, x, y);
+            });
+        } else {
+            // Fudge for moment becasue zoom is off centre
+            Scroller.smoothTranslateTo(x, y);
         }
     },
 

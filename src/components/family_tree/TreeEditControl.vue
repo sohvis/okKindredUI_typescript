@@ -20,6 +20,7 @@ export default class TreeNavControls extends Vue {
     this.$emit('click');
   }
 }
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

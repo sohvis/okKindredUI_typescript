@@ -93,11 +93,11 @@ export default class TreeNode extends  Positionable {
         }
 
         // Dev only
-        this.ctx.fillText(`id:${this.id}`, left, top + (TreeNode.FONT_SIZE + 5) * (this.wrappedName.length + 1));
+        // this.ctx.fillText(`id:${this.id}`, left, top + (TreeNode.FONT_SIZE + 5) * (this.wrappedName.length + 1));
         this.ctx.fillText(`x:${Math.round(this.x)} xRight:${Math.round(this.xRight)}`,
-                            left, top + (TreeNode.FONT_SIZE + 5) * (this.wrappedName.length + 2));
-        this.ctx.fillText(`y:${Math.round(this.y)} yBottom:${Math.round(this.yBottom)}`,
-                            left, top + (TreeNode.FONT_SIZE + 5) * (this.wrappedName.length + 4));
+                             left, top + (TreeNode.FONT_SIZE + 5) * (this.wrappedName.length + 2));
+        // this.ctx.fillText(`y:${Math.round(this.y)} yBottom:${Math.round(this.yBottom)}`,
+        //                     left, top + (TreeNode.FONT_SIZE + 5) * (this.wrappedName.length + 4));
 
         if (this.photo) {
             this.ctx.drawImage(this.photo, this.x + TreeNode.LEFT_MARGIN, this.y + TreeNode.TOP_IMAGE_MARGIN);
