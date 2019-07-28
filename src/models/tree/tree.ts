@@ -24,6 +24,7 @@ export default class Tree {
     public treeLevelsByLevel: { [id: string]: TreeLevel; };
     public selectedNode: TreeNode;
     public hoverNode: TreeNode | null;
+    public disabled: boolean;
 
     constructor(canvas: HTMLCanvasElement, people: Person[], relations: Relation[]) {
 
@@ -47,6 +48,7 @@ export default class Tree {
         this.treeLevels = [];
         this.treeLevelsByLevel = {};
         this.raisedRelationsById = {};
+        this.disabled = false;
 
         // Create tree node lookup
         for (const person of people) {
@@ -74,6 +76,18 @@ export default class Tree {
         this.hoverNode = null;
     }
 
+    public setDisabled(disabled: boolean) {
+        this.disabled = disabled;
+
+        for (const treeLevel of this.treeLevels) {
+            treeLevel.setDisabled(disabled);
+        }
+
+        Object.values(this.raisedRelationsById).forEach((relation) => {
+            relation.disabled = disabled;
+        });
+    }
+
     public render(clearAll = true) {
 
         // window.console.log(`Tree.Render()`);
@@ -89,12 +103,14 @@ export default class Tree {
 
             // window.console.log(`Adding descendants`);
             this.addDescendants();
+
+            this.setDisabled(this.disabled);
         }
 
         // window.console.log(`Positioning`);
 
         const level0Positioner = new Level0Positioner(this);
-        level0Positioner.position(clearAll);
+        level0Positioner.position();
 
         const ancestorPositioner = new TreeAncestorPositioner(this);
         ancestorPositioner.position(clearAll);

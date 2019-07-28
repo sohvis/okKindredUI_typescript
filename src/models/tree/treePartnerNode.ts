@@ -98,6 +98,20 @@ export default class TreePartnerNode extends Positionable {
         this.widthAndSpacing = this.width + this.spacing * 2;
     }
 
+    public setDisabled(disabled: boolean) {
+
+        this.disabled = disabled;
+        this.mainNode.setDisabled(disabled);
+
+        for (const partner of this.partners) {
+            partner.setDisabled(disabled);
+        }
+
+        for (const relation of this.relations) {
+            relation.disabled = disabled;
+        }
+    }
+
     public render() {
         this.mainNode.render();
 

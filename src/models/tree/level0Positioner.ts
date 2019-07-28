@@ -10,7 +10,7 @@ export default class Level0Positioner implements TreePositioner {
         this.tree = tree;
     }
 
-    public position(recalculateSpacing: boolean) {
+    public position() {
 
         const partnerNode = this.tree.treeLevelsByLevel['0'].groups[0].partnerNodes[0];
 
@@ -20,8 +20,8 @@ export default class Level0Positioner implements TreePositioner {
 
         // If already have position values, re-use them
         if (!partnerNode.mainNode.hasYValue) {
-            const x = (this.tree.canvas.width - TreeNode.WIDTH) / 2 / this.tree.dpr;
-            const y = (this.tree.canvas.height - TreeNode.HEIGHT) / 2 / this.tree.dpr;
+            const x = (this.tree.canvas.width / this.tree.dpr  - TreeNode.WIDTH) / 2;
+            const y = (this.tree.canvas.height / this.tree.dpr - TreeNode.HEIGHT) / 2;
             partnerNode.mainNode.setXYPosition(x, y);
         }
 

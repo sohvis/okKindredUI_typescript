@@ -6,6 +6,8 @@ export const simplifiedChinese = {
       // Global
       Edit: `编辑`,
       Done: `做`,
+      Delete: `删除`,
+      Cancel: `取消`,
 
       // Navbar & Menus
       Family: `家庭`,
@@ -245,5 +247,12 @@ export const simplifiedChinese = {
       DeleteMyProfile: `删除我的个人资料`,
       LeaveSiteKeepMyProfile: `个人资料将被保留`,
       LeaveSiteDeleteMyProfile: `个人资料将被删除`,
+
+      // Edit Tree
+      AddAncestor: `添加祖先`,
+      AddDescendant: `添加后代`,
+      AddPartner: `添加合作伙伴`,
+
+      AreYouSureDelete: `你确定要删除的个人资料？`,
     },
 };

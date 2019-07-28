@@ -5,17 +5,20 @@ import Point from './point';
 export default class PartneredRelation implements TreeRelation {
 
     public static STROKE_STYLE = '#2e6f9a';
+    public static DISABLED_STROKE_STYLE = '#333';
     public static LINE_WIDTH = 2;
 
     public static HEIGHT = 20;
 
     public id: string;
+    public disabled: boolean;
     public ctx: CanvasRenderingContext2D;
     public node1: TreeNode;
     public node2: TreeNode;
 
     constructor(ctx: CanvasRenderingContext2D, node1: TreeNode, node2: TreeNode) {
         this.ctx = ctx;
+        this.disabled = false;
 
         if (node1.id < node2.id) {
             this.id = `${node1.id}-${node2.id}`;
@@ -57,7 +60,13 @@ export default class PartneredRelation implements TreeRelation {
         );
 
         this.ctx.beginPath();
-        this.ctx.strokeStyle = PartneredRelation.STROKE_STYLE;
+
+        let strokeStyle = PartneredRelation.STROKE_STYLE;
+        if (this.disabled) {
+            strokeStyle = PartneredRelation.DISABLED_STROKE_STYLE;
+        }
+
+        this.ctx.strokeStyle = strokeStyle;
         this.ctx.lineWidth = PartneredRelation.LINE_WIDTH;
 
         this.ctx.moveTo(point1.x, point1.y);

@@ -11,11 +11,13 @@ export default class TreeNode extends  Positionable {
     public static WIDTH = 130;
     public static HEIGHT = 140;
     public static RECT_STROKE_STYLE = '#2e6f9a';
+    public static DISABLED_RECT_STROKE_STYLE = '#444';
     public static RECT_LINE_WIDTH = 4;
     public static SELECTED_RECT_LINE_WIDTH = 16;
     public static RECT_ROUNDED_CORNER_RADIUS = 15;
     public static LEFT_MARGIN = 25;
     public static RECT_FILL_STYLE = '#EEEAEA';
+    public static DISABLED_RECT_FILL_STYLE = '#555';
     public static SELECTED_RECT_FILL_STYLE = 'rgb(255, 255, 255)';
     public static HIGHLIGHTED_RECT_FILL_STYLE = 'rgb(70, 255, 70)';
     public static MIN_SPACING = 10;
@@ -25,11 +27,15 @@ export default class TreeNode extends  Positionable {
 
     // Image Defaults
     public static TOP_IMAGE_MARGIN = 10;
+    public static DISABLED_IMAGE_OPACITY = 0.4;
 
     // Text Defaults
     public static TOP_TEXT_MARGIN = 115;
     public static LEFT_TEXT_MARGIN = 10;
     public static FONT_SIZE = 12;
+    public static FONT_COLOUR = '#000';
+    public static FONT = 'Arial';
+    public static DISABLED_FONT_COLOUR = '#444';
 
     public readonly id: string;
 
@@ -70,6 +76,9 @@ export default class TreeNode extends  Positionable {
         this.parent = null;
     }
 
+    public setDisabled(disabled: boolean) {
+        this.disabled = disabled;
+    }
 
     public render() {
 
@@ -82,8 +91,13 @@ export default class TreeNode extends  Positionable {
 
         this.roundRect();
 
-        this.ctx.fillStyle = '#000';
-        this.ctx.font = `${TreeNode.FONT_SIZE}px Arial`;
+        if (this.disabled) {
+            this.ctx.fillStyle = TreeNode.FONT_COLOUR;
+        } else {
+            this.ctx.fillStyle = TreeNode.DISABLED_FONT_COLOUR;
+        }
+
+        this.ctx.font = `${TreeNode.FONT_SIZE}px ${TreeNode.FONT}`;
         this.ctx.textBaseline = 'bottom';
 
         const left = this.x + TreeNode.LEFT_TEXT_MARGIN;
@@ -92,22 +106,31 @@ export default class TreeNode extends  Positionable {
             this.ctx.fillText(this.wrappedName[i], left, top + (TreeNode.FONT_SIZE + 5) * i );
         }
 
+        let imageOpacity = 1.0;
+        if (this.disabled && !this.selected) {
+            imageOpacity = TreeNode.DISABLED_IMAGE_OPACITY;
+        }
+
         // Dev only
         // this.ctx.fillText(`id:${this.id}`, left, top + (TreeNode.FONT_SIZE + 5) * (this.wrappedName.length + 1));
-        this.ctx.fillText(`x:${Math.round(this.x)} xRight:${Math.round(this.xRight)}`,
-                             left, top + (TreeNode.FONT_SIZE + 5) * (this.wrappedName.length + 2));
+        // this.ctx.fillText(`x:${Math.round(this.x)} xRight:${Math.round(this.xRight)}`,
+        //                     left, top + (TreeNode.FONT_SIZE + 5) * (this.wrappedName.length + 2));
         // this.ctx.fillText(`y:${Math.round(this.y)} yBottom:${Math.round(this.yBottom)}`,
         //                     left, top + (TreeNode.FONT_SIZE + 5) * (this.wrappedName.length + 4));
 
         if (this.photo) {
+            this.ctx.globalAlpha = imageOpacity;
             this.ctx.drawImage(this.photo, this.x + TreeNode.LEFT_MARGIN, this.y + TreeNode.TOP_IMAGE_MARGIN);
+            this.ctx.globalAlpha = 1.0;
         } else {
             this.photo = new Image();
             this.photo.src = this.imagePath;
 
             // Have to wait for photo to load before drawing it
             this.photo.onload = () => {
+                this.ctx.globalAlpha = imageOpacity;
                 this.ctx.drawImage(this.photo, this.x + TreeNode.LEFT_MARGIN, this.y + TreeNode.TOP_IMAGE_MARGIN);
+                this.ctx.globalAlpha = 1.0;
             };
         }
 
@@ -144,7 +167,7 @@ export default class TreeNode extends  Positionable {
         const words = name.split(' ');
         let currentLine = words[0];
 
-        this.ctx.font = `${TreeNode.FONT_SIZE}px Arial`;
+        this.ctx.font = `${TreeNode.FONT_SIZE}px ${TreeNode.FONT}`;
 
         for (let i = 1; i < words.length; i++) {
             const word = words[i];
@@ -164,6 +187,13 @@ export default class TreeNode extends  Positionable {
     private roundRect() {
 
         let fillstyle = TreeNode.RECT_FILL_STYLE;
+        let strokeStyle = TreeNode.RECT_STROKE_STYLE;
+
+        if (this.disabled) {
+            fillstyle = TreeNode.DISABLED_RECT_FILL_STYLE;
+            strokeStyle = TreeNode.DISABLED_RECT_STROKE_STYLE;
+        }
+
         // let fillstyle = this.rainbow(parseInt(this.id, 10), 10000 );
         let lineWidth = TreeNode.RECT_LINE_WIDTH;
 
@@ -180,7 +210,7 @@ export default class TreeNode extends  Positionable {
         const r = this.xRight;
         const b = this.yBottom;
         this.ctx.beginPath();
-        this.ctx.strokeStyle = TreeNode.RECT_STROKE_STYLE;
+        this.ctx.strokeStyle = strokeStyle;
         this.ctx.lineWidth = lineWidth;
         this.ctx.moveTo(this.x + radius, this.y);
         this.ctx.lineTo(r - radius, this.y);
@@ -213,15 +243,23 @@ export default class TreeNode extends  Positionable {
             point2.y + TreeNode.MORE_ARROW_WIDTH,
         );
 
+        let fillstyle = TreeNode.RECT_FILL_STYLE;
+        let strokeStyle = TreeNode.RECT_STROKE_STYLE;
+
+        if (this.disabled) {
+            fillstyle = TreeNode.DISABLED_RECT_FILL_STYLE;
+            strokeStyle = TreeNode.DISABLED_RECT_STROKE_STYLE;
+        }
+
         this.ctx.beginPath();
-        this.ctx.strokeStyle = TreeNode.RECT_STROKE_STYLE;
+        this.ctx.strokeStyle = fillstyle;
         this.ctx.lineWidth = 1;
         this.ctx.moveTo(point1.x, point1.y);
         this.ctx.lineTo(point2.x, point2.y);
         this.ctx.lineTo(point3.x, point3.y);
         this.ctx.lineTo(point1.x, point1.y);
         this.ctx.stroke();
-        this.ctx.fillStyle = TreeNode.RECT_STROKE_STYLE;
+        this.ctx.fillStyle = strokeStyle;
         this.ctx.fill();
     }
 }

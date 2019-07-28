@@ -5,15 +5,21 @@ import PartneredRelation from './partneredRelation';
 
 export default class RaisedRelation implements TreeRelation {
 
+    public static STROKE_STYLE = '#2e6f9a';
+    public static DISABLED_STROKE_STYLE = '#333';
+    public static LINE_WIDTH = 2;
     public static INFLECTION_HEIGHT = 40;
+    public static HEIGHT = 20;
 
     public id: string;
+    public disabled: boolean;
     public ctx: CanvasRenderingContext2D;
     public fromNodes: TreeNode[];
     public toNode: TreeNode;
 
     constructor(ctx: CanvasRenderingContext2D, fromNodes: TreeNode[], toNode: TreeNode) {
         this.ctx = ctx;
+        this.disabled = false;
         const fromIds = fromNodes.map((item) => item.id);
         const fromIdsFormatted = fromIds.sort().join('|');
         this.id = `${fromIdsFormatted}-${toNode.id}`;
@@ -87,8 +93,14 @@ export default class RaisedRelation implements TreeRelation {
         );
 
         this.ctx.beginPath();
-        this.ctx.strokeStyle = PartneredRelation.STROKE_STYLE;
-        this.ctx.lineWidth = PartneredRelation.LINE_WIDTH;
+
+        let strokeStyle = RaisedRelation.STROKE_STYLE;
+        if (this.disabled) {
+            strokeStyle = RaisedRelation.DISABLED_STROKE_STYLE;
+        }
+
+        this.ctx.strokeStyle = strokeStyle;
+        this.ctx.lineWidth = RaisedRelation.LINE_WIDTH;
 
         this.ctx.moveTo(point1.x, point1.y);
         this.ctx.lineTo(point2.x, point2.y);
@@ -101,7 +113,7 @@ export default class RaisedRelation implements TreeRelation {
 
         const point1 = new Point(
             fromNodes[fromNodes.length - 1].leftMarginStart,
-            fromNodes[fromNodes.length - 1].yBottom + PartneredRelation.HEIGHT,
+            fromNodes[fromNodes.length - 1].yBottom + RaisedRelation.HEIGHT,
         );
 
         const point2 = new Point(
@@ -121,8 +133,14 @@ export default class RaisedRelation implements TreeRelation {
 
 
         this.ctx.beginPath();
-        this.ctx.strokeStyle = PartneredRelation.STROKE_STYLE;
-        this.ctx.lineWidth = PartneredRelation.LINE_WIDTH;
+
+        let strokeStyle = RaisedRelation.STROKE_STYLE;
+        if (this.disabled) {
+            strokeStyle = RaisedRelation.DISABLED_STROKE_STYLE;
+        }
+
+        this.ctx.strokeStyle = strokeStyle;
+        this.ctx.lineWidth = RaisedRelation.LINE_WIDTH;
 
         this.ctx.moveTo(point1.x, point1.y);
         this.ctx.lineTo(point2.x, point2.y);

@@ -6,6 +6,8 @@ export const finnish = {
       // Global
       Edit: `Muokata`,
       Done: `Tehty`,
+      Delete: `Poistaa`,
+      Cancel: `Peruuttaa`,
 
       // Navbar & Menus
       Family: `Perhe`,
@@ -207,5 +209,12 @@ export const finnish = {
       DeleteMyProfile: `Poista profiili`,
       LeaveSiteKeepMyProfile: `Profiili säilyy`,
       LeaveSiteDeleteMyProfile: `Profiili poistetaan`,
+
+      // Edit Tree
+      AddAncestor: `Lisää Esi-isä`,
+      AddDescendant: `Lisää Jälkeläinen`,
+      AddPartner: `Lisää Kumppani`,
+
+      AreYouSureDelete: `Oletko varma, että haluat poistaa profiilin?`,
     },
 };

@@ -6,6 +6,8 @@ export const polish = {
       // Global
       Edit: `Edytuj`,
       Done: `Gotowe`,
+      Delete: `Skasuj`,
+      Cancel: `Anuluj`,
 
       // Navbar
       Family: `Rodzina`,
@@ -275,5 +277,12 @@ export const polish = {
       DeleteMyProfile: `Usuń mój profil`,
       LeaveSiteKeepMyProfile: `Profil zostanie zachowany`,
       LeaveSiteDeleteMyProfile: `Profil zostanie usunięty`,
+
+      // Edit Tree
+      AddAncestor: `Dodaj Przodka`,
+      AddDescendant: `Dodaj Potomka`,
+      AddPartner: `Dodaj partnera`,
+
+      AreYouSureDelete: `Czy na pewno chcesz usunąć profil?`,
     },
 };

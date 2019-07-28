@@ -16,6 +16,7 @@ export default abstract class Positionable {
     public hasXValue: boolean;
     public hasYValue: boolean;
     public spacing: number;
+    protected disabled: boolean;
 
     constructor(width: number, height: number, spacing: number) {
         this.x = 0;
@@ -32,7 +33,10 @@ export default abstract class Positionable {
         this.hasYValue = false;
         this.spacing = spacing;
         this.widthAndSpacing = width + spacing * 2;
+        this.disabled = false;
     }
+
+    public abstract setDisabled(disabled: boolean): void;
 
     public clearPosition() {
         this.x = 0;

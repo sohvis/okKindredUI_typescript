@@ -1,7 +1,7 @@
 <template>
-  <div class="tree-edit-control-container">
-    <button type="button" class="btn btn-secondary btn-round" @click="click">
-      <span class="oi oi-pencil edit-button" aria-hidden="true"></span>
+  <div class="tree-cancel-edit-control-container">
+    <button type="button" class="btn btn-success btn-round" @click="click">
+      <span class="oi oi-check cancel-button" aria-hidden="true"></span>
     </button>
   </div>
 </template>
@@ -10,10 +10,10 @@
 import { Component, Vue } from 'vue-property-decorator';
 
 @Component
-export default class TreeNavControls extends Vue {
+export default class TreeCancelEditControls extends Vue {
 
   private click() {
-    window.console.log(`TreeNavControls.click()`);
+    window.console.log(`TreeCancelEditControls.click()`);
     this.$emit('click');
   }
 }
@@ -23,14 +23,14 @@ export default class TreeNavControls extends Vue {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
-.tree-edit-control-container {
+.tree-cancel-edit-control-container {
   z-index: 3;
   position: absolute;
   right: 20px;
   bottom: 20px;
 }
 
-.edit-button {
+.cancel-button {
   font-size: 2.5em;
 }
 

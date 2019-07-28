@@ -16,9 +16,6 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 
-/**
- * Only show controls if on desktop browser
- */
 @Component
 export default class TreeNavControls extends Vue {
 

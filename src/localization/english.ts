@@ -6,6 +6,8 @@ export const english = {
       // Global
       Edit: `Edit`,
       Done: `Done`,
+      Delete: `Delete`,
+      Cancel: `Cancel`,
 
       // Navbar & Menus
       Family: `Family`,
@@ -202,5 +204,12 @@ export const english = {
       DeleteMyProfile: `Delete my Profile`,
       LeaveSiteKeepMyProfile: `Profile will be preserved`,
       LeaveSiteDeleteMyProfile: `Profile will be deleted`,
+
+      // Edit Tree
+      AddAncestor: `Add Ancestor`,
+      AddDescendant: `Add Descendant`,
+      AddPartner: `Add Partner`,
+
+      AreYouSureDelete: `Are you sure you want to delete?`,
     },
 };

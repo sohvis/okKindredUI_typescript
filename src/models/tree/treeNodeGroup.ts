@@ -87,6 +87,13 @@ export default class TreeNodeGroup extends Positionable {
         this.setContentPosition(x);
     }
 
+    public setDisabled(disabled: boolean) {
+
+        for (const partnerNode of this.partnerNodes) {
+            partnerNode.setDisabled(disabled);
+        }
+    }
+
     public render() {
         for (const partnerNode of this.partnerNodes) {
             partnerNode.render();

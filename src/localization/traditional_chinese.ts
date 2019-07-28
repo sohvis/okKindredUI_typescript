@@ -6,6 +6,8 @@ export const traditionalChinese = {
       // Global
       Edit: `編輯`,
       Done: `做`,
+      Delete: `刪除`,
+      Cancel: `取消`,
 
       // Navbar & Menus
       Family: `家庭`,
@@ -243,5 +245,12 @@ export const traditionalChinese = {
       DeleteMyProfile: `刪除我的個人資料`,
       LeaveSiteKeepMyProfile: `個人資料將被保留`,
       LeaveSiteDeleteMyProfile: `個人資料將被刪除`,
+
+      // Edit Tree
+      AddAncestor: `添加祖先`,
+      AddDescendant: `添加後代`,
+      AddPartner: `添加合作夥伴`,
+
+      AreYouSureDelete: `你確定要刪除的個人資料？`,
     },
 };

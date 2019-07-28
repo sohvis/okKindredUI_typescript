@@ -6,6 +6,8 @@ export const french = {
       // Global
       Edit: `Modifier`,
       Done: `Terminé`,
+      Delete: `Effacer`,
+      Cancel: `Annuler`,
 
       // Navbar & Menus
       Family: `Famille`,
@@ -265,5 +267,12 @@ export const french = {
       DeleteMyProfile: `Supprimer mon profil`,
       LeaveSiteKeepMyProfile: `Votre profil sera préservé`,
       LeaveSiteDeleteMyProfile: `Votre profil sera supprimé`,
+
+      // Edit Tree
+      AddAncestor: `Ajouter un Ancêtre`,
+      AddDescendant: `Ajouter un Descendant`,
+      AddPartner: `Ajouter un Partenaire`,
+
+      AreYouSureDelete: `Etes-vous sûr de vouloir supprimer le profil?`,
     },
 };

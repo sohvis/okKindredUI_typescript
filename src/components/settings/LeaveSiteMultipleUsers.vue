@@ -16,7 +16,7 @@
     <b-form class="leave-form" v-on:submit.prevent="leaveSite()">
 
       <b-form-group>
-        <b-form-checkbox v-model="deleteEverything" name="check-button" switch>
+        <b-form-checkbox v-model="deleteProfile" name="check-button" switch>
           {{ $t('message.DeleteMyProfile') }}
         </b-form-checkbox>
       </b-form-group>

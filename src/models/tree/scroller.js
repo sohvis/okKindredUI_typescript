@@ -54,7 +54,11 @@ export const Scroller = {
 
     mousedown: (evt) => {
         window.console.log(`mousedown`);
-        window.console.log(evt);
+
+        if (Scroller.tree.disabled) {
+            return;
+        }
+
         const offset = Scroller.canvasOffset();
 
         Scroller.lastPoint.x = evt.clientX - offset.left;
@@ -64,6 +68,10 @@ export const Scroller = {
     },
 
     touchstart: (touchEvent) => {
+
+        if (Scroller.tree.disabled) {
+            return;
+        }
 
         var pos = Scroller.getTouchPos(touchEvent);
 
@@ -85,6 +93,11 @@ export const Scroller = {
     },
 
     mouseMove: (evt) => {
+
+        if (Scroller.tree.disabled) {
+            return;
+        }
+
         // Records last mouse point
         const offset = Scroller.canvasOffset();
         Scroller.lastPoint.x = evt.pageX - offset.left;
@@ -99,14 +112,17 @@ export const Scroller = {
 
             Scroller.ctx.translate(dx, dy);
             Scroller.tree.render(false);
-            window.console.log(`Scroller.ctx.getTransform()`);
-            window.console.log(Scroller.ctx.getTransform());
         } else {
             Scroller.tree.hover(pt.x, pt.y)
         }
     },
 
     touchmove: (touchEvent) => {
+
+        if (Scroller.tree.disabled) {
+            return;
+        }
+
         var pos = Scroller.getTouchPos(touchEvent);
 
         // Dragstart set by touchstart
@@ -124,6 +140,10 @@ export const Scroller = {
     },
 
     pinchZoom: (pos) => {
+
+        if (Scroller.tree.disabled) {
+            return;
+        }
 
         var pt = Scroller.ctx.transformedPoint(pos.x, pos.y);
         var pt2 = Scroller.ctx.transformedPoint(pos.x2, pos.y2);
@@ -223,6 +243,11 @@ export const Scroller = {
     },
 
     singleTouchMove: (pos) => {
+
+        if (Scroller.tree.disabled) {
+            return;
+        }
+
         // Single touch move
         Scroller.lastPoint.x = pos.x;
         Scroller.lastPoint.y = pos.y;
@@ -237,6 +262,11 @@ export const Scroller = {
     },
 
     mouseUp: () => {
+
+        if (Scroller.tree.disabled) {
+            return;
+        }
+
         var elapsedClickTime = new Date().getTime() - Scroller.dragStartTime;
         
         // Select if quick single tap
@@ -251,6 +281,11 @@ export const Scroller = {
     },
 
     handleScroll: (evt) => {
+
+        if (Scroller.tree.disabled) {
+            return;
+        }
+
         var delta = evt.wheelDelta ? evt.wheelDelta / 80 : evt.detail ? -evt.detail : 0;
         
         if (delta) {
@@ -272,6 +307,11 @@ export const Scroller = {
     },
 
     getTouchPos: (touchEvent) => {
+
+        if (Scroller.tree.disabled) {
+            return;
+        }
+
         var rect = Scroller.canvas.getBoundingClientRect();
 
         var multiTouch = touchEvent.touches.length > 1;
