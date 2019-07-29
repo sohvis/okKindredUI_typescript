@@ -8,14 +8,24 @@
       {{ $t('message.AddAncestor') }}
     </b-button>
     <div class="vertical-line" v-bind:style="linePositionStyle"></div>
+    <AddRelativeModal 
+      ref="addRelativeModal"
+      v-bind:title="$t('message.AddAncestor')" 
+      v-bind:relationType="relationType" />
 </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import TreeNode from '../../models/tree/treeNode';
+import RelationTypes from '../../models/data/relation_types';
+import AddRelativeModal from './AddRelativeModal.vue';
 
-@Component
+@Component({
+  components: {
+    AddRelativeModal,
+  },
+})
 export default class AddAncestor extends Vue {
 
   public static BOTTOM_MARGIN = 10;
@@ -24,6 +34,8 @@ export default class AddAncestor extends Vue {
   public positionStyle: any = {};
 
   public linePositionStyle: any = {};
+
+  public relationType: number = RelationTypes.RAISED_BY;
 
   constructor() {
     super();
@@ -45,7 +57,7 @@ export default class AddAncestor extends Vue {
 
   public click() {
     window.console.log(`AddAncestor.click()`);
-    this.$emit('click');
+    (this.$refs.addRelativeModal as AddRelativeModal).show();
   }
 }
 </script>

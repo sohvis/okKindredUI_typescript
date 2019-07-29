@@ -8,7 +8,7 @@
             </template>
             <b-card-text>
                 <FamilyTree 
-                    ref="tree"/>
+                    ref="tree" @personRemoved="personRemoved"/>
             </b-card-text>
         </b-tab>
         <b-tab @click="profileInit()">
@@ -183,6 +183,49 @@ export default class Family extends Vue {
       this.relations = await request.get(options);
 
       store.commit('updateLoading', false);
+    }
+
+    private personRemoved(personId: number) {
+
+      // Remove relations
+      const relationsToRemove = new Array<Relation>();
+      for (const rel of this.relations) {
+        if (rel.from_person_id === personId || rel.to_person_id === personId) {
+          relationsToRemove.push(rel);
+        }
+      }
+
+      this.relations = this.relations.filter((i) => !relationsToRemove.includes(i));
+      this.people = this.people.filter((i) => Number(i.id) !== personId);
+
+      const selectedPersonId = this.getNextPersonId(relationsToRemove);
+
+      store.dispatch('changePerson', selectedPersonId).then(() => {
+            const tree = this.$refs.tree as FamilyTree;
+            tree.initializeTree(this.people, this.relations);
+      });
+    }
+
+    private getNextPersonId(relationsToRemove: Relation[]): number {
+
+      // Change selected person to closest relative, default to user id if not possible
+      const selectedPersonId = store.state.users_person_id;
+
+      for (const rel of relationsToRemove) {
+        if (this.people
+            .filter((p) => Number(p.id) === Number(rel.from_person_id))
+            .length) {
+                return Number(rel.from_person_id);
+            }
+
+        if (this.people
+            .filter((p) => Number(p.id) === Number(rel.to_person_id))
+            .length) {
+                return Number(rel.to_person_id);
+            }
+      }
+
+      return Number(selectedPersonId);
     }
 }
 </script>

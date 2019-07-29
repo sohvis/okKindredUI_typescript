@@ -6,10 +6,13 @@
       <span class="oi oi-trash" aria-hidden="true"></span>
     </b-button>
 
-    <b-modal id="delete-modal" @ok="handleOk" okVariant="danger"
-          :title="$t('message.Delete')"
-          :okTitle="$t('message.Delete')"
-          :cancelTitle="$t('message.Cancel')" >
+    <b-modal id="delete-modal" 
+        ref="modal"
+        @ok="handleOk" 
+        okVariant="danger"
+        :title="$t('message.Delete')"
+        :okTitle="$t('message.Delete')"
+        :cancelTitle="$t('message.Cancel')" >
       <p> {{ $t('message.AreYouSureDelete') }}</p>
     </b-modal>
 </div>
@@ -47,9 +50,29 @@ export default class DeletePerson extends Vue {
     this.positionStyle['border-radius'] = `${height / 2}px`;
   }
 
-  public handleOk() {
-    window.console.log(`DeletePerson.click()`);
-    this.$emit('click');
+  public async handleOk() {
+    window.console.log(`DeletePerson.handleOk()`);
+
+    try {
+      store.commit('updateLoading', true);
+      const selectedPersonId = store.state.person_id;
+
+      const options = {
+          uri: `${configs.BaseApiUrl}${configs.PersonAPI}/${selectedPersonId}`,
+          headers: store.getters.ajaxHeader,
+          json: true,
+      };
+
+      await request.delete(options);
+
+      this.$emit('personRemoved', Number(selectedPersonId));
+
+    } catch (ex) {
+        window.console.log(ex);
+        store.commit('setErrorMessage', ex);
+    }
+    store.commit('updateLoading', false);
+    (this.$refs.modal as any).hide();
   }
 
   protected async mounted() {

@@ -7,7 +7,7 @@
       <AddAncestor v-if="editMode" />
       <AddDescendant v-if="editMode" />
       <AddPartner v-if="editMode" />
-      <DeletePerson v-if="editMode" />
+      <DeletePerson v-if="editMode" @personRemoved="personRemoved"/>
   </div>
 </template>
 
@@ -15,6 +15,7 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
 import { Promise } from 'q';
+import store from '../../store/store';
 import Person from '../../models/data/person';
 import Relation from '../../models/data/relation';
 import Tree from '../../models/tree/tree';
@@ -90,13 +91,15 @@ export default class FamilyTree extends Vue {
 
     private edit() {
       window.console.log('FamilyTree.vue edit() call');
-
-      this.editMode = true;
       const tree = (Scroller as any).tree as Tree;
       (Scroller as any).smoothTranslateAndZoomTo(tree.selectedNode.xMid, tree.selectedNode.yMid, 1);
-      tree.setDisabled(true);
-      tree.render(false);
-      this.treeCanvasClass = 'tree-canvas-disabled';
+
+      window.setTimeout(() => {
+        this.editMode = true;
+        tree.setDisabled(true);
+        tree.render(false);
+        this.treeCanvasClass = 'tree-canvas-disabled';
+      }, 300);
     }
 
     private cancelEdit() {
@@ -130,6 +133,10 @@ export default class FamilyTree extends Vue {
         canvas.style.width = `${window.innerWidth}px`;
         canvas.style.height = `${height}px`;
       }
+    }
+
+    private personRemoved(personId: number) {
+      this.$emit('personRemoved', Number(personId));
     }
 }
 </script>

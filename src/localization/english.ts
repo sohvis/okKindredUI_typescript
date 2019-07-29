@@ -7,6 +7,7 @@ export const english = {
       Edit: `Edit`,
       Done: `Done`,
       Delete: `Delete`,
+      Ok: `Ok`,
       Cancel: `Cancel`,
 
       // Navbar & Menus

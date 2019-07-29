@@ -7,6 +7,7 @@ export const french = {
       Edit: `Modifier`,
       Done: `Terminé`,
       Delete: `Effacer`,
+      Ok: `D'accord`,
       Cancel: `Annuler`,
 
       // Navbar & Menus

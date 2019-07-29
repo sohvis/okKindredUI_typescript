@@ -208,7 +208,6 @@ export const Scroller = {
         window.console.log(`pos.x: ${pos.x}, pos.y: ${pos.y})`);
 
         const steps = 10;
-        const frameDelay = 100;
         const dx = (centerPos.x - x) / steps;
         const dy = (centerPos.y - y) / steps;
 

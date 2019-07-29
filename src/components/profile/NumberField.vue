@@ -67,13 +67,8 @@ export default class NumberField extends Vue {
 
   private async onKeyup(e: KeyboardEvent) {
 
-    const regexp = new RegExp('^[1-9]\d{0,2}$');
-    const key = String.fromCharCode(e.keyCode);
-
     if (e.keyCode === 13) {
         await this.endEdit();
-    } else if (!regexp.test(key)) {
-      e.preventDefault();
     }
   }
 
@@ -99,7 +94,6 @@ export default class NumberField extends Vue {
 
   private async endEdit() {
     this.editMode = false;
-
     store.commit('updateLoading', true);
     await this.save();
     store.commit('updateLoading', false);
@@ -111,12 +105,17 @@ export default class NumberField extends Vue {
 
     if (this.value !== this.valueEdited) {
 
+      let value = this.valueEdited;
+      if (!value) {
+        value = 0;
+      }
+
       const options = {
           uri: `${configs.BaseApiUrl}${configs.PersonAPI}/${this.personId}`,
           headers: store.getters.ajaxHeader,
           body: {
             fieldName: this.propertyName,
-            value: this.valueEdited,
+            value,
           },
           json: true,
       };

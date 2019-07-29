@@ -7,6 +7,7 @@ export const traditionalChinese = {
       Edit: `編輯`,
       Done: `做`,
       Delete: `刪除`,
+      Ok: `好`,
       Cancel: `取消`,
 
       // Navbar & Menus

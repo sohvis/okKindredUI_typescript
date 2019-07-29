@@ -7,6 +7,7 @@ export const simplifiedChinese = {
       Edit: `编辑`,
       Done: `做`,
       Delete: `删除`,
+      Ok: `好`,
       Cancel: `取消`,
 
       // Navbar & Menus

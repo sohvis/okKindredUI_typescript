@@ -7,6 +7,7 @@ export const finnish = {
       Edit: `Muokata`,
       Done: `Tehty`,
       Delete: `Poistaa`,
+      Ok: `Kunnossa`,
       Cancel: `Peruuttaa`,
 
       // Navbar & Menus

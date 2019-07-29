@@ -7,6 +7,7 @@ export const polish = {
       Edit: `Edytuj`,
       Done: `Gotowe`,
       Delete: `Skasuj`,
+      Ok: `Dobrze`,
       Cancel: `Anuluj`,
 
       // Navbar
