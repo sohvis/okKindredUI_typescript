@@ -58,7 +58,7 @@ export default class DeletePerson extends Vue {
       const selectedPersonId = store.state.person_id;
 
       const options = {
-          uri: `${configs.BaseApiUrl}${configs.PersonAPI}/${selectedPersonId}`,
+          uri: `${configs.BaseApiUrl}${configs.PersonAPI}${selectedPersonId}`,
           headers: store.getters.ajaxHeader,
           json: true,
       };

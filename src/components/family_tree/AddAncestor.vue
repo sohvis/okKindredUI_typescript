@@ -11,7 +11,8 @@
     <AddRelativeModal 
       ref="addRelativeModal"
       v-bind:title="$t('message.AddAncestor')" 
-      v-bind:relationType="relationType" />
+      v-bind:relationType="relationType" 
+      @personCreated="personCreated" />
 </div>
 </template>
 
@@ -20,6 +21,7 @@ import { Component, Vue } from 'vue-property-decorator';
 import TreeNode from '../../models/tree/treeNode';
 import RelationTypes from '../../models/data/relation_types';
 import AddRelativeModal from './AddRelativeModal.vue';
+import NewPersonResponse from '../../models/data/new_person_response';
 
 @Component({
   components: {
@@ -58,6 +60,12 @@ export default class AddAncestor extends Vue {
   public click() {
     window.console.log(`AddAncestor.click()`);
     (this.$refs.addRelativeModal as AddRelativeModal).show();
+  }
+
+  private personCreated(newPersonData: NewPersonResponse) {
+      window.console.log(`AddAncestor.personCreated()`);
+
+      this.$emit('personCreated', newPersonData);
   }
 }
 </script>

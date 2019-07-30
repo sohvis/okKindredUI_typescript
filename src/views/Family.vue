@@ -8,7 +8,9 @@
             </template>
             <b-card-text>
                 <FamilyTree 
-                    ref="tree" @personRemoved="personRemoved"/>
+                    ref="tree" 
+                    @personRemoved="personRemoved" 
+                    @personCreated="personCreated"/>
             </b-card-text>
         </b-tab>
         <b-tab @click="profileInit()">
@@ -47,6 +49,7 @@ import Relation from './../models/data/relation';
 import store from '../store/store';
 import { configs } from '../config';
 import ProfileEmitArgs from '../models/profile_emit_args';
+import NewPersonResponse from '../models/data/new_person_response';
 
 @Component({
   components: {
@@ -186,6 +189,7 @@ export default class Family extends Vue {
     }
 
     private personRemoved(personId: number) {
+      window.console.log(`Family.personRemoved()`);
 
       // Remove relations
       const relationsToRemove = new Array<Relation>();
@@ -226,6 +230,17 @@ export default class Family extends Vue {
       }
 
       return Number(selectedPersonId);
+    }
+
+    private personCreated(newPersonData: NewPersonResponse) {
+        window.console.log(`Family.personCreated(newPersonData:)`);
+        window.console.log(newPersonData);
+
+        this.people.push(newPersonData.person);
+        this.relations.push(newPersonData.relation);
+
+        const tree = this.$refs.tree as FamilyTree;
+        tree.initializeTree(this.people, this.relations);
     }
 }
 </script>

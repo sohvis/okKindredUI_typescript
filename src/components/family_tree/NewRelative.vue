@@ -48,8 +48,13 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
+import * as request from 'request-promise-native';
+import store from '../../store/store';
+import { configs } from '../../config';
 import GenderOptionsBuilder from '../../models/data/gender_options_builder';
 import SelectOption from '../../models/data/select_option';
+import NewPersonResponse from '../../models/data/new_person_response';
+
 
 @Component
 export default class NewRelative extends Vue {
@@ -72,7 +77,7 @@ export default class NewRelative extends Vue {
         (this.$refs.modal as any).show();
     }
 
-    public submit() {
+    public async submit() {
         window.console.log(`NewRelative.submit()`);
 
         const valid = (this.$refs.form as any).checkValidity();
@@ -81,7 +86,31 @@ export default class NewRelative extends Vue {
             return;
         }
 
-        alert(JSON.stringify(this.form));
+        try {
+            const selectedPersonId = store.state.person_id;
+
+            const options = {
+                uri: `${configs.BaseApiUrl}${configs.PersonAPI}`,
+                headers: store.getters.ajaxHeader,
+                body: {
+                    from_person_id: selectedPersonId,
+                    relation_type: this.relationType,
+                    name: this.form.name,
+                    gender: this.form.gender,
+                    birth_year: this.form.birthYear,
+                    address: this.form.location,
+                },
+                json: true,
+            };
+
+            const response = await request.post(options) as NewPersonResponse;
+            this.$emit('personCreated', response);
+
+        } catch (ex) {
+                window.console.log(ex);
+                this.$emit('onError', ex);
+        }
+
     }
 
     protected mounted() {

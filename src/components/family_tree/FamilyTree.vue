@@ -4,9 +4,9 @@
       <TreeNavControls v-if="!editMode" @zoomIn="zoomIn" @zoomOut="zoomOut" />
       <TreeEditControl v-if="!editMode" @click="edit" />
       <TreeCancelEditControl v-if="editMode" @click="cancelEdit" />
-      <AddAncestor v-if="editMode" />
-      <AddDescendant v-if="editMode" />
-      <AddPartner v-if="editMode" />
+      <AddAncestor v-if="editMode" @personCreated="personCreated" />
+      <AddDescendant v-if="editMode" @personCreated="personCreated" />
+      <AddPartner v-if="editMode" @personCreated="personCreated" />
       <DeletePerson v-if="editMode" @personRemoved="personRemoved"/>
   </div>
 </template>
@@ -28,6 +28,7 @@ import AddAncestor from './AddAncestor.vue';
 import AddDescendant from './AddDescendant.vue';
 import AddPartner from './AddPartner.vue';
 import DeletePerson from './DeletePerson.vue';
+import NewPersonResponse from '../../models/data/new_person_response';
 
 @Component({
   components: {
@@ -136,7 +137,15 @@ export default class FamilyTree extends Vue {
     }
 
     private personRemoved(personId: number) {
+      window.console.log(`FamilyTree.personRemoved()`);
+
       this.$emit('personRemoved', Number(personId));
+    }
+
+    private personCreated(newPersonData: NewPersonResponse) {
+      window.console.log(`FamilyTree.personCreated()`);
+
+      this.$emit('personCreated', newPersonData);
     }
 }
 </script>

@@ -8,14 +8,26 @@
       {{ $t('message.AddPartner') }}
     </b-button>
     <div class="horizontal-line" v-bind:style="linePositionStyle"></div>
+    <AddRelativeModal 
+      ref="addRelativeModal"
+      v-bind:title="$t('message.AddPartner')" 
+      v-bind:relationType="relationType" 
+      @personCreated="personCreated" />
 </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import TreeNode from '../../models/tree/treeNode';
+import RelationTypes from '../../models/data/relation_types';
+import AddRelativeModal from './AddRelativeModal.vue';
+import NewPersonResponse from '../../models/data/new_person_response';
 
-@Component
+@Component({
+  components: {
+    AddRelativeModal,
+  },
+})
 export default class AddPartner extends Vue {
 
   public static LEFT_MARGIN = 10;
@@ -24,6 +36,8 @@ export default class AddPartner extends Vue {
   public positionStyle: any = {};
 
   public linePositionStyle: any = {};
+
+  public relationType: number = RelationTypes.PARTNERED;
 
   constructor() {
     super();
@@ -46,7 +60,13 @@ export default class AddPartner extends Vue {
 
   public click() {
     window.console.log(`AddPartner.click()`);
-    this.$emit('click');
+    (this.$refs.addRelativeModal as AddRelativeModal).show();
+  }
+
+  private personCreated(newPersonData: NewPersonResponse) {
+      window.console.log(`AddPartner.personCreated()`);
+
+      this.$emit('personCreated', newPersonData);
   }
 }
 </script>

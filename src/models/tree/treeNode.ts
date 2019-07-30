@@ -18,7 +18,6 @@ export default class TreeNode extends  Positionable {
     public static LEFT_MARGIN = 25;
     public static RECT_FILL_STYLE = '#EEEAEA';
     public static DISABLED_RECT_FILL_STYLE = '#555';
-    public static SELECTED_RECT_FILL_STYLE = 'rgb(255, 255, 255)';
     public static HIGHLIGHTED_RECT_FILL_STYLE = 'rgb(70, 255, 70)';
     public static MIN_SPACING = 10;
     public static MORE_ARROW_SPACING = 3;
@@ -189,21 +188,20 @@ export default class TreeNode extends  Positionable {
         let fillstyle = TreeNode.RECT_FILL_STYLE;
         let strokeStyle = TreeNode.RECT_STROKE_STYLE;
 
-        if (this.disabled) {
-            fillstyle = TreeNode.DISABLED_RECT_FILL_STYLE;
-            strokeStyle = TreeNode.DISABLED_RECT_STROKE_STYLE;
-        }
-
         // let fillstyle = this.rainbow(parseInt(this.id, 10), 10000 );
         let lineWidth = TreeNode.RECT_LINE_WIDTH;
 
+        if (this.highlighted) {
+            fillstyle = TreeNode.HIGHLIGHTED_RECT_FILL_STYLE;
+        }
+
         if (this.selected) {
-            fillstyle = TreeNode.SELECTED_RECT_FILL_STYLE;
             lineWidth = TreeNode.SELECTED_RECT_LINE_WIDTH;
         }
 
-        if (this.highlighted) {
-            fillstyle = TreeNode.HIGHLIGHTED_RECT_FILL_STYLE;
+        if (this.disabled) {
+            fillstyle = TreeNode.DISABLED_RECT_FILL_STYLE;
+            strokeStyle = TreeNode.DISABLED_RECT_STROKE_STYLE;
         }
 
         const radius = TreeNode.RECT_ROUNDED_CORNER_RADIUS;

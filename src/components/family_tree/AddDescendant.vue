@@ -8,14 +8,26 @@
       {{ $t('message.AddDescendant') }}
     </b-button>
     <div class="vertical-line" v-bind:style="linePositionStyle"></div>
+    <AddRelativeModal 
+      ref="addRelativeModal"
+      v-bind:title="$t('message.AddDescendant')" 
+      v-bind:relationType="relationType" 
+      @personCreated="personCreated" />
 </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import TreeNode from '../../models/tree/treeNode';
+import RelationTypes from '../../models/data/relation_types';
+import AddRelativeModal from './AddRelativeModal.vue';
+import NewPersonResponse from '../../models/data/new_person_response';
 
-@Component
+@Component({
+  components: {
+    AddRelativeModal,
+  },
+})
 export default class AddDescendant extends Vue {
 
   public static BOTTOM_MARGIN = 60;
@@ -24,6 +36,8 @@ export default class AddDescendant extends Vue {
   public positionStyle: any = {};
 
   public linePositionStyle: any = {};
+
+  public relationType: number = RelationTypes.RAISED;
 
   constructor() {
     super();
@@ -45,7 +59,13 @@ export default class AddDescendant extends Vue {
 
   public click() {
     window.console.log(`AddDescendant.click()`);
-    this.$emit('click');
+    (this.$refs.addRelativeModal as AddRelativeModal).show();
+  }
+
+  private personCreated(newPersonData: NewPersonResponse) {
+    window.console.log(`AddDescendant.personCreated()`);
+
+    this.$emit('personCreated', newPersonData);
   }
 }
 </script>

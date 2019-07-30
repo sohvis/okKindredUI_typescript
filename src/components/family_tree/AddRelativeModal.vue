@@ -20,7 +20,10 @@
                     <b-card-text>
                         <NewRelative 
                             ref="newRelativeControl" 
-                            @relationType="relationType" />
+                            v-bind:relationType="relationType" 
+                            @onError="onError"
+                            @personCreated="personCreated"
+                            />
                     </b-card-text>
                 </b-tab>
                 <b-tab>
@@ -34,7 +37,12 @@
                 </b-tab>
             </b-tabs>
         </b-card>
+
         <Loading v-if="busy"/>
+
+        <b-alert variant="danger" v-model="showError">
+            {{ errorMessage }}
+        </b-alert>
     </b-modal>
     
 </template>
@@ -43,6 +51,7 @@
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import NewRelative from './NewRelative.vue';
 import Loading from './../common/Loading.vue';
+import NewPersonResponse from '../../models/data/new_person_response';
 
 @Component({
   components: {
@@ -59,6 +68,10 @@ export default class AddRelativeModal extends Vue {
     public relationType?: number;
 
     public busy: boolean = false;
+
+    public showError: boolean = false;
+
+    public errorMessage: string = '';
 
     public show() {
         (this.$refs.modal as any).show();
@@ -78,8 +91,26 @@ export default class AddRelativeModal extends Vue {
 
     private submit() {
         window.console.log(`AddRelativeModal.submit()`);
+        this.showError = false;
         this.busy = true;
         (this.$refs.newRelativeControl as any).submit();
+    }
+
+    private onError(errorMessage: string) {
+        window.console.log(`AddRelativeModal.onError()`);
+
+        this.showError = true;
+        this.errorMessage = errorMessage;
+        this.busy = false;
+    }
+
+    private personCreated(newPersonData: NewPersonResponse) {
+        window.console.log(`AddRelativeModal.personCreated()`);
+
+        this.busy = false;
+        this.$emit('personCreated', newPersonData);
+
+        (this.$refs.modal as any).hide();
     }
 }
 </script>
