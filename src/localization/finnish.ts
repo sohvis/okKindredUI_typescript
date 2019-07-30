@@ -217,5 +217,9 @@ export const finnish = {
       AddPartner: `Lisää Kumppani`,
 
       AreYouSureDelete: `Oletko varma, että haluat poistaa profiilin?`,
+
+      NewPerson: `Uusi Henkilö`,
+      ExistingPerson: `Olemassa Oleva Henkilö`,
+      Required: `Edellytetään`,
     },
 };

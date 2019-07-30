@@ -253,5 +253,9 @@ export const traditionalChinese = {
       AddPartner: `添加合作夥伴`,
 
       AreYouSureDelete: `你確定要刪除的個人資料？`,
+
+      NewPerson: `新人`,
+      ExistingPerson: `現有人`,
+      Required: `需要`,
     },
 };

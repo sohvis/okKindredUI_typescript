@@ -6,6 +6,7 @@
             label-for="name"
             :state="form.nameState">
             <b-form-input
+                id="nameInput"
                 v-model="form.name"
                 :state="form.nameState"
                 required>
@@ -73,16 +74,13 @@ export default class NewRelative extends Vue {
         location: '',
     };
 
-    public show() {
-        (this.$refs.modal as any).show();
-    }
-
     public async submit() {
         window.console.log(`NewRelative.submit()`);
 
         const valid = (this.$refs.form as any).checkValidity();
         this.form.nameState = valid ? 'valid' : 'invalid';
         if (!valid) {
+            this.$emit('onError');
             return;
         }
 
@@ -116,10 +114,15 @@ export default class NewRelative extends Vue {
     protected mounted() {
         const genderBuilder = new GenderOptionsBuilder(this);
         this.options = genderBuilder.createDropDownOptions();
-    }
 
-    private resetModal() {
-        window.console.log(`NewRelative.resetModal()`);
+        const textbox = document.getElementById("nameInput") as HTMLInputElement;
+
+        if (textbox) {
+            setTimeout(() => {
+                textbox.focus();
+                textbox.select();
+            }, 100);
+        }
     }
 }
 </script>

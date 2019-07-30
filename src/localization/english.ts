@@ -212,5 +212,9 @@ export const english = {
       AddPartner: `Add Partner`,
 
       AreYouSureDelete: `Are you sure you want to delete?`,
+
+      NewPerson: `New Person`,
+      ExistingPerson: `Existing Person`,
+      Required: `Required`,
     },
 };

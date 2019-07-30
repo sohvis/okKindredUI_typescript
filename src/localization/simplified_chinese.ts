@@ -255,5 +255,9 @@ export const simplifiedChinese = {
       AddPartner: `添加合作伙伴`,
 
       AreYouSureDelete: `你确定要删除的个人资料？`,
+
+      NewPerson: `新人`,
+      ExistingPerson: `现有人`,
+      Required: `需要`,
     },
 };

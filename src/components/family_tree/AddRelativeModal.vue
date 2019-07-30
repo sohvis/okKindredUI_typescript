@@ -15,7 +15,7 @@
                     <template slot="title">
                         <span class="oi oi-plus" aria-hidden="true"></span>
                         <span class="oi oi-person" aria-hidden="true"></span>
-                        {{ $t('message.AddNewPerson') }}
+                        {{ $t('message.NewPerson') }}
                     </template>
                     <b-card-text>
                         <NewRelative 
@@ -99,8 +99,11 @@ export default class AddRelativeModal extends Vue {
     private onError(errorMessage: string) {
         window.console.log(`AddRelativeModal.onError()`);
 
-        this.showError = true;
-        this.errorMessage = errorMessage;
+        if (errorMessage) {
+            this.showError = true;
+            this.errorMessage = errorMessage;
+        }
+
         this.busy = false;
     }
 

@@ -275,5 +275,9 @@ export const french = {
       AddPartner: `Ajouter un Partenaire`,
 
       AreYouSureDelete: `Etes-vous sûr de vouloir supprimer le profil?`,
+
+      NewPerson: `Nouvelle Personne`,
+      ExistingPerson: `Personne Existante`,
+      Required: `Champs obligatoires`,
     },
 };

@@ -285,5 +285,9 @@ export const polish = {
       AddPartner: `Dodaj partnera`,
 
       AreYouSureDelete: `Czy na pewno chcesz usunąć profil?`,
+
+      NewPerson: `Nowa Osoba`,
+      ExistingPerson: `Istniejąca Osoba`,
+      Required: `Wymagany`,
     },
 };
