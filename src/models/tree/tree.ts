@@ -8,11 +8,9 @@ import RaisedRelation from './raisedRelation';
 import TreeAncestorPositioner from './treeAncestorPositioner';
 import TreeDescendantPositioner from './treeDescendantPositioner';
 import Level0Positioner from './level0Positioner';
+import RelationTypes from '../data/relation_types';
 
 export default class Tree {
-
-    public static PARTNERED = 1;
-    public static RAISED = 2;
 
     public raisedRelationsById: { [id: string]: TreeRelation; };
 
@@ -61,7 +59,7 @@ export default class Tree {
             const fromPerson = this.nodesById[relation.from_person_id];
             const toPerson = this.nodesById[relation.to_person_id];
 
-            if (relation.relation_type === Tree.RAISED) {
+            if (relation.relation_type === RelationTypes.RAISED) {
                 fromPerson.descendants.push(toPerson);
                 toPerson.ancestors.push(fromPerson);
 

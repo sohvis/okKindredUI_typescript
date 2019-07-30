@@ -115,7 +115,7 @@ export default class NewRelative extends Vue {
         const genderBuilder = new GenderOptionsBuilder(this);
         this.options = genderBuilder.createDropDownOptions();
 
-        const textbox = document.getElementById("nameInput") as HTMLInputElement;
+        const textbox = document.getElementById('nameInput') as HTMLInputElement;
 
         if (textbox) {
             setTimeout(() => {
