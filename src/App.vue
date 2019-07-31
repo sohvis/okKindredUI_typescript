@@ -88,10 +88,9 @@ export default class App extends Vue {
 
   private logout(this: any) {
     window.console.log('logout clicked on');
-    this.$store.dispatch('logout')
-    .then(() => {
-      this.$router.push('/accounts/login/');
-    });
+    this.$store.dispatch('logout');
+    this.$router.push('/accounts/login/');
+
   }
 
 }

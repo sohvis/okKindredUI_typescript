@@ -60,6 +60,11 @@ export default class FamilyTree extends Vue {
       this.initializeTree();
     }
 
+    @Watch('relations', {deep: true})
+    public onRelationsChanged() {
+      this.initializeTree();
+    }
+
     public initializeTree() {
       window.console.log(`initializeTree()`);
 

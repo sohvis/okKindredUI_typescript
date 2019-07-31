@@ -40,13 +40,14 @@ export default class Login extends Vue {
 
     public loginInvalid = false;
 
-    public OnSubmit() {
+    public async OnSubmit() {
         window.console.log(`OnSubmit() called from Login ${this.loginDetails.email} ${this.loginDetails.password}`);
-        this.$store.dispatch('login', {
-            email: this.loginDetails.email,
-            password: this.loginDetails.password,
-        })
-        .then(async () => {
+
+        try {
+            await this.$store.dispatch('login', {
+                email: this.loginDetails.email,
+                password: this.loginDetails.password,
+            });
 
             // Check if password is used in a breach
             const numBreaches = await PwnedPasswordChecker.getNumberOfPasswordBreaches(this.loginDetails.password);
@@ -56,10 +57,11 @@ export default class Login extends Vue {
             }
 
             this.$router.push('/family/');
-        }).catch((error) => {
+
+        } catch (error) {
             window.console.log(error);
             this.loginInvalid = true;
-        });
+        }
     }
 }
 </script>

@@ -31,7 +31,9 @@
                         {{ $t('message.ExistingPerson') }}
                     </template>
                     <b-card-text>
-                        Lorem Ipsum
+                        <ExistingRelative 
+                            ref="existingRelativeControl"
+                            v-bind:relationType="relationType" />
                     </b-card-text>
                 </b-tab>
             </b-tabs>
@@ -51,11 +53,13 @@ import { Component, Vue, Prop } from 'vue-property-decorator';
 import NewRelative from './NewRelative.vue';
 import Loading from './../common/Loading.vue';
 import NewPersonResponse from '../../models/data/new_person_response';
+import ExistingRelative from './ExistingRelative.vue';
 
 @Component({
   components: {
       NewRelative,
       Loading,
+      ExistingRelative,
   },
 })
 export default class AddRelativeModal extends Vue {

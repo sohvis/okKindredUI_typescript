@@ -52,13 +52,12 @@ export default class Search extends Vue {
 
     private timeOutHandle: any;
 
-    protected mounted() {
+    protected async mounted() {
         window.console.log('Searchbox.vue mounted() call');
 
-        store.dispatch('restoreSession')
-          .then(async (loggedIn) => {
+        try {
+            await store.dispatch('restoreSession');
 
-          if (loggedIn) {
             const textbox = document.getElementById('search-box') as HTMLInputElement;
             if (textbox) {
                 setTimeout(() => {
@@ -66,12 +65,10 @@ export default class Search extends Vue {
                     textbox.select();
                 }, 100);
             }
-          } else {
-            this.$router.push('/accounts/login/');
-          }
 
-        });
-
+        } catch {
+        this.$router.push('/accounts/login/');
+        }
     }
 
     private async onChange() {
@@ -85,7 +82,7 @@ export default class Search extends Vue {
 
         this.timeOutHandle = setTimeout(async () => {
             await this.search();
-        }, 1000);
+        }, 100);
     }
 
     private async search() {
@@ -93,13 +90,22 @@ export default class Search extends Vue {
 
         try {
             const textbox = document.getElementById('search-box') as HTMLInputElement;
-            const options = {
-                uri: `${configs.BaseApiUrl}${configs.PersonAPI}?search=${this.searchValue}`,
-                headers: store.getters.ajaxHeader,
-                json: true,
-            };
+            // const options = {
+            //     uri: `${configs.BaseApiUrl}${configs.PersonAPI}?search=${this.searchValue}`,
+            //     headers: store.getters.ajaxHeader,
+            //     json: true,
+            // };
 
-            const result = await request.get(options) as Person[];
+            if (!store.state.people || store.state.people.length === 0) {
+                await store.dispatch('loadTreeData');
+            }
+
+            const result = store.state.people.filter((p) =>
+                p.name.toLocaleLowerCase().indexOf(textbox.value.toLocaleLowerCase()) > -1,
+            );
+
+            window.console.log(result);
+
             for (const person of result) {
                 if (!person.small_thumbnail) {
                     person.small_thumbnail = 'img/portrait_80.png';
@@ -115,13 +121,11 @@ export default class Search extends Vue {
     }
 
     private selectPerson(person: Person) {
-        store.dispatch('changePerson', person.id).then(() => {
-            this.$router.push('/family/');
-        });
+        store.dispatch('changePerson', person.id);
+        this.$router.push('/family/');
     }
 
 }
-
 </script>
 
 <style scoped>

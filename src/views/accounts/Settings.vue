@@ -81,17 +81,14 @@ export default class Settings extends Vue {
     protected async mounted() {
         window.console.log(`Settings.mounted()`);
 
-        store.dispatch('restoreSession')
-          .then(async (loggedIn) => {
-
-          if (loggedIn) {
+        try {
+            await store.dispatch('restoreSession');
             const userSettings = this.$refs.userSettings as UserSettings;
             await userSettings.initialize();
-          } else {
-            this.$router.push('/accounts/login/');
-          }
 
-        });
+        } catch {
+            this.$router.push('/accounts/login/');
+        }
     }
 }
 </script>

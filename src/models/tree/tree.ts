@@ -131,9 +131,8 @@ export default class Tree {
 
         const node = this.getNodeAtXY(x, y);
         if (node) {
-            this.changeSelectedPerson(node.id.toString()).then(() => {
-                this.render(true);
-            });
+            this.changeSelectedPerson(node.id.toString());
+            this.render(true);
         }
     }
 
@@ -180,20 +179,15 @@ export default class Tree {
 
     private changeSelectedPerson(newPersonId: string) {
         window.console.log(`state.changeSelectedPerson(newPersonId: ${newPersonId})`);
-        return new Promise((resolve) => {
-            // Get old selected id
-            const oldSelectedId = store.state.person_id;
 
-            if (oldSelectedId !== newPersonId) {
-                this.nodesById[oldSelectedId].selected = false;
-                store.dispatch('changePerson', newPersonId).then(() => {
-                    this.nodesById[newPersonId].selected = true;
-                    resolve();
-                });
+        // Get old selected id
+        const oldSelectedId = store.state.person_id;
 
-            }
-        });
-
+        if (oldSelectedId !== newPersonId) {
+            this.nodesById[oldSelectedId].selected = false;
+            store.dispatch('changePerson', newPersonId);
+            this.nodesById[newPersonId].selected = true;
+        }
     }
 
     private getDrawnNodes(): TreeNode[] {

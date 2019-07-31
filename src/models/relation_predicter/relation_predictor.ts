@@ -4,7 +4,7 @@ import RelationTypes from '../data/relation_types';
 import PersonAndRelationships from './person_and_relationships';
 import store from '../../store/store';
 
-export default class RelationPredicter {
+export default class RelationPredictor {
 
     public personAndRelationshipById: { [id: string]: PersonAndRelationships; };
 

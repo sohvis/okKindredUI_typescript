@@ -62,10 +62,8 @@ export default class LeaveSiteSingleUser extends Vue {
 
             await request.post(options);
 
-            this.$store.dispatch('logout')
-            .then(() => {
-                this.$router.push('/');
-            });
+            this.$store.dispatch('logout');
+            this.$router.push('/');
 
         } catch (ex) {
             store.commit('setErrorMessage', ex);

@@ -93,33 +93,28 @@ export default class Family extends Vue {
     }
 
     private async initialize() {
-      // Load jwt from cookie and login
-      store.dispatch('restoreSession')
-          .then(async (loggedIn) => {
 
-          window.console.log(`loggedIn: ${loggedIn}`);
-
-          if (loggedIn) {
+        try {
+            // Load jwt from cookie and login
+            await store.dispatch('restoreSession');
 
             await this.LoadData();
 
             switch (this.state) {
-                case 'tree':
-                    const tree = this.$refs.tree as FamilyTree;
-                    tree.initializeTree();
-                    break;
-                case 'map':
-                    const map = this.$refs.map as any;
-                    map.renderMap();
-                    break;
-                case 'details':
-                    break;
-            }
-
-          } else {
+                    case 'tree':
+                        const tree = this.$refs.tree as FamilyTree;
+                        tree.initializeTree();
+                        break;
+                    case 'map':
+                        const map = this.$refs.map as any;
+                        map.renderMap();
+                        break;
+                    case 'details':
+                        break;
+                }
+        } catch {
             this.$router.push('/accounts/login/');
-          }
-      });
+        }
     }
 
     private async LoadData() {

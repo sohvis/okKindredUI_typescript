@@ -108,10 +108,9 @@ export default class UserSettings extends Vue {
         await this.save();
 
         // Change language in UI
-        store.dispatch('changeLanguage', this.userProperties.language)
-        .finally(() => {
-            store.commit('updateLoading', false);
-        });
+        store.dispatch('changeLanguage', this.userProperties.language);
+        store.commit('updateLoading', false);
+
     }
 
     public onChange() {

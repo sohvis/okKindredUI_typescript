@@ -58,7 +58,7 @@ export default new Vuex.Store({
   mutations: {
 
     // Set when a component starts and finishes loading
-    updateLoading: (state, newState) => {
+    updateLoading(state, newState) {
 
         if (newState) {
             state.loading_count++;
@@ -67,7 +67,7 @@ export default new Vuex.Store({
         }
     },
 
-    login: (state, payload) => {
+    login(state, payload) {
         state.access_token = payload.access_token;
         state.refresh_token = payload.refresh_token;
         state.language = payload.language;
@@ -80,7 +80,7 @@ export default new Vuex.Store({
         }
     },
 
-    logout: (state) => {
+    logout(state) {
         state.access_token = '';
         state.refresh_token = '';
         state.logged_in = false;
@@ -88,7 +88,7 @@ export default new Vuex.Store({
         state.users_person_id = '0';
     },
 
-    changeLanguage: (state, newLanguage: string) => {
+    changeLanguage(state, newLanguage: string) {
         state.language = newLanguage;
 
         // Cause language switch in UI
@@ -98,11 +98,11 @@ export default new Vuex.Store({
     },
 
     // Sets the person on which app is focused on
-    changePerson: (state, newPersonId: string) => {
+    changePerson(state, newPersonId: string) {
         state.person_id = newPersonId;
     },
 
-    setErrorMessage: (state, message) => {
+    setErrorMessage(state, message) {
 
         let text = message.toString();
         if (text.length > 500) {
@@ -113,37 +113,37 @@ export default new Vuex.Store({
         state.error_message = text;
     },
 
-    setDebugMessage: (state, message: string) => {
+    setDebugMessage(state, message: string) {
         window.console.log(message);
         state.debug_message = message;
     },
 
-    setPeople: (state, people: Person[]) => {
+    setPeople(state, people: Person[]) {
         state.people = people;
     },
 
-    setRelations: (state, relations: Relation[]) => {
+    setRelations(state, relations: Relation[]) {
         state.relations = relations;
     },
 
-    addPeople: (state, people: Person[]) => {
+    addPeople(state, people: Person[]) {
 
         state.people = [...state.people, ...people];
     },
 
-    removePeople: (state, people: Person[]) => {
+    removePeople(state, people: Person[]) {
         state.people = state.people.filter((p) => people.indexOf(p) < 0);
     },
 
-    addRelations: (state, relations: Relation[]) => {
+    addRelations(state, relations: Relation[]) {
         state.relations = [...state.relations, ...relations];
     },
 
-    removeRelations: (state, relations: Relation[]) => {
+    removeRelations(state, relations: Relation[]) {
         state.relations = state.relations.filter((r) => relations.indexOf(r) < 0);
     },
 
-    updatePerson: (state, person: Person) => {
+    updatePerson(state, person: Person) {
         for (let i = 0; i < state.people.length; i++) {
             if (state.people[i].id === person.id) {
                 state.people[i] = person;
@@ -153,232 +153,201 @@ export default new Vuex.Store({
   },
 
   actions: {
-    changeLanguage: (context, payload) => {
+    changeLanguage(context, payload) {
         window.console.log(`changeLanguage called new language: ${payload}`);
 
         const value = payload.replace('-', '_');
         context.commit('changeLanguage', value);
-
-        return new Promise((resolve) => {
-            window.localStorage.setItem('language', value);
-            resolve();
-        });
+        window.localStorage.setItem('language', value);
     },
 
-    changePerson: (context, payload) => {
+    async changePerson(context, payload) {
         window.console.log(`changePerson called new person id: ${payload}`);
-
         context.commit('changePerson', payload);
 
-        return new Promise((resolve) => {
-            window.localStorage.setItem('person_id', payload);
-            resolve();
-        });
+        // Make sure local storage is done asynchronously
+        await null;
+        window.localStorage.setItem('person_id', payload);
     },
 
-    restoreSession: (context) => {
+    async restoreSession(context) {
         window.console.log('restoreSession() called');
 
         context.commit('updateLoading', true);
-        return new Promise((resolve) => {
 
-            // Restore access toke from local storage
-            context.dispatch('restoreState')
-            .then(() => {
+        // Restore access toke from local storage
+        context.dispatch('restoreState');
 
-                if (!context.state.access_token) {
-                    // No Access token
-                    window.console.log('No Access token');
-                    resolve(false);
+        if (!context.state.access_token) {
+            // No Access token
+            window.console.log('No Access token');
+            throw new Error('No Access token');
 
 
-                } else {
-                    // Access token found, verify it
-                    window.console.log(`Access token found: ${context.state.access_token}`);
-                    context.dispatch('verifyToken')
-                    .then((result) => {
+        } else {
+            // Access token found, verify it
+            window.console.log(`Access token found: ${context.state.access_token}`);
 
-                        resolve(result);
-                    });
-                }
-            })
+            try {
+                await context.dispatch('verifyToken');
+            } catch {
+                throw new Error('Token verification failed');
+            }
 
-            .finally(() => {
-                context.commit('updateLoading', false);
-            });
-        });
+        }
+
+
+        context.commit('updateLoading', false);
     },
 
-    saveState(context) {
+    async saveState(context) {
         window.console.log(`saving credentials as local storage, access token: ${context.state.access_token}`);
         window.console.log(context.state);
 
-        return new Promise((resolve) => {
-            window.localStorage.setItem('access_token', context.state.access_token);
-            window.localStorage.setItem('refresh_token', context.state.refresh_token);
-            window.localStorage.setItem('language', context.state.language);
-            window.localStorage.setItem('person_id', context.state.person_id.toString());
-            window.localStorage.setItem('users_person_id', context.state.users_person_id);
-            resolve();
-        });
+        // Make sure local storage is done asynchronously
+        await null;
+        window.localStorage.setItem('access_token', context.state.access_token);
+        window.localStorage.setItem('refresh_token', context.state.refresh_token);
+        window.localStorage.setItem('language', context.state.language);
+        window.localStorage.setItem('person_id', context.state.person_id.toString());
+        window.localStorage.setItem('users_person_id', context.state.users_person_id);
     },
 
     restoreState(context) {
         window.console.log('retrieving credentials from local storage');
+        context.state.access_token = window.localStorage.getItem('access_token') || '';
+        context.state.refresh_token = window.localStorage.getItem('refresh_token') || '';
+        context.state.language = window.localStorage.getItem('language') || '';
+        context.state.person_id = window.localStorage.getItem('person_id') || '0';
+        context.state.users_person_id = window.localStorage.getItem('users_person_id') || '0';
 
-        return new Promise((resolve) => {
-            context.state.access_token = window.localStorage.getItem('access_token') || '';
-            context.state.refresh_token = window.localStorage.getItem('refresh_token') || '';
-            context.state.language = window.localStorage.getItem('language') || '';
-            context.state.person_id = window.localStorage.getItem('person_id') || '0';
-            context.state.users_person_id = window.localStorage.getItem('users_person_id') || '0';
+        window.console.log(`access token: ${context.state.access_token}`);
+        window.console.log(context.state);
 
-            window.console.log(`access token: ${context.state.access_token}`);
-            window.console.log(context.state);
-
-            if (i18n.locale !== context.state.language) {
-                i18n.locale = context.state.language;
-            }
-
-            resolve();
-        });
+        if (i18n.locale !== context.state.language) {
+            i18n.locale = context.state.language;
+        }
     },
 
-    login(context, payload) {
+    async login(context, payload) {
 
         window.console.log('login() action called');
         context.commit('updateLoading', true);
 
-        return new Promise(async (resolve, reject) => {
+        const options = {
+            uri: `${configs.BaseApiUrl}${configs.ObtainTokenAPI}`,
+            body: {
+                email: payload.email,
+                password: payload.password,
+            },
+            json: true,
+        };
 
-            const options = {
-                uri: `${configs.BaseApiUrl}${configs.ObtainTokenAPI}`,
-                body: {
-                    email: payload.email,
-                    password: payload.password,
-                },
-                json: true,
-            };
+        try {
+            const response = await request.post(options);
+            window.console.log(`login response:`);
+            window.console.log(response);
 
-            try {
-                const response = await request.post(options);
-                window.console.log(`login response:`);
-                window.console.log(response);
+            // Save access tokens in state
+            context.commit('login', {
+                access_token: response.access,
+                refresh_token: response.refresh,
+                language: response.language,
+                person_id: response.person_id,
+            });
 
-                // Save access tokens in state
-                context.commit('login', {
-                    access_token: response.access,
-                    refresh_token: response.refresh,
-                    language: response.language,
-                    person_id: response.person_id,
-                });
+            // Save access tokens in session
+            context.dispatch('saveState');
 
-                // Save access tokens in session
-                context.dispatch('saveState').then(() => {
-                    resolve();
-                });
+        } catch (error) {
+            window.console.log(error);
+            throw error;
 
-            } catch (error) {
-                window.console.log(error);
-                reject(error);
-            }
-
+        } finally {
             context.commit('updateLoading', false);
-        });
+        }
     },
 
     logout(context) {
         window.console.log('logout() action called');
 
         context.commit('updateLoading', true);
-        return new Promise((resolve) => {
-            context.commit('logout');
-
-            context.dispatch('saveState').then(() => {
-                context.commit('updateLoading', false);
-                resolve();
-            });
-        });
+        context.commit('logout');
+        context.dispatch('saveState');
+        context.commit('updateLoading', false);
     },
 
-    verifyToken(context) {
+    async verifyToken(context) {
         window.console.log(`verifyToken() Called`);
         context.commit('updateLoading', true);
 
-        return new Promise(async (resolve) => {
+        const options = {
+            uri: `${configs.BaseApiUrl}${configs.VerifyTokenAPI}`,
+            body: {
+                token: context.state.access_token,
+            },
+            json: true,
+        };
 
-            const options = {
-                uri: `${configs.BaseApiUrl}${configs.VerifyTokenAPI}`,
-                body: {
-                    token: context.state.access_token,
-                },
-                json: true,
-            };
+        try {
+            const response = await request.post(options);
+            window.console.log(response);
+            window.console.log(`Token Verified`);
+            context.commit('login', {
+                access_token: context.state.access_token,
+                refresh_token: context.state.refresh_token,
+                language: context.state.language,
+                person_id: context.state.person_id,
+            });
 
+        } catch (error) {
+            window.console.log(`Token Verification Failed ${error}, attempting refresh`);
+
+
+            // Verify token fails, so refresh it
             try {
-                const response = await request.post(options);
-                window.console.log(response);
-                window.console.log(`Token Verified`);
-                context.commit('login', {
-                    access_token: context.state.access_token,
-                    refresh_token: context.state.refresh_token,
-                    language: context.state.language,
-                    person_id: context.state.person_id,
-                });
-
-                resolve(true);
-            } catch (error) {
-                window.console.log(`Token Verification Failed ${error}`);
-
-                // Verify token fails, so refresh it
-                context.dispatch('refreshToken')
-                    .then(() => resolve(true))
-                    .catch(() => resolve(false));
+                await context.dispatch('refreshToken');
+            } catch (refreshError) {
+                throw refreshError;
             }
 
+        } finally {
             context.commit('updateLoading', false);
-
-        });
+        }
     },
 
-    refreshToken(context) {
+    async refreshToken(context) {
         window.console.log(`refreshToken() Called`);
         context.commit('updateLoading', true);
 
-        return new Promise(async (resolve, reject) => {
+        const options = {
+            uri: `${configs.BaseApiUrl}${configs.RefreshTokenAPI}`,
+            body: {
+                refresh: context.state.refresh_token,
+            },
+            json: true,
+        };
 
-            const options = {
-                uri: `${configs.BaseApiUrl}${configs.RefreshTokenAPI}`,
-                body: {
-                    refresh: context.state.refresh_token,
-                },
-                json: true,
-            };
+        try {
+            const response = await request.post(options);
+            window.console.log(response);
 
-            try {
-                const response = await request.post(options);
-                window.console.log(response);
+            window.console.log(`Token Refreshed: ${response.access}`);
 
-                window.console.log(`Token Refreshed: ${response.access}`);
+            context.commit('login', {
+                access_token: response.access,
+                refresh_token: context.state.refresh_token,
+                language: context.state.language,
+                person_id: context.state.person_id,
+            });
 
-                context.commit('login', {
-                    access_token: response.access,
-                    refresh_token: context.state.refresh_token,
-                    language: context.state.language,
-                    person_id: context.state.person_id,
-                });
+            context.dispatch('saveState');
 
-                context.dispatch('saveState').then(() => {
-                    resolve();
-                });
-
-            } catch (error) {
-                window.console.log(`Token Refresh Failed: ${error}`);
-                reject();
-            }
-
+        } catch (error) {
+            throw error;
+        } finally {
             context.commit('updateLoading', false);
-        });
+        }
     },
 
     async loadTreeData(context) {
@@ -451,7 +420,7 @@ export default new Vuex.Store({
         }
 
         const newSelectedPerson = getNextPersonId(relationsToRemove, personIdNum);
-        await context.dispatch('changePerson', newSelectedPerson.toString());
+        context.dispatch('changePerson', newSelectedPerson.toString());
 
         const person = context.state.people.filter((p) => p.id.toString() === personId.toString());
         context.commit('removeRelations', relationsToRemove);
