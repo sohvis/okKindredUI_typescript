@@ -22,8 +22,7 @@
                             ref="newRelativeControl" 
                             v-bind:relationType="relationType" 
                             @onError="onError"
-                            @personCreated="personCreated"
-                            />
+                            @personCreated="personCreated" />
                     </b-card-text>
                 </b-tab>
                 <b-tab>
@@ -107,11 +106,10 @@ export default class AddRelativeModal extends Vue {
         this.busy = false;
     }
 
-    private personCreated(newPersonData: NewPersonResponse) {
+    private personCreated() {
         window.console.log(`AddRelativeModal.personCreated()`);
 
         this.busy = false;
-        this.$emit('personCreated', newPersonData);
 
         (this.$refs.modal as any).hide();
     }

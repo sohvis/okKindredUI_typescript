@@ -17,7 +17,6 @@ export default {
   name: 'FamilyMap',
   data() {
     return {
-      people: [],
       map: null,
     };
   },
@@ -40,11 +39,11 @@ export default {
         }
       },
 
-      renderMap(people) {
+      renderMap() {
 
-        this.initializeSize(people);
-        this.people = people;
-        const data = this.people;
+        this.initializeSize();
+
+        const data = store.state.people;
 
         // Remove data points without a longitude and latitude
         const filteredData = data.filter((value) => {

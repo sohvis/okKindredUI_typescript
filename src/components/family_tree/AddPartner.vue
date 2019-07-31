@@ -11,8 +11,7 @@
     <AddRelativeModal 
       ref="addRelativeModal"
       v-bind:title="$t('message.AddPartner')" 
-      v-bind:relationType="relationType" 
-      @personCreated="personCreated" />
+      v-bind:relationType="relationType" />
 </div>
 </template>
 
@@ -62,13 +61,8 @@ export default class AddPartner extends Vue {
     window.console.log(`AddPartner.click()`);
     (this.$refs.addRelativeModal as AddRelativeModal).show();
   }
-
-  private personCreated(newPersonData: NewPersonResponse) {
-      window.console.log(`AddPartner.personCreated()`);
-
-      this.$emit('personCreated', newPersonData);
-  }
 }
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

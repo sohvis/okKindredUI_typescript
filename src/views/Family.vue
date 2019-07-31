@@ -8,9 +8,7 @@
             </template>
             <b-card-text>
                 <FamilyTree 
-                    ref="tree" 
-                    @personRemoved="personRemoved" 
-                    @personCreated="personCreated"/>
+                    ref="tree" />
             </b-card-text>
         </b-tab>
         <b-tab @click="profileInit()">
@@ -20,8 +18,7 @@
             </template>
             <b-card-text>
                 <Profile 
-                    ref="profile"
-                    @personUpdated="personUpdated"/>
+                    ref="profile" />
             </b-card-text>
         </b-tab>
         <b-tab @click="mapInit()">
@@ -59,25 +56,23 @@ import NewPersonResponse from '../models/data/new_person_response';
   },
 })
 export default class Family extends Vue {
-    public people: Person[] = [];
-    public relations: Relation[] = [];
 
     private state: string = 'tree';
 
     public treeInit() {
         this.state = 'tree';
         const tree = this.$refs.tree as FamilyTree;
-        if (tree && this.people && this.relations) {
-            setTimeout(() => tree.initializeTree(this.people, this.relations), 100);
+        if (tree) {
+            setTimeout(() => tree.initializeTree(), 100);
         }
     }
 
     public mapInit() {
         this.state = 'map';
         const map = this.$refs.map as any;
-        if (map && this.people) {
+        if (map) {
             // Need to set a small delay in order for container to render for Leaflet
-            setTimeout(() => map.renderMap(this.people), 100);
+            setTimeout(() => map.renderMap(), 100);
         }
     }
 
@@ -97,17 +92,6 @@ export default class Family extends Vue {
       document.body.scrollTop = document.documentElement.scrollTop = 0;
     }
 
-    private personUpdated(args: ProfileEmitArgs) {
-        for (let i = 0; i < this.people.length; i++) {
-            const person = this.people[i];
-            if (person && args.person) {
-                if (person.id === args.person.id) {
-                    this.people[i] = args.person;
-                }
-            }
-        }
-    }
-
     private async initialize() {
       // Load jwt from cookie and login
       store.dispatch('restoreSession')
@@ -122,11 +106,11 @@ export default class Family extends Vue {
             switch (this.state) {
                 case 'tree':
                     const tree = this.$refs.tree as FamilyTree;
-                    tree.initializeTree(this.people, this.relations);
+                    tree.initializeTree();
                     break;
                 case 'map':
                     const map = this.$refs.map as any;
-                    map.renderMap(this.people);
+                    map.renderMap();
                     break;
                 case 'details':
                     break;
@@ -139,108 +123,12 @@ export default class Family extends Vue {
     }
 
     private async LoadData() {
-
         try {
-            const task1 = this.LoadPersonData();
-            const task2 = this.LoadRelationsData();
-
-            await task1;
-            await task2;
-
-            window.console.log(this.people);
-            window.console.log(this.relations);
+            await store.dispatch('loadTreeData');
         } catch (ex) {
             window.console.log(ex);
             store.commit('setErrorMessage', ex);
         }
-    }
-
-    private async LoadPersonData() {
-
-      window.console.log('LoadPersonData() call');
-
-      store.commit('updateLoading', true);
-
-      const options = {
-          uri: `${configs.BaseApiUrl}${configs.PersonAPI}`,
-          headers: store.getters.ajaxHeader,
-          json: true,
-      };
-
-      this.people = await request.get(options);
-
-      store.commit('updateLoading', false);
-    }
-
-    private async LoadRelationsData() {
-      window.console.log('LoadRelationsData() call');
-
-      store.commit('updateLoading', true);
-
-      const options = {
-          uri: `${configs.BaseApiUrl}${configs.RelationAPI}`,
-          headers: store.getters.ajaxHeader,
-          json: true,
-      };
-
-      this.relations = await request.get(options);
-
-      store.commit('updateLoading', false);
-    }
-
-    private personRemoved(personId: number) {
-      window.console.log(`Family.personRemoved()`);
-
-      // Remove relations
-      const relationsToRemove = new Array<Relation>();
-      for (const rel of this.relations) {
-        if (rel.from_person_id === personId || rel.to_person_id === personId) {
-          relationsToRemove.push(rel);
-        }
-      }
-
-      this.relations = this.relations.filter((i) => !relationsToRemove.includes(i));
-      this.people = this.people.filter((i) => Number(i.id) !== personId);
-
-      const selectedPersonId = this.getNextPersonId(relationsToRemove);
-
-      store.dispatch('changePerson', selectedPersonId).then(() => {
-            const tree = this.$refs.tree as FamilyTree;
-            tree.initializeTree(this.people, this.relations);
-      });
-    }
-
-    private getNextPersonId(relationsToRemove: Relation[]): number {
-
-      // Change selected person to closest relative, default to user id if not possible
-      const selectedPersonId = store.state.users_person_id;
-
-      for (const rel of relationsToRemove) {
-        if (this.people
-            .filter((p) => Number(p.id) === Number(rel.from_person_id))
-            .length) {
-                return Number(rel.from_person_id);
-            }
-
-        if (this.people
-            .filter((p) => Number(p.id) === Number(rel.to_person_id))
-            .length) {
-                return Number(rel.to_person_id);
-            }
-      }
-
-      return Number(selectedPersonId);
-    }
-
-    private personCreated(newPersonData: NewPersonResponse) {
-        window.console.log(`Family.personCreated(newPersonData:)`);
-        window.console.log(newPersonData);
-
-        this.people.push(newPersonData.person);
-        this.relations.push(newPersonData.relation);
-
-        const tree = this.$refs.tree as FamilyTree;
-        tree.initializeTree(this.people, this.relations);
     }
 }
 </script>

@@ -64,10 +64,9 @@ export default class DeletePerson extends Vue {
       };
 
       await request.delete(options);
+      await store.dispatch('removePerson', selectedPersonId);
 
-      this.$emit('personRemoved', Number(selectedPersonId));
-
-    } catch (ex) {
+} catch (ex) {
         window.console.log(ex);
         store.commit('setErrorMessage', ex);
     }

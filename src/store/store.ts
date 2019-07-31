@@ -4,6 +4,9 @@ import { configs } from '../config';
 import * as request from 'request-promise-native';
 import { localeMatch } from '../localization/localization';
 import { i18n } from '../main';
+import Person from '../models/data/person';
+import Relation from '../models/data/relation';
+import { VueTestUtilsConfigOptions } from '@vue/test-utils';
 
 Vue.use(Vuex);
 
@@ -28,6 +31,10 @@ export default new Vuex.Store({
 
     error_message: '',
     debug_message: '',
+
+    people: new Array<Person>(),
+    relations: new Array<Relation>(),
+
   },
 
   getters: {
@@ -81,7 +88,7 @@ export default new Vuex.Store({
         state.users_person_id = '0';
     },
 
-    changeLanguage: (state, newLanguage) => {
+    changeLanguage: (state, newLanguage: string) => {
         state.language = newLanguage;
 
         // Cause language switch in UI
@@ -91,7 +98,7 @@ export default new Vuex.Store({
     },
 
     // Sets the person on which app is focused on
-    changePerson: (state, newPersonId) => {
+    changePerson: (state, newPersonId: string) => {
         state.person_id = newPersonId;
     },
 
@@ -106,9 +113,42 @@ export default new Vuex.Store({
         state.error_message = text;
     },
 
-    setDebugMessage: (state, message) => {
+    setDebugMessage: (state, message: string) => {
         window.console.log(message);
         state.debug_message = message;
+    },
+
+    setPeople: (state, people: Person[]) => {
+        state.people = people;
+    },
+
+    setRelations: (state, relations: Relation[]) => {
+        state.relations = relations;
+    },
+
+    addPeople: (state, people: Person[]) => {
+
+        state.people = [...state.people, ...people];
+    },
+
+    removePeople: (state, people: Person[]) => {
+        state.people = state.people.filter((p) => people.indexOf(p) < 0);
+    },
+
+    addRelations: (state, relations: Relation[]) => {
+        state.relations = [...state.relations, ...relations];
+    },
+
+    removeRelations: (state, relations: Relation[]) => {
+        state.relations = state.relations.filter((r) => relations.indexOf(r) < 0);
+    },
+
+    updatePerson: (state, person: Person) => {
+        for (let i = 0; i < state.people.length; i++) {
+            if (state.people[i].id === person.id) {
+                state.people[i] = person;
+            }
+        }
     },
   },
 
@@ -339,6 +379,99 @@ export default new Vuex.Store({
 
             context.commit('updateLoading', false);
         });
+    },
+
+    async loadTreeData(context) {
+        window.console.log(`loadTreeData() Called`);
+        context.commit('updateLoading', true);
+
+        const optionsPerson = {
+            uri: `${configs.BaseApiUrl}${configs.PersonAPI}`,
+            headers: context.getters.ajaxHeader,
+            json: true,
+        };
+
+        const optionsRelation = {
+            uri: `${configs.BaseApiUrl}${configs.RelationAPI}`,
+            headers: context.getters.ajaxHeader,
+            json: true,
+        };
+
+        try {
+            const personTask = request.get(optionsPerson);
+            const relationTask = request.get(optionsRelation);
+
+            const people = (await personTask) as Person[];
+            const relations = (await relationTask) as Relation[];
+
+            context.commit('setPeople', people);
+            context.commit('setRelations', relations);
+
+        } catch (error) {
+            window.console.log(`: ${error}`);
+            context.commit('setErrorMessage', error);
+        }
+
+        context.commit('updateLoading', false);
+    },
+
+    async removePerson(context, personId: string) {
+
+        const personIdNum = Number(personId);
+
+        const getNextPersonId = (relsToRemove: Relation[], pId: number): number => {
+
+            // Change selected person to closest relative, default to user id if not possible
+            const selectedPersonId = context.state.users_person_id;
+
+
+            for (const rel of relsToRemove) {
+              if (context.state.people
+                  .filter((p) => Number(p.id) === rel.from_person_id && pId !== rel.from_person_id)
+                  .length) {
+                      return Number(rel.from_person_id);
+                  }
+
+              if (context.state.people
+                  .filter((p) => Number(p.id) === rel.to_person_id  && pId !== rel.to_person_id)
+                  .length) {
+                      return Number(rel.to_person_id);
+                  }
+            }
+
+            return Number(selectedPersonId);
+        };
+
+        // Remove associated relations
+        const relationsToRemove = new Array<Relation>();
+        for (const rel of context.state.relations) {
+            if (rel.from_person_id === personIdNum || rel.to_person_id === personIdNum) {
+            relationsToRemove.push(rel);
+            }
+        }
+
+        const newSelectedPerson = getNextPersonId(relationsToRemove, personIdNum);
+        await context.dispatch('changePerson', newSelectedPerson.toString());
+
+        const person = context.state.people.filter((p) => p.id.toString() === personId.toString());
+        context.commit('removeRelations', relationsToRemove);
+        context.commit('removePeople', person);
+    },
+
+    removeRelations(context, relations: Relation[]) {
+        context.commit('removeRelations', relations);
+    },
+
+    addPeople(context, people: Person[]) {
+        context.commit('addPeople', people);
+    },
+
+    addRelations(context, relations: Relation[]) {
+        context.commit('addRelations', relations);
+    },
+
+    updatePerson(context, person: Person) {
+        context.commit('updatePerson', person);
     },
   },
 });

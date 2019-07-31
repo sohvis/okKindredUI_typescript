@@ -102,7 +102,10 @@ export default class NewRelative extends Vue {
             };
 
             const response = await request.post(options) as NewPersonResponse;
-            this.$emit('personCreated', response);
+            store.dispatch('addPeople', [response.person]);
+            store.dispatch('addRelations', [response.relation]);
+
+            this.$emit('personCreated');
 
         } catch (ex) {
                 window.console.log(ex);
