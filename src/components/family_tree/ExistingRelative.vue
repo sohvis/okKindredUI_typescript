@@ -79,8 +79,11 @@ export default class ExistingRelative extends Vue {
     }
 
     protected mounted() {
+        window.console.log(`ExistingRelative.mounted()`);
         this.relationPredictor = new RelationPredictor(store.state.people, store.state.relations);
         this.peopleResults = this.relationPredictor.getRelationshipSuggestions(this.relationType || 1);
+        window.console.log(`this.peopleResults`);
+        window.console.log(this.peopleResults);
     }
 
     private onChange() {

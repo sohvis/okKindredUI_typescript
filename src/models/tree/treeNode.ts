@@ -191,17 +191,18 @@ export default class TreeNode extends  Positionable {
         // let fillstyle = this.rainbow(parseInt(this.id, 10), 10000 );
         let lineWidth = TreeNode.RECT_LINE_WIDTH;
 
-        if (this.highlighted) {
-            fillstyle = TreeNode.HIGHLIGHTED_RECT_FILL_STYLE;
-        }
-
         if (this.selected) {
             lineWidth = TreeNode.SELECTED_RECT_LINE_WIDTH;
         }
 
-        if (this.disabled) {
+        if (this.disabled && !this.selected) {
             fillstyle = TreeNode.DISABLED_RECT_FILL_STYLE;
             strokeStyle = TreeNode.DISABLED_RECT_STROKE_STYLE;
+
+        } else {
+            if (this.highlighted) {
+                fillstyle = TreeNode.HIGHLIGHTED_RECT_FILL_STYLE;
+            }
         }
 
         const radius = TreeNode.RECT_ROUNDED_CORNER_RADIUS;
