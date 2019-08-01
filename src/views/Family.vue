@@ -111,7 +111,7 @@ export default class Family extends Vue {
                         break;
                     case 'details':
                         break;
-                }
+            }
         } catch {
             this.$router.push('/accounts/login/');
         }

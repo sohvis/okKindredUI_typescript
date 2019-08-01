@@ -12,6 +12,9 @@ export default class PersonAndRelationships {
 
     constructor(person: Person) {
         this.person = person;
+        if (!this.person.small_thumbnail) {
+            this.person.small_thumbnail = 'img/portrait_80.png';
+        }
     }
 
     public partnersContain(id: string) {

@@ -392,7 +392,7 @@ export default class Profile extends Vue {
 
   private personUpdated(args: ProfileEmitArgs) {
       this.person = args.person;
-      this.$emit('personUpdated', args);
+      store.dispatch('updatePerson', args.person);
   }
 }
 </script>

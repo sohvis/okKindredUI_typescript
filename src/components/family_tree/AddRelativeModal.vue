@@ -1,6 +1,7 @@
 <template>
     <b-modal
         ref="modal"
+        centered
         @ok="handleOk" 
         @show="resetModal"
         @hidden="resetModal"
@@ -11,7 +12,7 @@
 
         <b-card no-body>
             <b-tabs card justified>
-                <b-tab active>
+                <b-tab active @click="setState('NewPerson')" >
                     <template slot="title">
                         <span class="oi oi-plus" aria-hidden="true"></span>
                         <span class="oi oi-person" aria-hidden="true"></span>
@@ -25,7 +26,7 @@
                             @personCreated="personCreated" />
                     </b-card-text>
                 </b-tab>
-                <b-tab>
+                <b-tab @click="setState('ExistingPerson')">
                     <template slot="title">
                         <span class="oi oi-magnifying-glass" aria-hidden="true"></span>
                         {{ $t('message.ExistingPerson') }}
@@ -33,7 +34,9 @@
                     <b-card-text>
                         <ExistingRelative 
                             ref="existingRelativeControl"
-                            v-bind:relationType="relationType" />
+                            v-bind:relationType="relationType" 
+                            @onError="onError"
+                            @relationCreated="relationCreated" />
                     </b-card-text>
                 </b-tab>
             </b-tabs>
@@ -76,8 +79,14 @@ export default class AddRelativeModal extends Vue {
 
     public errorMessage: string = '';
 
+    public state: string = 'NewPerson';
+
     public show() {
         (this.$refs.modal as any).show();
+    }
+
+    private setState(state: string) {
+        this.state = state;
     }
 
     private handleOk(e: Event) {
@@ -96,7 +105,16 @@ export default class AddRelativeModal extends Vue {
         window.console.log(`AddRelativeModal.submit()`);
         this.showError = false;
         this.busy = true;
-        (this.$refs.newRelativeControl as any).submit();
+
+        switch (this.state) {
+            case 'NewPerson':
+                (this.$refs.newRelativeControl as any).submit();
+                break;
+            case 'ExistingPerson':
+                 (this.$refs.existingRelativeControl as any).submit();
+                 break;
+        }
+
     }
 
     private onError(errorMessage: string) {
@@ -111,6 +129,14 @@ export default class AddRelativeModal extends Vue {
     }
 
     private personCreated() {
+        window.console.log(`AddRelativeModal.personCreated()`);
+
+        this.busy = false;
+
+        (this.$refs.modal as any).hide();
+    }
+
+    private relationCreated() {
         window.console.log(`AddRelativeModal.personCreated()`);
 
         this.busy = false;

@@ -8,20 +8,15 @@
                 @input="onChange">
         </b-form-input>
 
-        <div class="table-responsive">
-            <table class="table table-striped table-hover">
-                <tbody>
-                    <tr v-for="person of peopleResults" :key="person.id" @click="selectPerson(person)">
-                        <td class="search-thumb-col">
-                            <img class="search-thumb" :src="person.small_thumbnail" />
-                        </td>
-                        <td>
-                            {{ person.name }}
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        <b-list-group>
+            <b-list-group-item v-for="person of peopleResults" 
+                    :key="person.id" 
+                    @click="selectPerson(person)"
+                    :active="person === selectedPerson">
+                <img class="search-thumb" :src="person.small_thumbnail" />
+                {{ person.name }}
+            </b-list-group-item>
+        </b-list-group>
 
     </div>
 </template>
@@ -48,18 +43,25 @@ export default class ExistingRelative extends Vue {
 
     public peopleResults: Person[] = [];
 
+    public selectedPerson: Person | null = null;
+
     public async submit() {
         window.console.log(`ExitingRelative.submit()`);
 
+        if (!this.selectedPerson) {
+            this.$emit('onError');
+            return;
+        }
+
         try {
-            const selectedPersonId = store.state.person_id;
+            const fromPersonId = Number(store.state.person_id);
 
             const options = {
-                uri: `${configs.BaseApiUrl}${configs.PersonAPI}`,
+                uri: `${configs.BaseApiUrl}${configs.RelationAPI}`,
                 headers: store.getters.ajaxHeader,
                 body: {
-                    from_person_id: selectedPersonId,
-                    to_person_id: 'todo',
+                    from_person_id: fromPersonId,
+                    to_person_id: Number(this.selectedPerson.id),
                     relation_type: this.relationType,
                 },
                 json: true,
@@ -82,30 +84,38 @@ export default class ExistingRelative extends Vue {
         window.console.log(`ExistingRelative.mounted()`);
         this.relationPredictor = new RelationPredictor(store.state.people, store.state.relations);
         this.peopleResults = this.relationPredictor.getRelationshipSuggestions(this.relationType || 1);
-        window.console.log(`this.peopleResults`);
-        window.console.log(this.peopleResults);
+        this.selectedPerson = null;
     }
 
     private onChange() {
         const textbox = document.getElementById('search-box') as HTMLInputElement;
 
-        const result = store.state.people.filter((p) =>
-            p.name.toLocaleLowerCase().indexOf(textbox.value.toLocaleLowerCase()) > -1,
-        );
+        this.selectedPerson = null;
 
-        window.console.log(result);
+        if (textbox.value.length > 0) {
+            const result = store.state.people.filter((p) =>
+                p.name.toLocaleLowerCase().indexOf(textbox.value.toLocaleLowerCase()) > -1,
+            );
 
-        for (const person of result) {
-            if (!person.small_thumbnail) {
-                person.small_thumbnail = 'img/portrait_80.png';
+            window.console.log(result);
+
+            for (const person of result) {
+                if (!person.small_thumbnail) {
+                    person.small_thumbnail = 'img/portrait_80.png';
+                }
             }
-        }
 
-        this.peopleResults = result;
+            this.peopleResults = result;
+
+        } else {
+            this.relationPredictor = new RelationPredictor(store.state.people, store.state.relations);
+            this.peopleResults = this.relationPredictor.getRelationshipSuggestions(this.relationType || 1);
+        }
     }
 
     private async selectPerson(person: Person) {
         window.console.log(`ExistingRelative.selectPerson() person.name: ${person.name}`);
+        this.selectedPerson = person;
     }
 }
 </script>

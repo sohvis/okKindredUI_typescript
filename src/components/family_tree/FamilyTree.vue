@@ -8,6 +8,7 @@
       <AddDescendant v-if="editMode" />
       <AddPartner v-if="editMode" />
       <DeletePerson v-if="editMode"/>
+      <SplitRelations v-if="editMode"/>
   </div>
 </template>
 
@@ -28,6 +29,7 @@ import AddAncestor from './AddAncestor.vue';
 import AddDescendant from './AddDescendant.vue';
 import AddPartner from './AddPartner.vue';
 import DeletePerson from './DeletePerson.vue';
+import SplitRelations from './SplitRelations.vue';
 import NewPersonResponse from '../../models/data/new_person_response';
 
 
@@ -40,6 +42,7 @@ import NewPersonResponse from '../../models/data/new_person_response';
     AddDescendant,
     AddPartner,
     DeletePerson,
+    SplitRelations,
   },
 })
 export default class FamilyTree extends Vue {
