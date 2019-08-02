@@ -12,9 +12,6 @@
         :title="$t('message.SplitLinks')"
         :okTitle="$t('message.Close')">
       
-      <p>
-        {{ $t('message.SplitLinksDesc') }}
-      </p>
       <SplitRelationItem 
             v-for="relation of relations" 
             :key="relation.id" 
