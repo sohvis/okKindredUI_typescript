@@ -8,6 +8,7 @@
 
     <b-modal id="delete-modal" 
         ref="modal"
+        centered
         @ok="handleOk" 
         okVariant="danger"
         :title="$t('message.Delete')"

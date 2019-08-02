@@ -15,7 +15,10 @@
       <p>
         {{ $t('message.SplitLinksDesc') }}
       </p>
-      
+      <SplitRelationItem 
+            v-for="relation of relations" 
+            :key="relation.id" 
+            v-bind:splitRelation="relation"/>
     </b-modal>
 
 </div>
@@ -29,8 +32,14 @@ import { configs } from '../../config';
 import TreeNode from '../../models/tree/treeNode';
 import Person from '../../models/data/person';
 import SplitRelation from '../../models/data/split_relation';
+import SplitRelationItem from './SplitRelationItem.vue';
 
-@Component
+
+@Component({
+  components: {
+    SplitRelationItem,
+  },
+})
 export default class SplitRelations extends Vue {
 
   public static LEFT_MARGIN = -25;
@@ -66,6 +75,8 @@ export default class SplitRelations extends Vue {
                                         selectedPersonId,
                                         store.state.relations,
                                         store.state.people);
+    window.console.log('this.relations:');
+    window.console.log(this.relations);
   }
 }
 </script>

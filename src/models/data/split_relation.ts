@@ -1,5 +1,6 @@
 import Relation from './relation';
 import Person from './person';
+import RelationTypes from './relation_types';
 
 export default class SplitRelation {
 
@@ -33,6 +34,7 @@ export default class SplitRelation {
     public fromPersonId: string;
     public toPersonId: string;
     public relationType: number;
+    public relationName: string;
     public fromPersonName: string = '';
     public toPersonName: string = '';
     public fromPersonImage: string = '';
@@ -43,6 +45,7 @@ export default class SplitRelation {
         this.fromPersonId = relation.from_person_id.toString();
         this.toPersonId = relation.to_person_id.toString();
         this.relationType = relation.relation_type;
+        this.relationName = RelationTypes.NAMES[this.relationType];
     }
 
     public setFromPerson(person: Person) {
