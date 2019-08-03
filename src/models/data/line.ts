@@ -2,8 +2,8 @@ import Point from '../tree/point';
 
 export default class Line {
 
-    public start: Point
-    public end: Point
+    public start: Point;
+    public end: Point;
     public strokeStyle: string;
     public lineWidth: number;
 

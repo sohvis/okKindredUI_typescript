@@ -39,6 +39,7 @@ export default class SplitRelation {
     public toPersonName: string = '';
     public fromPersonImage: string = '';
     public toPersonImage: string = '';
+    public relation: Relation;
 
     constructor(relation: Relation) {
         this.id = relation.id;
@@ -46,6 +47,7 @@ export default class SplitRelation {
         this.toPersonId = relation.to_person_id.toString();
         this.relationType = relation.relation_type;
         this.relationName = RelationTypes.NAMES[this.relationType];
+        this.relation = relation;
     }
 
     public setFromPerson(person: Person) {

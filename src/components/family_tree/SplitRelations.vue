@@ -15,9 +15,12 @@
       <SplitRelationItem 
             v-for="relation of relations" 
             :key="relation.id" 
-            v-bind:splitRelation="relation"/>
-    </b-modal>
+            v-bind:splitRelation="relation"
+            @split="split"/>
 
+      <Loading v-if="loading"/>
+    </b-modal>
+    
 </div>
 </template>
 
@@ -30,11 +33,12 @@ import TreeNode from '../../models/tree/treeNode';
 import Person from '../../models/data/person';
 import SplitRelation from '../../models/data/split_relation';
 import SplitRelationItem from './SplitRelationItem.vue';
-
+import Loading from '../common/Loading.vue';
 
 @Component({
   components: {
     SplitRelationItem,
+    Loading,
   },
 })
 export default class SplitRelations extends Vue {
@@ -46,6 +50,8 @@ export default class SplitRelations extends Vue {
   public get hasRelations(): boolean {
     return this.relations.length > 0;
   }
+
+  public loading: boolean = false;
 
   public positionStyle: any = {};
 
@@ -66,14 +72,37 @@ export default class SplitRelations extends Vue {
   protected mounted() {
     window.console.log(`SplitRelations.mounted()`);
 
-    const selectedPersonId = Number(store.state.person_id);
-
     this.relations = SplitRelation.createSplitRelations(
-                                        selectedPersonId,
+                                        Number(store.state.person_id),
                                         store.state.relations,
                                         store.state.people);
-    window.console.log('this.relations:');
-    window.console.log(this.relations);
+  }
+
+  private async split(relation: SplitRelation) {
+    window.console.log(`SplitRelations.split()`);
+
+    try {
+      this.loading = true;
+      const options = {
+          uri: `${configs.BaseApiUrl}${configs.RelationAPI}${relation.id}`,
+          headers: store.getters.ajaxHeader,
+          json: true,
+      };
+
+      const response = await request.delete(options);
+
+      store.dispatch('removeRelations', [relation.relation]);
+
+      this.relations = SplitRelation.createSplitRelations(
+                                    Number(store.state.person_id),
+                                    store.state.relations,
+                                    store.state.people);
+    } catch (ex) {
+      window.console.log(ex);
+      this.$emit('onError', ex);
+    }
+
+    this.loading = false;
   }
 }
 </script>

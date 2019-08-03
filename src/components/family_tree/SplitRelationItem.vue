@@ -1,23 +1,23 @@
 <template>
-<div class="row text-center split-rel-row">
-  <canvas id="lineCanvas" class="lineCanvas"></canvas>
-  <div :id="'parent_' + splitRelation.id" class="col split-rel-col">
+<div :id="'parent_' + splitRelation.id" class="row text-center split-rel-row">
+  <canvas :id="'lineCanvas' + splitRelation.id" class="lineCanvas"></canvas>
+  <div class="col split-rel-col">
     <img :id="'from_' + splitRelation.id" :src="splitRelation.fromPersonImage" class="split-rel-image"/>
-    <div>
+    <div class="split-rel-desc">
       {{ splitRelation.fromPersonName }}
     </div>
   </div>
-  <div class="col">
-      <b-button variant="danger" class="split-button" :id="'button_' + splitRelation.id">
+  <div class="col split-rel-col">
+      <b-button variant="danger" class="split-button" :id="'button_' + splitRelation.id" @click="click">
         <span class="oi oi-x" aria-hidden="true"></span>
       </b-button>
-      <div>
+      <div class="split-rel-desc">
         {{ $t(splitRelation.relationName) }}
       </div>
   </div>
-  <div class="col">
+  <div class="col split-rel-col">
       <img :id="'to_' + splitRelation.id" :src="splitRelation.toPersonImage" class="split-rel-image" />
-      <div>
+      <div class="split-rel-desc">
         {{ splitRelation.toPersonName }}
       </div>
   </div>
@@ -47,13 +47,11 @@ export default class SplitRelationItem extends Vue {
   }
   protected drawLines() {
     window.console.log(`SplitRelationItem.drawLines()`);
-    const canvas = document.getElementById('lineCanvas') as HTMLCanvasElement;
-    const ctx  = canvas.getContext('2d');
-    if (!ctx) {
-        throw new Error('No 2d canvas element!');
-    }
 
     if (this.splitRelation) {
+      const canvas = document.getElementById('lineCanvas' + this.splitRelation.id) as HTMLCanvasElement;
+      const ctx  = this.setupCanvas(canvas);
+
 
       const parent = (document.getElementById('parent_' + this.splitRelation.id) as HTMLElement)
                                     .getBoundingClientRect();
@@ -66,19 +64,40 @@ export default class SplitRelationItem extends Vue {
       const toImage = (document.getElementById('to_' + this.splitRelation.id) as HTMLElement)
                                     .getBoundingClientRect();
 
-      window.console.log(fromImage);
-
-      const start1 = new Point(fromImage.right - parent.left, 30);
-      const end1 = new Point(button.left - parent.left, 30);
+      const start1 = new Point(fromImage.left - parent.left + fromImage.width, fromImage.height / 2);
+      const end1 = new Point(toImage.left - parent.left, fromImage.height / 2);
       const line1 = new Line(start1, end1, SplitRelationItem.STROKE_STYLE, SplitRelationItem.LINE_WIDTH);
 
-      const start2 = new Point(button.right - parent.left, 30);
-      const end2 = new Point(toImage.left - parent.left, 30);
-      const line2 = new Line(start2, end2, SplitRelationItem.STROKE_STYLE, SplitRelationItem.LINE_WIDTH);
-      
       line1.draw(ctx);
-      line2.draw(ctx);
     }
+  }
+
+  private setupCanvas(canvas: HTMLCanvasElement): CanvasRenderingContext2D {
+  
+    // Get the device pixel ratio, falling back to 1.
+    var dpr = window.devicePixelRatio || 1;
+  
+    // Get the size of the canvas in CSS pixels.
+    var rect = canvas.getBoundingClientRect();
+  
+    // Give the canvas pixel dimensions of their CSS
+    // size * the device pixel ratio.
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+  
+    var ctx = canvas.getContext('2d');
+    if (!ctx) {
+      throw new Error('No 2d canvas element!');
+    }
+
+    // Scale all drawing operations by the dpr, so you
+    // don't have to worry about the difference.
+    ctx.scale(dpr, dpr);
+    return ctx;
+  }
+
+  private click() {
+    this.$emit("split", this.splitRelation);
   }
 }
 </script>
@@ -86,12 +105,12 @@ export default class SplitRelationItem extends Vue {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .split-button {
-  opacity: 0.9;
-  padding-left: 12px;
-  padding-right: 10px;
+  margin-top: 10px;
+  padding-left: 10px;
+  padding-right: 8px;
   font-size: 1.2em;
   box-shadow: 1px 1px 2px black;
-  border-radius: 40px;
+  border-radius: 50px;
 }
 
 .split-rel-image {
@@ -106,13 +125,36 @@ export default class SplitRelationItem extends Vue {
    margin-bottom: 25px;
  }
 
- .split-rel-col {
-   height: 80px;
- }
+.split-rel-col {
+  min-height: 80px;
+}
 
- .lineCanvas {
-   position: absolute;
-   height: 80px;
-   width: 100%;
- }
+.lineCanvas {
+  position: absolute;
+  height: 80px;
+  width: 100%;
+}
+
+@media only screen 
+and (max-width : 400px) {
+  .split-rel-image {
+    width: 40px;
+    height: 40px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .split-button {
+    margin-top: 5px;
+    padding-left: 10px;
+    padding-right: 8px;
+    font-size: 0.8em;
+    box-shadow: 1px 1px 2px black;
+    border-radius: 50px;
+  }
+
+  .split-rel-desc {
+    font-size: 0.8em;
+  }
+}
 </style>
