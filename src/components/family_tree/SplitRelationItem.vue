@@ -73,19 +73,19 @@ export default class SplitRelationItem extends Vue {
   }
 
   private setupCanvas(canvas: HTMLCanvasElement): CanvasRenderingContext2D {
-  
+
     // Get the device pixel ratio, falling back to 1.
-    var dpr = window.devicePixelRatio || 1;
-  
+    const dpr = window.devicePixelRatio || 1;
+
     // Get the size of the canvas in CSS pixels.
-    var rect = canvas.getBoundingClientRect();
-  
+    const rect = canvas.getBoundingClientRect();
+
     // Give the canvas pixel dimensions of their CSS
     // size * the device pixel ratio.
     canvas.width = rect.width * dpr;
     canvas.height = rect.height * dpr;
-  
-    var ctx = canvas.getContext('2d');
+
+    const ctx = canvas.getContext('2d');
     if (!ctx) {
       throw new Error('No 2d canvas element!');
     }
@@ -97,7 +97,7 @@ export default class SplitRelationItem extends Vue {
   }
 
   private click() {
-    this.$emit("split", this.splitRelation);
+    this.$emit('split', this.splitRelation);
   }
 }
 </script>
@@ -133,6 +133,10 @@ export default class SplitRelationItem extends Vue {
   position: absolute;
   height: 80px;
   width: 100%;
+}
+
+.split-rel-desc {
+  word-wrap: break-word;
 }
 
 @media only screen 

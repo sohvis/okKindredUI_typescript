@@ -9,6 +9,9 @@ export const traditionalChinese = {
       Delete: `刪除`,
       Ok: `好`,
       Cancel: `取消`,
+      Close: `關`,
+      Yes: `是`,
+      No: `不是`,
 
       // Navbar & Menus
       Family: `家庭`,
@@ -257,5 +260,16 @@ export const traditionalChinese = {
       NewPerson: `新人`,
       ExistingPerson: `現有人`,
       Required: `需要`,
+
+      // Split relation
+      BreakLinks: `歇關係`,
+      Raised: `上調`,
+      RaisedBy: `上調`,
+      Partnered: `合作`,
+
+      // Suggested relations,
+      SuggestedRelations: `建議的關係`,
+      AreXandYPartners: `{fromPersonName}和{toPersonName}是合作夥伴嗎？`,
+      DidXraiseY: `{fromPersonName}是否提升{toPersonName}？`
     },
 };

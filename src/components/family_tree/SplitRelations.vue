@@ -9,7 +9,7 @@
         id="split-modal" 
         centered
         ok-only
-        :title="$t('message.SplitLinks')"
+        :title="$t('message.BreakLinks')"
         :okTitle="$t('message.Close')">
       
       <SplitRelationItem 

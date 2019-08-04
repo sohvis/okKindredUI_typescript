@@ -9,6 +9,9 @@ export const polish = {
       Delete: `Skasuj`,
       Ok: `Dobrze`,
       Cancel: `Anuluj`,
+      Close: `Zamknąć`,
+      Yes: `Tak`,
+      No: `Nie`,
 
       // Navbar
       Family: `Rodzina`,
@@ -289,5 +292,16 @@ export const polish = {
       NewPerson: `Nowa Osoba`,
       ExistingPerson: `Istniejąca Osoba`,
       Required: `Wymagany`,
+
+      // Split relation
+      BreakLinks: `Skasuj Relację`,
+      Raised: `Wychował/wychowała`,
+      RaisedBy: `Wychowany/wychowana przez`,
+      Partnered: `w związku z`,
+
+      // Suggested relations,
+      SuggestedRelations: `Sugerowane Relacje`,
+      AreXandYPartners: `Czy partnerzy {fromPersonName} i {toPersonName}?`,
+      DidXraiseY: `Czy {fromPersonName} Wychował/wychowała {toPersonName}?`
     },
 };

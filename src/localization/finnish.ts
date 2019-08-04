@@ -9,6 +9,9 @@ export const finnish = {
       Delete: `Poistaa`,
       Ok: `Kunnossa`,
       Cancel: `Peruuttaa`,
+      Close: `Sulkea`,
+      Yes: `Joo`,
+      No: `Ei`,
 
       // Navbar & Menus
       Family: `Perhe`,
@@ -221,5 +224,16 @@ export const finnish = {
       NewPerson: `Uusi Henkilö`,
       ExistingPerson: `Olemassa Oleva Henkilö`,
       Required: `Edellytetään`,
+
+      // Split relation
+      BreakLinks: `Tauko Suhde`,
+      Raised: `Esille`,
+      RaisedBy: `Kasvatettu`,
+      Partnered: `Yhteistyöhön`,
+
+      // Suggested relations,
+      SuggestedRelations: `Ehdotetut Suhteet`,
+      AreXandYPartners: `Ovatko {fromPersonName} ja {toPersonName} kumppanit?`,
+      DidXraiseY: `Esille {fromPersonName} {toPersonName}??`
     },
 };

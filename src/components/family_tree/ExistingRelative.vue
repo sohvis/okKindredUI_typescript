@@ -82,8 +82,7 @@ export default class ExistingRelative extends Vue {
 
     protected mounted() {
         window.console.log(`ExistingRelative.mounted()`);
-        this.relationPredictor = new RelationPredictor(store.state.people, store.state.relations);
-        this.peopleResults = this.relationPredictor.getRelationshipSuggestions(this.relationType || 1);
+        this.predictRelations();
         this.selectedPerson = null;
     }
 
@@ -108,9 +107,16 @@ export default class ExistingRelative extends Vue {
             this.peopleResults = result;
 
         } else {
-            this.relationPredictor = new RelationPredictor(store.state.people, store.state.relations);
-            this.peopleResults = this.relationPredictor.getRelationshipSuggestions(this.relationType || 1);
+            this.predictRelations();
         }
+    }
+
+    private predictRelations() {
+        const people = store.state.people;
+        const relations = store.state.relations;
+        const selectedPersonId = store.state.person_id;
+        this.relationPredictor = new RelationPredictor(people, relations, selectedPersonId);
+        this.peopleResults = this.relationPredictor.getRelationshipSuggestions(this.relationType || 1);
     }
 
     private async selectPerson(person: Person) {

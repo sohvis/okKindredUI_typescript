@@ -9,6 +9,10 @@ export const simplifiedChinese = {
       Delete: `删除`,
       Ok: `好`,
       Cancel: `取消`,
+      Close: `关`,
+      Yes: `是`,
+      No: `不是`,
+
 
       // Navbar & Menus
       Family: `家庭`,
@@ -259,5 +263,16 @@ export const simplifiedChinese = {
       NewPerson: `新人`,
       ExistingPerson: `现有人`,
       Required: `需要`,
+
+      // Split relation
+      BreakLinks: `歇关系`,
+      Raised: `上调`,
+      RaisedBy: `上调`,
+      Partnered: `合作`,
+
+      // Suggested relations,
+      SuggestedRelations: `建议的关系`,
+      AreXandYPartners: `{fromPersonName}和{toPersonName}是合作伙伴吗？`,
+      DidXraiseY: `{fromPersonName}是否提升{toPersonName}？`
     },
 };

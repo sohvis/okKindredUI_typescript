@@ -1,14 +1,18 @@
 <template>
+<div>
     <b-modal
         ref="modal"
         centered
+        v-bind:no-close-on-esc="true"
+        v-bind:no-close-on-backdrop="true"
         @ok="handleOk" 
         @show="resetModal"
         @hidden="resetModal"
         @busy ="busy"
         :title="title"
         :okTitle="$t('message.Ok')"
-        :cancelTitle="$t('message.Cancel')" >
+        :cancelTitle="$t('message.Cancel')" 
+        button-size="lg">
 
         <b-card no-body>
             <b-tabs card justified>
@@ -47,8 +51,11 @@
         <b-alert variant="danger" v-model="showError">
             {{ errorMessage }}
         </b-alert>
+
     </b-modal>
-    
+ 
+    <SuggestedRelativeModal ref="suggestedRelativeModal" />
+</div>
 </template>
 
 <script lang="ts">
@@ -57,12 +64,15 @@ import NewRelative from './NewRelative.vue';
 import Loading from './../common/Loading.vue';
 import NewPersonResponse from '../../models/data/new_person_response';
 import ExistingRelative from './ExistingRelative.vue';
+import SuggestedRelativeModal from './SuggestedRelativeModal.vue';
+import Person from '../../models/data/person';
 
 @Component({
   components: {
       NewRelative,
       Loading,
       ExistingRelative,
+      SuggestedRelativeModal,
   },
 })
 export default class AddRelativeModal extends Vue {
@@ -128,12 +138,13 @@ export default class AddRelativeModal extends Vue {
         this.busy = false;
     }
 
-    private personCreated() {
+    private personCreated(person: Person) {
         window.console.log(`AddRelativeModal.personCreated()`);
 
         this.busy = false;
 
         (this.$refs.modal as any).hide();
+        (this.$refs.suggestedRelativeModal as SuggestedRelativeModal).init(person.id);
     }
 
     private relationCreated() {

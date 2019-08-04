@@ -9,6 +9,9 @@ export const french = {
       Delete: `Effacer`,
       Ok: `D'accord`,
       Cancel: `Annuler`,
+      Close: `Fermer`,
+      Yes: `Oui`,
+      No: `Non`,
 
       // Navbar & Menus
       Family: `Famille`,
@@ -279,5 +282,16 @@ export const french = {
       NewPerson: `Nouvelle Personne`,
       ExistingPerson: `Personne Existante`,
       Required: `Champs obligatoires`,
+
+      // Split relation
+      BreakLinks: `Couper Les Liens`,
+      Raised: `Elevé`,
+      RaisedBy: `Elevé Par`,
+      Partnered: `Partenaire`,
+
+      // Suggested relations,
+      SuggestedRelations: `Relations Suggérées`,
+      AreXandYPartners: `Est-ce que {fromPersonName} et {toPersonName} sont des partenaires?`,
+      DidXraiseY: `Est-ce que {fromPersonName} a élevé {toPersonName}?`
     },
 };

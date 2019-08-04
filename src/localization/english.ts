@@ -9,6 +9,9 @@ export const english = {
       Delete: `Delete`,
       Ok: `Ok`,
       Cancel: `Cancel`,
+      Close: `Close`,
+      Yes: `Yes`,
+      No: `No`,
 
       // Navbar & Menus
       Family: `Family`,
@@ -216,5 +219,16 @@ export const english = {
       NewPerson: `New Person`,
       ExistingPerson: `Existing Person`,
       Required: `Required`,
+
+      // Split relation
+      BreakLinks: `Break Links`,
+      Raised: `Raised`,
+      RaisedBy: `RaisedBy`,
+      Partnered: `Partnered`,
+
+      // Suggested relations,
+      SuggestedRelations: `Suggested Relations`,
+      AreXandYPartners: `Are {fromPersonName} and {toPersonName} partners?`,
+      DidXraiseY: `Did {fromPersonName} raise {toPersonName}?`,
     },
 };

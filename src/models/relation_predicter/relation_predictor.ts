@@ -3,6 +3,7 @@ import Relation from '../data/relation';
 import RelationTypes from '../data/relation_types';
 import PersonAndRelationships from './person_and_relationships';
 import store from '../../store/store';
+import RelationPrediction from './relation_prediction';
 
 export default class RelationPredictor {
 
@@ -10,7 +11,7 @@ export default class RelationPredictor {
 
     public selectedPerson: PersonAndRelationships;
 
-    constructor(people: Person[], relations: Relation[]) {
+    constructor(people: Person[], relations: Relation[], selectedPersonId: string) {
         this.personAndRelationshipById = {};
 
         for (const person of people) {
@@ -31,8 +32,45 @@ export default class RelationPredictor {
             }
         }
 
-        const selectedPersonId = store.state.person_id;
         this.selectedPerson = this.personAndRelationshipById[selectedPersonId];
+    }
+
+    public getAllRelationshipSuggestions(): RelationPrediction[] {
+
+        const result = new Array<RelationPrediction>();
+
+        for (const person of this.getRelationshipSuggestions(RelationTypes.PARTNERED)) {
+            const prediction = new RelationPrediction(
+                this.selectedPerson.person,
+                person,
+                RelationTypes.PARTNERED,
+            );
+
+            result.push(prediction);
+        }
+
+        for (const person of this.getRelationshipSuggestions(RelationTypes.RAISED)) {
+            const prediction = new RelationPrediction(
+                this.selectedPerson.person,
+                person,
+                RelationTypes.RAISED,
+            );
+
+            result.push(prediction);
+        }
+
+        for (const person of this.getRelationshipSuggestions(RelationTypes.RAISED_BY)) {
+            // flip it round
+            const prediction = new RelationPrediction(
+                person,
+                this.selectedPerson.person,
+                RelationTypes.RAISED,
+            );
+
+            result.push(prediction);
+        }
+
+        return result;
     }
 
     public getRelationshipSuggestions(relationType: number): Person[] {

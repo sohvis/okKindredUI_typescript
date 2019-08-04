@@ -105,11 +105,11 @@ export default class NewRelative extends Vue {
             store.dispatch('addPeople', [response.person]);
             store.dispatch('addRelations', [response.relation]);
 
-            this.$emit('personCreated');
+            this.$emit('personCreated', response.person);
 
         } catch (ex) {
-                window.console.log(ex);
-                this.$emit('onError', ex);
+            window.console.log(ex);
+            this.$emit('onError', ex);
         }
 
     }
