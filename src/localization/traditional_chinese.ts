@@ -270,6 +270,6 @@ export const traditionalChinese = {
       // Suggested relations,
       SuggestedRelations: `建議的關係`,
       AreXandYPartners: `{fromPersonName}和{toPersonName}是合作夥伴嗎？`,
-      DidXraiseY: `{fromPersonName}是否提升{toPersonName}？`
+      DidXraiseY: `{fromPersonName}是否提升{toPersonName}？`,
     },
 };

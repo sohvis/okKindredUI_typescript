@@ -292,6 +292,6 @@ export const french = {
       // Suggested relations,
       SuggestedRelations: `Relations Suggérées`,
       AreXandYPartners: `Est-ce que {fromPersonName} et {toPersonName} sont des partenaires?`,
-      DidXraiseY: `Est-ce que {fromPersonName} a élevé {toPersonName}?`
+      DidXraiseY: `Est-ce que {fromPersonName} a élevé {toPersonName}?`,
     },
 };

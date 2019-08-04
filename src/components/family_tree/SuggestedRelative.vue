@@ -68,7 +68,7 @@ export default class SuggestedRelative extends Vue {
             return;
         }
 
-        
+
         const selectedPersonId = store.state.person_id;
 
         const options = {

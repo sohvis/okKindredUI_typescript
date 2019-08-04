@@ -302,6 +302,6 @@ export const polish = {
       // Suggested relations,
       SuggestedRelations: `Sugerowane Relacje`,
       AreXandYPartners: `Czy partnerzy {fromPersonName} i {toPersonName}?`,
-      DidXraiseY: `Czy {fromPersonName} Wychował/wychowała {toPersonName}?`
+      DidXraiseY: `Czy {fromPersonName} Wychował/wychowała {toPersonName}?`,
     },
 };

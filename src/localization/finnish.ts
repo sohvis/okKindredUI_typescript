@@ -234,6 +234,6 @@ export const finnish = {
       // Suggested relations,
       SuggestedRelations: `Ehdotetut Suhteet`,
       AreXandYPartners: `Ovatko {fromPersonName} ja {toPersonName} kumppanit?`,
-      DidXraiseY: `Esille {fromPersonName} {toPersonName}??`
+      DidXraiseY: `Esille {fromPersonName} {toPersonName}??`,
     },
 };
