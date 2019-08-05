@@ -6,7 +6,7 @@
                 size="sm"
                 v-model="searchValue"
                 :placeholder='$t("message.Search")'
-                @input="onChange">
+                autocomplete="off">
         </b-form-input>
 
         <div class="text-center spinner-container" v-show="loadingResults">
@@ -32,7 +32,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Watch} from 'vue-property-decorator';
 import * as request from 'request-promise-native';
 import Person from './../models/data/person';
 import store from '../store/store';
@@ -71,6 +71,7 @@ export default class Search extends Vue {
         }
     }
 
+    @Watch('searchValue')
     private async onChange() {
         window.console.log('Search.vue onChange() call');
 
@@ -82,7 +83,7 @@ export default class Search extends Vue {
 
         this.timeOutHandle = setTimeout(async () => {
             await this.search();
-        }, 100);
+        }, 400);
     }
 
     private async search() {
@@ -90,29 +91,30 @@ export default class Search extends Vue {
 
         try {
             const textbox = document.getElementById('search-box') as HTMLInputElement;
-            // const options = {
-            //     uri: `${configs.BaseApiUrl}${configs.PersonAPI}?search=${this.searchValue}`,
-            //     headers: store.getters.ajaxHeader,
-            //     json: true,
-            // };
 
             if (!store.state.people || store.state.people.length === 0) {
                 await store.dispatch('loadTreeData');
             }
 
-            const result = store.state.people.filter((p) =>
-                p.name.toLocaleLowerCase().indexOf(textbox.value.toLocaleLowerCase()) > -1,
-            );
+            if (this.searchValue && this.searchValue.length > 0) {
+                const result = store.state.people.filter((p) =>
+                    p.name.toLocaleLowerCase().indexOf(textbox.value.toLocaleLowerCase()) > -1,
+                );
 
-            window.console.log(result);
+                window.console.log(result);
 
-            for (const person of result) {
-                if (!person.small_thumbnail) {
-                    person.small_thumbnail = 'img/portrait_80.png';
+                for (const person of result) {
+                    if (!person.small_thumbnail) {
+                        person.small_thumbnail = 'img/portrait_80.png';
+                    }
                 }
+
+                this.people = result;
+
+            } else {
+                this.people = [];
             }
 
-            this.people = result;
         } catch (ex) {
             store.commit('setErrorMessage', ex);
         }

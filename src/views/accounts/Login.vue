@@ -11,6 +11,7 @@
             <PasswordBox v-model="loginDetails.password" />
         </div>
         <div class="alert alert-danger" v-show="loginInvalid">{{ $t("message.InvalidLogin") }}</div>
+        <div class="alert alert-danger" v-show="accountLocked">{{ $t("message.AccountLocked") }}</div>
         <button class="btn btn-lg btn-primary btn-block" type="submit">{{ $t("message.SignIn") }}</button>
 
         <router-link to="/accounts/password_reset/">{{ $t("message.IForgotMyPassword") }}</router-link>
@@ -25,6 +26,7 @@ import PwnedPasswordChecker from '../../models/pwnedPasswordChecker';
 import store from '../../store/store';
 import ErrorModal from '../../components/common/ErrorModal.vue';
 import PasswordBox from '../../components/common/PasswordBox.vue';
+import config from '../../config';
 
 @Component({
   components: {
@@ -39,6 +41,12 @@ export default class Login extends Vue {
     };
 
     public loginInvalid = false;
+
+    public loginAttempts: number = 0;
+
+    public get accountLocked(): boolean {
+        return this.loginAttempts >= config.MaxLoginAttempts;
+    }
 
     public async OnSubmit() {
         window.console.log(`OnSubmit() called from Login ${this.loginDetails.email} ${this.loginDetails.password}`);
@@ -60,6 +68,7 @@ export default class Login extends Vue {
 
         } catch (error) {
             window.console.log(error);
+            this.loginAttempts++;
             this.loginInvalid = true;
         }
     }

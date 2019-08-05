@@ -33,9 +33,10 @@ export const simplifiedChinese = {
       SignIn: '签到',
       IForgotMyPassword: '我忘记了我的密码',
       InvalidLogin: '登录无效',
+      AccountLocked: '您的帐户已被锁定24小时后4失败的登录尝试',
 
       // Introduction
-      Slide1Header: '欢迎就OK了！血族',
+      Slide1Header: '欢迎就ok!Kindred血族',
       Slide1Desc: '自由和开放源码协作族谱和照片共享网站。',
       Slide2Header: '创建和共享',
       Slide2Desc: '创建并与您的家人共享一个多语种的家谱，并邀请你的家庭成员进行查看，并添加到它',

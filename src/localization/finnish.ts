@@ -32,6 +32,7 @@ export const finnish = {
       SignIn: 'Kirjaudu sisään',
       IForgotMyPassword: 'unohdin salasanani',
       InvalidLogin: 'Virheellinen kirjautuminen',
+      AccountLocked: 'Tilisi on nyt lukittu 24 tunnin ajan 4 epäonnistuneet kirjautumisyrityksiä',
 
       // Introduction
       Slide1Header: 'Tervetuloa ok! Kindred',

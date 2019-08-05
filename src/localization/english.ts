@@ -32,6 +32,7 @@ export const english = {
       SignIn: 'Sign In',
       IForgotMyPassword: 'I forgot my password',
       InvalidLogin: 'Invalid Login',
+      AccountLocked: 'Your account has been locked for 24 hours after too many failed login attempts',
 
       // Introduction
       Slide1Header: 'Welcome to ok!Kindred',

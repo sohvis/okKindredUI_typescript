@@ -32,6 +32,7 @@ export const french = {
       SignIn: 'Connecter',
       IForgotMyPassword: 'J\'ai oublié mon mot de passe',
       InvalidLogin: 'Identifiant invalide',
+      AccountLocked: 'Votre compte a été bloqué pendant 24 heures après 4 tentatives de connexion infructueuses',
 
       // Introduction
       Slide1Header: 'Bienvenue a ok! Kindred',

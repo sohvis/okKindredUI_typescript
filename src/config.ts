@@ -21,6 +21,7 @@ export const configs = {
     PwnedPasswordsAPI: 'https://api.pwnedpasswords.com/range/',
 
     MinPasswordLength: 8,
+    MaxLoginAttempts: 4,
 };
 
 export default configs;

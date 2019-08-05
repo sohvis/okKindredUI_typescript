@@ -32,9 +32,10 @@ export const traditionalChinese = {
       SignIn: '簽到',
       IForgotMyPassword: '我忘記了我的密碼',
       InvalidLogin: '登錄無效',
+      AccountLocked: '您的帳戶已被鎖定24小時後4失敗的登錄嘗試',
 
       // Introduction
-      Slide1Header: '歡迎就OK了！血族',
+      Slide1Header: '歡迎就ok!Kindred！血族',
       Slide1Desc: '自由和開放源碼協作族譜和照​​片共享網站',
       Slide2Header: '創建和共享',
       Slide2Desc: '創建並與您的家人共享一個多語種的家譜，並邀請你的家庭成員進行查看，並添加到它',

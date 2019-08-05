@@ -32,6 +32,7 @@ export const polish = {
       SignIn: 'Zaloguj się',
       IForgotMyPassword: 'Nie pamiętam hasła',
       InvalidLogin: 'Nieprawidłowy login',
+      AccountLocked: 'Logowanie nie powiodło się; Twoje konto zostało zablokowane na 24 godziny',
 
       // Introduction
       Slide1Header: 'Witamy w ok!Kindred',
