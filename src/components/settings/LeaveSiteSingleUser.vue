@@ -54,7 +54,7 @@ export default class LeaveSiteSingleUser extends Vue {
             const options = {
                 uri: `${configs.BaseApiUrl}${configs.LeaveSiteAPI}`,
                 headers: store.getters.ajaxHeader,
-                data: {
+                body: {
                     password: this.password,
                 },
                 json: true,
@@ -62,7 +62,7 @@ export default class LeaveSiteSingleUser extends Vue {
 
             await request.post(options);
 
-            this.$store.dispatch('logout');
+            await this.$store.dispatch('logout');
             this.$router.push('/');
 
         } catch (ex) {

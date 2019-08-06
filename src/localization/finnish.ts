@@ -33,6 +33,8 @@ export const finnish = {
       IForgotMyPassword: 'unohdin salasanani',
       InvalidLogin: 'Virheellinen kirjautuminen',
       AccountLocked: 'Tilisi on nyt lukittu 24 tunnin ajan 4 epäonnistuneet kirjautumisyrityksiä',
+      NoAccount: `Ei tiliä eikä kutsua?`,
+      SignUp: `Ilmoittautua`,
 
       // Introduction
       Slide1Header: 'Tervetuloa ok! Kindred',
@@ -236,5 +238,13 @@ export const finnish = {
       SuggestedRelations: `Ehdotetut Suhteet`,
       AreXandYPartners: `Ovatko {fromPersonName} ja {toPersonName} kumppanit?`,
       DidXraiseY: `Esille {fromPersonName} {toPersonName}??`,
+
+      // Sign Up
+      JoinSite: `Liity ok!Kindred`,
+      JoinSiteDescription: `Jos haluat perustaa uuden perheverkon ja liittyä ok! Sukulaiseen, anna
+      seuraava tieto:`,
+      EmailInUse: `Sähköposti on jo käytössä`,
+      ThankYou: `Kiitos!`,
+      PleaseCheckEmail: `Tarkista sähköpostisi {email} vahvistaaksesi tilisi.`,
     },
 };

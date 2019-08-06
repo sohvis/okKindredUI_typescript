@@ -33,6 +33,8 @@ export const traditionalChinese = {
       IForgotMyPassword: '我忘記了我的密碼',
       InvalidLogin: '登錄無效',
       AccountLocked: '您的帳戶已被鎖定24小時後4失敗的登錄嘗試',
+      NoAccount: `沒有帳戶，也沒有邀請？`,
+      SignUp: `報名`,
 
       // Introduction
       Slide1Header: '歡迎就ok!Kindred！血族',
@@ -272,5 +274,13 @@ export const traditionalChinese = {
       SuggestedRelations: `建議的關係`,
       AreXandYPartners: `{fromPersonName}和{toPersonName}是合作夥伴嗎？`,
       DidXraiseY: `{fromPersonName}是否提升{toPersonName}？`,
+
+      // Sign Up
+      JoinSite: `Join ok!Kindred`,
+      JoinSiteDescription: `To set up a new family network and join ok!Kindred, please provide the
+      following information:`,
+      EmailInUse: `Email is already in use`,
+      ThankYou: `Thank you!`,
+      PleaseCheckEmail: `Please check your email {email} to confirm your account.`,
     },
 };

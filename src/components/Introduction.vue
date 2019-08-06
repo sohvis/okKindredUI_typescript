@@ -11,25 +11,33 @@
         <b-carousel-slide img-src="img/introduction/family_tree.png">
             <h1 class="mycarousel-header">{{ $t("message.Slide1Header") }}</h1>
             <p class="mycarousel-text">{{ $t("message.Slide1Desc") }}</p>
-            <p><a class="btn btn-success" href="#" role="button">{{ $t("message.SignUpButton") }}</a></p>
+            <p>
+              <router-link class="btn btn-success" to="/accounts/sign_up/" role="button">{{ $t("message.SignUpButton") }}</router-link>
+            </p>
         </b-carousel-slide>
 
         <b-carousel-slide img-src="img/introduction/family_invite.png">
             <h1 class="mycarousel-header">{{ $t("message.Slide2Header") }}</h1>
             <p class="mycarousel-text">{{ $t("message.Slide2Desc") }}</p>
-            <p><a class="btn btn-success" href="#" role="button">{{ $t("message.SignUpButton") }}</a></p>
+            <p>
+              <router-link class="btn btn-success" to="/accounts/sign_up/" role="button">{{ $t("message.SignUpButton") }}</router-link>
+            </p>
         </b-carousel-slide>
 
         <b-carousel-slide img-src="img/introduction/family_map.png">
             <h1 class="mycarousel-header">{{ $t("message.Slide3Header") }}</h1>
             <p class="mycarousel-text">{{ $t("message.Slide3Desc") }}</p>
-            <p><a class="btn btn-success" href="#" role="button">{{ $t("message.SignUpButton") }}</a></p>
+            <p>
+              <router-link class="btn btn-success" to="/accounts/sign_up/" role="button">{{ $t("message.SignUpButton") }}</router-link>
+            </p>
         </b-carousel-slide>
 
         <b-carousel-slide img-src="img/introduction/family_photo-share.png">
             <h1>{{ $t("message.Slide4Header") }}</h1>
             <p>{{ $t("message.Slide4Desc") }}</p>
-            <p><a class="btn btn-success" href="#" role="button">{{ $t("message.SignUpButton") }}</a></p>
+            <p>
+              <router-link class="btn btn-success" to="/accounts/sign_up/" role="button">{{ $t("message.SignUpButton") }}</router-link>
+            </p>
         </b-carousel-slide>
 
     </b-carousel><!-- /.carousel -->

@@ -6,21 +6,21 @@ import { traditionalChinese } from './traditional_chinese';
 import { simplifiedChinese } from './simplified_chinese';
 
 export const localeStrings: { [id: string]: string; } = {
-    en: 'English',
-    fr: 'Français',
-    pl: 'Polski',
-    fi: 'Suomalainen',
-    zh_cn: '简体中文',
-    zh_tw: '繁體中文',
+    'en': 'English',
+    'fr': 'Français',
+    'pl': 'Polski',
+    'fi': 'Suomalainen',
+    'zh-cn': '简体中文',
+    'zh_tw': '繁體中文',
 };
 
 export const messages = {
-    en: english,
-    fi: finnish,
-    fr: french,
-    pl: polish,
-    zh_tw: traditionalChinese,
-    zh_cn: simplifiedChinese,
+    'en': english,
+    'fi': finnish,
+    'fr': french,
+    'pl': polish,
+    'zh-tw': traditionalChinese,
+    'zh-cn': simplifiedChinese,
 };
 
 
@@ -36,17 +36,14 @@ export const localeMatch = {
             return 'en';
         }
 
-        lang = lang.replace('-', '_').toLowerCase();
-        window.console.log(`localeMatch: ${lang}`);
-
         // Particular exceptions
         // Switch Hong Kong Chinese to Taiwan Chinese
-        if (lang === 'zh_hk') {
-            return 'zh_tw';
+        if (lang === 'zh-hk') {
+            return 'zh-tw';
         }
 
         if (lang === 'zh') {
-            return 'zh_cn';
+            return 'zh-cn';
         }
 
         // general locale matching

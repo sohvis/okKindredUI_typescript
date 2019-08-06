@@ -90,7 +90,6 @@ export default class App extends Vue {
     window.console.log('logout clicked on');
     this.$store.dispatch('logout');
     this.$router.push('/accounts/login/');
-
   }
 
 }

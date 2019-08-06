@@ -8,6 +8,8 @@ import Search from './views/Search.vue';
 import PasswordReset from './views/accounts/PasswordReset.vue';
 import PasswordResetConfirmation from './views/accounts/PasswordResetConfirmation.vue';
 import Settings from './views/accounts/Settings.vue';
+import SignUp from './views/accounts/SignUp.vue';
+import SignUpConfirmation from './views/accounts/SignUpConfirmation.vue';
 
 
 Vue.use(Router);
@@ -53,6 +55,17 @@ export default new Router({
       path: '/accounts/settings/',
       name: 'Settings',
       component: Settings,
+    },
+    {
+      path: '/accounts/sign_up/',
+      name: 'SignUp',
+      component: SignUp,
+    },
+    {
+      path: '/accounts/sign_up_confirmation=:confirmationToken/',
+      name: 'SignUpConfirmation',
+      component: SignUpConfirmation,
+      props: true,
     },
   ],
 });

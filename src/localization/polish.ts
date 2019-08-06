@@ -33,6 +33,8 @@ export const polish = {
       IForgotMyPassword: 'Nie pamiętam hasła',
       InvalidLogin: 'Nieprawidłowy login',
       AccountLocked: 'Logowanie nie powiodło się; Twoje konto zostało zablokowane na 24 godziny',
+      NoAccount: `Bez konta i bez zaproszenia?`,
+      SignUp: `Zapisz się`,
 
       // Introduction
       Slide1Header: 'Witamy w ok!Kindred',
@@ -304,5 +306,13 @@ export const polish = {
       SuggestedRelations: `Sugerowane Relacje`,
       AreXandYPartners: `Czy partnerzy {fromPersonName} i {toPersonName}?`,
       DidXraiseY: `Czy {fromPersonName} Wychował/wychowała {toPersonName}?`,
+
+      // Sign Up
+      JoinSite: `Zapisz się ok!Kindred`,
+      JoinSiteDescription: `Aby założyć nową sieć rodzinną i dołączyć do ok! Spokrewnione, proszę podać
+      następująca informacja:`,
+      EmailInUse: `Adres e-mail jest już w użyciu`,
+      ThankYou: `Dziękuję Ci!`,
+      PleaseCheckEmail: `Sprawdź swój adres e-mail {email}, aby potwierdzić swoje konto.`,
     },
 };

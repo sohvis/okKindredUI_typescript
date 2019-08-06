@@ -2,24 +2,32 @@ export const configs = {
     // BaseApiUrl: 'https://www.okkindred.com',
     BaseApiUrl: 'https://justinhui.pythonanywhere.com',
 
+    // Auth
     ObtainTokenAPI: '/api/auth/obtain_token/',
     RefreshTokenAPI: '/api/auth/refresh_token/',
     VerifyTokenAPI: '/api/auth/verify_token/',
 
-    PersonAPI: '/api/person/',
-    RelationAPI: '/api/relation/',
+
+    // API endpoints
     InviteEmailAPI: '/api/invite_email/',
     ImageAPI: '/api/image/',
+    LeaveSiteAPI: '/api/delete_account/',
+    PasswordChangeAPI: '/api/password_change/',
     PasswordResetAPI: '/api/reset-password/',
+    PersonAPI: '/api/person/',
+    RelationAPI: '/api/relation/',
+    SignUpAPI: '/api/sign_up/',
     UserSettingsAPI: '/api/user_settings/',
     UsersAPI: '/api/users/',
-    PasswordChangeAPI: '/api/password_change/',
-    LeaveSiteAPI: '/api/delete_account/',
 
-    MapboxToken: 'pk.eyJ1Ijoib2traW5kcmVkIiwiYSI6Ild2MnY5dDQifQ.EHr6blIYPYeg4bWmSStT-g',
-    TinyMceApiToken: 'enx50wn3zw6ekck6y0dsoz784z5mo5c936go697ncer7lpzb',
+    // External APIs
     PwnedPasswordsAPI: 'https://api.pwnedpasswords.com/range/',
 
+    // JS tokens
+    MapboxToken: 'pk.eyJ1Ijoib2traW5kcmVkIiwiYSI6Ild2MnY5dDQifQ.EHr6blIYPYeg4bWmSStT-g',
+    TinyMceApiToken: 'enx50wn3zw6ekck6y0dsoz784z5mo5c936go697ncer7lpzb',
+
+    // App config
     MinPasswordLength: 8,
     MaxLoginAttempts: 4,
 };

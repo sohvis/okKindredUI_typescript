@@ -42,8 +42,7 @@
         </b-form-group>
 
         <small class="font-italic">* {{$t('message.Required')}}</small>
-      </b-form >
-      
+    </b-form >
 
 </template>
 

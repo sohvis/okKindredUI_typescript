@@ -34,6 +34,8 @@ export const simplifiedChinese = {
       IForgotMyPassword: '我忘记了我的密码',
       InvalidLogin: '登录无效',
       AccountLocked: '您的帐户已被锁定24小时后4失败的登录尝试',
+      NoAccount: `没有帐户，也没有邀请？`,
+      SignUp: `报名`,
 
       // Introduction
       Slide1Header: '欢迎就ok!Kindred血族',
@@ -275,5 +277,13 @@ export const simplifiedChinese = {
       SuggestedRelations: `建议的关系`,
       AreXandYPartners: `{fromPersonName}和{toPersonName}是合作伙伴吗？`,
       DidXraiseY: `{fromPersonName}是否提升{toPersonName}？`,
+
+      // Sign Up
+      JoinSite: `註冊ok!Kindred`,
+      JoinSiteDescription: `要設置新的家庭網絡並加入ok!Kindred，請提供
+      以下信息：`,
+      EmailInUse: `電子郵件已在使用中`,
+      ThankYou: `謝謝！ `,
+      PleaseCheckEmail: `請檢查您的電子郵件{email}以確認您的帳戶。 `,
     },
 };

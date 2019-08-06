@@ -33,6 +33,8 @@ export const english = {
       IForgotMyPassword: 'I forgot my password',
       InvalidLogin: 'Invalid Login',
       AccountLocked: 'Your account has been locked for 24 hours after too many failed login attempts',
+      NoAccount: `No account and no invite?`,
+      SignUp: `Sign Up`,
 
       // Introduction
       Slide1Header: 'Welcome to ok!Kindred',
@@ -231,5 +233,13 @@ export const english = {
       SuggestedRelations: `Suggested Relations`,
       AreXandYPartners: `Are {fromPersonName} and {toPersonName} partners?`,
       DidXraiseY: `Did {fromPersonName} raise {toPersonName}?`,
+
+      // Sign Up
+      JoinSite: `Join ok!Kindred`,
+      JoinSiteDescription: `To set up a new family network and join ok!Kindred, please provide the
+      following information:`,
+      EmailInUse: `Email is already in use`,
+      ThankYou: `Thank you!`,
+      PleaseCheckEmail: `Please check your email {email} to confirm your account.`,
     },
 };

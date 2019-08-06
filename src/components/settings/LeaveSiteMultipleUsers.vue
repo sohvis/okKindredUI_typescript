@@ -82,7 +82,7 @@ export default class LeaveSiteMultipleUsers extends Vue {
       try {
         const options = {
             uri: `${configs.BaseApiUrl}${configs.LeaveSiteAPI}`,
-            data: {
+            body: {
               delete_profile: this.deleteProfile,
               password: this.password,
             },
@@ -92,7 +92,7 @@ export default class LeaveSiteMultipleUsers extends Vue {
 
         await request.post(options);
 
-        this.$store.dispatch('logout');
+        await this.$store.dispatch('logout');
         this.$router.push('/');
 
 

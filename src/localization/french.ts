@@ -33,6 +33,8 @@ export const french = {
       IForgotMyPassword: 'J\'ai oublié mon mot de passe',
       InvalidLogin: 'Identifiant invalide',
       AccountLocked: 'Votre compte a été bloqué pendant 24 heures après 4 tentatives de connexion infructueuses',
+      NoAccount: `Pas de compte et pas d'invitation?`,
+      SignUp: `S'inscrire`,
 
       // Introduction
       Slide1Header: 'Bienvenue a ok! Kindred',
@@ -294,5 +296,13 @@ export const french = {
       SuggestedRelations: `Relations Suggérées`,
       AreXandYPartners: `Est-ce que {fromPersonName} et {toPersonName} sont des partenaires?`,
       DidXraiseY: `Est-ce que {fromPersonName} a élevé {toPersonName}?`,
+
+      // Sign Up
+      JoinSite: `S'inscrire à ok!Kindred`,
+      JoinSiteDescription: `Pour créer un nouveau réseau familial et s'inscrire à ok! Kindred, veuillez fournir le
+      information suivante:`,
+      EmailInUse: `Cet email est déjà utilisé`,
+      ThankYou: `Merci!`,
+      PleaseCheckEmail: `Veuillez vérifier votre email {email} pour confirmer votre compte.`,
     },
 };

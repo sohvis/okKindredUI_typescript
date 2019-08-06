@@ -6,7 +6,6 @@ import { localeMatch } from '../localization/localization';
 import { i18n } from '../main';
 import Person from '../models/data/person';
 import Relation from '../models/data/relation';
-import { VueTestUtilsConfigOptions } from '@vue/test-utils';
 
 Vue.use(Vuex);
 
@@ -181,6 +180,7 @@ export default new Vuex.Store({
         if (!context.state.access_token) {
             // No Access token
             window.console.log('No Access token');
+            context.commit('updateLoading', false);
             throw new Error('No Access token');
 
 
@@ -268,12 +268,12 @@ export default new Vuex.Store({
         }
     },
 
-    logout(context) {
+    async logout(context) {
         window.console.log('logout() action called');
 
         context.commit('updateLoading', true);
         context.commit('logout');
-        context.dispatch('saveState');
+        await context.dispatch('saveState');
         context.commit('updateLoading', false);
     },
 
