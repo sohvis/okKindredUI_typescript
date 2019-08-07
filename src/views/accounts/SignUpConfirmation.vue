@@ -19,8 +19,8 @@
             <PasswordBox v-model="password" />
         </div>
         <div class="form-group">
-            <label for="password2">{{ $t("message.PasswordConfirmation") }}</label>
-            <PasswordBox v-model="password2" />
+            <label for="passwordConfirmation">{{ $t("message.PasswordConfirmation") }}</label>
+            <PasswordBox v-model="passwordConfirmation" />
         </div>
 
         <div class="alert alert-danger" v-show="isPwnedPassword">
@@ -53,8 +53,13 @@ import LanguageOptionsBuilder from '../../models/data/language_options_builder';
 import { localeMatch } from '../../localization/localization';
 import { i18n } from '../../main';
 import PwnedPasswordChecker from '../../models/pwnedPasswordChecker';
+import PasswordBox from '../../components/common/PasswordBox.vue';
 
-@Component
+@Component({
+  components: {
+    PasswordBox,
+  },
+})
 export default class SignUp extends Vue {
 
     public password: string = '';
@@ -125,8 +130,10 @@ export default class SignUp extends Vue {
     }
 
     protected mounted() {
-
+        window.console.log(`SignUpCOnfirmation.mounted()`);
+        window.console.log(`this.confirmationToken: ${this.confirmationToken}`);
         i18n.locale = localeMatch.match(navigator.language);
+        
     }
 }
 </script>
