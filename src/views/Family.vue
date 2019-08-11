@@ -100,11 +100,11 @@ export default class Family extends Vue {
 
             await this.LoadData();
 
-             if (this.$route.query.person_id) {
+            if (this.$route.query.person_id) {
                 const personId = this.$route.query.person_id as string;
 
                 const personInFamily = store.state.people
-                            .filter(p => Number(p.id) === Number(personId)).length > 0;
+                            .filter((p) => Number(p.id) === Number(personId)).length > 0;
 
                 if (personInFamily) {
                     store.dispatch('changePerson', personId);
@@ -123,7 +123,7 @@ export default class Family extends Vue {
                     case 'details':
                         break;
             }
-        } catch (ex){
+        } catch (ex) {
             window.console.log(`ex: ${ex}`);
             this.$router.push(`/accounts/login/?next=${this.$router.currentRoute.fullPath}`);
         }
