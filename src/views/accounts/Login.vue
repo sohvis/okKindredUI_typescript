@@ -71,7 +71,14 @@ export default class Login extends Vue {
                 store.commit('setErrorMessage', ErrorModal.passwordBreached);
             }
 
-            this.$router.push('/family/');
+            let next: string;
+            if (this.$route.query.next) {
+                next = this.$route.query.next as string;
+                window.console.log(`next: ${next}`);
+                this.$router.push(next);
+            } else {
+                this.$router.push('/family/');
+            }
 
         } catch (error) {
             window.console.log(error);

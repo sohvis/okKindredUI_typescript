@@ -4,12 +4,12 @@
         {{$t('message.AccountConfirmation')}} 
     </h3>
 
-    <h4>
+    <p>
         {{$t('message.PleaseCreatePassword')}} 
-    </h4>
+    </p>
 
     <form 
-        v-if="!submitted"
+        v-if="hasConfirmationCode"
         role="form" 
         v-on:submit.prevent="onSubmit()"
         class="form-password-reset">
@@ -54,6 +54,7 @@ import { localeMatch } from '../../localization/localization';
 import { i18n } from '../../main';
 import PwnedPasswordChecker from '../../models/pwnedPasswordChecker';
 import PasswordBox from '../../components/common/PasswordBox.vue';
+import User from '../../models/data/user';
 
 @Component({
   components: {
@@ -65,8 +66,11 @@ export default class SignUp extends Vue {
     public password: string = '';
     public passwordConfirmation: string = '';
 
-    @Prop()
     public confirmationToken: string = '';
+
+    public get hasConfirmationCode() {
+        return this.confirmationToken.length > 0;
+    }
 
     public get submitDisabled() {
 
@@ -116,8 +120,15 @@ export default class SignUp extends Vue {
                     json: true,
                 };
 
-                const response = await request.put(options);
-                window.console.log(response);
+                const user = await request.put(options) as User;
+                window.console.log(user);
+
+                await this.$store.dispatch('login', {
+                    email: user.email,
+                    password: this.password,
+                });
+
+                this.$router.push('/family/');
 
             } catch (error) {
 
@@ -131,9 +142,18 @@ export default class SignUp extends Vue {
 
     protected mounted() {
         window.console.log(`SignUpCOnfirmation.mounted()`);
+        this.confirmationToken = this.$route.params.confirmationToken;
         window.console.log(`this.confirmationToken: ${this.confirmationToken}`);
-        i18n.locale = localeMatch.match(navigator.language);
-        
+
+        let language: string;
+        if (this.$route.query.language) {
+            language = this.$route.query.language as string;
+        } else {
+            language = navigator.language;
+        }
+
+        window.console.log(`language: ${language}`);
+        i18n.locale = localeMatch.match(language);
     }
 }
 </script>

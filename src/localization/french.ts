@@ -12,6 +12,7 @@ export const french = {
       Close: `Fermer`,
       Yes: `Oui`,
       No: `Non`,
+      Confirm: `Confirmer`,
 
       // Navbar & Menus
       Family: `Famille`,
@@ -304,5 +305,9 @@ export const french = {
       EmailInUse: `Cet email est déjà utilisé`,
       ThankYou: `Merci!`,
       PleaseCheckEmail: `Veuillez vérifier votre email {email} pour confirmer votre compte.`,
+
+      // Account Confirmation
+      AccountConfirmation: `Confirmation du Compte`,
+      PleaseCreatePassword: `Veuillez créer un mot de passe pour votre compte:`,
     },
 };

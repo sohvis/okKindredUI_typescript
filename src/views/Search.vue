@@ -67,7 +67,7 @@ export default class Search extends Vue {
             }
 
         } catch {
-        this.$router.push('/accounts/login/');
+            this.$router.push(`/accounts/login/?next=${this.$router.currentRoute.fullPath}`);
         }
     }
 

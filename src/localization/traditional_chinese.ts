@@ -12,6 +12,7 @@ export const traditionalChinese = {
       Close: `關`,
       Yes: `是`,
       No: `不是`,
+      Confirm: `證實`,
 
       // Navbar & Menus
       Family: `家庭`,
@@ -282,5 +283,9 @@ export const traditionalChinese = {
       EmailInUse: `Email is already in use`,
       ThankYou: `Thank you!`,
       PleaseCheckEmail: `Please check your email {email} to confirm your account.`,
+
+      // Account Confirmation
+      AccountConfirmation: `帳戶確認`,
+      PleaseCreatePassword: `請為您的帳戶創建密碼：`,
     },
 };

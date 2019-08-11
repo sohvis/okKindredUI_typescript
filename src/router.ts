@@ -67,5 +67,11 @@ export default new Router({
       component: SignUpConfirmation,
       props: true,
     },
+    {
+      path: '/accounts/sign_up_confirmation/:confirmationToken/',
+      name: 'SignUpConfirmation',
+      component: SignUpConfirmation,
+      props: true,
+    },
   ],
 });

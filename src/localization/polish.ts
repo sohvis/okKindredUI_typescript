@@ -12,6 +12,7 @@ export const polish = {
       Close: `Zamknąć`,
       Yes: `Tak`,
       No: `Nie`,
+      Confirm: `Potwierdzać`,
 
       // Navbar
       Family: `Rodzina`,
@@ -314,5 +315,9 @@ export const polish = {
       EmailInUse: `Adres e-mail jest już w użyciu`,
       ThankYou: `Dziękuję Ci!`,
       PleaseCheckEmail: `Sprawdź swój adres e-mail {email}, aby potwierdzić swoje konto.`,
+
+      // Account Confirmation
+      AccountConfirmation: `Potwierdzenie Konta`,
+      PleaseCreatePassword: `Utwórz hasło do swojego konta:`,
     },
 };

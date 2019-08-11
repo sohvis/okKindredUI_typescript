@@ -12,6 +12,7 @@ export const finnish = {
       Close: `Sulkea`,
       Yes: `Joo`,
       No: `Ei`,
+      Confirm: `Vahvistaa`,
 
       // Navbar & Menus
       Family: `Perhe`,
@@ -246,5 +247,9 @@ export const finnish = {
       EmailInUse: `Sähköposti on jo käytössä`,
       ThankYou: `Kiitos!`,
       PleaseCheckEmail: `Tarkista sähköpostisi {email} vahvistaaksesi tilisi.`,
+
+      // Account Confirmation
+      AccountConfirmation: `Tilin Vahvistus`,
+      PleaseCreatePassword: `Luo salasana tilillesi:`,
     },
 };

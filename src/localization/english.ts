@@ -12,6 +12,7 @@ export const english = {
       Close: `Close`,
       Yes: `Yes`,
       No: `No`,
+      Confirm: `Confirm`,
 
       // Navbar & Menus
       Family: `Family`,
@@ -241,5 +242,9 @@ export const english = {
       EmailInUse: `Email is already in use`,
       ThankYou: `Thank you!`,
       PleaseCheckEmail: `Please check your email {email} to confirm your account.`,
+
+      // Account Confirmation
+      AccountConfirmation: `Account Confirmation`,
+      PleaseCreatePassword: `Please create a password for your account:`,
     },
 };

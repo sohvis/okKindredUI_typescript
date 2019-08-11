@@ -12,6 +12,7 @@ export const simplifiedChinese = {
       Close: `关`,
       Yes: `是`,
       No: `不是`,
+      Confirm: `证实`,
 
 
       // Navbar & Menus
@@ -285,5 +286,9 @@ export const simplifiedChinese = {
       EmailInUse: `電子郵件已在使用中`,
       ThankYou: `謝謝！ `,
       PleaseCheckEmail: `請檢查您的電子郵件{email}以確認您的帳戶。 `,
+
+      // Account Confirmation
+      AccountConfirmation: `帐户确认`,
+      PleaseCreatePassword: `请为您的帐户创建密码：`,
     },
 };
