@@ -10,6 +10,7 @@ import PasswordResetConfirmation from './views/accounts/PasswordResetConfirmatio
 import Settings from './views/accounts/Settings.vue';
 import SignUp from './views/accounts/SignUp.vue';
 import SignUpConfirmation from './views/accounts/SignUpConfirmation.vue';
+import NewProfilePhoto from './views/NewProfilePhoto.vue';
 
 
 Vue.use(Router);
@@ -72,6 +73,11 @@ export default new Router({
       name: 'SignUpConfirmation',
       component: SignUpConfirmation,
       props: true,
+    },
+    {
+      path: '/new_profile_photo/',
+      name: 'NewProfilePhoto',
+      component: NewProfilePhoto,
     },
   ],
 });

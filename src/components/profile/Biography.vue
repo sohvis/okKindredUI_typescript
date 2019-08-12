@@ -51,7 +51,7 @@ export default class Biography extends Vue {
   @Prop({default: ''})
   public biography?: string;
 
-  public biographyEdited?: string;
+  public biographyEdited?: string =  '';
 
   public customToolbar = [
     ['bold', 'italic', 'underline', 'strike'],        // toggled buttons

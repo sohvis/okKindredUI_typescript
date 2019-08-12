@@ -9,7 +9,7 @@
             v-if="!editMode"
             v-bind:personId="person.id"/>
 
-        <b-button class="btn-edit" variant="outline-primary" v-if="editMode" v-on:click="edit()" >
+        <b-button class="btn-edit" variant="outline-primary" v-if="editMode" v-on:click="uploadNewPhoto()" >
           <span class="oi oi-data-transfer-upload" aria-hidden="true"></span>
           <small>{{ $t('message.UploadNewPhoto') }}</small>
         </b-button>
@@ -393,6 +393,10 @@ export default class Profile extends Vue {
   private personUpdated(args: ProfileEmitArgs) {
       this.person = args.person;
       store.dispatch('updatePerson', args.person);
+  }
+
+  private uploadNewPhoto() {
+    this.$router.push('/new_profile_photo/');
   }
 }
 </script>
