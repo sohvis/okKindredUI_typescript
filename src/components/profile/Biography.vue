@@ -13,35 +13,34 @@
           </b-button>
         </h4>
         <p 
-          v-if="!editMode" 
+          v-show="!editMode" 
           v-html="biographyDisplay"
           class="biography-paragraph">
         </p>
 
-        <tinymce-editor 
-            v-if="editMode" 
-            class="biography-editor" 
-            api-key:configs.TinyMceApiToken 
-            v-model="biographyEdited"
-            @onChange="onChange"
-            @onBlur="onBlur">
-        </tinymce-editor>
+        <vue-editor 
+          class="biography-editor" 
+          v-show="editMode" 
+          v-model="biographyEdited"
+          :editorToolbar="customToolbar">
+        </vue-editor>
+
     </div>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 import store from '../../store/store';
 import Person from '../../models/data/person';
-import Editor from '@tinymce/tinymce-vue';
 import configs from '../../config';
 import { setTimeout } from 'timers';
 import * as request from 'request-promise-native';
 import ProfileEmitArgs from '../../models/profile_emit_args';
+import { VueEditor } from 'vue2-editor';
 
 @Component({
   components: {
-    'tinymce-editor': Editor,
+      VueEditor,
   },
 })
 export default class Biography extends Vue {
@@ -53,6 +52,13 @@ export default class Biography extends Vue {
   public biography?: string;
 
   public biographyEdited?: string;
+
+  public customToolbar = [
+    ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+    [{ list: 'ordered'}, { list: 'bullet' }],
+    [{ header: [1, 2, 3, false] }],
+    [{ font: [] }],
+  ];
 
   get biographyDisplay(): string {
     if (!this.biography) {
@@ -99,16 +105,19 @@ export default class Biography extends Vue {
     store.commit('updateLoading', false);
   }
 
+  @Watch('biographyEdited')
   private async onChange() {
     window.console.log(`Biography.onChange() called`);
 
-    if (this.timeOutHandle) {
-      window.clearTimeout(this.timeOutHandle);
-    }
+    if (this.biographyEdited !== this.biography) {
+      if (this.timeOutHandle) {
+        window.clearTimeout(this.timeOutHandle);
+      }
 
-    this.timeOutHandle = setTimeout(async () => {
-      await this.save();
-    }, 3000);
+      this.timeOutHandle = setTimeout(async () => {
+        await this.save();
+      }, 3000);
+    }
   }
 
   private async save() {
