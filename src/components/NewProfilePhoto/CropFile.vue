@@ -1,17 +1,17 @@
 <template>
     <div>
       <div>
-        <button class="btn btn-warning">
-          <span class="oi oi-reload" aria-hidden="true" @click="rotateClockwise"></span>
-        </button>
-        <button class="btn btn-warning">
+        <button class="btn btn-outline-warning">
           <span class="oi oi-reload icon-flipped" aria-hidden="true" @click="rotateAntiClockwise"></span>
+        </button>
+        <button class="btn btn-outline-warning">
+          <span class="oi oi-reload" aria-hidden="true" @click="rotateClockwise"></span>
         </button>
       </div>
       <p>
         {{ $t('message.PleaseTrimImage') }}
       </p>
-      <img :src="file" v-bind:style="rotationStyle"/>
+      <img id="crop-image" v-bind:style="rotationStyle"/>
     </div>
 </template>
 
@@ -24,20 +24,36 @@ import configs from '../../config';
 @Component
 export default class CropFile extends Vue {
 
-  @Prop({default: ''})
-  public file: string = '';
+  @Prop({default: null})
+  public file?: File;
 
   public rotationStyle: any = {};
 
   public rotation: number = 0;
 
+  private fileReader= new FileReader();
+
+  constructor() {
+    super();
+  }
+
   protected mounted() {
     window.console.log('ChooseFile.vue mounted() called');
+    this.fileReader.onload = this.fileReaderOnLoad;
+
+    if (this.file) {
+      this.fileReader.readAsDataURL(this.file);
+    }
+  }
+
+  private fileReaderOnLoad(e: any) {
+    const img = document.getElementById('crop-image') as HTMLImageElement;
+    img.src = e.target.result;
   }
 
   private rotateClockwise() {
 
-    if (this.rotation == 270) {
+    if (this.rotation === 270) {
       this.rotation = 0;
     }
 
@@ -45,7 +61,7 @@ export default class CropFile extends Vue {
   }
 
   private rotateAntiClockwise() {
-    if (this.rotation == 0) {
+    if (this.rotation === 0) {
       this.rotation = 270;
     }
 
@@ -77,6 +93,11 @@ export default class CropFile extends Vue {
 </script>
 
 <style scoped>
+
+#crop-image {
+  width: 100%;
+}
+
 .icon-flipped {
     transform: scaleX(-1);
     -moz-transform: scaleX(-1);

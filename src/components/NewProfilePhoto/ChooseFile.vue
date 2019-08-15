@@ -9,7 +9,6 @@
         <input 
           id="file-input" 
           type="file" 
-          v-bind="file"
           hidden accept="image/x-png,image/gif,image/jpeg"
           @change="fileSelected" />
       </button>
@@ -25,8 +24,6 @@ import configs from '../../config';
 @Component
 export default class ChooseFile extends Vue {
 
-  public file: string = '';
-
   protected mounted() {
     window.console.log('ChooseFile.vue mounted() called');
   }
@@ -37,8 +34,16 @@ export default class ChooseFile extends Vue {
     input.click();
   }
 
-  private fileSelected() {
-    this.$emit('fileSelected', this.file);
+  private fileSelected(e: any) {
+
+    window.console.log(`ChooseFile.fileSelected()`);
+
+    const files = e.target.files || e.dataTransfer.files;
+    if (files.length === 1) {
+
+      window.console.log(files[0]);
+      this.$emit('fileSelected', files[0]);
+    }
   }
 }
 </script>

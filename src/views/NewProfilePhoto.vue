@@ -13,7 +13,7 @@ import store from '../store/store';
 import { configs } from '../config';
 import ChooseFile from '../components/NewProfilePhoto/ChooseFile.vue';
 import CropFile from '../components/NewProfilePhoto/CropFile.vue';
- 
+
 @Component({
   components: {
     ChooseFile,
@@ -24,14 +24,14 @@ export default class NewProfilePhoto extends Vue {
 
     public state: string = 'ChooseFile';
 
-    public file: string = '';
+    public file?: File;
 
     protected async mounted() {
       window.console.log('NewProfilePhoto.vue mounted() call');
       this.state = 'ChooseFile';
     }
 
-    private fileSelected(file: string) {
+    private fileSelected(file: File) {
       this.file = file;
       this.state = 'CropImage';
     }
