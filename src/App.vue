@@ -8,15 +8,15 @@
 
       <b-collapse is-nav id="nav_collapse">
         <b-navbar-nav>
-          <b-nav-item v-if="logged_in" to="/family/">
+          <b-nav-item v-if="logged_in" to="/family/" :disabled="loading">
             <span class="oi oi-people" aria-hidden="true"></span>
             {{ $t("message.Family") }}
           </b-nav-item>
-          <b-nav-item v-if="logged_in" href="#">
+          <b-nav-item v-if="logged_in" href="#" :disabled="loading">
             <span class="oi oi-image" aria-hidden="true"></span>
             {{ $t("message.Gallery") }}
           </b-nav-item>
-          <b-nav-item v-if="logged_in" to="/search/">
+          <b-nav-item v-if="logged_in" to="/search/" :disabled="loading">
             <span class="oi oi-magnifying-glass" aria-hidden="true"></span>
             {{ $t("message.Search") }}
           </b-nav-item>
@@ -24,19 +24,19 @@
 
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
-          <b-nav-item to="/about/">
+          <b-nav-item to="/about/" :disabled="loading">
             <span class="oi oi-info" aria-hidden="true"></span>
             {{ $t("message.About") }}
           </b-nav-item>
-          <b-nav-item v-if="logged_in" to="/accounts/settings/">
+          <b-nav-item v-if="logged_in" to="/accounts/settings/" :disabled="loading">
               <span class="oi oi-cog" aria-hidden="true"></span>
               {{ $t("message.Settings") }}
           </b-nav-item>
-          <b-nav-item v-if="logged_in" v-on:click="logout()" href="#">
+          <b-nav-item v-if="logged_in" v-on:click="logout()" href="#" :disabled="loading">
             <span class="oi oi-account-logout" aria-hidden="true"></span>
             {{ $t("message.Logout") }}
           </b-nav-item>
-          <b-nav-item v-if="!logged_in" to="/accounts/login/">
+          <b-nav-item v-if="!logged_in" to="/accounts/login/" :disabled="loading">
           <span class="oi oi-account-login" aria-hidden="true"></span>
             {{ $t("message.Login") }}
           </b-nav-item>

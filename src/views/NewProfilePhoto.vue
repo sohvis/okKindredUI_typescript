@@ -2,7 +2,7 @@
   <div class="container">
     <h2>{{ $t('message.NewProfilePhoto') }}</h2>
     <ChooseFile v-show="state==='ChooseFile'" @fileSelected="fileSelected"/>
-    <CropFile v-show="state==='CropImage'" v-bind:file="file" />
+    <CropFile ref="cropFile" v-show="state==='CropFile'" @back="setState('ChooseFile')"/>
   </div>
 </template>
 
@@ -24,16 +24,23 @@ export default class NewProfilePhoto extends Vue {
 
     public state: string = 'ChooseFile';
 
-    public file?: File;
-
     protected async mounted() {
       window.console.log('NewProfilePhoto.vue mounted() call');
-      this.state = 'ChooseFile';
+      this.setState('ChooseFile');
     }
 
     private fileSelected(file: File) {
-      this.file = file;
-      this.state = 'CropImage';
+      window.console.log('NewProfilePhoto.fileSelected()');
+      window.console.log('file:');
+      window.console.log(file);
+
+      this.setState('CropFile');
+
+      (this.$refs.cropFile as CropFile).loadFile(file);
+    }
+
+    private setState(state: string) {
+      this.state = state;
     }
 }
 </script>
