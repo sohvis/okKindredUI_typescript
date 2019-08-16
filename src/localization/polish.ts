@@ -13,6 +13,7 @@ export const polish = {
       Yes: `Tak`,
       No: `Nie`,
       Confirm: `Potwierdzać`,
+      Back: `Powrót`,
 
       // Navbar
       Family: `Rodzina`,

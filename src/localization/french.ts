@@ -13,6 +13,7 @@ export const french = {
       Yes: `Oui`,
       No: `Non`,
       Confirm: `Confirmer`,
+      Back: `Retour`,
 
       // Navbar & Menus
       Family: `Famille`,

@@ -1,8 +1,20 @@
 <template>
   <div class="container">
     <h2>{{ $t('message.NewProfilePhoto') }}</h2>
-    <ChooseFile v-show="state==='ChooseFile'" @fileSelected="fileSelected"/>
-    <CropFile ref="cropFile" v-show="state==='CropFile'" @back="setState('ChooseFile')"/>
+
+    <ChooseFile 
+        v-show="state==='ChooseFile'" 
+        @fileSelected="fileSelected"/>
+
+    <CropFile 
+        ref="cropFile" 
+        v-show="state==='CropFile'" 
+        @back="setState('ChooseFile')"
+        @next="uploadFile"/>
+
+    <ImageUpload 
+        ref="imageUpload" 
+        v-show="state==='ImageUpload'" />
   </div>
 </template>
 
@@ -11,13 +23,16 @@ import { Component, Vue } from 'vue-property-decorator';
 import * as request from 'request-promise-native';
 import store from '../store/store';
 import { configs } from '../config';
+import CropArgs from '../models/data/crop_args';
 import ChooseFile from '../components/NewProfilePhoto/ChooseFile.vue';
 import CropFile from '../components/NewProfilePhoto/CropFile.vue';
+import ImageUpload from '../components/NewProfilePhoto/ImageUpload.vue';
 
 @Component({
   components: {
     ChooseFile,
     CropFile,
+    ImageUpload,
   },
 })
 export default class NewProfilePhoto extends Vue {
@@ -41,6 +56,12 @@ export default class NewProfilePhoto extends Vue {
 
     private setState(state: string) {
       this.state = state;
+    }
+
+    private uploadFile(cropArgs: CropArgs) {
+      this.setState('ImageUpload');
+
+      (this.$refs.cropFile as ImageUpload).upload(cropArgs);
     }
 }
 </script>

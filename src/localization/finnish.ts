@@ -13,6 +13,7 @@ export const finnish = {
       Yes: `Joo`,
       No: `Ei`,
       Confirm: `Vahvistaa`,
+      Back: `Palata`,
 
       // Navbar & Menus
       Family: `Perhe`,

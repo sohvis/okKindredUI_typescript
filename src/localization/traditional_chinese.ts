@@ -13,6 +13,7 @@ export const traditionalChinese = {
       Yes: `是`,
       No: `不是`,
       Confirm: `證實`,
+      Back: `返回`,
 
       // Navbar & Menus
       Family: `家庭`,
@@ -287,5 +288,6 @@ export const traditionalChinese = {
       // Account Confirmation
       AccountConfirmation: `帳戶確認`,
       PleaseCreatePassword: `請為您的帳戶創建密碼：`,
+
     },
 };

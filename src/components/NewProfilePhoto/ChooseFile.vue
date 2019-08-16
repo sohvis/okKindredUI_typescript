@@ -1,9 +1,12 @@
 <template>
     <div>
       <p>
-        {{ $t('message.UploadNewProfilePhoto') }}
+        <img :src="currentPhoto" />
       </p>
-      <button class="btn btn-success" @click="buttonClick">
+      <p>
+        {{ $t('message.UploadNewProfilePhoto', { personName: name }) }}
+      </p>
+      <button class="btn btn-lg btn-success" @click="buttonClick">
         <span class="oi oi-plus" aria-hidden="true"></span>
         {{ $t('message.SelectFile') }}
         <input 
@@ -19,13 +22,32 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import store from '../../store/store';
 import configs from '../../config';
+import Person from '../../models/data/person';
 
 
 @Component
 export default class ChooseFile extends Vue {
 
+  public name: string = '';
+
+  public currentPhoto: string = '';
+
   protected mounted() {
     window.console.log('ChooseFile.vue mounted() called');
+
+    const selectedPerson = store.getters.selectedPerson as Person;
+    this.name = selectedPerson.name;
+
+    // No selected person or data go back to family view
+    if (!this.name) {
+      this.$router.push('/family/');
+    }
+
+    if (selectedPerson.small_thumbnail) {
+      this.currentPhoto = selectedPerson.small_thumbnail;
+    } else {
+      this.currentPhoto = 'img/portrait_80.png';
+    }
   }
 
   // Opens input file

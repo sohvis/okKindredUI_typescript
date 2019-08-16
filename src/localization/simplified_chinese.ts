@@ -13,6 +13,7 @@ export const simplifiedChinese = {
       Yes: `是`,
       No: `不是`,
       Confirm: `证实`,
+      Back: `返回`,
 
 
       // Navbar & Menus

@@ -13,6 +13,7 @@ export const english = {
       Yes: `Yes`,
       No: `No`,
       Confirm: `Confirm`,
+      Back: `Back`,
 
       // Navbar & Menus
       Family: `Family`,
@@ -246,5 +247,12 @@ export const english = {
       // Account Confirmation
       AccountConfirmation: `Account Confirmation`,
       PleaseCreatePassword: `Please create a password for your account:`,
+
+      // Upload New Profile Photo
+      NewProfilePhoto: `New Profile Photo`,
+      UploadNewProfilePhoto: `Upload a new profile photo for {personName}:`,
+      SelectFile: `Select File`,
+
+      PleaseTrimImage: `Please trim the image to suit a profile picture: `,
     },
 };

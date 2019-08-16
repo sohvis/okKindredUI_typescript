@@ -37,20 +37,31 @@ export default new Vuex.Store({
   },
 
   getters: {
-    language: (state) => {
+    language: (state): string => {
         const locale = localeMatch.match(state.language);
 
         window.console.log(`store.language(state) locale: ${locale}`);
         return locale;
     },
 
-    loading: (state) => state.loading_count > 0,
+    loading: (state): boolean => state.loading_count > 0,
 
     ajaxHeader: (state) => {
         return {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${state.access_token}`,
         };
+    },
+
+    selectedPerson: (state): Person | null => {
+
+        for (const person of state.people) {
+            if (Number(state.person_id) === Number(person.id)) {
+                return person;
+            }
+        }
+
+        return null;
     },
   },
 

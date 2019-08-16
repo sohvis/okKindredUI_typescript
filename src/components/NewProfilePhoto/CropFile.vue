@@ -19,8 +19,8 @@
         </button>
 
         <button class="btn btn-lg btn-success control-padding" @click="nextClick">
-          {{ $t('message.Next') }}
-          <span class="oi oi-arrow-thick-right" aria-hidden="true"></span>
+          <span class="oi oi-check" aria-hidden="true"></span>
+          {{ $t('message.Ok') }}
         </button>
 
       </div>
@@ -35,11 +35,14 @@
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 import store from '../../store/store';
 import configs from '../../config';
-
+import Jcrop from 'jcrop';
+import 'jcrop/dist/jcrop.css';
+import CropArgs from '../../models/data/crop_args';
 
 @Component
 export default class CropFile extends Vue {
 
+  public file: File | null = null;
 
   public rotationStyle: any = {};
 
@@ -47,14 +50,17 @@ export default class CropFile extends Vue {
 
   private fileReader = new FileReader();
 
+  private jcrop: any;
+
   constructor() {
     super();
   }
 
   public loadFile(file: File) {
     window.console.log('ChooseFile.loadFile()');
-    this.fileReader.onload = this.fileReaderOnLoad;
 
+    this.fileReader.onload = this.fileReaderOnLoad;
+    this.file = file;
     this.fileReader.readAsDataURL(file);
   }
 
@@ -67,11 +73,31 @@ export default class CropFile extends Vue {
     window.console.log('ChooseFile.fileReaderOnLoad()');
 
     const img = document.getElementById('crop-image') as HTMLImageElement;
+
+    img.onload = () => this.initialiseJcrop(img);
     img.src = e.target.result;
 
     // Set the max height to fill screen
     const height = window.innerHeight - img.getBoundingClientRect().top - 20;
     img.style.maxHeight = `${height}px`;
+  }
+
+  private initialiseJcrop(img: HTMLImageElement) {
+
+    this.jcrop = Jcrop.attach('crop-image', {
+      aspectRatio: 1,
+    });
+
+    const smallestDimension = Math.min(img.width, img.height);
+    const rect = Jcrop.Rect.fromPoints([10, 10], [smallestDimension * 0.75, smallestDimension * 0.75]);
+
+    const crop = this.jcrop.newWidget(rect, {
+      aspectRatio: rect.aspect,
+      canRemove: false,
+    });
+
+    window.console.log(this.jcrop);
+
   }
 
   private rotateClockwise() {
@@ -97,11 +123,22 @@ export default class CropFile extends Vue {
   // Opens input file
   private nextClick() {
     window.console.log('ChooseFile.nextClick()');
-    this.$emit('next');
+
+    const cropArgs = new CropArgs(
+      store.state.person_id,
+      document.getElementById('crop-image') as HTMLImageElement,
+      this.file as File,
+      this.jcrop.active.pos,
+    );
+
+    window.console.log(cropArgs);
+
+    this.$emit('next', cropArgs);
   }
 
   private backClick() {
     window.console.log('ChooseFile.backClick()');
+    this.jcrop.destroy();
     this.$emit('back');
   }
 
