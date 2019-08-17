@@ -5,6 +5,7 @@ export default class CropArgs {
     public naturalHeight: number;
     public displayWidth: number;
     public displayHeight: number;
+    public rotation: number;
 
     public file: File;
 
@@ -14,26 +15,27 @@ export default class CropArgs {
     public cropDisplayHeight: number;
 
     public get cropX(): number {
-        return this.cropDisplayX * (this.naturalWidth / this.displayWidth);
+        return Math.round(this.cropDisplayX * (this.naturalWidth / this.displayWidth));
     }
 
     public get cropY(): number {
-        return this.cropDisplayY * (this.naturalHeight / this.displayHeight);
+        return Math.round(this.cropDisplayY * (this.naturalHeight / this.displayHeight));
     }
 
     public get cropWidth(): number {
-        return this.cropDisplayWidth * (this.naturalWidth / this.displayWidth);
+        return Math.round(this.cropDisplayWidth * (this.naturalWidth / this.displayWidth));
     }
 
     public get cropHeight(): number {
-        return this.cropDisplayHeight * (this.naturalHeight / this.displayHeight);
+        return Math.round(this.cropDisplayHeight * (this.naturalHeight / this.displayHeight));
     }
 
     constructor(
         personId: string,
         img: HTMLImageElement,
         file: File,
-        jcropPos: any) {
+        jcropPos: any,
+        rotation: number) {
 
             this.personId = personId;
             this.naturalHeight = img.naturalHeight;
@@ -46,6 +48,7 @@ export default class CropArgs {
             this.cropDisplayY = jcropPos.y;
             this.cropDisplayWidth = jcropPos.w;
             this.cropDisplayHeight = jcropPos.h;
+            this.rotation = rotation;
 
     }
 }

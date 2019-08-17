@@ -4,7 +4,7 @@
             {{ $t('message.UploadingImagePleaseWait') }}
         </p>
 
-        <b-progress :value="progress" max="100" show-progress animated></b-progress>
+        <b-progress :value="progress" :max="100" show-progress animated></b-progress>
     </div>
 </template>
 

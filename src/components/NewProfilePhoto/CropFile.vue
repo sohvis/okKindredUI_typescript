@@ -28,6 +28,8 @@
       <div id="image-container">
         <img id="crop-image" v-bind:style="rotationStyle"/>
       </div>
+
+      <div id="overlay" v-bind:style="overlayStyle"></div>
     </div>
 </template>
 
@@ -45,6 +47,8 @@ export default class CropFile extends Vue {
   public file: File | null = null;
 
   public rotationStyle: any = {};
+
+  public overlayStyle: any = {};
 
   public rotation: number = 0;
 
@@ -84,41 +88,59 @@ export default class CropFile extends Vue {
 
   private initialiseJcrop(img: HTMLImageElement) {
 
-    this.jcrop = Jcrop.attach('crop-image', {
-      aspectRatio: 1,
-    });
+    this.setOverlay(img);
 
     const smallestDimension = Math.min(img.width, img.height);
     const rect = Jcrop.Rect.fromPoints([10, 10], [smallestDimension * 0.75, smallestDimension * 0.75]);
 
-    const crop = this.jcrop.newWidget(rect, {
-      aspectRatio: rect.aspect,
-      canRemove: false,
-    });
+    if (this.jcrop) {
+      // resize widget
+      window.console.log(this.jcrop);
+    } else {
+      this.jcrop = Jcrop.attach('overlay', {
+        multiMax: 1,
+        canRemove: false,
+      });
+    }
 
-    window.console.log(this.jcrop);
+    if (this.jcrop.active) {
+      this.jcrop.active.pos = rect;
+      this.jcrop.active.render();
+    } else {
+      const crop = this.jcrop.newWidget(rect, {
+        aspectRatio: rect.aspect,
+        canRemove: false,
+      });
+    }
 
+
+    this.refreshJcrop();
   }
 
   private rotateClockwise() {
     window.console.log('ChooseFile.rotateClockwise()');
 
-    this.rotation += 90;
-
-    if (this.rotation >= 360) {
+    if (this.rotation >= 270) {
       this.rotation = 0;
+    } else {
+      this.rotation += 90;
     }
+
+    this.setRotation();
   }
 
   private rotateAntiClockwise() {
     window.console.log('ChooseFile.rotateAntiClockwise()');
 
-    this.rotation -= 90;
-
-    if (this.rotation < 0) {
+    if (this.rotation < 90) {
       this.rotation = 270;
+    } else {
+      this.rotation -= 90;
     }
+
+    this.setRotation();
   }
+
 
   // Opens input file
   private nextClick() {
@@ -129,6 +151,7 @@ export default class CropFile extends Vue {
       document.getElementById('crop-image') as HTMLImageElement,
       this.file as File,
       this.jcrop.active.pos,
+      this.rotation,
     );
 
     window.console.log(cropArgs);
@@ -138,13 +161,41 @@ export default class CropFile extends Vue {
 
   private backClick() {
     window.console.log('ChooseFile.backClick()');
-    this.jcrop.destroy();
+
+    // reset the rotation if going back
+    this.rotation = 0;
+    this.rotationStyle = {};
+
     this.$emit('back');
   }
 
-  @Watch('rotation')
   private setRotation() {
+    window.console.log('ChooseFile.setRotation()');
+
+    const img = document.getElementById('crop-image') as HTMLImageElement;
     const rotate = `rotate(${this.rotation}deg)`;
+    let marginLeft = '0';
+    let marginTop = '0';
+    let transformOrigin = '';
+    switch (this.rotation) {
+      case 0:
+        // No changes to default
+        break;
+
+      case 90:
+        marginLeft = `${img.height}px`;
+        transformOrigin = '0 0';
+        break;
+
+      case 180:
+        // No changes to default
+        break;
+
+      case 270:
+        marginTop = `${img.width}px`;
+        transformOrigin = '0 0';
+        break;
+    }
 
     this.rotationStyle = {
       '-webkit-transform': rotate,
@@ -152,8 +203,45 @@ export default class CropFile extends Vue {
       '-o-transform': rotate,
       '-ms-transform': rotate,
       'transform': rotate,
+      'transform-origin': transformOrigin,
+      'margin-left': marginLeft,
+      'margin-top': marginTop,
     };
+
+    window.setTimeout(() => {
+      this.setOverlay(img);
+      this.refreshJcrop();
+    }, 100);
   }
+
+
+  // Create an overlay to bind JCrop to as it can't handle rotations
+  private setOverlay(img: HTMLImageElement) {
+    window.console.log('ChooseFile.setOverlay()');
+    const dimensions = img.getBoundingClientRect();
+
+    window.console.log(dimensions);
+
+    this.overlayStyle = {
+      'position': 'absolute',
+      'z-index': 2,
+      'top': `${dimensions.top}px`,
+      'left': `${dimensions.left}px`,
+      'width': `${dimensions.width}px`,
+      'height': `${dimensions.height}px`,
+    };
+
+    window.console.log(this.overlayStyle);
+  }
+
+  private refreshJcrop() {
+    window.setTimeout(() => {
+      if (this.jcrop) {
+        this.jcrop.refresh();
+      }
+    }, 100);
+  }
+
 }
 </script>
 
