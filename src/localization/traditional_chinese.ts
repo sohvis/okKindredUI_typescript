@@ -288,6 +288,7 @@ export const traditionalChinese = {
       // Account Confirmation
       AccountConfirmation: `帳戶確認`,
       PleaseCreatePassword: `請為您的帳戶創建密碼：`,
+      UploadingImagePleaseWait: `Uploading new image, please wait...`,
 
     },
 };

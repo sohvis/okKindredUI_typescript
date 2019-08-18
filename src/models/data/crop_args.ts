@@ -5,7 +5,7 @@ export default class CropArgs {
     public naturalHeight: number;
     public displayWidth: number;
     public displayHeight: number;
-    public rotation: number;
+    public clockwiseRotation: number;
 
     public file: File;
 
@@ -30,12 +30,16 @@ export default class CropArgs {
         return Math.round(this.cropDisplayHeight * (this.naturalHeight / this.displayHeight));
     }
 
+    public get antiClockwiseRotation(): number {
+        return 360 - this.clockwiseRotation;
+    }
+
     constructor(
         personId: string,
         img: HTMLImageElement,
         file: File,
         jcropPos: any,
-        rotation: number) {
+        clockwiseRotation: number) {
 
             this.personId = personId;
             this.naturalHeight = img.naturalHeight;
@@ -48,7 +52,7 @@ export default class CropArgs {
             this.cropDisplayY = jcropPos.y;
             this.cropDisplayWidth = jcropPos.w;
             this.cropDisplayHeight = jcropPos.h;
-            this.rotation = rotation;
+            this.clockwiseRotation = clockwiseRotation;
 
     }
 }

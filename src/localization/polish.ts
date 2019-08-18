@@ -320,5 +320,6 @@ export const polish = {
       // Account Confirmation
       AccountConfirmation: `Potwierdzenie Konta`,
       PleaseCreatePassword: `Utwórz hasło do swojego konta:`,
+      UploadingImagePleaseWait: `Przesyłanie nowego obrazu, proszę czekać ...`,
     },
 };

@@ -310,5 +310,6 @@ export const french = {
       // Account Confirmation
       AccountConfirmation: `Confirmation du Compte`,
       PleaseCreatePassword: `Veuillez créer un mot de passe pour votre compte:`,
+      UploadingImagePleaseWait: `Chargement d'une nouvelle image, veuillez patienter...`,
     },
 };

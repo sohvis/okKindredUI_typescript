@@ -252,5 +252,6 @@ export const finnish = {
       // Account Confirmation
       AccountConfirmation: `Tilin Vahvistus`,
       PleaseCreatePassword: `Luo salasana tilillesi:`,
+      UploadingImagePleaseWait: `Lähetetään uutta kuvaa, odota...`,
     },
 };

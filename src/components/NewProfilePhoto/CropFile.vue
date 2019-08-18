@@ -68,6 +68,11 @@ export default class CropFile extends Vue {
     this.fileReader.readAsDataURL(file);
   }
 
+  public resetRotation() {
+    this.rotation = 0;
+    this.rotationStyle = {};
+  }
+
   protected mounted() {
     window.console.log('ChooseFile.vue mounted() called');
 
@@ -163,8 +168,7 @@ export default class CropFile extends Vue {
     window.console.log('ChooseFile.backClick()');
 
     // reset the rotation if going back
-    this.rotation = 0;
-    this.rotationStyle = {};
+    this.resetRotation();
 
     this.$emit('back');
   }

@@ -36,17 +36,18 @@ export default class ChooseFile extends Vue {
     window.console.log('ChooseFile.vue mounted() called');
 
     const selectedPerson = store.getters.selectedPerson as Person;
-    this.name = selectedPerson.name;
 
     // No selected person or data go back to family view
-    if (!this.name) {
-      this.$router.push('/family/');
-    }
+    if (selectedPerson) {
+      this.name = selectedPerson.name;
+      if (selectedPerson.small_thumbnail) {
+        this.currentPhoto = selectedPerson.small_thumbnail;
+      } else {
+        this.currentPhoto = 'img/portrait_80.png';
+      }
 
-    if (selectedPerson.small_thumbnail) {
-      this.currentPhoto = selectedPerson.small_thumbnail;
     } else {
-      this.currentPhoto = 'img/portrait_80.png';
+      this.$router.push('/family/');
     }
   }
 

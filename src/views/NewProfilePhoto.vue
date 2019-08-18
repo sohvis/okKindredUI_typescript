@@ -9,12 +9,14 @@
     <CropFile 
         ref="cropFile" 
         v-show="state==='CropFile'" 
-        @back="setState('ChooseFile')"
+        @back="chooseFile()"
         @next="uploadFile"/>
 
     <ImageUpload 
         ref="imageUpload" 
-        v-show="state==='ImageUpload'" />
+        v-show="state==='ImageUpload'" 
+        @done="uploadDone"
+        @failed="chooseFile()"/>
   </div>
 </template>
 
@@ -41,6 +43,11 @@ export default class NewProfilePhoto extends Vue {
 
     protected async mounted() {
       window.console.log('NewProfilePhoto.vue mounted() call');
+      this.chooseFile();
+    }
+
+    private chooseFile() {
+      (this.$refs.cropFile as CropFile).resetRotation();
       this.setState('ChooseFile');
     }
 
@@ -58,10 +65,14 @@ export default class NewProfilePhoto extends Vue {
       this.state = state;
     }
 
-    private uploadFile(cropArgs: CropArgs) {
+    private async uploadFile(cropArgs: CropArgs) {
       this.setState('ImageUpload');
 
-      (this.$refs.cropFile as ImageUpload).upload(cropArgs);
+      await (this.$refs.imageUpload as ImageUpload).upload(cropArgs);
+    }
+
+    private uploadDone() {
+      this.$router.push(`/family/`);
     }
 }
 </script>

@@ -291,5 +291,6 @@ export const simplifiedChinese = {
       // Account Confirmation
       AccountConfirmation: `帐户确认`,
       PleaseCreatePassword: `请为您的帐户创建密码：`,
+      UploadingImagePleaseWait: `正在上传新图片，请稍候...`,
     },
 };

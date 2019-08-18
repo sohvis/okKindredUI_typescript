@@ -254,5 +254,6 @@ export const english = {
       SelectFile: `Select File`,
 
       PleaseTrimImage: `Please trim the image to suit a profile picture: `,
+      UploadingImagePleaseWait: `Uploading new image, please wait...`,
     },
 };

@@ -15,6 +15,7 @@ export const configs = {
     PasswordChangeAPI: '/api/password_change/',
     PasswordResetAPI: '/api/reset-password/',
     PersonAPI: '/api/person/',
+    ProfileImageAPI: '/api/profile_image/',
     RelationAPI: '/api/relation/',
     SignUpAPI: '/api/sign_up/',
     UserSettingsAPI: '/api/user_settings/',
