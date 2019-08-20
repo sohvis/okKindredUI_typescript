@@ -9,6 +9,7 @@ export const configs = {
 
 
     // API endpoints
+    GalleryAPI: '/api/gallery/',
     InviteEmailAPI: '/api/invite_email/',
     ImageAPI: '/api/image/',
     LeaveSiteAPI: '/api/delete_account/',
@@ -31,6 +32,7 @@ export const configs = {
     // App config
     MinPasswordLength: 8,
     MaxLoginAttempts: 4,
+    PaginationPageSize: 20,
 };
 
 export default configs;

@@ -137,7 +137,7 @@ export default class Biography extends Vue {
             json: true,
         };
 
-        const response = await request.put(options) as Person;
+        const response = await request.patch(options) as Person;
         window.console.log(response);
         const param = new ProfileEmitArgs(
                       response,
