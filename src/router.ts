@@ -11,7 +11,7 @@ import Settings from './views/accounts/Settings.vue';
 import SignUp from './views/accounts/SignUp.vue';
 import SignUpConfirmation from './views/accounts/SignUpConfirmation.vue';
 import NewProfilePhoto from './views/NewProfilePhoto.vue';
-import GalleryIndex from './views/gallery/GalleryIndex.vue';
+import GalleryList from './views/gallery/GalleryList.vue';
 
 
 Vue.use(Router);
@@ -81,9 +81,9 @@ export default new Router({
       component: NewProfilePhoto,
     },
     {
-      path: '/gallery/:page/',
-      name: 'GalleryIndex',
-      component: GalleryIndex,
+      path: '/gallery_list/:page/',
+      name: 'GalleryList',
+      component: GalleryList,
       props: true,
     },
   ],

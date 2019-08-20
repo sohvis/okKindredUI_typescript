@@ -48,7 +48,7 @@ import AddGallery from '../../components/gallery/AddGallery.vue';
       AddGallery,
   },
 })
-export default class GalleryIndex extends Vue {
+export default class GalleryList extends Vue {
 
     @Prop()
     public page?: number;
