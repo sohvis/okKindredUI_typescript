@@ -2,7 +2,7 @@
   <div id="app">
     
     <b-navbar id="navbar" toggleable="md" type="dark" variant="primary" v-bind:sticky="true" class="navbar-background">
-      <b-navbar-brand href="/"><strong>ok!Kindred {{debugMessage}}</strong></b-navbar-brand>
+      <b-navbar-brand href="/"><strong>ok!Kindred</strong></b-navbar-brand>
       
       <b-navbar-toggle target="nav_collapse" />
 
@@ -60,6 +60,7 @@ import { Component, Vue } from 'vue-property-decorator';
 
 import Loading from '@/components/common/Loading.vue';
 import ErrorModal from './components/common/ErrorModal.vue';
+import store from './store/store';
 
 @Component({
   components: {
@@ -70,20 +71,19 @@ import ErrorModal from './components/common/ErrorModal.vue';
 export default class App extends Vue {
 
   // Computed properties
-  get logged_in(this: any) {
-    return this.$store.state.logged_in;
+  get logged_in() {
+    return store.state.logged_in;
   }
 
-  get loading(this: any) {
-    return this.$store.getters.loading;
-  }
-
-  get debugMessage(this: any) {
-    return this.$store.state.debug_message;
+  get loading() {
+    return store.getters.loading;
   }
 
   protected mounted() {
     window.console.log('App.vue mounted() call');
+
+    // Reset loading count
+    store.state.loading_count = 0;
   }
 
   private logout(this: any) {

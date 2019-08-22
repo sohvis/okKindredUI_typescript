@@ -1,23 +1,41 @@
 <template>
     <div class="container">
+        <!--Back link-->
         <p>
-        <router-link
-            to="/gallery/">
-            {{ $t('message.AllGalleries') }}
-        </router-link>
-        / {{ title }} / {{ page }}
+            <router-link
+                to="/gallery/">
+                {{ $t('message.AllGalleries') }}
+            </router-link>
+            / {{ title }} / {{ page }}
         </p>
-        <h1>
-            {{ title }}
-            <sup v-if="gallery">
-                <span class="oi oi-pencil edit-gallery"
-                    @click="editGalleryClicked">
-                </span>
-            </sup>
-        </h1>
-        <p>
-            {{ description }}
-        </p>
+
+        <div class="controls-container">
+            <!-- Title and description -->
+            <div class="title-description">
+                <h1>
+                    {{ title }}
+                    <sup v-if="gallery">
+                        <span class="oi oi-pencil edit-gallery"
+                            @click="editGalleryClicked">
+                        </span>
+                    </sup>
+                </h1>
+                <p>
+                    {{ description }}
+                </p>
+            </div>
+            <!--Add pictures-->
+            <b-button 
+                variant="success" 
+                class="add-images-button"
+                @click="addImages">
+                <sup>
+                    <span class="oi oi-plus"></span>
+                </sup>
+                <span class="oi oi-image"></span>
+            </b-button>
+        </div>
+
         <div id="image-container">
             <ImageRow 
                 v-for="row of imageRows" 
@@ -29,7 +47,7 @@
         <div v-if="showNoImagesMessage"
             class="no-images-message">
             {{ $t('message.NoImagesInGallery') }}
-            <a href="#" @click="addGallery">{{ $t('message.AddNewImages') }}</a>
+            <a href="#" @click="addImages">{{ $t('message.AddNewImages') }}</a>
         </div>
         <div v-show="totalCount > 1"
             class="overflow-auto">
@@ -239,6 +257,10 @@ export default class GalleryView extends Vue {
 
         await this.loadData();
     }
+
+    private addImages() {
+        window.console.log(`GalleryView.addImages()`);
+    }
 }
 </script>
 
@@ -259,5 +281,26 @@ export default class GalleryView extends Vue {
     margin-left: 5px;
     cursor: pointer;
     font-size: 0.7em;
+}
+
+.controls-container {
+    overflow: hidden;
+}
+
+.title-description{
+    float: left;
+    max-width: 80%;
+}
+.add-images-button{
+    float: right;
+    border-radius: 50%;
+    padding-top: 17px;
+    padding-bottom: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+    font-size: 1.2em;
+    margin-right:3px;
+    box-shadow: 1px 1px 2px black;
+    margin-bottom: 3px;
 }
 </style>
