@@ -74,7 +74,7 @@ export default class ImageRow extends Vue {
                 sum += (gallery.thumbnail_width / gallery.thumbnail_height);
             }
         }
-        const value = Math.floor(this.width / sum);
+        const value = this.width / sum;
 
         window.console.log(`getHeight(): ${value}`);
         return Math.min(ImageRow.MAX_HEIGHT, value);

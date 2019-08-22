@@ -26,7 +26,6 @@
         <div  v-show="totalCount > 1"
             class="overflow-auto">
             <b-pagination-nav 
-                size="lg" 
                 align="center"
                 :link-gen="linkGen" 
                 :number-of-pages="numberOfPages" 
@@ -55,6 +54,8 @@ import AddGallery from '../../components/gallery/AddGallery.vue';
   },
 })
 export default class GalleryList extends Vue {
+
+    public static SCALE_FACTOR: number = 1.5;
 
     public get page(): number {
         if (this.$route.query.page) {
@@ -159,6 +160,9 @@ export default class GalleryList extends Vue {
             if (!gallery.thumbnail) {
                 gallery.thumbnail_width = 200;
                 gallery.thumbnail_height = 200;
+            } else {
+                gallery.thumbnail_width = gallery.thumbnail_width * GalleryList.SCALE_FACTOR;
+                gallery.thumbnail_height = gallery.thumbnail_height * GalleryList.SCALE_FACTOR;
             }
 
             imageRow.push(gallery);

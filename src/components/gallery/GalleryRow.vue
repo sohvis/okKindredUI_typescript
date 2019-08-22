@@ -23,7 +23,7 @@ import GalleryItem from './GalleryItem.vue';
 export default class GalleryRow extends Vue {
 
     public static DEFAULT_HEIGHT = 200;
-    public static MAX_HEIGHT = 200;
+    public static MAX_HEIGHT = 300;
 
     @Prop({ default: [] })
     public galleryRow?: Gallery[];
@@ -74,7 +74,7 @@ export default class GalleryRow extends Vue {
                 sum += (gallery.thumbnail_width / gallery.thumbnail_height);
             }
         }
-        const value = Math.floor(this.width / sum);
+        const value = this.width / sum;
 
         window.console.log(`getHeight(): ${value}`);
         return Math.min(GalleryRow.MAX_HEIGHT, value);

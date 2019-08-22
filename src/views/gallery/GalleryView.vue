@@ -34,7 +34,6 @@
         <div v-show="totalCount > 1"
             class="overflow-auto">
             <b-pagination-nav 
-                size="lg" 
                 align="center"
                 :link-gen="linkGen" 
                 :number-of-pages="numberOfPages" 
@@ -214,7 +213,7 @@ export default class GalleryView extends Vue {
             rowWidth += image.thumbnail_width;
 
             // New row
-            if (rowWidth >= this.galleryWidth) {
+            if (rowWidth + image.thumbnail_width >= this.galleryWidth) {
                 imageRows.push(imageRow);
                 imageRow = new Array<Image>();
                 rowWidth = 0;

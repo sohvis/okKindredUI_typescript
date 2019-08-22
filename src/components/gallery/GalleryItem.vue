@@ -85,6 +85,7 @@ export default class GalleryItem extends Vue {
     padding: 5px;
     background: #000;
     opacity: 0.7;
-    color: white
+    color: white;
+    font-size: 0.7em;
 }
 </style>
