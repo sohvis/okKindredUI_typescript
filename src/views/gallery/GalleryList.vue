@@ -18,7 +18,13 @@
                 v-bind:width="galleryWidth">
             </GalleryRow>
         </div>
-        <div class="overflow-auto">
+        <div v-if="showNoImagesMessage"
+            class="no-images-message">
+            {{ $t('message.NoGalleries') }}
+            <a href="#" @click="addGallery">{{ $t('message.AddNewGallery') }}</a>
+        </div>
+        <div  v-show="totalCount > 1"
+            class="overflow-auto">
             <b-pagination-nav 
                 size="lg" 
                 align="center"
@@ -50,8 +56,19 @@ import AddGallery from '../../components/gallery/AddGallery.vue';
 })
 export default class GalleryList extends Vue {
 
-    @Prop()
-    public page?: number;
+    public get page(): number {
+        if (this.$route.query.page) {
+            return Number(this.$route.query.page);
+        } else {
+            return 1;
+        }
+    }
+
+    public showNoImagesMessage: boolean = false;
+
+    public get loading(): boolean {
+        return store.getters.loading;
+    }
 
     public totalCount: number = 0;
 
@@ -87,7 +104,7 @@ export default class GalleryList extends Vue {
     }
 
     private linkGen(pageNum: number) {
-        return `/gallery/${pageNum}/`;
+        return `/gallery/?page=${pageNum}`;
     }
 
     @Watch('page')
@@ -97,6 +114,8 @@ export default class GalleryList extends Vue {
         store.commit('updateLoading', true);
 
         try {
+            this.showNoImagesMessage = false;
+
             const options = {
                 uri: `${config.BaseApiUrl}${config.GalleryAPI}?page=${this.page}`,
                 headers: store.getters.ajaxHeader,
@@ -108,6 +127,10 @@ export default class GalleryList extends Vue {
             this.setDisplaySizes();
 
             this.totalCount = response.count;
+
+            if (this.totalCount === 0) {
+                this.showNoImagesMessage = true;
+            }
 
         } catch (ex) {
             store.commit('setErrorMessage', ex);

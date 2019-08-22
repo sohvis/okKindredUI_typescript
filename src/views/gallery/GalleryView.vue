@@ -1,24 +1,38 @@
 <template>
     <div class="container">
-        <h1>{{ $t('message.Gallery') }}
-            <b-button variant="outline-primary" @click="addGallery">
-                <sup>
-                    <small>
-                        <span class="oi oi-plus"></span>
-                    </small>
-                </sup>
-                <span class="oi oi-folder"></span>
-            </b-button>
+        <p>
+        <router-link
+            to="/gallery/">
+            {{ $t('message.AllGalleries') }}
+        </router-link>
+        / {{ title }} / {{ page }}
+        </p>
+        <h1>
+            {{ title }}
+            <sup v-if="gallery">
+                <span class="oi oi-pencil edit-gallery"
+                    @click="editGalleryClicked">
+                </span>
+            </sup>
         </h1>
-        <div id="gallery-container">
-            <GalleryRow 
-                v-for="row of galleryRows" 
-                :key="galleryRows.indexOf(row)" 
-                v-bind:galleryRow="row"
+        <p>
+            {{ description }}
+        </p>
+        <div id="image-container">
+            <ImageRow 
+                v-for="row of imageRows" 
+                :key="imageRows.indexOf(row)" 
+                v-bind:imageRow="row"
                 v-bind:width="galleryWidth">
-            </GalleryRow>
+            </ImageRow>
         </div>
-        <div class="overflow-auto">
+        <div v-if="showNoImagesMessage"
+            class="no-images-message">
+            {{ $t('message.NoImagesInGallery') }}
+            <a href="#" @click="addGallery">{{ $t('message.AddNewImages') }}</a>
+        </div>
+        <div v-show="totalCount > 1"
+            class="overflow-auto">
             <b-pagination-nav 
                 size="lg" 
                 align="center"
@@ -27,8 +41,9 @@
                 use-router>
             </b-pagination-nav>
         </div>
-
-        <AddGallery ref="addGallery" @galleryCreated="galleryCreated" />
+        <EditGallery
+            ref="editGallery"
+            @galleryEdited="galleryEdited" />
     </div>
 </template>
 
@@ -39,25 +54,63 @@ import store from '../../store/store';
 import config from '../../config';
 import PagedResult from '../../models/data/paged_results';
 import Gallery from '../../models/data/gallery';
-import GalleryRow from '../../components/gallery/GalleryRow.vue';
-import AddGallery from '../../components/gallery/AddGallery.vue';
+import Image from '../../models/data/image';
+import ImageRow from '../../components/gallery/ImageRow.vue';
+import EditGallery from '../../components/gallery/EditGallery.vue';
+
 
 @Component({
   components: {
-      GalleryRow,
-      AddGallery,
+      ImageRow,
+      EditGallery,
   },
 })
-export default class GalleryList extends Vue {
+export default class GalleryView extends Vue {
+
+    public get page(): number {
+        if (this.$route.query.page) {
+            return Number(this.$route.query.page);
+        } else {
+            return 1;
+        }
+    }
 
     @Prop()
-    public page?: number;
+    public galleryId?: number;
+
+    public gallery: Gallery | null = null;
+
+    public get title(): string {
+        if (this.gallery) {
+            return this.gallery.title;
+        } else {
+            return '';
+        }
+    }
+
+    public get description(): string {
+        if (this.gallery) {
+            return this.gallery.description;
+        } else {
+            return '';
+        }
+    }
+
+    public showNoImagesMessage: boolean = false;
+
+    public get loading(): boolean {
+        return store.getters.loading;
+    }
+
+    public get watchedProps(): string {
+        return `${this.page}|${this.galleryId}`;
+    }
 
     public totalCount: number = 0;
 
-    public galleries: Gallery[] = [];
+    public images: Image[] = [];
 
-    public galleryRows: Gallery[][] = [];
+    public imageRows: Image[][] = [];
 
     public galleryWidth: number = 800;
 
@@ -66,7 +119,7 @@ export default class GalleryList extends Vue {
     }
 
     protected async mounted() {
-        window.console.log('GalleryIndex.vue mounted() call');
+        window.console.log('GalleryView.vue mounted() call');
 
         try {
             // Load jwt from cookie and login
@@ -80,34 +133,29 @@ export default class GalleryList extends Vue {
         }
     }
 
-    private addGallery() {
-        window.console.log('GalleryIndex.addGallery()');
-
-        (this.$refs.addGallery as AddGallery).show();
-    }
-
     private linkGen(pageNum: number) {
-        return `/gallery/${pageNum}/`;
+        return `/gallery/${this.galleryId}/?page=${pageNum}`;
     }
 
-    @Watch('page')
+    @Watch('watchedProps')
     private async loadData() {
-        window.console.log(`GalleryIndex.loadData()`);
+        window.console.log(`GalleryView.loadData()`);
 
         store.commit('updateLoading', true);
 
+        this.showNoImagesMessage = false;
+
         try {
-            const options = {
-                uri: `${config.BaseApiUrl}${config.GalleryAPI}?page=${this.page}`,
-                headers: store.getters.ajaxHeader,
-                json: true,
-            };
 
-            const response = await request.get(options) as PagedResult<Gallery>;
-            this.galleries = response.results;
-            this.setDisplaySizes();
+            const imageTask = this.loadImageData();
+            const galleryTask = this.loadGalleryData();
 
-            this.totalCount = response.count;
+            await imageTask;
+            await galleryTask;
+
+            if (this.images.length === 0) {
+                this.showNoImagesMessage = true;
+            }
 
         } catch (ex) {
             store.commit('setErrorMessage', ex);
@@ -116,35 +164,59 @@ export default class GalleryList extends Vue {
         store.commit('updateLoading', false);
     }
 
-    private async galleryCreated() {
-        await this.loadData();
+    private async loadImageData() {
+        const options = {
+            uri: `${config.BaseApiUrl}${config.ImageAPI}?page=${this.page}&gallery_id=${this.galleryId}`,
+            headers: store.getters.ajaxHeader,
+            json: true,
+        };
+
+        const response = await request.get(options) as PagedResult<Image>;
+
+        this.images = response.results;
+        this.setDisplaySizes();
+
+        this.totalCount = response.count;
     }
 
-    private setDisplaySizes() {
-        window.console.log(`GalleryIndex.setDisplaySizes()`);
+    private async loadGalleryData() {
+        const options = {
+            uri: `${config.BaseApiUrl}${config.GalleryAPI}${this.galleryId}/`,
+            headers: store.getters.ajaxHeader,
+            json: true,
+        };
 
-        const galleryContainer = document.getElementById('gallery-container') as HTMLDivElement;
-        this.galleryWidth =  galleryContainer.clientWidth;
+        const response = await request.get(options) as Gallery;
+
+        this.gallery = response;
+    }
+
+
+    private setDisplaySizes() {
+        window.console.log(`GalleryView.setDisplaySizes()`);
+
+        const imageContainer = document.getElementById('image-container') as HTMLDivElement;
+        this.galleryWidth =  imageContainer.clientWidth;
 
         window.console.log(`this.galleryWidth: ${this.galleryWidth}`);
 
-        const imageRows = new Array<Gallery[]>();
-        let imageRow = new Array<Gallery>();
+        const imageRows = new Array<Image[]>();
+        let imageRow = new Array<Image>();
         let rowWidth = 0;
-        for (const gallery of this.galleries) {
+        for (const image of this.images) {
 
-            if (!gallery.thumbnail) {
-                gallery.thumbnail_width = 200;
-                gallery.thumbnail_height = 200;
+            if (!image.thumbnail) {
+                image.thumbnail_width = 200;
+                image.thumbnail_height = 200;
             }
 
-            imageRow.push(gallery);
-            rowWidth += gallery.thumbnail_width;
+            imageRow.push(image);
+            rowWidth += image.thumbnail_width;
 
             // New row
             if (rowWidth >= this.galleryWidth) {
                 imageRows.push(imageRow);
-                imageRow = new Array<Gallery>();
+                imageRow = new Array<Image>();
                 rowWidth = 0;
             }
         }
@@ -152,16 +224,41 @@ export default class GalleryList extends Vue {
         imageRows.push(imageRow);
         const lastImageRow = imageRow;
 
-        this.galleryRows = imageRows;
+        this.imageRows = imageRows;
     }
 
+    private editGalleryClicked() {
+        window.console.log(`GalleryView.editGalleryClicked()`);
+
+        if (this.gallery) {
+            (this.$refs.editGallery as EditGallery).show(this.gallery);
+        }
+    }
+
+    private async galleryEdited() {
+        window.console.log(`GalleryView.galleryEdited()`);
+
+        await this.loadData();
+    }
 }
 </script>
 
 <style scoped>
-#gallery-container {
+#image-container {
     overflow: hidden;
     margin-top: 10px;
     margin-bottom: 20px;
+}
+
+.no-images-message {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.edit-gallery {
+    margin-left: 5px;
+    cursor: pointer;
+    font-size: 0.7em;
 }
 </style>

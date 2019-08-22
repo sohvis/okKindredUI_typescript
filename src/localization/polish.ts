@@ -14,6 +14,8 @@ export const polish = {
       No: `Nie`,
       Confirm: `Potwierdzać`,
       Back: `Powrót`,
+      Title: `Tytuł`,
+      Description: `Opis`,
 
       // Navbar
       Family: `Rodzina`,
@@ -321,5 +323,12 @@ export const polish = {
       AccountConfirmation: `Potwierdzenie Konta`,
       PleaseCreatePassword: `Utwórz hasło do swojego konta:`,
       UploadingImagePleaseWait: `Przesyłanie nowego obrazu, proszę czekać...`,
+
+      // Gallery
+      AllGalleries: `Wszystkie galerie`,
+      NoGalleries: `Nie znaleziono galerii zdjęć.`,
+      AddNewGallery: 'Dodaj nową galerię',
+      NoImagesInGallery: `Nie znaleziono zdjęć w galerii`,
+      AddNewImages: `Dodaj nowe obrazy`,
     },
 };

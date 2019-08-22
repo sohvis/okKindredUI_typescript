@@ -1,6 +1,7 @@
 <template>
-
-    <a href="#" class="gallery-thumb-container">
+    <router-link 
+        class="gallery-thumb-container"
+        :to="`/gallery/${this.gallery.id}/`">
         <img v-if="hasThumbnail"
             :src="gallery.thumbnail" 
             :width="gallery.display_width"
@@ -14,8 +15,7 @@
             <!-- <span class="oi oi-folder" aria-hidden="true"></span> -->
         </div>
         <div v-bind:style="{width: width }" class="bottom-left">{{ gallery.title }}</div>
-    </a>
-
+    </router-link>
 </template>
 
 <script lang="ts">

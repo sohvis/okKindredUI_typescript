@@ -12,6 +12,7 @@ import SignUp from './views/accounts/SignUp.vue';
 import SignUpConfirmation from './views/accounts/SignUpConfirmation.vue';
 import NewProfilePhoto from './views/NewProfilePhoto.vue';
 import GalleryList from './views/gallery/GalleryList.vue';
+import GalleryView from './views/gallery/GalleryView.vue';
 
 
 Vue.use(Router);
@@ -81,9 +82,14 @@ export default new Router({
       component: NewProfilePhoto,
     },
     {
-      path: '/gallery_list/:page/',
+      path: '/gallery/',
       name: 'GalleryList',
       component: GalleryList,
+    },
+    {
+      path: '/gallery/:galleryId/',
+      name: 'GalleryView',
+      component: GalleryView,
       props: true,
     },
   ],

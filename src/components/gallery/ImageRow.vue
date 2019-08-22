@@ -1,48 +1,48 @@
 <template>
-    <div class="gallery-row">
+    <div class="image-row">
         <!-- Wierd index forces re-render when display width changes-->
-        <GalleryItem 
-            v-for="gallery of galleryItems" 
-            :key="gallery.id + '_' + gallery.display_width" 
-            v-bind:gallery="gallery">
-        </GalleryItem>
+        <ImageItem 
+            v-for="image of imageItems" 
+            :key="image.id + '_' + image.display_width" 
+            v-bind:image="image">
+        </ImageItem>
     </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Watch, Prop} from 'vue-property-decorator';
 import config from '../../config';
-import Gallery from '../../models/data/gallery';
-import GalleryItem from './GalleryItem.vue';
+import Image from '../../models/data/image';
+import ImageItem from './ImageItem.vue';
 
 @Component({
   components: {
-      GalleryItem,
+      ImageItem,
   },
 })
-export default class GalleryRow extends Vue {
+export default class ImageRow extends Vue {
 
     public static DEFAULT_HEIGHT = 200;
     public static MAX_HEIGHT = 200;
 
     @Prop({ default: [] })
-    public galleryRow?: Gallery[];
+    public imageRow?: Image[];
 
-    public galleryItems: Gallery[] = [];
+    public imageItems: Image[] = [];
 
     @Prop({ default: 800 })
     public width?: number;
 
-    @Watch('galleryRow')
+    @Watch('imageRow')
     public renderGalleryItems(): void {
-        window.console.log(`GalleryRow.render()`);
+        window.console.log(`ImageRow.render()`);
 
         window.console.log(`this.width: ${this.width}`);
 
-        if (this.galleryRow && this.width) {
+        if (this.imageRow && this.width) {
             const h = this.getHeight();
 
-            for (const gallery of this.galleryRow) {
+            for (const gallery of this.imageRow) {
                 let scale = 1;
                 if (gallery.thumbnail_height > 0) {
                     scale = h / gallery.thumbnail_height;
@@ -52,7 +52,7 @@ export default class GalleryRow extends Vue {
                 gallery.display_width = gallery.thumbnail_width * scale;
             }
 
-            this.galleryItems = this.galleryRow;
+            this.imageItems = this.imageRow;
         }
     }
 
@@ -62,14 +62,14 @@ export default class GalleryRow extends Vue {
 
     private getHeight(): number {
 
-        window.console.log(`GalleryRow.getHeight()`);
+        window.console.log(`ImageRow.getHeight()`);
 
-        if (!this.galleryRow || !this.width) {
-            return GalleryRow.DEFAULT_HEIGHT;
+        if (!this.imageRow || !this.width) {
+            return ImageRow.DEFAULT_HEIGHT;
         }
 
         let sum = 0;
-        for (const gallery of this.galleryRow) {
+        for (const gallery of this.imageRow) {
             if (gallery.thumbnail_height > 0) {
                 sum += (gallery.thumbnail_width / gallery.thumbnail_height);
             }
@@ -77,14 +77,14 @@ export default class GalleryRow extends Vue {
         const value = Math.floor(this.width / sum);
 
         window.console.log(`getHeight(): ${value}`);
-        return Math.min(GalleryRow.MAX_HEIGHT, value);
+        return Math.min(ImageRow.MAX_HEIGHT, value);
     }
 }
 </script>
 
 <style scoped>
 
-.gallery-row {
+.image-row {
     overflow: hidden;
 }
 </style>

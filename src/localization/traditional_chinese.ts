@@ -14,6 +14,8 @@ export const traditionalChinese = {
       No: `不是`,
       Confirm: `證實`,
       Back: `返回`,
+      Title: `標題`,
+      Description: `描述`,
 
       // Navbar & Menus
       Family: `家庭`,
@@ -289,6 +291,13 @@ export const traditionalChinese = {
       AccountConfirmation: `帳戶確認`,
       PleaseCreatePassword: `請為您的帳戶創建密碼：`,
       UploadingImagePleaseWait: `正在上傳新圖片，請稍候...`,
+
+      // Gallery
+      AllGalleries: `所有畫廊`,
+      NoGalleries: `找不到圖片庫。`,
+      AddNewGallery: '添加新圖庫',
+      NoImagesInGallery: `在圖庫中找不到圖像`,
+      AddNewImages: `添加新圖片`,
 
     },
 };

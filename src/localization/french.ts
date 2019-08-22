@@ -14,6 +14,8 @@ export const french = {
       No: `Non`,
       Confirm: `Confirmer`,
       Back: `Retour`,
+      Title: `Titre`,
+      Description: `Description`,
 
       // Navbar & Menus
       Family: `Famille`,
@@ -311,5 +313,12 @@ export const french = {
       AccountConfirmation: `Confirmation du Compte`,
       PleaseCreatePassword: `Veuillez créer un mot de passe pour votre compte:`,
       UploadingImagePleaseWait: `Chargement d'une nouvelle image, veuillez patienter...`,
+
+      // Gallery
+      AllGalleries: `Toutes galeries`,
+      NoGalleries: `Aucune galerie d'images trouvée.`,
+      AddNewGallery: 'Ajouter une nouvelle galerie',
+      NoImagesInGallery: `Aucune image trouvée dans la galerie`,
+      AddNewImages: `Ajouter de nouvelles images`,
     },
 };

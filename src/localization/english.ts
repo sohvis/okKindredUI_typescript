@@ -14,6 +14,8 @@ export const english = {
       No: `No`,
       Confirm: `Confirm`,
       Back: `Back`,
+      Title: `Title`,
+      Description: `Description`,
 
       // Navbar & Menus
       Family: `Family`,
@@ -255,5 +257,12 @@ export const english = {
 
       PleaseTrimImage: `Please trim the image to suit a profile picture: `,
       UploadingImagePleaseWait: `Uploading new image, please wait...`,
+
+      // Gallery
+      AllGalleries: `All Galleries`,
+      NoGalleries: `No image galleries found.`,
+      AddNewGallery: 'Add a new gallery',
+      NoImagesInGallery: `No images found in gallery`,
+      AddNewImages: `Add new images`,
     },
 };

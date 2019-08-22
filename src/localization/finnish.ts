@@ -14,6 +14,8 @@ export const finnish = {
       No: `Ei`,
       Confirm: `Vahvistaa`,
       Back: `Palata`,
+      Title: `Otsikko`,
+      Description: `Kuvaus`,
 
       // Navbar & Menus
       Family: `Perhe`,
@@ -253,5 +255,12 @@ export const finnish = {
       AccountConfirmation: `Tilin Vahvistus`,
       PleaseCreatePassword: `Luo salasana tilillesi:`,
       UploadingImagePleaseWait: `Lähetetään uutta kuvaa, odota...`,
+
+      // Gallery
+      AllGalleries: `Kaikki galleriat`,
+      NoGalleries: `Kuvagallerioita ei löytynyt.`,
+      AddNewGallery: 'Lisää uusi galleria',
+      NoImagesInGallery: `Galleriasta ei löytynyt kuvia`,
+      AddNewImages: `Lisää uusia kuvia`,
     },
 };

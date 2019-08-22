@@ -14,6 +14,8 @@ export const simplifiedChinese = {
       No: `不是`,
       Confirm: `证实`,
       Back: `返回`,
+      Title: `标题`,
+      Description: `描述`,
 
 
       // Navbar & Menus
@@ -292,5 +294,12 @@ export const simplifiedChinese = {
       AccountConfirmation: `帐户确认`,
       PleaseCreatePassword: `请为您的帐户创建密码：`,
       UploadingImagePleaseWait: `正在上传新图片，请稍候...`,
+
+      // Gallery
+      AllGalleries: `所有画廊`,
+      NoGalleries: `找不到图片库。`,
+      AddNewGallery: '添加新图库',
+      NoImagesInGallery: `在图库中找不到图像`,
+      AddNewImages: `添加新图片`,
     },
 };
