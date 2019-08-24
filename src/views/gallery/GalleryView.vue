@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container" id="gallery-container">
 
         <GalleryHeader 
             ref="galleryHeader"
@@ -146,6 +146,10 @@ export default class GalleryView extends Vue {
 
     private setDisplaySizes() {
         window.console.log(`GalleryView.setDisplaySizes()`);
+
+        // Force scrollbar to show so calcs are correct
+        const galleryContainer = document.getElementById('gallery-container') as HTMLDivElement;
+        galleryContainer.style.minHeight = `${window.innerHeight + 10}px`;
 
         const imageContainer = document.getElementById('image-container') as HTMLDivElement;
         this.galleryWidth =  imageContainer.clientWidth;

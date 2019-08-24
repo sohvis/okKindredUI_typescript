@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container" id="gallerylist-container">
         <h1>{{ $t('message.Gallery') }}
             <b-button variant="outline-primary" @click="addGallery">
                 <sup>
@@ -148,6 +148,11 @@ export default class GalleryList extends Vue {
 
     private setDisplaySizes() {
         window.console.log(`GalleryIndex.setDisplaySizes()`);
+
+        // Force scrollbar to show so calcs are correct
+        const galleryListContainer = document.getElementById('gallerylist-container') as HTMLDivElement;
+        galleryListContainer.style.minHeight = `${window.innerHeight + 10}px`;
+
 
         const galleryContainer = document.getElementById('gallery-container') as HTMLDivElement;
         this.galleryWidth =  galleryContainer.clientWidth;
