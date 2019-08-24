@@ -23,7 +23,7 @@ import GalleryItem from './GalleryItem.vue';
 export default class GalleryRow extends Vue {
 
     public static DEFAULT_HEIGHT = 200;
-    public static MAX_HEIGHT = 300;
+    public static MAX_HEIGHT = 400;
 
     @Prop({ default: [] })
     public galleryRow?: Gallery[];
@@ -52,7 +52,7 @@ export default class GalleryRow extends Vue {
                 gallery.display_width = gallery.thumbnail_width * scale;
             }
 
-            this.galleryItems = this.galleryRow;
+            this.galleryItems = this.galleryRow as Gallery[];
         }
     }
 

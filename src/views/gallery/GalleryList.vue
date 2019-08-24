@@ -127,13 +127,13 @@ export default class GalleryList extends Vue {
 
             const response = await request.get(options) as PagedResult<Gallery>;
             this.galleries = response.results;
-            this.setDisplaySizes();
 
             this.totalCount = response.count;
-
             if (this.totalCount === 0) {
                 this.showNoImagesMessage = true;
             }
+
+            this.setDisplaySizes();
 
         } catch (ex) {
             store.commit('setErrorMessage', ex);

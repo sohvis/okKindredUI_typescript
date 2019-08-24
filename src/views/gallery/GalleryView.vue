@@ -1,40 +1,9 @@
 <template>
     <div class="container">
-        <!--Back link-->
-        <p>
-            <router-link
-                to="/gallery/">
-                {{ $t('message.AllGalleries') }}
-            </router-link>
-            / {{ title }} / {{ page }}
-        </p>
 
-        <div class="controls-container">
-            <!-- Title and description -->
-            <div class="title-description">
-                <h1>
-                    {{ title }}
-                    <sup v-if="gallery">
-                        <span class="oi oi-pencil edit-gallery"
-                            @click="editGalleryClicked">
-                        </span>
-                    </sup>
-                </h1>
-                <p>
-                    {{ description }}
-                </p>
-            </div>
-            <!--Add pictures-->
-            <b-button 
-                variant="success" 
-                class="add-images-button"
-                @click="addImages">
-                <sup>
-                    <span class="oi oi-plus"></span>
-                </sup>
-                <span class="oi oi-image"></span>
-            </b-button>
-        </div>
+        <GalleryHeader 
+            ref="galleryHeader"
+            v-bind:galleryId="galleryId" />
 
         <div id="image-container">
             <ImageRow 
@@ -58,9 +27,6 @@
                 use-router>
             </b-pagination-nav>
         </div>
-        <EditGallery
-            ref="editGallery"
-            @galleryEdited="galleryEdited" />
     </div>
 </template>
 
@@ -73,13 +39,13 @@ import PagedResult from '../../models/data/paged_results';
 import Gallery from '../../models/data/gallery';
 import Image from '../../models/data/image';
 import ImageRow from '../../components/gallery/ImageRow.vue';
-import EditGallery from '../../components/gallery/EditGallery.vue';
+import GalleryHeader from '../../components/gallery/GalleryHeader.vue';
 
 
 @Component({
   components: {
       ImageRow,
-      EditGallery,
+      GalleryHeader,
   },
 })
 export default class GalleryView extends Vue {
@@ -94,24 +60,6 @@ export default class GalleryView extends Vue {
 
     @Prop()
     public galleryId?: number;
-
-    public gallery: Gallery | null = null;
-
-    public get title(): string {
-        if (this.gallery) {
-            return this.gallery.title;
-        } else {
-            return '';
-        }
-    }
-
-    public get description(): string {
-        if (this.gallery) {
-            return this.gallery.description;
-        } else {
-            return '';
-        }
-    }
 
     public showNoImagesMessage: boolean = false;
 
@@ -165,10 +113,9 @@ export default class GalleryView extends Vue {
         try {
 
             const imageTask = this.loadImageData();
-            const galleryTask = this.loadGalleryData();
-
+            const headerTask = (this.$refs.galleryHeader as GalleryHeader).loadGalleryData();
             await imageTask;
-            await galleryTask;
+            await headerTask;
 
             if (this.images.length === 0) {
                 this.showNoImagesMessage = true;
@@ -194,18 +141,6 @@ export default class GalleryView extends Vue {
         this.setDisplaySizes();
 
         this.totalCount = response.count;
-    }
-
-    private async loadGalleryData() {
-        const options = {
-            uri: `${config.BaseApiUrl}${config.GalleryAPI}${this.galleryId}/`,
-            headers: store.getters.ajaxHeader,
-            json: true,
-        };
-
-        const response = await request.get(options) as Gallery;
-
-        this.gallery = response;
     }
 
 
@@ -244,22 +179,10 @@ export default class GalleryView extends Vue {
         this.imageRows = imageRows;
     }
 
-    private editGalleryClicked() {
-        window.console.log(`GalleryView.editGalleryClicked()`);
-
-        if (this.gallery) {
-            (this.$refs.editGallery as EditGallery).show(this.gallery);
-        }
-    }
-
-    private async galleryEdited() {
-        window.console.log(`GalleryView.galleryEdited()`);
-
-        await this.loadData();
-    }
-
-    private addImages() {
-        window.console.log(`GalleryView.addImages()`);
+    private addImages(){
+        const header = this.$refs.galleryHeader as GalleryHeader;
+        const route = `/gallery/${this.galleryId}/upload/?page=${this.page}&title=${header.title}`;
+        this.$router.push(route);
     }
 }
 </script>

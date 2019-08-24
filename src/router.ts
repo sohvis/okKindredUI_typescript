@@ -13,6 +13,7 @@ import SignUpConfirmation from './views/accounts/SignUpConfirmation.vue';
 import NewProfilePhoto from './views/NewProfilePhoto.vue';
 import GalleryList from './views/gallery/GalleryList.vue';
 import GalleryView from './views/gallery/GalleryView.vue';
+import UploadImages from './views/gallery/UploadImages.vue';
 
 
 Vue.use(Router);
@@ -20,7 +21,7 @@ Vue.use(Router);
 export default new Router({
   routes: [
     {
-      path: '/family/',
+      path: '/family/', // /:person_id/:state/
       name: 'Family',
       component: Family,
     },
@@ -35,7 +36,7 @@ export default new Router({
       component: Search,
     },
     {
-      path: '/about',
+      path: '/about/',
       name: 'about',
       component: About,
     },
@@ -90,6 +91,12 @@ export default new Router({
       path: '/gallery/:galleryId/',
       name: 'GalleryView',
       component: GalleryView,
+      props: true,
+    },
+    {
+      path: '/gallery/:galleryId/upload/',
+      name: 'UploadImages',
+      component: UploadImages,
       props: true,
     },
   ],
