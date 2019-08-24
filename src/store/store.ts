@@ -166,9 +166,8 @@ export default new Vuex.Store({
     changeLanguage(context, payload) {
         window.console.log(`changeLanguage called new language: ${payload}`);
 
-        const value = payload.replace('-', '_');
-        context.commit('changeLanguage', value);
-        window.localStorage.setItem('language', value);
+        context.commit('changeLanguage', payload);
+        window.localStorage.setItem('language', payload);
     },
 
     async changePerson(context, payload) {

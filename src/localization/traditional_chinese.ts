@@ -299,5 +299,15 @@ export const traditionalChinese = {
       NoImagesInGallery: `在圖庫中找不到圖像`,
       AddNewImages: `添加新圖片`,
 
+      // Upload Images
+      UploadImages: `上傳圖片`,
+      SelectFiles: `選擇文件`,
+      Pending: `有待`,
+      Uploading: `上傳`,
+      Processing: `處理`,
+      Failed: `失敗`,
+      UploadFinished: `上傳完成`,
+      AllUploadsSuccessful: `所有上傳成功`,
+      XSuccessfulYFailed: `{success}圖片上傳成功，{fail}失敗`,
     },
 };

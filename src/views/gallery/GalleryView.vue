@@ -179,7 +179,7 @@ export default class GalleryView extends Vue {
         this.imageRows = imageRows;
     }
 
-    private addImages(){
+    private addImages() {
         const header = this.$refs.galleryHeader as GalleryHeader;
         const route = `/gallery/${this.galleryId}/upload/?page=${this.page}&title=${header.title}`;
         this.$router.push(route);

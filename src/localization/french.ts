@@ -320,5 +320,16 @@ export const french = {
       AddNewGallery: 'Ajouter une nouvelle galerie',
       NoImagesInGallery: `Aucune image trouvée dans la galerie`,
       AddNewImages: `Ajouter de nouvelles images`,
+
+      // Upload Images
+      UploadImages: `Importer des images`,
+      SelectFiles: `Sélectionnez les fichiers`,
+      Pending: `En Attendant`,
+      Uploading: `Téléchargement`,
+      Processing: `En traitement`,
+      Failed: `Échoué`,
+      UploadFinished: `Téléchargement Terminé`,
+      AllUploadsSuccessful: `Tous les Téléchargements Réussis`,
+      XSuccessfulYFailed: `{success} image(s) téléchargée(s) avec succès, {fail} échoué(s)`,
     },
 };

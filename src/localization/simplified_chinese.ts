@@ -301,5 +301,16 @@ export const simplifiedChinese = {
       AddNewGallery: '添加新图库',
       NoImagesInGallery: `在图库中找不到图像`,
       AddNewImages: `添加新图片`,
+
+      // Upload Images
+      UploadImages: `上传图片`,
+      SelectFiles: `选择文件`,
+      Pending: `有待`,
+      Uploading: `上传`,
+      Processing: `处理`,
+      Failed: `失败`,
+      UploadFinished: `上传完成`,
+      AllUploadsSuccessful: `所有上传成功`,
+      XSuccessfulYFailed: `{success}图片上传成功，{fail}失败`,
     },
 };

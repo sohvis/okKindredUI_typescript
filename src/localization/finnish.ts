@@ -262,5 +262,16 @@ export const finnish = {
       AddNewGallery: 'Lisää uusi galleria',
       NoImagesInGallery: `Galleriasta ei löytynyt kuvia`,
       AddNewImages: `Lisää uusia kuvia`,
+
+      // Upload Images
+      UploadImages: `Lataa Kuvat`,
+      SelectFiles: `Valitse Tiedostot`,
+      Pending: `Odotettaessa`,
+      Uploading: `Lataaminen`,
+      Processing: `Käsittely`,
+      Failed: `Epäonnistui`,
+      UploadFinished: `Lataa Valmis`,
+      AllUploadsSuccessful: `Kaikki Lataukset Onnistuneet`,
+      XSuccessfulYFailed: `{success} kuvat ladattu onnistuneesti, {fail} epäonnistui`,
     },
 };

@@ -37,14 +37,20 @@
           accept="image/x-png,image/gif,image/jpeg"
           @change="filesSelected" />
 
-          <ImageUploadStatus v-for="(file, index) in files" 
-                :key="index" 
-                v-bind:gallerId="galleryId"
-                v-bind:uploadIndex="index"
-                :ref="`imageUploadStatus_${index}`"
-                @finishedUpload="finishedUpload">
-          </ImageUploadStatus>
-      
+        <ImageUploadStatus v-for="(file, index) in files" 
+            :key="index" 
+            v-bind:galleryId="galleryId"
+            v-bind:uploadIndex="index"
+            :ref="`imageUploadStatus_${index}`"
+            @finishedUpload="finishedUpload"
+            @finishedProcessing="finishedProcessing">
+        </ImageUploadStatus>
+
+        <UploadFinished 
+            ref="uploadFinished"
+            :failedCount="failedCount"
+            :successCount="successCount"
+            :backLink="`/gallery/${galleryId}/?page=${page}`" />
     </div>
 </template>
 
@@ -54,10 +60,12 @@ import * as request from 'request-promise-native';
 import store from '../../store/store';
 import config from '../../config';
 import ImageUploadStatus from '../../components/gallery/ImageUploadStatus.vue';
+import UploadFinished from '../../components/gallery/UploadFinished.vue';
 
 @Component({
   components: {
       ImageUploadStatus,
+      UploadFinished,
   },
 })
 export default class UploadImages extends Vue {
@@ -83,6 +91,10 @@ export default class UploadImages extends Vue {
         }
     }
 
+    public failedCount: number = 0;
+
+    public successCount: number = 0;
+
     protected async mounted() {
         window.console.log('UploadImages.vue mounted() call');
 
@@ -105,28 +117,69 @@ export default class UploadImages extends Vue {
             this.uploading = true;
             this.uploadingIndex = 0;
 
-            this.$nextTick(() => this.startUpload);
+            this.$nextTick(() => { this.startUpload(); });
         }
     }
 
     private startUpload() {
+        window.console.log('UploadImages.startUpload()');
+
+        store.commit('updateLoading', true);
+
+        this.failedCount = 0;
+        this.successCount = 0;
+
         for (let i = 0; i < this.files.length; i++) {
             const ref = `imageUploadStatus_${i}`;
             const file = this.files[i];
 
-            const uploadStatus = this.$refs[ref] as ImageUploadStatus;
+            const uploadStatus = (this.$refs[ref] as Vue[])[0] as ImageUploadStatus;
             if (uploadStatus) {
                 uploadStatus.loadFile(file);
             }
         }
 
-        const firstUpload = this.$refs[`imageUploadStatus_0`] as ImageUploadStatus;
+        store.commit('updateLoading', false);
+        const firstUpload = (this.$refs[`imageUploadStatus_0`] as Vue[])[0] as ImageUploadStatus;
         firstUpload.upload();
     }
 
     private finishedUpload(fileIndex: number) {
-        const nextUpload = this.$refs[`imageUploadStatus_${fileIndex + 1}`] as ImageUploadStatus;
-        nextUpload.upload();
+        window.console.log(`UploadImages.finishedUpload(fileIndex: ${fileIndex})`);
+
+        if (fileIndex < this.files.length - 1) {
+            const nextUpload = (this.$refs[`imageUploadStatus_${fileIndex + 1}`] as Vue[])[0]  as ImageUploadStatus;
+            nextUpload.upload();
+        }
+    }
+
+    private finishedProcessing(fileIndex: number) {
+        window.console.log(`UploadImages.finishedProcessing(fileIndex: ${fileIndex})`);
+
+        let success = 0;
+        let failed = 0;
+
+        for (let i = 0; i < this.files.length; i++) {
+            const ref = `imageUploadStatus_${i}`;
+
+            const uploadStatus = (this.$refs[ref] as Vue[])[0] as ImageUploadStatus;
+
+            if (uploadStatus.state === `failed`) {
+                failed++;
+
+            } else if (uploadStatus.state === `done`) {
+                success++;
+            }
+        }
+
+        // All finished done
+        if (failed + success === this.files.length) {
+            this.successCount = success;
+            this.failedCount = failed;
+
+            const uploadFinished = this.$refs.uploadFinished as UploadFinished;
+            uploadFinished.show();
+        }
     }
 }
 </script>

@@ -330,5 +330,16 @@ export const polish = {
       AddNewGallery: 'Dodaj nową galerię',
       NoImagesInGallery: `Nie znaleziono zdjęć w galerii`,
       AddNewImages: `Dodaj nowe obrazy`,
+
+      // Upload Images
+      UploadImages: `Przesyłać Zdjęcia`,
+      SelectFiles: `Wybierz Pliki`,
+      Pending: `W Oczekiwaniu`,
+      Uploading: `Przesyłanie`,
+      Processing: `Przetwarzanie`,
+      Failed: `Nie powiodło się`,
+      UploadFinished: `Przesyłanie zakończone`,
+      AllUploadsSuccessful: `Pomyślne przesłanie wszystkich plików`,
+      XSuccessfulYFailed: `Pomyślnie przesłano {success} zdjęć, {fail} nie powiodło się`,
     },
 };

@@ -11,7 +11,7 @@ export const localeStrings: { [id: string]: string; } = {
     'pl': 'Polski',
     'fi': 'Suomalainen',
     'zh-cn': '简体中文',
-    'zh_tw': '繁體中文',
+    'zh-tw': '繁體中文',
 };
 
 export const messages = {
@@ -19,14 +19,15 @@ export const messages = {
     'fi': finnish,
     'fr': french,
     'pl': polish,
-    'zh-tw': traditionalChinese,
     'zh-cn': simplifiedChinese,
+    'zh-tw': traditionalChinese,
 };
 
 
 export const localeMatch = {
     match(lang: string): string {
 
+        window.console.log(`match(lang: ${lang})`);
         if (!lang) {
             lang = navigator.language;
         }

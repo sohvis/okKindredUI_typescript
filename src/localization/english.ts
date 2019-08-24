@@ -264,5 +264,16 @@ export const english = {
       AddNewGallery: 'Add a new gallery',
       NoImagesInGallery: `No images found in gallery`,
       AddNewImages: `Add new images`,
+
+      // Upload Images
+      UploadImages: `Upload Images`,
+      SelectFiles: `Select Files`,
+      Pending: `Pending`,
+      Uploading: `Uploading`,
+      Processing: `Processing`,
+      Failed: `Failed`,
+      UploadFinished: `Upload Finished`,
+      AllUploadsSuccessful: `All Uploads Successful`,
+      XSuccessfulYFailed: `{success} images uploaded successfully, {fail} failed`,
     },
 };
