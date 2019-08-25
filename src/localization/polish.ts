@@ -332,6 +332,9 @@ export const polish = {
       AddNewImages: `Dodaj nowe obrazy`,
       CreateNewGallery: `Utwórz Nową Galerię`,
       EditGallery: `Edytuj Galerię`,
+      DeleteGalleries: `Usuń Galerie`,
+      DeleteGalleriesDesc: `Czy na pewno chcesz usunąć wybrane galerie?
+      Spowoduje to również usunięcie wszystkich zawartych w nich obrazów.`,
 
       // Upload Images
       UploadImages: `Przesyłać Zdjęcia`,

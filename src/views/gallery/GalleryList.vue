@@ -1,7 +1,8 @@
 <template>
     <div class="container" id="gallerylist-container">
         <h1>{{ $t('message.Gallery') }}
-            <b-button variant="outline-primary" @click="addGallery">
+            <b-button v-if="!editMode" class="add-button" size="lg"
+                    variant="outline-primary" @click="addGallery">
                 <sup>
                     <small>
                         <span class="oi oi-plus"></span>
@@ -9,13 +10,28 @@
                 </sup>
                 <span class="oi oi-folder"></span>
             </b-button>
+            <b-button v-if="!editMode" class="edit-button" size="lg" 
+                    variant="outline-secondary" @click="toggleEditMode">
+                <span class="oi oi-pencil"></span>
+            </b-button>
+            <b-button v-if="editMode" class="delete-button" size="lg"
+                    variant="danger" :disabled="deleteDisabled" 
+                    @click="deleteSelectedGalleries">
+                <span class="oi oi-trash"></span>
+            </b-button>
+            <b-button v-if="editMode" class="edit-done-button" size="lg"
+                variant="success" @click="toggleEditMode">
+                <span class="oi oi-check"></span>
+            </b-button>
         </h1>
         <div id="gallery-container">
             <GalleryRow 
                 v-for="row of galleryRows" 
                 :key="galleryRows.indexOf(row)" 
-                v-bind:galleryRow="row"
-                v-bind:width="galleryWidth">
+                :galleryRow="row"
+                :width="galleryWidth"
+                :editMode="editMode"
+                @selectionChanged="selectionChanged">
             </GalleryRow>
         </div>
         <div v-if="showNoImagesMessage"
@@ -33,7 +49,13 @@
             </b-pagination-nav>
         </div>
 
-        <AddGallery ref="addGallery" @galleryCreated="galleryCreated" />
+        <AddGallery 
+            ref="addGallery" 
+            @galleryCreated="galleryCreated" />
+
+        <DeleteGalleries 
+            ref="deleteGalleries" 
+            @galleriesDeleted="galleriesDeleted"/>
     </div>
 </template>
 
@@ -46,11 +68,13 @@ import PagedResult from '../../models/data/paged_results';
 import Gallery from '../../models/data/gallery';
 import GalleryRow from '../../components/gallery/GalleryRow.vue';
 import AddGallery from '../../components/gallery/AddGallery.vue';
+import DeleteGalleries from '../../components/gallery/DeleteGalleries.vue';
 
 @Component({
   components: {
       GalleryRow,
       AddGallery,
+      DeleteGalleries,
   },
 })
 export default class GalleryList extends Vue {
@@ -88,6 +112,10 @@ export default class GalleryList extends Vue {
     public get portrait(): boolean {
         return window.innerHeight > window.innerWidth;
     }
+
+    public editMode: boolean = false;
+
+    public deleteDisabled: boolean = true;
 
     protected async mounted() {
         window.console.log('GalleryIndex.vue mounted() call');
@@ -201,6 +229,43 @@ export default class GalleryList extends Vue {
         this.galleryRows = imageRows;
     }
 
+    private toggleEditMode() {
+        this.editMode = !this.editMode;
+    }
+
+    private selectionChanged(galleryId: number, checked: boolean) {
+        let selectedCount = 0;
+
+        for (const gallery of this.galleries) {
+            if (gallery.id === galleryId) {
+                gallery.selected = checked;
+            }
+
+            if (gallery.selected) {
+                selectedCount++;
+            }
+        }
+
+        this.deleteDisabled = selectedCount === 0;
+    }
+
+    private deleteSelectedGalleries() {
+
+        const galleryIdsToDelete = new Array<number>();
+
+        for (const gallery of this.galleries) {
+            if (gallery.selected) {
+                galleryIdsToDelete.push(gallery.id);
+            }
+        }
+
+        (this.$refs.deleteGalleries as DeleteGalleries).show(galleryIdsToDelete);
+    }
+
+    private async galleriesDeleted() {
+        await this.loadData();
+    }
+
 }
 </script>
 
@@ -209,5 +274,18 @@ export default class GalleryList extends Vue {
     overflow: hidden;
     margin-top: 10px;
     margin-bottom: 20px;
+}
+
+.add-button {
+    padding-left: 7px;
+    padding-right: 15px;
+}
+
+.edit-button {
+    margin-left: 15px;
+}
+
+.edit-done-button {
+    margin-left: 15px;
 }
 </style>

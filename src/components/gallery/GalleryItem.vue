@@ -1,6 +1,6 @@
 <template>
-    <router-link 
-        class="gallery-thumb-container"
+    <div class="gallery-thumb-container"
+        @click="click"
         :to="`/gallery/${this.gallery.id}/`">
         <img v-if="hasThumbnail"
             :src="gallery.thumbnail" 
@@ -12,25 +12,37 @@
             <img src="img/gallery/folder.svg" 
                 :width="gallery.display_width / 2"
                 :height="gallery.display_height / 2" />
-            <!-- <span class="oi oi-folder" aria-hidden="true"></span> -->
         </div>
-        <div v-bind:style="{width: width }" class="bottom-left">{{ gallery.title }}</div>
-    </router-link>
+        <div :style="{width: width }" class="bottom-left">{{ gallery.title }}</div>
+        <CheckBox ref="checkBox" 
+            v-if="editMode" 
+            class="top-left"
+            @checkboxChanged="checkboxChanged"/>
+    </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Watch, Prop} from 'vue-property-decorator';
 import config from '../../config';
 import Gallery from '../../models/data/gallery';
+import CheckBox from '../common/CheckBox.vue';
 
 @Component({
   components: {
+      CheckBox,
   },
 })
 export default class GalleryItem extends Vue {
 
     @Prop()
     public gallery?: Gallery;
+
+    @Prop({ default: false})
+    public editMode?: boolean;
+
+    public get checked(): boolean {
+        return (this.$refs.checkBox as CheckBox).checked;
+    }
 
     public get hasThumbnail(): boolean {
         if (this.gallery && this.gallery.thumbnail) {
@@ -55,8 +67,23 @@ export default class GalleryItem extends Vue {
             return '200px';
         }
     }
-}
 
+    private click() {
+        if (this.gallery) {
+            if (this.editMode) {
+                (this.$refs.checkBox as CheckBox).toggle();
+            } else {
+                this.$router.push(`/gallery/${this.gallery.id}/`);
+            }
+        }
+    }
+
+    private checkboxChanged(checked: boolean) {
+        if (this.gallery) {
+            this.$emit('selectionChanged', this.gallery.id, checked);
+        }
+    }
+}
 </script>
 
 <style scoped>
@@ -65,6 +92,7 @@ export default class GalleryItem extends Vue {
     position: relative;
     float: left;
     background-color: #647;
+    cursor: pointer;
 }
 
 .default-gallery-thumbnail {
@@ -87,5 +115,11 @@ export default class GalleryItem extends Vue {
     opacity: 0.7;
     color: white;
     font-size: 0.7em;
+}
+
+.top-left {
+    position: absolute;
+    top: 5px;
+    left: 5px;
 }
 </style>

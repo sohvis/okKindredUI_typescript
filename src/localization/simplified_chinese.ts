@@ -303,6 +303,9 @@ export const simplifiedChinese = {
       AddNewImages: `添加新图片`,
       CreateNewGallery: `创建新图库`,
       EditGallery: `编辑图库`,
+      DeleteGalleries: `删除图库`,
+      DeleteGalleriesDesc: `您确定要删除所选的画廊吗？
+      它还将删除其中的所有图像。`,
 
       // Upload Images
       UploadImages: `上传图片`,

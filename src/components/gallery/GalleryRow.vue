@@ -4,7 +4,9 @@
         <GalleryItem 
             v-for="gallery of galleryItems" 
             :key="gallery.id + '_' + gallery.display_width" 
-            v-bind:gallery="gallery">
+            :gallery="gallery"
+            :editMode="editMode"
+            @selectionChanged="selectionChanged">
         </GalleryItem>
     </div>
 </template>
@@ -32,6 +34,9 @@ export default class GalleryRow extends Vue {
 
     @Prop({ default: 800 })
     public width?: number;
+
+    @Prop({ default: false})
+    public editMode?: boolean;
 
     @Watch('galleryRow')
     public renderGalleryItems(): void {
@@ -78,6 +83,10 @@ export default class GalleryRow extends Vue {
 
         window.console.log(`getHeight(): ${value}`);
         return Math.min(GalleryRow.MAX_HEIGHT, value);
+    }
+
+    private selectionChanged(galleryId: number, checked: boolean) {
+        this.$emit('selectionChanged', galleryId, checked);
     }
 }
 </script>

@@ -59,7 +59,7 @@ import store from '../../store/store';
   components: {
   },
 })
-export default class AddGAllery extends Vue {
+export default class AddGallery extends Vue {
 
     public form: any = {
         title: '',

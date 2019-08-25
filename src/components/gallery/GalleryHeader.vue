@@ -17,19 +17,28 @@
             <!-- Title and description -->
             <div class="title-description">
                 <h1>
-                    {{ title }}
-                    <sup v-if="gallery">
-                        <span class="oi oi-pencil edit-gallery"
-                            @click="editGalleryClicked">
-                        </span>
-                    </sup>
+                    <span>{{ title }}</span>
+
+                    <b-button v-if="!editMode" class="edit-button"  
+                            variant="outline-secondary" @click="editGalleryClicked">
+                        <span class="oi oi-pencil"></span>
+                    </b-button>
+
+                    <b-button v-if="editMode" class="edit-done-button" 
+                            variant="success">
+                        <span class="oi oi-check"></span>
+                    </b-button>
+                    <b-button v-if="editMode" class="delete-button" 
+                            variant="danger">
+                        <span class="oi oi-trash"></span>
+                    </b-button>
                 </h1>
                 <p>
-                    {{ description }}
+                    <span>{{ description }}</span>
                 </p>
             </div>
             <!--Add pictures-->
-            <router-link 
+            <router-link v-if="!editMode"
                 class="btn btn-success add-images-button"
                 :to="`/gallery/${galleryId}/upload/?page=${page}&title=${title}`">
                 <sup>
@@ -98,6 +107,7 @@ export default class GalleryHeader extends Vue {
         return `${this.page}|${this.galleryId}`;
     }
 
+    public editMode: boolean = false;
 
     @Watch('watchedProps')
     public async loadGalleryData() {

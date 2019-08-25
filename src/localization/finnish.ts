@@ -264,6 +264,9 @@ export const finnish = {
       AddNewImages: `Lisää Uusia Kuvia`,
       CreateNewGallery: `Luo Uusi Galleria`,
       EditGallery: `Muokkaa Galleriaa`,
+      DeleteGalleries: `Poista Galleriat`,
+      DeleteGalleriesDesc: `Haluatko varmasti jättää valitut galleriat poistamaan?
+      Se poistaa myös kaikki niissä olevat kuvat.`,
 
       // Upload Images
       UploadImages: `Lataa Kuvat`,

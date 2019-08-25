@@ -280,12 +280,12 @@ export const traditionalChinese = {
       DidXraiseY: `{fromPersonName}是否提升{toPersonName}？`,
 
       // Sign Up
-      JoinSite: `Join ok!Kindred`,
-      JoinSiteDescription: `To set up a new family network and join ok!Kindred, please provide the
-      following information:`,
-      EmailInUse: `Email is already in use`,
-      ThankYou: `Thank you!`,
-      PleaseCheckEmail: `Please check your email {email} to confirm your account.`,
+      JoinSite: `加入 ok!Kindred`,
+      JoinSiteDescription: `要建立一个新的家庭网络并加入ok！亲属，请提供
+      以下信息：`,
+      EmailInUse: `电子邮件已在使用中`,
+      ThankYou: `谢谢！`,
+      PleaseCheckEmail: `请检查您的电子邮件{email}以确认您的帐户。`,
 
       // Account Confirmation
       AccountConfirmation: `帳戶確認`,
@@ -300,6 +300,9 @@ export const traditionalChinese = {
       AddNewImages: `添加新圖片`,
       CreateNewGallery: `創建新圖庫`,
       EditGallery: `編輯圖庫`,
+      DeleteGalleries: `刪除圖庫`,
+      DeleteGalleriesDesc: `您確定要刪除所選的畫廊嗎？
+      它還將刪除其中的所有圖像。`,
 
       // Upload Images
       UploadImages: `上傳圖片`,

@@ -11,4 +11,7 @@ export default interface Gallery {
     // Used for rendering
     display_height: number;
     display_width: number;
+
+    // Used for selection
+    selected: boolean;
 }

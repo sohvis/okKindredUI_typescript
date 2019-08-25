@@ -322,6 +322,9 @@ export const french = {
       AddNewImages: `Ajouter de nouvelles images`,
       CreateNewGallery: `Créer une Nouvelle Galerie`,
       EditGallery: `Editer la Galerie`,
+      DeleteGalleries: `Supprimer des Galeries`,
+      DeleteGalleriesDesc: `Êtes-vous sûr de vouloir supprimer les galeries sélectionnées?
+      Il supprimera également toutes les images qu’il contient.`,
 
       // Upload Images
       UploadImages: `Importer des images`,

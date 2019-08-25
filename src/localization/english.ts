@@ -266,6 +266,9 @@ export const english = {
       AddNewImages: `Add new images`,
       CreateNewGallery: `Create New Gallery`,
       EditGallery: `Edit Gallery`,
+      DeleteGalleries: `Delete Galleries`,
+      DeleteGalleriesDesc: `Are you sure you want to leave delete the selected galleries?
+      It will also delete all the images in them.`,
 
       // Upload Images
       UploadImages: `Upload Images`,
