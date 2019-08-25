@@ -264,6 +264,8 @@ export const english = {
       AddNewGallery: 'Add a new gallery',
       NoImagesInGallery: `No images found in gallery`,
       AddNewImages: `Add new images`,
+      CreateNewGallery: `Create New Gallery`,
+      EditGallery: `Edit Gallery`,
 
       // Upload Images
       UploadImages: `Upload Images`,

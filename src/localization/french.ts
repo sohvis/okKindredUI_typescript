@@ -320,6 +320,8 @@ export const french = {
       AddNewGallery: 'Ajouter une nouvelle galerie',
       NoImagesInGallery: `Aucune image trouvée dans la galerie`,
       AddNewImages: `Ajouter de nouvelles images`,
+      CreateNewGallery: `Créer une Nouvelle Galerie`,
+      EditGallery: `Editer la Galerie`,
 
       // Upload Images
       UploadImages: `Importer des images`,

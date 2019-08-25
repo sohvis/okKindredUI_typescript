@@ -330,6 +330,8 @@ export const polish = {
       AddNewGallery: 'Dodaj nową galerię',
       NoImagesInGallery: `Nie znaleziono zdjęć w galerii`,
       AddNewImages: `Dodaj nowe obrazy`,
+      CreateNewGallery: `Utwórz Nową Galerię`,
+      EditGallery: `Edytuj Galerię`,
 
       // Upload Images
       UploadImages: `Przesyłać Zdjęcia`,

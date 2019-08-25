@@ -85,6 +85,10 @@ export default class GalleryList extends Vue {
         return Math.max(1, Math.ceil(this.totalCount / config.PaginationPageSize));
     }
 
+    public get portrait(): boolean {
+        return window.innerHeight > window.innerWidth;
+    }
+
     protected async mounted() {
         window.console.log('GalleryIndex.vue mounted() call');
 
@@ -157,6 +161,17 @@ export default class GalleryList extends Vue {
         const galleryContainer = document.getElementById('gallery-container') as HTMLDivElement;
         this.galleryWidth =  galleryContainer.clientWidth;
 
+        // Fiddle to get more images on a portrait phone per row
+        let scale = 1;
+
+        // Get the device pixel ratio, falling back to 1.
+        const dpr = window.devicePixelRatio || 1;
+        if (this.portrait) {
+            scale = 1;
+        } else {
+            scale = 0.75 /  dpr;
+        }
+
         window.console.log(`this.galleryWidth: ${this.galleryWidth}`);
 
         const imageRows = new Array<Gallery[]>();
@@ -167,16 +182,13 @@ export default class GalleryList extends Vue {
             if (!gallery.thumbnail) {
                 gallery.thumbnail_width = 200;
                 gallery.thumbnail_height = 200;
-            } else {
-                gallery.thumbnail_width = gallery.thumbnail_width * GalleryList.LARGE_SCREEN_SCALE_FACTOR;
-                gallery.thumbnail_height = gallery.thumbnail_height * GalleryList.LARGE_SCREEN_SCALE_FACTOR;
             }
 
             imageRow.push(gallery);
             rowWidth += gallery.thumbnail_width;
 
             // New row
-            if (rowWidth >= this.galleryWidth) {
+            if (rowWidth >= this.galleryWidth * scale ) {
                 imageRows.push(imageRow);
                 imageRow = new Array<Gallery>();
                 rowWidth = 0;

@@ -5,13 +5,20 @@
             <img :id="`thumbnail-img-${uploadIndex}`" class="thumbnail" />
         </div>
         <div class="col-6">
-            <b-progress :value="progress" :max="100" height="2rem" show-progress animated></b-progress>
+            <b-progress 
+                :value="progress" 
+                :max="100" 
+                height="2rem" 
+                show-progress 
+                :animated="animated"
+                :variant="variant">
+            </b-progress>
         </div>
         <div class="col-4">
             <div  class="pending" v-if="state==='pending'">
                 {{ $t('message.Pending') }}
             </div>
-            <div v-if="state==='uploading'">
+            <div class="uploading" v-if="state==='uploading'">
                 {{ $t('message.Uploading') }}
             </div>
             <div class="processing" v-if="state==='processing'">
@@ -59,6 +66,30 @@ export default class ImageUploadStatus extends Vue {
 
     // Goes up to 100
     public progress: number = 0;
+
+    public get animated(): boolean {
+        switch (this.state) {
+            case 'failed':
+            case 'done':
+                return false;
+            default:
+                return true;
+        }
+    }
+
+    public get variant(): string {
+
+        switch (this.state) {
+            case 'failed':
+                return 'danger';
+            case 'processing':
+                return 'warning';
+            case 'done':
+                return 'success';
+            default:
+                return 'default';
+        }
+    }
 
     private fileSize: number = 0;
 

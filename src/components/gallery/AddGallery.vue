@@ -21,6 +21,7 @@
                     id="titleInput"
                     v-model="form.title"
                     :state="form.titleState"
+                    maxlength="50"
                     required>
                 </b-form-input>
             </b-form-group>

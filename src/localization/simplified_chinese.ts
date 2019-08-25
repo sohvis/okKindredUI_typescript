@@ -301,6 +301,8 @@ export const simplifiedChinese = {
       AddNewGallery: '添加新图库',
       NoImagesInGallery: `在图库中找不到图像`,
       AddNewImages: `添加新图片`,
+      CreateNewGallery: `创建新图库`,
+      EditGallery: `编辑图库`,
 
       // Upload Images
       UploadImages: `上传图片`,

@@ -298,6 +298,8 @@ export const traditionalChinese = {
       AddNewGallery: '添加新圖庫',
       NoImagesInGallery: `在圖庫中找不到圖像`,
       AddNewImages: `添加新圖片`,
+      CreateNewGallery: `創建新圖庫`,
+      EditGallery: `編輯圖庫`,
 
       // Upload Images
       UploadImages: `上傳圖片`,

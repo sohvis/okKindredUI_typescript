@@ -261,7 +261,9 @@ export const finnish = {
       NoGalleries: `Kuvagallerioita ei löytynyt.`,
       AddNewGallery: 'Lisää uusi galleria',
       NoImagesInGallery: `Galleriasta ei löytynyt kuvia`,
-      AddNewImages: `Lisää uusia kuvia`,
+      AddNewImages: `Lisää Uusia Kuvia`,
+      CreateNewGallery: `Luo Uusi Galleria`,
+      EditGallery: `Muokkaa Galleriaa`,
 
       // Upload Images
       UploadImages: `Lataa Kuvat`,
