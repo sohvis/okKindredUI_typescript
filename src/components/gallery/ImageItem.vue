@@ -28,7 +28,7 @@ import CheckBox from '../../components/common/CheckBox.vue';
 })
 export default class ImageItem extends Vue {
 
-    @Prop({ default:{} })
+    @Prop({ default: {} })
     public image?: Image;
 
     @Prop({ default: false })
@@ -48,7 +48,6 @@ export default class ImageItem extends Vue {
         }
     }
 }
-
 </script>
 
 <style scoped>
