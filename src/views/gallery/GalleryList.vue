@@ -205,7 +205,7 @@ export default class GalleryList extends Vue {
 
     private selectionChanged(galleryId: number, checked: boolean) {
         window.console.log(`GalleryList.selectionChanged(galleryId: ${galleryId}, checked: ${checked})`);
-        let selectedIds = new Array<number>();
+        const selectedIds = new Array<number>();
 
         for (const gallery of this.galleries) {
             if (gallery.id === galleryId) {

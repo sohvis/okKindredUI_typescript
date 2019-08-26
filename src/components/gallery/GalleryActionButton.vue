@@ -6,13 +6,22 @@
                 v-if="opened"
                 variant="success"
                 class="add-button"
-                @click="addGalleryClicked">
+                @click="addImagesClicked">
                 <sup>
                     <small>
                         <span class="oi oi-plus"></span>
                     </small>
                 </sup>
-                <span class="oi oi-folder"></span>
+                <span class="oi oi-image"></span>
+            </b-button>
+        </transition>
+        <transition name="slide-fade">
+            <b-button
+                v-if="opened"
+                variant="secondary"
+                class="action-button"
+                @click="editClicked">
+                <span class="oi oi-pencil"></span>
             </b-button>
         </transition>
         <transition name="slide-fade">
@@ -33,39 +42,50 @@
             <span v-if="opened" class="oi oi-x"></span>
         </b-button>
 
-        <AddGallery 
-            ref="addGallery" 
-            @galleryCreated="galleryCreated" />
-
-        <DeleteGalleries 
-            ref="deleteGalleries" 
-            @galleriesDeleted="galleriesDeleted" />
+        <EditGallery
+            ref="editGallery"
+            @galleryEdited="galleryEdited" />
+        
+        <DeleteImages
+            ref="deleteImages"
+            @imagesDeleted="imagesDeleted" />
     </div>
-
 </template>
 
 <script lang="ts">
 import { Component, Vue, Watch, Prop} from 'vue-property-decorator';
 import store from '../../store/store';
 import config from '../../config';
-import AddGallery from './AddGallery.vue';
-import DeleteGalleries from './DeleteGalleries.vue';
+import EditGallery from './EditGallery.vue';
+import Gallery from '../../models/data/gallery';
+import DeleteImages from './DeleteImages.vue';
 
 @Component({
   components: {
-      AddGallery,
-      DeleteGalleries,
+      EditGallery,
+      DeleteImages,
   },
 })
-export default class GalleryListActionButton extends Vue {
+export default class GalleryActionButton extends Vue {
+
+    @Prop({ default: null })
+    public gallery: Gallery | null = null;
+
+    public get page(): number {
+        if (this.$route.query.page) {
+            return Number(this.$route.query.page);
+        } else {
+            return 1;
+        }
+    }
 
     @Prop({ default: () => [] })
-    public selectedGalleryIds?: number[];
+    public selectedImageIds?: number[];
 
     public get deleteEnabled(): boolean {
 
-        if (this.selectedGalleryIds) {
-            return this.selectedGalleryIds.length > 0;
+        if (this.selectedImageIds) {
+            return this.selectedImageIds.length > 0;
         } else {
             return false;
         }
@@ -73,8 +93,10 @@ export default class GalleryListActionButton extends Vue {
 
     public opened: boolean = false;
 
-    public addGallery() {
-        (this.$refs.addGallery as AddGallery).show();
+    public addImages() {
+        if (this.gallery) {
+            this.$router.push(`/gallery/${this.gallery.id}/upload/?page=${this.page}&title=${this.gallery.title}`);
+        }
     }
 
     private menuButtonClicked() {
@@ -86,37 +108,47 @@ export default class GalleryListActionButton extends Vue {
         this.$emit('actionButtonClicked', this.opened);
     }
 
-    private addGalleryClicked() {
-        window.console.log(`GalleryListActionButton.addClicked()`);
-        this.addGallery();
+    private addImagesClicked() {
+        window.console.log(`GalleryActionButton.addClicked()`);
+        this.addImages();
     }
 
     private deleteClicked() {
-        window.console.log(`GalleryListActionButton.deleteClicked()`);
-        if (this.selectedGalleryIds) {
-            (this.$refs.deleteGalleries as DeleteGalleries).show(this.selectedGalleryIds);
+        window.console.log(`GalleryActionButton.deleteClicked()`);
+        if (this.selectedImageIds) {
+            (this.$refs.deleteImages as DeleteImages).show(this.selectedImageIds);
         }
     }
 
-    private galleriesDeleted() {
-        window.console.log(`GalleryListActionButton.galleriesDeleted()`);
-        this.toggleOpen();
-        this.$emit('galleriesDeleted');
+    private editClicked() {
+        window.console.log(`GalleryActionButton.editClicked()`);
+
+        if (this.gallery) {
+            (this.$refs.editGallery as EditGallery).show(this.gallery);
+        }
     }
 
-    private galleryCreated() {
-        window.console.log(`GalleryListActionButton.galleryCreated()`);
+    private galleryEdited() {
+        this.$emit('galleryEdited');
         this.toggleOpen();
-        this.$emit('galleryCreated');
     }
+
+    private imagesDeleted() {
+        this.$emit('imagesDeleted');
+        this.toggleOpen();
+    }
+
 }
 </script>
 
 <style scoped>
 
 .controls-container {
-    float: right;
+    float: right; 
+    right: 0;  
+    top: 40px;
     z-index: 5;
+    position: absolute !important;
 }
 
 .action-button {
@@ -138,8 +170,8 @@ export default class GalleryListActionButton extends Vue {
     padding-top: 10px;
     padding-bottom: 10px;
     font-size: 1.2em;
-    margin-right:5px;
-    margin-top: 5px;
+    margin-right: 7px;
+    margin-top: 7px;
 }
 
 .slide-fade-enter, .slide-fade-leave-to {

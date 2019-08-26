@@ -56,6 +56,7 @@ import store from '../../store/store';
 
 @Component({
   components: {
+      Loading,
   },
 })
 export default class EditGallery extends Vue {

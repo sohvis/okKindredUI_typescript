@@ -1,55 +1,36 @@
 <template>
 
-        <div class="controls-container">
-            <!--Back link-->
-            <p>
-                <router-link
-                    to="/gallery/">
-                    {{ $t('message.AllGalleries') }}
-                </router-link>
-                / 
-                <router-link
-                    :to="`/gallery/${galleryId}/`">
-                    {{ title }}
-                </router-link> 
-                / {{ page }}
-            </p>
-            <!-- Title and description -->
-            <div class="title-description">
-                <h1>
-                    <span>{{ title }}</span>
-
-                    <b-button v-if="!editMode" class="edit-button"  
-                            variant="outline-secondary" @click="editGalleryClicked">
-                        <span class="oi oi-pencil"></span>
-                    </b-button>
-
-                    <b-button v-if="editMode" class="edit-done-button" 
-                            variant="success">
-                        <span class="oi oi-check"></span>
-                    </b-button>
-                    <b-button v-if="editMode" class="delete-button" 
-                            variant="danger">
-                        <span class="oi oi-trash"></span>
-                    </b-button>
-                </h1>
-                <p>
-                    <span>{{ description }}</span>
-                </p>
-            </div>
-            <!--Add pictures-->
-            <router-link v-if="!editMode"
-                class="btn btn-success add-images-button"
-                :to="`/gallery/${galleryId}/upload/?page=${page}&title=${title}`">
-                <sup>
-                    <span class="oi oi-plus"></span>
-                </sup>
-                <span class="oi oi-image"></span>
+    <div class="controls-container">
+        <!--Back link-->
+        <p>
+            <router-link
+                to="/gallery/">
+                {{ $t('message.AllGalleries') }}
             </router-link>
-        <EditGallery
-            ref="editGallery"
-            @galleryEdited="galleryEdited" />
+            / 
+            <router-link
+                :to="`/gallery/${galleryId}/`">
+                {{ title }}
+            </router-link> 
+            / {{ page }}
+        </p>
+        <!-- Title and description -->
+        <div class="title-description">
+            <h1>
+                <span>{{ title }}</span>
+            </h1>
+            <p>
+                <span>{{ description }}</span>
+            </p>
         </div>
+
+        <GalleryActionButton 
+            :gallery="gallery"
+            :selectedImageIds="selectedImageIds"
+            @galleryEdited="galleryEdited"
+            @imagesDeleted="imagesDeleted"
+            @actionButtonClicked="actionButtonClicked"/>
+    </div>
 
 </template>
 
@@ -60,16 +41,21 @@ import store from '../../store/store';
 import config from '../../config';
 import Gallery from '../../models/data/gallery';
 import EditGallery from '../../components/gallery/EditGallery.vue';
+import GalleryActionButton from './GalleryActionButton.vue';
 
 @Component({
   components: {
       EditGallery,
+      GalleryActionButton,
   },
 })
 export default class GalleryHeader extends Vue {
 
     @Prop({ default: 0 })
     public galleryId?: number;
+
+    @Prop({ default: () => [] })
+    public selectedImageIds?: number[];
 
     public gallery: Gallery | null = null;
 
@@ -107,8 +93,6 @@ export default class GalleryHeader extends Vue {
         return `${this.page}|${this.galleryId}`;
     }
 
-    public editMode: boolean = false;
-
     @Watch('watchedProps')
     public async loadGalleryData() {
         window.console.log(`GalleryHeader.loadGalleryData()`);
@@ -133,6 +117,10 @@ export default class GalleryHeader extends Vue {
         store.commit('updateLoading', false);
     }
 
+    private actionButtonClicked(opened: boolean) {
+        this.$emit('editModeChanged', opened);
+    }
+
     private editGalleryClicked() {
         window.console.log(`GalleryHeader.editGalleryClicked()`);
 
@@ -146,6 +134,10 @@ export default class GalleryHeader extends Vue {
 
         await this.loadGalleryData();
     }
+
+    private imagesDeleted() {
+        this.$emit('imagesDeleted');
+    }
 }
 </script>
 
@@ -157,13 +149,10 @@ export default class GalleryHeader extends Vue {
 }
 
 .controls-container {
-    overflow: hidden;
+    position: relative;
 }
 
-.title-description{
-    float: left;
-    max-width: 80%;
-}
+
 .add-images-button{
     float: right;
     border-radius: 50%;
@@ -175,5 +164,9 @@ export default class GalleryHeader extends Vue {
     margin-right:3px;
     box-shadow: 1px 1px 2px black;
     margin-bottom: 3px;
+}
+
+.title-description {
+    margin-right: 50px;
 }
 </style>

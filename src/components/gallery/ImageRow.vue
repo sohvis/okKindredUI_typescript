@@ -4,7 +4,9 @@
         <ImageItem 
             v-for="image of imageItems" 
             :key="image.id + '_' + image.display_width" 
-            v-bind:image="image">
+            :image="image"
+            :editMode="editMode"
+            @selectionChanged="selectionChanged">
         </ImageItem>
     </div>
 </template>
@@ -32,6 +34,9 @@ export default class ImageRow extends Vue {
 
     @Prop({ default: 800 })
     public width?: number;
+
+    @Prop({ default: false })
+    public editMode?: boolean;
 
     @Watch('imageRow')
     public renderGalleryItems(): void {
@@ -78,6 +83,10 @@ export default class ImageRow extends Vue {
 
         window.console.log(`getHeight(): ${value}`);
         return Math.min(ImageRow.MAX_HEIGHT, value);
+    }
+
+    private selectionChanged(imageId: number, checked: boolean) {
+        this.$emit('selectionChanged', imageId, checked);
     }
 }
 </script>

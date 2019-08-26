@@ -21,4 +21,6 @@ export default interface Image {
     // Rendering only
     display_height: number;
     display_width: number;
+
+    selected: boolean;
 }

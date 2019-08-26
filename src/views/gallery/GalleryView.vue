@@ -3,14 +3,19 @@
 
         <GalleryHeader 
             ref="galleryHeader"
-            v-bind:galleryId="galleryId" />
+            :galleryId="galleryId"
+            :selectedImageIds="selectedImageIds"
+            @editModeChanged="editModeChanged"
+            @imagesDeleted="imagesDeleted" />
 
         <div id="image-container">
             <ImageRow 
                 v-for="row of imageRows" 
                 :key="imageRows.indexOf(row)" 
-                v-bind:imageRow="row"
-                v-bind:width="galleryWidth">
+                :imageRow="row"
+                :width="galleryWidth"
+                :editMode="editMode"
+                @selectionChanged="selectionChanged">
             </ImageRow>
         </div>
         <div v-if="showNoImagesMessage"
@@ -63,6 +68,8 @@ export default class GalleryView extends Vue {
 
     public showNoImagesMessage: boolean = false;
 
+    public editMode: boolean = false;
+
     public get loading(): boolean {
         return store.getters.loading;
     }
@@ -76,6 +83,8 @@ export default class GalleryView extends Vue {
     public images: Image[] = [];
 
     public imageRows: Image[][] = [];
+
+    public selectedImageIds: number[] = [];
 
     public galleryWidth: number = 800;
 
@@ -133,18 +142,28 @@ export default class GalleryView extends Vue {
     }
 
     private async loadImageData() {
-        const options = {
-            uri: `${config.BaseApiUrl}${config.ImageAPI}?page=${this.page}&gallery_id=${this.galleryId}`,
-            headers: store.getters.ajaxHeader,
-            json: true,
-        };
 
-        const response = await request.get(options) as PagedResult<Image>;
+        store.commit('updateLoading', true);
 
-        this.images = response.results;
-        this.setDisplaySizes();
+        try {
+            const options = {
+                uri: `${config.BaseApiUrl}${config.ImageAPI}?page=${this.page}&gallery_id=${this.galleryId}`,
+                headers: store.getters.ajaxHeader,
+                json: true,
+            };
 
-        this.totalCount = response.count;
+            const response = await request.get(options) as PagedResult<Image>;
+
+            this.images = response.results;
+            this.setDisplaySizes();
+
+            this.totalCount = response.count;
+
+        } catch (ex) {
+            store.commit('setErrorMessage', ex);
+        }
+
+        store.commit('updateLoading', false);
     }
 
 
@@ -200,6 +219,32 @@ export default class GalleryView extends Vue {
         const header = this.$refs.galleryHeader as GalleryHeader;
         const route = `/gallery/${this.galleryId}/upload/?page=${this.page}&title=${header.title}`;
         this.$router.push(route);
+    }
+
+    private editModeChanged(editMode: boolean) {
+        this.editMode = editMode;
+    }
+
+    private selectionChanged(imageId: number, checked: boolean) {
+        window.console.log(`GalleryView.selectionChanged(galleryId: ${imageId}, checked: ${checked})`);
+
+        const selectedIds = new Array<number>();
+
+        for (const image of this.images) {
+            if (image.id === imageId) {
+                image.selected = checked;
+            }
+
+            if (image.selected) {
+                selectedIds.push(image.id);
+            }
+        }
+
+        this.selectedImageIds = selectedIds;
+    }
+
+    private async imagesDeleted() {
+        await this.loadImageData();
     }
 }
 </script>
