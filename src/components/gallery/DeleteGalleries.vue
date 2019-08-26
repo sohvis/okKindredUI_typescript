@@ -36,6 +36,7 @@ import store from '../../store/store';
 
 @Component({
   components: {
+    Loading,
   },
 })
 export default class DeleteGalleries extends Vue {
@@ -55,6 +56,8 @@ export default class DeleteGalleries extends Vue {
     }
 
     public show(galleryIds: number[]) {
+        window.console.log(`DeleteGalleries.show()`);
+        window.console.log(galleryIds);
         this.galleryIds = galleryIds;
         (this.$refs.modal as any).show();
     }

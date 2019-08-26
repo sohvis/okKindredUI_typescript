@@ -1,29 +1,17 @@
 <template>
     <div class="container" id="gallerylist-container">
-        <h1>{{ $t('message.Gallery') }}
-            <b-button v-if="!editMode" class="add-button" size="lg"
-                    variant="outline-primary" @click="addGallery">
-                <sup>
-                    <small>
-                        <span class="oi oi-plus"></span>
-                    </small>
-                </sup>
-                <span class="oi oi-folder"></span>
-            </b-button>
-            <b-button v-if="!editMode" class="edit-button" size="lg" 
-                    variant="outline-secondary" @click="toggleEditMode">
-                <span class="oi oi-pencil"></span>
-            </b-button>
-            <b-button v-if="editMode" class="delete-button" size="lg"
-                    variant="danger" :disabled="deleteDisabled" 
-                    @click="deleteSelectedGalleries">
-                <span class="oi oi-trash"></span>
-            </b-button>
-            <b-button v-if="editMode" class="edit-done-button" size="lg"
-                variant="success" @click="toggleEditMode">
-                <span class="oi oi-check"></span>
-            </b-button>
-        </h1>
+
+        <div class="gallery-header">
+            <h1 class="gallery-title">
+                {{ $t('message.Gallery') }}
+            </h1>
+            <GalleryListActionButton 
+                ref="galleryListActionButton"
+                :selectedGalleryIds="selectedGalleryIds"
+                @actionButtonClicked="actionButtonClicked" 
+                @galleryCreated="galleryCreated"
+                @galleriesDeleted="galleriesDeleted" />
+        </div>
         <div id="gallery-container">
             <GalleryRow 
                 v-for="row of galleryRows" 
@@ -48,14 +36,6 @@
                 use-router>
             </b-pagination-nav>
         </div>
-
-        <AddGallery 
-            ref="addGallery" 
-            @galleryCreated="galleryCreated" />
-
-        <DeleteGalleries 
-            ref="deleteGalleries" 
-            @galleriesDeleted="galleriesDeleted"/>
     </div>
 </template>
 
@@ -67,14 +47,12 @@ import config from '../../config';
 import PagedResult from '../../models/data/paged_results';
 import Gallery from '../../models/data/gallery';
 import GalleryRow from '../../components/gallery/GalleryRow.vue';
-import AddGallery from '../../components/gallery/AddGallery.vue';
-import DeleteGalleries from '../../components/gallery/DeleteGalleries.vue';
+import GalleryListActionButton from '../../components/gallery/GalleryListActionButton.vue';
 
 @Component({
   components: {
       GalleryRow,
-      AddGallery,
-      DeleteGalleries,
+      GalleryListActionButton,
   },
 })
 export default class GalleryList extends Vue {
@@ -103,6 +81,8 @@ export default class GalleryList extends Vue {
 
     public galleryRows: Gallery[][] = [];
 
+    public selectedGalleryIds: number[] = [];
+
     public galleryWidth: number = 800;
 
     public get numberOfPages(): number {
@@ -115,10 +95,8 @@ export default class GalleryList extends Vue {
 
     public editMode: boolean = false;
 
-    public deleteDisabled: boolean = true;
-
     protected async mounted() {
-        window.console.log('GalleryIndex.vue mounted() call');
+        window.console.log('GalleryList.vue mounted() call');
 
         try {
             // Load jwt from cookie and login
@@ -132,19 +110,13 @@ export default class GalleryList extends Vue {
         }
     }
 
-    private addGallery() {
-        window.console.log('GalleryIndex.addGallery()');
-
-        (this.$refs.addGallery as AddGallery).show();
-    }
-
     private linkGen(pageNum: number) {
         return `/gallery/?page=${pageNum}`;
     }
 
     @Watch('page')
     private async loadData() {
-        window.console.log(`GalleryIndex.loadData()`);
+        window.console.log(`GalleryList.loadData()`);
 
         store.commit('updateLoading', true);
 
@@ -174,12 +146,8 @@ export default class GalleryList extends Vue {
         store.commit('updateLoading', false);
     }
 
-    private async galleryCreated() {
-        await this.loadData();
-    }
-
     private setDisplaySizes() {
-        window.console.log(`GalleryIndex.setDisplaySizes()`);
+        window.console.log(`GalleryList.setDisplaySizes()`);
 
         // Force scrollbar to show so calcs are correct
         const galleryListContainer = document.getElementById('gallerylist-container') as HTMLDivElement;
@@ -229,12 +197,15 @@ export default class GalleryList extends Vue {
         this.galleryRows = imageRows;
     }
 
-    private toggleEditMode() {
-        this.editMode = !this.editMode;
+    private actionButtonClicked(opened: boolean) {
+        window.console.log(`GalleryList.actionButtonClicked(opened: ${opened})`);
+        this.selectedGalleryIds = [];
+        this.editMode = opened;
     }
 
     private selectionChanged(galleryId: number, checked: boolean) {
-        let selectedCount = 0;
+        window.console.log(`GalleryList.selectionChanged(galleryId: ${galleryId}, checked: ${checked})`);
+        let selectedIds = new Array<number>();
 
         for (const gallery of this.galleries) {
             if (gallery.id === galleryId) {
@@ -242,37 +213,31 @@ export default class GalleryList extends Vue {
             }
 
             if (gallery.selected) {
-                selectedCount++;
+                selectedIds.push(gallery.id);
             }
         }
 
-        this.deleteDisabled = selectedCount === 0;
+        this.selectedGalleryIds = selectedIds;
+        window.console.log(this.selectedGalleryIds);
     }
 
-    private deleteSelectedGalleries() {
-
-        const galleryIdsToDelete = new Array<number>();
-
-        for (const gallery of this.galleries) {
-            if (gallery.selected) {
-                galleryIdsToDelete.push(gallery.id);
-            }
-        }
-
-        (this.$refs.deleteGalleries as DeleteGalleries).show(galleryIdsToDelete);
+    private async galleryCreated() {
+        await this.loadData();
     }
 
     private async galleriesDeleted() {
         await this.loadData();
     }
 
+    private addGallery() {
+        (this.$refs.galleryListActionButton as GalleryListActionButton).addGallery();
+    }
 }
 </script>
 
 <style scoped>
 #gallery-container {
     overflow: hidden;
-    margin-top: 10px;
     margin-bottom: 20px;
 }
 
@@ -287,5 +252,14 @@ export default class GalleryList extends Vue {
 
 .edit-done-button {
     margin-left: 15px;
+}
+
+.gallery-title {
+    float: left;
+}
+
+.gallery-header {
+    overflow: hidden;
+    padding-bottom: 15px;
 }
 </style>
