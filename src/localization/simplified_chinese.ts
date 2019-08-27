@@ -306,6 +306,8 @@ export const simplifiedChinese = {
       DeleteGalleries: `删除图库`,
       DeleteGalleriesDesc: `您确定要删除所选的画廊吗？
       它还将删除其中的所有图像。`,
+      DeleteImages: `删除图像`,
+      DeleteImagesDesc: `您确定要删除所选的画廊吗？`,
 
       // Upload Images
       UploadImages: `上传图片`,

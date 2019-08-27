@@ -303,6 +303,8 @@ export const traditionalChinese = {
       DeleteGalleries: `刪除圖庫`,
       DeleteGalleriesDesc: `您確定要刪除所選的畫廊嗎？
       它還將刪除其中的所有圖像。`,
+      DeleteImages: `刪除圖像`,
+      DeleteImagesDesc: `您確定要刪除所選的畫廊嗎？`,
 
       // Upload Images
       UploadImages: `上傳圖片`,

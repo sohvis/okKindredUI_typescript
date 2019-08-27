@@ -267,6 +267,8 @@ export const finnish = {
       DeleteGalleries: `Poista Galleriat`,
       DeleteGalleriesDesc: `Haluatko varmasti jättää valitut galleriat poistamaan?
       Se poistaa myös kaikki niissä olevat kuvat.`,
+      DeleteImages: `Poista Kuvat`,
+      DeleteImagesDesc: `Haluatko varmasti jättää valitut kuvat poistamaan?`,
 
       // Upload Images
       UploadImages: `Lataa Kuvat`,

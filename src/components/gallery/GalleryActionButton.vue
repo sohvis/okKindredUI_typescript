@@ -5,7 +5,7 @@
             <b-button
                 v-if="opened"
                 variant="success"
-                class="add-button"
+                class="gallery-button add-button"
                 @click="addImagesClicked">
                 <sup>
                     <small>
@@ -19,7 +19,7 @@
             <b-button
                 v-if="opened"
                 variant="secondary"
-                class="action-button"
+                class="gallery-button edit-button"
                 @click="editClicked">
                 <span class="oi oi-pencil"></span>
             </b-button>
@@ -28,20 +28,26 @@
             <b-button
                 v-if="opened"
                 variant="danger"
-                class="action-button"
+                class="gallery-button delete-button"
                 :disabled="!deleteEnabled"
                 @click="deleteClicked">
                 <span class="oi oi-trash"></span>
             </b-button>
         </transition>
         <b-button
+            v-if="!opened"
             variant="outline-primary"
-            class="action-button"
+            class="gallery-button action-button"
             @click="menuButtonClicked">
-            <span v-if="!opened" class="oi oi-ellipses"></span>
-            <span v-if="opened" class="oi oi-x"></span>
+            <span class="oi oi-menu"></span>
         </b-button>
-
+        <b-button
+            v-if="opened"
+            variant="primary"
+            class="gallery-button close-button"
+            @click="menuButtonClicked">
+            <span class="oi oi-x"></span>
+        </b-button>
         <EditGallery
             ref="editGallery"
             @galleryEdited="galleryEdited" />
@@ -151,27 +157,47 @@ export default class GalleryActionButton extends Vue {
     position: absolute !important;
 }
 
-.action-button {
+.gallery-button {
     border-radius: 50%;
-    padding-left: 16px;
-    padding-right: 13px;
-    padding-top: 10px;
-    padding-bottom: 10px;
     font-size: 1.2em;
     margin-right:5px;
     margin-left:5px;
     margin-top: 5px;
 }
 
-.add-button {
-    border-radius: 50%;
-    padding-left: 7px;
-    padding-right: 9px;
+.action-button {
+    padding-left: 15px;
+    padding-right: 14px;
     padding-top: 10px;
     padding-bottom: 10px;
-    font-size: 1.2em;
-    margin-right: 7px;
-    margin-top: 7px;
+}
+
+.edit-button {
+    padding-left: 17px;
+    padding-right: 14px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.delete-button {
+    padding-left: 17px;
+    padding-right: 14px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.close-button {
+    padding-left: 16px;
+    padding-right: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.add-button {
+    padding-left: 9px;
+    padding-right: 11px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .slide-fade-enter, .slide-fade-leave-to {

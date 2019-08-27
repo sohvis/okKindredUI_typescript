@@ -5,7 +5,7 @@
             <b-button
                 v-if="opened"
                 variant="success"
-                class="add-button"
+                class="gallery-list-button add-button"
                 @click="addGalleryClicked">
                 <sup>
                     <small>
@@ -19,18 +19,26 @@
             <b-button
                 v-if="opened"
                 variant="danger"
-                class="action-button"
+                class="gallery-list-button delete-button"
                 :disabled="!deleteEnabled"
                 @click="deleteClicked">
                 <span class="oi oi-trash"></span>
             </b-button>
         </transition>
         <b-button
-            variant="outline-primary"
-            class="action-button"
+            v-if="opened"
+            variant="primary"
+            class="gallery-list-button close-button"
             @click="menuButtonClicked">
-            <span v-if="!opened" class="oi oi-ellipses"></span>
             <span v-if="opened" class="oi oi-x"></span>
+        </b-button>
+
+        <b-button
+            v-if="!opened"
+            variant="outline-primary"
+            class="gallery-list-button action-button"
+            @click="menuButtonClicked">
+            <span class="oi oi-menu"></span>
         </b-button>
 
         <AddGallery 
@@ -115,31 +123,47 @@ export default class GalleryListActionButton extends Vue {
 <style scoped>
 
 .controls-container {
-    float: right;
+    float: right; 
+    right: 0;  
+    top: 0;
     z-index: 5;
+    position: absolute !important;
 }
 
-.action-button {
-    border-radius: 50%;
-    padding-left: 16px;
-    padding-right: 13px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+.gallery-list-button {
     font-size: 1.2em;
+    border-radius: 50%;
     margin-right:5px;
     margin-left:5px;
     margin-top: 5px;
 }
 
-.add-button {
-    border-radius: 50%;
-    padding-left: 7px;
-    padding-right: 9px;
+.action-button {
+    padding-left: 15px;
+    padding-right: 14px;
     padding-top: 10px;
     padding-bottom: 10px;
-    font-size: 1.2em;
-    margin-right:5px;
-    margin-top: 5px;
+}
+
+.close-button {
+    padding-left: 16px;
+    padding-right: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.add-button {
+    padding-left: 9px;
+    padding-right: 11px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.delete-button {
+    padding-left: 17px;
+    padding-right: 14px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .slide-fade-enter, .slide-fade-leave-to {

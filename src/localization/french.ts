@@ -325,6 +325,8 @@ export const french = {
       DeleteGalleries: `Supprimer des Galeries`,
       DeleteGalleriesDesc: `Êtes-vous sûr de vouloir supprimer les galeries sélectionnées?
       Il supprimera également toutes les images qu’il contient.`,
+      DeleteImages: `Suppression d'image`,
+      DeleteImagesDesc: `Êtes-vous sûr de vouloir supprimer les images sélectionnées?`,
 
       // Upload Images
       UploadImages: `Importer des images`,

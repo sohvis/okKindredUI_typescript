@@ -269,6 +269,8 @@ export const english = {
       DeleteGalleries: `Delete Galleries`,
       DeleteGalleriesDesc: `Are you sure you want to leave delete the selected galleries?
       It will also delete all the images in them.`,
+      DeleteImages: `Delete Images`,
+      DeleteImagesDesc: `Are you sure you want to leave delete the selected images?`,
 
       // Upload Images
       UploadImages: `Upload Images`,

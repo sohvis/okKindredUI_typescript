@@ -3,7 +3,7 @@
 
         <div class="gallery-header">
             <h1 class="gallery-title">
-                {{ $t('message.Gallery') }}
+                {{ $t('message.AllGalleries') }}
             </h1>
             <GalleryListActionButton 
                 ref="galleryListActionButton"
@@ -46,8 +46,8 @@ import store from '../../store/store';
 import config from '../../config';
 import PagedResult from '../../models/data/paged_results';
 import Gallery from '../../models/data/gallery';
-import GalleryRow from '../../components/gallery/GalleryRow.vue';
-import GalleryListActionButton from '../../components/gallery/GalleryListActionButton.vue';
+import GalleryRow from '../../components/gallery_list/GalleryRow.vue';
+import GalleryListActionButton from '../../components/gallery_list/GalleryListActionButton.vue';
 
 @Component({
   components: {
@@ -261,5 +261,6 @@ export default class GalleryList extends Vue {
 .gallery-header {
     overflow: hidden;
     padding-bottom: 15px;
+    position: relative;
 }
 </style>

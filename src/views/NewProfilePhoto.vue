@@ -26,9 +26,9 @@ import * as request from 'request-promise-native';
 import store from '../store/store';
 import { configs } from '../config';
 import CropArgs from '../models/data/crop_args';
-import ChooseFile from '../components/NewProfilePhoto/ChooseFile.vue';
-import CropFile from '../components/NewProfilePhoto/CropFile.vue';
-import ImageUpload from '../components/NewProfilePhoto/ImageUpload.vue';
+import ChooseFile from '../components/new_profile_photo/ChooseFile.vue';
+import CropFile from '../components/new_profile_photo/CropFile.vue';
+import ImageUpload from '../components/new_profile_photo/ImageUpload.vue';
 
 @Component({
   components: {

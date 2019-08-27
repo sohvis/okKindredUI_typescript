@@ -335,6 +335,8 @@ export const polish = {
       DeleteGalleries: `Usuń Galerie`,
       DeleteGalleriesDesc: `Czy na pewno chcesz usunąć wybrane galerie?
       Spowoduje to również usunięcie wszystkich zawartych w nich obrazów.`,
+      DeleteImages: `Usuń Obrazy`,
+      DeleteImagesDesc: `Czy na pewno chcesz usunąć wybrane galerie?`,
 
       // Upload Images
       UploadImages: `Przesyłać Zdjęcia`,

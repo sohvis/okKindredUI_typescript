@@ -59,8 +59,8 @@ import { Component, Vue, Watch, Prop} from 'vue-property-decorator';
 import * as request from 'request-promise-native';
 import store from '../../store/store';
 import config from '../../config';
-import ImageUploadStatus from '../../components/gallery/ImageUploadStatus.vue';
-import UploadFinished from '../../components/gallery/UploadFinished.vue';
+import ImageUploadStatus from '../../components/upload_images/ImageUploadStatus.vue';
+import UploadFinished from '../../components/upload_images/UploadFinished.vue';
 
 @Component({
   components: {
