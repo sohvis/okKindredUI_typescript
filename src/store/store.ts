@@ -83,7 +83,7 @@ export default new Vuex.Store({
         state.language = payload.language;
         state.logged_in = true;
         state.person_id = payload.person_id;
-        state.users_person_id = payload.person_id;
+        state.users_person_id = payload.users_person_id;
 
         if (i18n.locale !== state.language) {
             i18n.locale = state.language;
@@ -264,6 +264,7 @@ export default new Vuex.Store({
                 refresh_token: response.refresh,
                 language: response.language,
                 person_id: response.person_id,
+                users_person_id: response.person_id,
             });
 
             // Save access tokens in session
@@ -308,6 +309,7 @@ export default new Vuex.Store({
                 refresh_token: context.state.refresh_token,
                 language: context.state.language,
                 person_id: context.state.person_id,
+                users_person_id: context.state.users_person_id,
             });
 
         } catch (error) {
@@ -349,6 +351,7 @@ export default new Vuex.Store({
                 refresh_token: context.state.refresh_token,
                 language: context.state.language,
                 person_id: context.state.person_id,
+                users_person_id: context.state.users_person_id,
             });
 
             context.dispatch('saveState');

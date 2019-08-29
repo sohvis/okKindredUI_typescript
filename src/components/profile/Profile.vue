@@ -57,7 +57,7 @@
                     v-bind:personId="person.id"
                     v-bind:propertyName="'name'"
                     v-bind:value="person.name"
-                    v-bind:max="5" 
+                    v-bind:maxFieldLength="50" 
                     @valueUpdated="personUpdated"/>
               </td>
             </tr>
@@ -320,7 +320,7 @@ export default class Profile extends Vue {
   get profileIsCurrentUser(): boolean {
     window.console.log('Profile.vue profileIsCurrentUser() called');
 
-    if (this.person) {
+    if (this.person && store.state.users_person_id) {
       window.console.log(`store.state.users_person_id: ${store.state.users_person_id}`);
       window.console.log(`this.person.id: ${this.person.id}`);
       return Number(store.state.users_person_id) === Number(this.person.id);
