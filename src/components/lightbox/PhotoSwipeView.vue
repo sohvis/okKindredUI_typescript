@@ -76,6 +76,9 @@ import configs from '../../config';
 import * as request from 'request-promise-native';
 import PhotoSwipe from 'photoswipe';
 import PhotoSwipeUI_Default from 'photoswipe/dist/photoswipe-ui-default';
+import Image from '../../models/data/image';
+import PhotoSwipeItem from '../../models/data/photoswipe_item';
+import PhotoSwipeOptions from '../../models/data/photoswipe_options';
 
 
 @Component({
@@ -83,6 +86,29 @@ import PhotoSwipeUI_Default from 'photoswipe/dist/photoswipe-ui-default';
   },
 })
 export default class PhotoSwipeView extends Vue {
+
+    public photoswipe: PhotoSwipe<PhotoSwipeUI_Default.Options> | null = null;
+
+    public init(images: Image[]) {
+        var pswpElement = document.querySelectorAll('.pswp')[0] as HTMLElement;
+
+        // build items array
+        const items = new Array<PhotoSwipeItem>();
+
+        for (const image of images) {
+            const item = new PhotoSwipeItem(image);
+            items.push(item);
+        }
+
+        // define options (if needed)
+        var options = new PhotoSwipeOptions(); 
+        options.index = 0;
+
+        // Initializes and opens PhotoSwipe
+        this.photoswipe = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
+        this.photoswipe.init();
+
+    }
 }
 </script>
 
