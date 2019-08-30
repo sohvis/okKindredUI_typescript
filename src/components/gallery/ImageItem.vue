@@ -44,6 +44,8 @@ export default class ImageItem extends Vue {
         if (this.image) {
             if (this.editMode) {
                 (this.$refs.checkBox as CheckBox).toggle();
+            } else {
+                this.$emit('imageClick', this.image.id);
             }
         }
     }

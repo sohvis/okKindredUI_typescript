@@ -6,7 +6,8 @@
             :key="image.id + '_' + image.display_width" 
             :image="image"
             :editMode="editMode"
-            @selectionChanged="selectionChanged">
+            @selectionChanged="selectionChanged"
+            @imageClick="imageClick">
         </ImageItem>
     </div>
 </template>
@@ -31,6 +32,9 @@ export default class ImageRow extends Vue {
     public imageRow?: Image[];
 
     public imageItems: Image[] = [];
+
+    @Prop({ default: 0 })
+    public rowIndex?: number;
 
     @Prop({ default: 800 })
     public width?: number;
@@ -87,6 +91,10 @@ export default class ImageRow extends Vue {
 
     private selectionChanged(imageId: number, checked: boolean) {
         this.$emit('selectionChanged', imageId, checked);
+    }
+
+    private imageClick(imageId: number) {
+        this.$emit('imageClick', imageId, this.rowIndex);
     }
 }
 </script>

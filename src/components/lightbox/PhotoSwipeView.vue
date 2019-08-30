@@ -89,8 +89,10 @@ export default class PhotoSwipeView extends Vue {
 
     public photoswipe: PhotoSwipe<PhotoSwipeUI_Default.Options> | null = null;
 
-    public init(images: Image[]) {
-        var pswpElement = document.querySelectorAll('.pswp')[0] as HTMLElement;
+    public init(images: Image[], selectedIndex: number) {
+        window.console.log(`PhotoSwipeView.init()`);
+        window.console.log(images);
+        const pswpElement = document.querySelectorAll('.pswp')[0] as HTMLElement;
 
         // build items array
         const items = new Array<PhotoSwipeItem>();
@@ -99,10 +101,11 @@ export default class PhotoSwipeView extends Vue {
             const item = new PhotoSwipeItem(image);
             items.push(item);
         }
+        window.console.log(items);
 
         // define options (if needed)
-        var options = new PhotoSwipeOptions(); 
-        options.index = 0;
+        const options = new PhotoSwipeOptions();
+        options.index = selectedIndex;
 
         // Initializes and opens PhotoSwipe
         this.photoswipe = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);

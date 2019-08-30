@@ -11,11 +11,13 @@
         <div id="image-container">
             <ImageRow 
                 v-for="row of imageRows" 
-                :key="imageRows.indexOf(row)" 
+                :key="imageRows.indexOf(row)"
+                :rowIndex="imageRows.indexOf(row)"
                 :imageRow="row"
                 :width="galleryWidth"
                 :editMode="editMode"
-                @selectionChanged="selectionChanged">
+                @selectionChanged="selectionChanged"
+                @imageClick="imageClick">
             </ImageRow>
         </div>
         <div v-if="showNoImagesMessage"
@@ -32,6 +34,7 @@
                 use-router>
             </b-pagination-nav>
         </div>
+        <PhotoSwipeView ref="photoSwipeView"/>
     </div>
 </template>
 
@@ -45,12 +48,14 @@ import Gallery from '../../models/data/gallery';
 import Image from '../../models/data/image';
 import ImageRow from '../../components/gallery/ImageRow.vue';
 import GalleryHeader from '../../components/gallery/GalleryHeader.vue';
+import PhotoSwipeView from '../../components/lightbox/PhotoSwipeView.vue';
 
 
 @Component({
   components: {
       ImageRow,
       GalleryHeader,
+      PhotoSwipeView,
   },
 })
 export default class GalleryView extends Vue {
@@ -245,6 +250,14 @@ export default class GalleryView extends Vue {
 
     private async imagesDeleted() {
         await this.loadImageData();
+    }
+
+    private imageClick(imageId: number, rowIndex: number) {
+        window.console.log(`GalleryView.imageClick(imageId: ${imageId}, rowIndex: ${rowIndex}`);
+
+        const index = this.images.findIndex(item => item.id === imageId);
+
+        (this.$refs.photoSwipeView as PhotoSwipeView).init(this.images, index);
     }
 }
 </script>
