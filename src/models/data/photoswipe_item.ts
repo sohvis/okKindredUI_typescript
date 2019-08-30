@@ -13,6 +13,7 @@ export default class PhotoSwipeItem implements PhotoSwipe.Item {
     public bounds?: any;
     public initialPosition?: any;
     public title: string;
+    public image: Image;
 
     constructor(image: Image) {
         this.src = image.large_thumbnail;
@@ -20,5 +21,6 @@ export default class PhotoSwipeItem implements PhotoSwipe.Item {
         this.h = image.large_thumbnail_height;
         this.msrc = image.thumbnail;
         this.title = image.title;
+        this.image = image;
     }
 }
