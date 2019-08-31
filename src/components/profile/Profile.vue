@@ -367,7 +367,7 @@ export default class Profile extends Vue {
     const selectedPerson = store.state.person_id;
 
     const options = {
-        uri: `${configs.BaseApiUrl}${configs.PersonAPI}/${selectedPerson}`,
+        uri: `${configs.BaseApiUrl}${configs.PersonAPI}${selectedPerson}/`,
         headers: store.getters.ajaxHeader,
         json: true,
     };

@@ -40,6 +40,7 @@ export default {
       },
 
       renderMap() {
+        window.console.log('FamilyMap.renderMap()');
 
         this.initializeSize();
 

@@ -1,7 +1,7 @@
 <template>
 <b-card no-body>
-    <b-tabs card justified>
-        <b-tab @click="treeInit()" active>
+    <b-tabs card justified v-model="tabIndex">
+        <b-tab @click="route('tree')" active>
             <template slot="title">
                 <span class="oi oi-people" aria-hidden="true"></span>
                 {{ $t('message.Tree') }}
@@ -11,7 +11,7 @@
                     ref="tree" />
             </b-card-text>
         </b-tab>
-        <b-tab @click="profileInit()">
+        <b-tab @click="route('profile')">
             <template slot="title">
                 <span class="oi oi-person" aria-hidden="true"></span>
                 {{ $t('message.Profile') }}
@@ -21,7 +21,7 @@
                     ref="profile" />
             </b-card-text>
         </b-tab>
-        <b-tab @click="mapInit()">
+        <b-tab @click="route('map')">
             <template slot="title">
                 <span class="oi oi-map" aria-hidden="true"></span>
                 {{ $t('message.Map') }}
@@ -36,7 +36,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 import * as request from 'request-promise-native';
 import FamilyTree from '../components/family_tree/FamilyTree.vue';
 import FamilyMap from '../components/FamilyMap.vue';
@@ -57,33 +57,18 @@ import NewPersonResponse from '../models/data/new_person_response';
 })
 export default class Family extends Vue {
 
-    private state: string = 'tree';
+    @Prop({ default: 'tree' })
+    public urlState?: string;
 
-    public treeInit() {
-        this.state = 'tree';
-        const tree = this.$refs.tree as FamilyTree;
-        if (tree) {
-            setTimeout(() => tree.initializeTree(), 100);
-        }
-    }
+    private state: string = '';
 
-    public mapInit() {
-        this.state = 'map';
-        const map = this.$refs.map as any;
-        if (map) {
-            // Need to set a small delay in order for container to render for Leaflet
-            setTimeout(() => map.renderMap(), 100);
-        }
-    }
+    private tabIndex: number = 0;
 
-    public profileInit() {
-        window.console.log(`profileInit()`);
-        this.state = 'profile';
-        const profile = this.$refs.profile as Profile;
-        if (profile) {
-            setTimeout(async () => await profile.initialize(), 10);
-        }
-    }
+    private tabIndexByState: { [id: string]: number; } = {
+        tree: 0,
+        profile: 1,
+        map: 2,
+    };
 
     protected async mounted() {
       window.console.log('Family.vue mounted() call');
@@ -92,13 +77,49 @@ export default class Family extends Vue {
       document.body.scrollTop = document.documentElement.scrollTop = 0;
     }
 
+    private route(state: string) {
+        this.$router.push(`/family/${state}/`);
+        this.state = state;
+    }
+
+    @Watch('state')
+    private onStateChange() {
+        window.console.log('Family.onStateChange()');
+
+        if (store.state.people.length > 0) {
+            switch (this.state) {
+                case 'tree':
+                    const tree = this.$refs.tree as FamilyTree;
+                    this.$nextTick(() => tree.initializeTree());
+                    break;
+                case 'map':
+                    const map = this.$refs.map as any;
+                    this.$nextTick(() => map.renderMap());
+                    break;
+                case 'profile':
+                    const profile = this.$refs.profile as Profile;
+                    this.$nextTick(async () => await profile.initialize());
+                    break;
+            }
+        }
+    }
+
     private async initialize() {
+        window.console.log('Family.initialize()');
 
         try {
+
+            if (this.urlState) {
+                const tabIndex = this.tabIndexByState[this.urlState];
+                this.tabIndex = tabIndex;
+            }
+
             // Load jwt from cookie and login
             await store.dispatch('restoreSession');
 
-            await this.LoadData();
+            if (store.state.people.length === 0) {
+                await this.LoadData();
+            }
 
             if (this.$route.query.person_id) {
                 const personId = this.$route.query.person_id as string;
@@ -111,18 +132,14 @@ export default class Family extends Vue {
                 }
              }
 
-            switch (this.state) {
-                    case 'tree':
-                        const tree = this.$refs.tree as FamilyTree;
-                        tree.initializeTree();
-                        break;
-                    case 'map':
-                        const map = this.$refs.map as any;
-                        map.renderMap();
-                        break;
-                    case 'details':
-                        break;
+            window.console.log(`this.urlState: ${this.urlState}`);
+
+            if (this.urlState) {
+                this.state = this.urlState;
+            } else {
+                this.state = 'tree';
             }
+
         } catch (ex) {
             window.console.log(`ex: ${ex}`);
             this.$router.push(`/accounts/login/?next=${this.$router.currentRoute.fullPath}`);

@@ -88,6 +88,10 @@ export default new Vuex.Store({
         if (i18n.locale !== state.language) {
             i18n.locale = state.language;
         }
+
+        // Clear data
+        state.people = [];
+        state.relations = [];
     },
 
     logout(state) {

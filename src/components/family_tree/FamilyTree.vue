@@ -69,7 +69,7 @@ export default class FamilyTree extends Vue {
     }
 
     public initializeTree() {
-      window.console.log(`initializeTree()`);
+      window.console.log(`FamilyTree.initializeTree()`);
 
       const canvas = document.getElementById('tree-canvas') as HTMLCanvasElement;
 
@@ -78,7 +78,7 @@ export default class FamilyTree extends Vue {
       if (computedStyle.display !== 'none') {
         this.setCanvasSize();
 
-        if (this.people && this.relations) {
+        if (this.people && this.relations && this.people.length > 0) {
 
           const tree = new Tree(canvas, this.people, this.relations);
           (Scroller as any).initialize(canvas, tree);

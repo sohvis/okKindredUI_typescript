@@ -21,9 +21,10 @@ Vue.use(Router);
 export default new Router({
   routes: [
     {
-      path: '/family/', // /:person_id/:state/
+      path: '/family/:urlState/', // /:person_id/:state/
       name: 'Family',
       component: Family,
+      props: true,
     },
     {
       path: '/',

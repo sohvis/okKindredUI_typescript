@@ -42,7 +42,7 @@ export default class ProfileGalleryButton extends Vue {
 
     // Check if any pending email invites
     const options = {
-        uri: `${configs.BaseApiUrl}${configs.ImageAPI}/?person_id=${this.personId}`,
+        uri: `${configs.BaseApiUrl}${configs.ImageAPI}?person_id=${this.personId}`,
         headers: store.getters.ajaxHeader,
         json: true,
     };

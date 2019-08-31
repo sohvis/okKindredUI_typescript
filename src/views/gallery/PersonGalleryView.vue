@@ -1,13 +1,6 @@
 <template>
     <div class="container" id="gallery-container">
 
-        <GalleryHeader 
-            ref="galleryHeader"
-            :galleryId="galleryId"
-            :selectedImageIds="selectedImageIds"
-            @editModeChanged="editModeChanged"
-            @imagesDeleted="imagesDeleted" />
-
         <div id="image-container">
             <ImageRow 
                 v-for="row of imageRows" 
@@ -22,8 +15,8 @@
         </div>
         <div v-if="showNoImagesMessage"
             class="no-images-message">
-            {{ $t('message.NoImagesInGallery') }}
-            <a href="#" @click="addImages">{{ $t('message.AddNewImages') }}</a>
+            {{ $t('message.NoImagesOfPerson') }}
+            <router-link to="/gallery/" @click="addImages">{{ $t('message.GoToGalleries') }}</router-link>
         </div>
         <div v-show="totalCount > 1"
             class="overflow-auto">
@@ -34,7 +27,7 @@
                 use-router>
             </b-pagination-nav>
         </div>
-        <PhotoSwipeView ref="photoSwipeView"/>
+        <!-- <PhotoSwipeView ref="photoSwipeView"/> -->
     </div>
 </template>
 
@@ -47,14 +40,12 @@ import PagedResult from '../../models/data/paged_results';
 import Gallery from '../../models/data/gallery';
 import Image from '../../models/data/image';
 import ImageRow from '../../components/gallery/ImageRow.vue';
-import GalleryHeader from '../../components/gallery/GalleryHeader.vue';
 import PhotoSwipeView from '../../components/lightbox/PhotoSwipeView.vue';
 
 
 @Component({
   components: {
       ImageRow,
-      GalleryHeader,
       PhotoSwipeView,
   },
 })
@@ -68,8 +59,9 @@ export default class GalleryView extends Vue {
         }
     }
 
-    @Prop()
-    public galleryId?: number;
+    public get personId(): string {
+        return store.state.person_id;
+    }
 
     public showNoImagesMessage: boolean = false;
 
@@ -80,7 +72,7 @@ export default class GalleryView extends Vue {
     }
 
     public get watchedProps(): string {
-        return `${this.page}|${this.galleryId}`;
+        return `${this.page}|${this.personId}`;
     }
 
     public totalCount: number = 0;
@@ -102,7 +94,7 @@ export default class GalleryView extends Vue {
     }
 
     protected async mounted() {
-        window.console.log('GalleryView.vue mounted() call');
+        window.console.log('PersonGalleryView.vue mounted() call');
 
         try {
             // Load jwt from cookie and login
@@ -117,7 +109,7 @@ export default class GalleryView extends Vue {
     }
 
     private linkGen(pageNum: number) {
-        return `/gallery/${this.galleryId}/?page=${pageNum}`;
+        return `/gallery/?person_id=${this.personId}&page=${pageNum}`;
     }
 
     @Watch('watchedProps')
@@ -131,9 +123,7 @@ export default class GalleryView extends Vue {
         try {
 
             const imageTask = this.loadImageData();
-            const headerTask = (this.$refs.galleryHeader as GalleryHeader).loadGalleryData();
             await imageTask;
-            await headerTask;
 
             if (this.images.length === 0) {
                 this.showNoImagesMessage = true;
@@ -152,7 +142,7 @@ export default class GalleryView extends Vue {
 
         try {
             const options = {
-                uri: `${config.BaseApiUrl}${config.ImageAPI}?page=${this.page}&gallery_id=${this.galleryId}`,
+                uri: `${config.BaseApiUrl}${config.ImageAPI}?person_id=${this.personId}&page=${this.page}`,
                 headers: store.getters.ajaxHeader,
                 json: true,
             };
@@ -220,11 +210,6 @@ export default class GalleryView extends Vue {
         this.imageRows = imageRows;
     }
 
-    private addImages() {
-        const header = this.$refs.galleryHeader as GalleryHeader;
-        const route = `/gallery/${this.galleryId}/upload/?page=${this.page}&title=${header.title}`;
-        this.$router.push(route);
-    }
 
     private editModeChanged(editMode: boolean) {
         this.editMode = editMode;
@@ -255,16 +240,16 @@ export default class GalleryView extends Vue {
     private async imageClick(imageId: number, rowIndex: number) {
         window.console.log(`GalleryView.imageClick(imageId: ${imageId}, rowIndex: ${rowIndex}`);
 
-        if (this.galleryId) {
-            const index = this.images.findIndex((item) => item.id === imageId);
+        // if (this.galleryId) {
+        //     const index = this.images.findIndex((item) => item.id === imageId);
 
-            await (this.$refs.photoSwipeView as PhotoSwipeView).init(
-                    this.images,
-                    index,
-                    this.page,
-                    this.totalCount,
-                    this.galleryId);
-        }
+        //     await (this.$refs.photoSwipeView as PhotoSwipeView).init(
+        //             this.images,
+        //             index,
+        //             this.page,
+        //             this.totalCount,
+        //             this.galleryId);
+        // }
     }
 }
 </script>
@@ -281,4 +266,5 @@ export default class GalleryView extends Vue {
     margin-bottom: 40px;
     text-align: center;
 }
+
 </style>
