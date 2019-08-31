@@ -348,5 +348,10 @@ export const polish = {
       UploadFinished: `Przesyłanie zakończone`,
       AllUploadsSuccessful: `Pomyślne przesłanie wszystkich plików`,
       XSuccessfulYFailed: `Pomyślnie przesłano {success} zdjęć, {fail} nie powiodło się`,
+
+      // Person Gallery
+      ImagesOfX: `Images of {name}`,
+      NoImagesOfPerson: `No images of {name} have been tagged yet.`,
+      GoToGalleries: `Go to galleries`,
     },
 };

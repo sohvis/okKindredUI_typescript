@@ -319,5 +319,10 @@ export const simplifiedChinese = {
       UploadFinished: `上传完成`,
       AllUploadsSuccessful: `所有上传成功`,
       XSuccessfulYFailed: `{success}图片上传成功，{fail}失败`,
+
+      // Person Gallery
+      ImagesOfX: `Images of {name}`,
+      NoImagesOfPerson: `No images of {name} have been tagged yet.`,
+      GoToGalleries: `Go to galleries`,
     },
 };

@@ -1,5 +1,27 @@
 <template>
     <div class="container" id="gallery-container">
+        <div class="controls-container">
+            <!--Back link-->
+            <p>
+                <router-link
+                    to="/family/">
+                    {{ $t('message.Family') }}
+                </router-link>
+                /
+                <router-link
+                    to="/family/profile/">
+                    {{ $t('message.Profile') }}
+                </router-link>
+                / {{ $t('message.ImagesOfX', { 'name': personName }) }}
+            </p>
+            
+            <!-- Title and description -->
+            <div class="title-description">
+                <h2>
+                    <span> {{ $t('message.ImagesOfX', { 'name': personName }) }}</span>
+                </h2>
+            </div>
+        </div>
 
         <div id="image-container">
             <ImageRow 
@@ -15,7 +37,7 @@
         </div>
         <div v-if="showNoImagesMessage"
             class="no-images-message">
-            {{ $t('message.NoImagesOfPerson') }}
+            {{ $t('message.NoImagesOfPerson', { 'name': personName }) }}
             <router-link to="/gallery/" @click="addImages">{{ $t('message.GoToGalleries') }}</router-link>
         </div>
         <div v-show="totalCount > 1"
@@ -38,9 +60,10 @@ import store from '../../store/store';
 import config from '../../config';
 import PagedResult from '../../models/data/paged_results';
 import Gallery from '../../models/data/gallery';
+import Person from '../../models/data/person';
 import Image from '../../models/data/image';
 import ImageRow from '../../components/gallery/ImageRow.vue';
-import PhotoSwipeView from '../../components/lightbox/PhotoSwipeView.vue';
+import PhotoSwipeView from '../../components/lightbox/PhotoSwipeGalleryView.vue';
 
 
 @Component({
@@ -63,6 +86,7 @@ export default class GalleryView extends Vue {
         return store.state.person_id;
     }
 
+    public personName: string = '';
     public showNoImagesMessage: boolean = false;
 
     public editMode: boolean = false;
@@ -97,8 +121,15 @@ export default class GalleryView extends Vue {
         window.console.log('PersonGalleryView.vue mounted() call');
 
         try {
-            // Load jwt from cookie and login
-            await store.dispatch('restoreSession');
+            window.console.log(`selectedPerson`);
+            const selectedPerson = store.getters.selectedPerson as Person;
+            window.console.log(selectedPerson);
+            if(selectedPerson) {
+                this.personName = selectedPerson.name;
+            } else {
+                this.$router.push(`/family/profile/`);
+            }
+
             await this.loadData();
 
             window.addEventListener('resize', this.setDisplaySizes);
@@ -267,4 +298,12 @@ export default class GalleryView extends Vue {
     text-align: center;
 }
 
+.controls-container {
+    position: relative;
+}
+
+
+.title-description {
+    margin-right: 50px;
+}
 </style>

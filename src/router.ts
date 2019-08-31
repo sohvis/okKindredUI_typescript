@@ -14,6 +14,7 @@ import NewProfilePhoto from './views/NewProfilePhoto.vue';
 import GalleryList from './views/gallery/GalleryList.vue';
 import GalleryView from './views/gallery/GalleryView.vue';
 import UploadImages from './views/gallery/UploadImages.vue';
+import PersonGalleryView from './views/gallery/PersonGalleryView.vue';
 
 
 Vue.use(Router);
@@ -21,9 +22,20 @@ Vue.use(Router);
 export default new Router({
   routes: [
     {
-      path: '/family/:urlState/', // /:person_id/:state/
+      path: '/family/', // ?person_id=...
       name: 'Family',
       component: Family,
+    },
+    {
+      path: '/family/:urlState/', // ?person_id=...
+      name: 'FamilyState',
+      component: Family,
+      props: true,
+    },
+    {
+      path: '/family/profile/gallery/', // ?person_id=...
+      name: 'PersonGalleryView',
+      component: PersonGalleryView,
       props: true,
     },
     {
@@ -68,7 +80,7 @@ export default new Router({
     },
     {
       path: '/accounts/sign_up_confirmation=:confirmationToken/',
-      name: 'SignUpConfirmation',
+      name: 'SignUpConfirmationOld',
       component: SignUpConfirmation,
       props: true,
     },

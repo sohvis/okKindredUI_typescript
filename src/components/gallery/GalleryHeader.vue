@@ -152,20 +152,6 @@ export default class GalleryHeader extends Vue {
     position: relative;
 }
 
-
-.add-images-button{
-    float: right;
-    border-radius: 50%;
-    padding-top: 17px;
-    padding-bottom: 15px;
-    padding-left: 14px;
-    padding-right: 14px;
-    font-size: 1.2em;
-    margin-right:3px;
-    box-shadow: 1px 1px 2px black;
-    margin-bottom: 3px;
-}
-
 .title-description {
     margin-right: 50px;
 }

@@ -48,7 +48,7 @@ import Gallery from '../../models/data/gallery';
 import Image from '../../models/data/image';
 import ImageRow from '../../components/gallery/ImageRow.vue';
 import GalleryHeader from '../../components/gallery/GalleryHeader.vue';
-import PhotoSwipeView from '../../components/lightbox/PhotoSwipeView.vue';
+import PhotoSwipeView from '../../components/lightbox/PhotoSwipeGalleryView.vue';
 
 
 @Component({
@@ -258,7 +258,7 @@ export default class GalleryView extends Vue {
         if (this.galleryId) {
             const index = this.images.findIndex((item) => item.id === imageId);
 
-            await (this.$refs.photoSwipeView as PhotoSwipeView).init(
+            await (this.$refs.photoSwipeView as PhotoSwipeView).initialize(
                     this.images,
                     index,
                     this.page,

@@ -282,5 +282,9 @@ export const english = {
       UploadFinished: `Upload Finished`,
       AllUploadsSuccessful: `All Uploads Successful`,
       XSuccessfulYFailed: `{success} images uploaded successfully, {fail} failed`,
+
+      // Person Gallery
+      ImagesOfX: `Images of {name}`,
+      NoImagesOfPerson: `No images of `
     },
 };

@@ -54,7 +54,8 @@ export default new Vuex.Store({
     },
 
     selectedPerson: (state): Person | null => {
-
+        window.console.log(`store.selectedPerson(state)`);
+        window.console.log(`state.person_id: ${state.person_id}`);
         for (const person of state.people) {
             if (Number(state.person_id) === Number(person.id)) {
                 return person;
@@ -88,10 +89,6 @@ export default new Vuex.Store({
         if (i18n.locale !== state.language) {
             i18n.locale = state.language;
         }
-
-        // Clear data
-        state.people = [];
-        state.relations = [];
     },
 
     logout(state) {
@@ -100,6 +97,10 @@ export default new Vuex.Store({
         state.logged_in = false;
         state.person_id = '0';
         state.users_person_id = '0';
+
+        // Clear data
+        state.people = [];
+        state.relations = [];
     },
 
     changeLanguage(state, newLanguage: string) {

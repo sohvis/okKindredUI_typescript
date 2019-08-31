@@ -112,6 +112,9 @@ export default class Family extends Vue {
             if (this.urlState) {
                 const tabIndex = this.tabIndexByState[this.urlState];
                 this.tabIndex = tabIndex;
+            } else {
+                this.$router.push(`/family/tree/`);
+                this.state = 'tree';
             }
 
             // Load jwt from cookie and login

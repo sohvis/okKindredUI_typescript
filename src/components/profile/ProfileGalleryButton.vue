@@ -1,5 +1,6 @@
 <template>
-    <b-button class="btn-profile" variant="primary" v-if="displayButton">
+    <b-button class="btn-profile" variant="primary" 
+        v-if="displayButton" @click="click">
       <span class="oi oi-image" aria-hidden="true"></span>
       {{ $t('message.Photos') }}
     </b-button>
@@ -56,6 +57,10 @@ export default class ProfileGalleryButton extends Vue {
         return false;
     }
 
+  }
+
+  private click() {
+    this.$router.push(`/family/profile/gallery/`);
   }
 }
 </script>

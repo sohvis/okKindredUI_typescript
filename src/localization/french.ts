@@ -338,5 +338,10 @@ export const french = {
       UploadFinished: `Téléchargement Terminé`,
       AllUploadsSuccessful: `Tous les Téléchargements Réussis`,
       XSuccessfulYFailed: `{success} image(s) téléchargée(s) avec succès, {fail} échoué(s)`,
+
+      // Person Gallery
+      ImagesOfX: `Images of {name}`,
+      NoImagesOfPerson: `No images of {name} have been tagged yet.`,
+      GoToGalleries: `Go to galleries`,
     },
 };

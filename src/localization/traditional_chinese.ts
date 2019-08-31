@@ -316,5 +316,10 @@ export const traditionalChinese = {
       UploadFinished: `上傳完成`,
       AllUploadsSuccessful: `所有上傳成功`,
       XSuccessfulYFailed: `{success}圖片上傳成功，{fail}失敗`,
+
+      // Person Gallery
+      ImagesOfX: `Images of {name}`,
+      NoImagesOfPerson: `No images of {name} have been tagged yet.`,
+      GoToGalleries: `Go to galleries`,
     },
 };
