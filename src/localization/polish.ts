@@ -350,8 +350,8 @@ export const polish = {
       XSuccessfulYFailed: `Pomyślnie przesłano {success} zdjęć, {fail} nie powiodło się`,
 
       // Person Gallery
-      ImagesOfX: `Images of {name}`,
-      NoImagesOfPerson: `No images of {name} have been tagged yet.`,
-      GoToGalleries: `Go to galleries`,
+      ImagesOfX: `Obrazy {name}`,
+      NoImagesOfPerson: `Żadne obrazy {name} nie zostały jeszcze oznaczone.`,
+      GoToGalleries: `Idź do galerii`,
     },
 };

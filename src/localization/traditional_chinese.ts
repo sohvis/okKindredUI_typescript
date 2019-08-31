@@ -318,8 +318,8 @@ export const traditionalChinese = {
       XSuccessfulYFailed: `{success}圖片上傳成功，{fail}失敗`,
 
       // Person Gallery
-      ImagesOfX: `Images of {name}`,
-      NoImagesOfPerson: `No images of {name} have been tagged yet.`,
-      GoToGalleries: `Go to galleries`,
+      ImagesOfX: `{name}的圖片`,
+      NoImagesOfPerson: `還沒有標記{name}的圖片。`,
+      GoToGalleries: `去畫廊`,
     },
 };

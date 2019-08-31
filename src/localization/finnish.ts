@@ -280,5 +280,10 @@ export const finnish = {
       UploadFinished: `Lataa Valmis`,
       AllUploadsSuccessful: `Kaikki Lataukset Onnistuneet`,
       XSuccessfulYFailed: `{success} kuvat ladattu onnistuneesti, {fail} epäonnistui`,
+
+      // Person Gallery
+      ImagesOfX: `Kuvia henkilöstä {name}`,
+      NoImagesOfPerson: `{name} -kuvaa ei ole vielä merkitty.`,
+      GoToGalleries: `Siirry gallerioihin`,
     },
 };

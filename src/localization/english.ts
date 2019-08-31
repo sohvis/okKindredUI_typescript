@@ -285,6 +285,7 @@ export const english = {
 
       // Person Gallery
       ImagesOfX: `Images of {name}`,
-      NoImagesOfPerson: `No images of `
+      NoImagesOfPerson: `No images of {name} have been tagged yet.`,
+      GoToGalleries: `Go to galleries`,
     },
 };

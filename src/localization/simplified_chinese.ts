@@ -321,8 +321,8 @@ export const simplifiedChinese = {
       XSuccessfulYFailed: `{success}图片上传成功，{fail}失败`,
 
       // Person Gallery
-      ImagesOfX: `Images of {name}`,
-      NoImagesOfPerson: `No images of {name} have been tagged yet.`,
-      GoToGalleries: `Go to galleries`,
+      ImagesOfX: `{name}的图片`,
+      NoImagesOfPerson: `还没有标记{name}的图片。`,
+      GoToGalleries: `去画廊`,
     },
 };

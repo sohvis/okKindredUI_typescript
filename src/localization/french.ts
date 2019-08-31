@@ -340,8 +340,8 @@ export const french = {
       XSuccessfulYFailed: `{success} image(s) téléchargée(s) avec succès, {fail} échoué(s)`,
 
       // Person Gallery
-      ImagesOfX: `Images of {name}`,
-      NoImagesOfPerson: `No images of {name} have been tagged yet.`,
-      GoToGalleries: `Go to galleries`,
+      ImagesOfX: `Images de {name}`,
+      NoImagesOfPerson: `Aucune image de {name} n'a encore été taguée.`,
+      GoToGalleries: `Aller aux galeries`,
     },
 };
