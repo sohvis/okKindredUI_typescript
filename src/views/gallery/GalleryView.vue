@@ -255,9 +255,16 @@ export default class GalleryView extends Vue {
     private async imageClick(imageId: number, rowIndex: number) {
         window.console.log(`GalleryView.imageClick(imageId: ${imageId}, rowIndex: ${rowIndex}`);
 
-        const index = this.images.findIndex((item) => item.id === imageId);
+        if (this.galleryId) {
+            const index = this.images.findIndex((item) => item.id === imageId);
 
-        await (this.$refs.photoSwipeView as PhotoSwipeView).init(this.images, index, this.page, this.totalCount);
+            await (this.$refs.photoSwipeView as PhotoSwipeView).init(
+                    this.images,
+                    index,
+                    this.page,
+                    this.totalCount,
+                    this.galleryId);
+        }
     }
 }
 </script>

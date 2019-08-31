@@ -4,8 +4,26 @@
             {{ $t('message.UploadingImagePleaseWait') }}
         </p>
 
-        <b-progress :value="progress" :max="100" height="2rem" show-progress animated></b-progress>
-
+        <b-progress :value="progress" :max="100" height="2rem" show-progress animated :variant="variant"></b-progress>
+        <div  class="pending" v-if="state==='pending'">
+            {{ $t('message.Pending') }}
+        </div>
+        <div class="uploading" v-if="state==='uploading'">
+            {{ $t('message.Uploading') }}
+        </div>
+        <div class="processing" v-if="state==='processing'">
+            <span class="spinner-border spinner-border-sm" role="status">
+            </span>
+            {{ $t('message.Processing') }}
+        </div>
+        <div class="done" v-if="state==='done'">
+            <span class="oi oi-check"></span>
+            {{ $t('message.Done') }}
+        </div>
+        <div class="failed" v-if="state==='failed'">
+            <span class="oi oi-x"></span>
+            {{ $t('message.Failed') }}
+        </div>
     </div>
 </template>
 
@@ -28,11 +46,28 @@ export default class ImageUpload extends Vue {
 
     private req: XMLHttpRequest = new XMLHttpRequest();
 
+    private state: string = `uploading`;
+
+    public get variant(): string {
+
+        switch (this.state) {
+            case 'failed':
+                return 'danger';
+            case 'processing':
+                return 'warning';
+            case 'done':
+                return 'success';
+            default:
+                return 'default';
+        }
+    }
+
     public upload(data: CropArgs) {
         window.console.log('ImageUpload.upload()');
         store.commit('updateLoading', true);
 
-        this.progress = 1;
+        this.state = 'uploading';
+        this.progress = 0;
         this.fileSize = data.file.size;
 
         this.req = new XMLHttpRequest();
@@ -63,7 +98,11 @@ export default class ImageUpload extends Vue {
         window.console.log('ImageUpload.updateProgress()');
 
         // Start at 3 and end at 98 to allow for processing time
-        this.progress = Math.min(98, 1 + progress.loaded / this.fileSize * 97);
+        this.progress = Math.min(100, progress.loaded / this.fileSize * 100);
+
+        if (this.progress > 99) {
+            this.state = 'processing';
+        }
     }
 
     private onLoad(e: any) {
@@ -97,4 +136,23 @@ export default class ImageUpload extends Vue {
 </script>
 
 <style scoped>
+.done {
+    color: green;
+}
+
+.failed {
+    color: red;
+}
+
+.uploading {
+    color: navy;
+}
+
+.processing {
+    color: darkorange;
+}
+
+.pending {
+    color: #777;
+}
 </style>

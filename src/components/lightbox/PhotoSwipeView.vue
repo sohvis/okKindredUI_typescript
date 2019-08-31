@@ -23,8 +23,7 @@
 
             <div class="pswp__top-bar">
 
-                <!--  Controls are self-explanatory. Order can be changed. -->
-
+                <!--  Controls -->
                 <div v-show="!loadingMore" class="pswp__counter"></div>
                 <div v-show="loadingMore" class="loading-more">
                     <span class="spinner-border spinner-border-sm" role="status">
@@ -37,9 +36,9 @@
                     @click="download">
                 </button>
 
+                <!-- fullscreen -->
                 <button class="pswp__button pswp__button--fs"></button>
 
-                <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
                 <!-- element will get class pswp__preloader--active when preloader is running -->
                 <div class="pswp__preloader">
                     <div class="pswp__preloader__icn">
@@ -57,7 +56,11 @@
             </button>
 
             <div class="pswp__caption">
-                <div class="pswp__caption__center"></div>
+                <!-- <div class="pswp__caption__center"></div> -->
+                <div class="caption-center">
+                    <h4>{{ title }}</h4>
+                    <p>{{ description }}</p>
+                </div>
             </div>
 
         </div>
@@ -83,6 +86,7 @@ import PhotoSwipeUI_Default from 'photoswipe/dist/photoswipe-ui-default';
 import Image from '../../models/data/image';
 import PhotoSwipeItem from '../../models/data/photoswipe_item';
 import PhotoSwipeOptions from '../../models/data/photoswipe_options';
+import PagedResult from '../../models/data/paged_results';
 
 
 @Component({
@@ -95,12 +99,38 @@ export default class PhotoSwipeView extends Vue {
 
     public currentItem?: PhotoSwipeItem;
 
+    public get title() {
+        if (this.currentItem) {
+            return this.currentItem.image.title;
+        } else {
+            return '';
+        }
+    }
+
+    public get description() {
+        if (this.currentItem) {
+            return this.currentItem.image.description;
+        } else {
+            return '';
+        }
+    }
+
+    public galleryId?: number;
+
     public loadingMore: boolean = false;
 
-    public async init(images: Image[], selectedIndex: number, page: number, totalItems: number) {
-        window.console.log(`PhotoSwipeView.init(selectedIndex: ${selectedIndex}, 
-            page: ${page}, totalItems: ${totalItems})`);
+    public async init(
+            images: Image[],
+            selectedIndex: number,
+            currentPage: number,
+            totalItems: number,
+            galleryId: number) {
+
+        window.console.log(`PhotoSwipeView.init(selectedIndex: ${selectedIndex},
+            currentPage: ${currentPage}, totalItems: ${totalItems})`);
         window.console.log(images);
+
+        this.galleryId = galleryId;
 
         const pswpElement = document.querySelectorAll('.pswp')[0] as HTMLElement;
 
@@ -125,12 +155,61 @@ export default class PhotoSwipeView extends Vue {
 
         this.photoswipe.listen('afterChange', this.afterChange);
 
-        await this.loadMoreImages(page, totalItems);
+        // load in images from other pages
+        await this.loadMoreImages(currentPage, totalItems);
     }
 
-    private async loadMoreImages(page: number, totalItems: number) {
-        this.loadingMore = true;
-        const totalPages = Math.max(1, Math.ceil(totalItems / config.PaginationPageSize));
+    private async loadMoreImages(currentPage: number, totalItems: number) {
+
+        try {
+
+            if (this.photoswipe) {
+                this.loadingMore = true;
+                const totalPages = Math.max(1, Math.ceil(totalItems / config.PaginationPageSize));
+
+                const tasks = new Array<Promise<Image[]>>();
+                for (let pageNo = currentPage; pageNo <= totalPages; pageNo++) {
+                    tasks.push(this.loadImageFromPage(pageNo));
+                }
+
+                for (let pageNo = 1; pageNo < currentPage; pageNo++) {
+                    tasks.push(this.loadImageFromPage(pageNo));
+                }
+
+                const imageLists = await Promise.all(tasks);
+
+                for (const imageList of imageLists) {
+                    for (const image of imageList) {
+                        const item = new PhotoSwipeItem(image);
+                        this.photoswipe.items.push(item);
+                    }
+                }
+
+                // sets a flag that slides should be updated
+                this.photoswipe.invalidateCurrItems();
+                // updates the content of slides
+                this.photoswipe.updateSize(true);
+
+            }
+
+        } catch (ex) {
+            store.commit('setErrorMessage', ex);
+        }
+
+        this.loadingMore = false;
+    }
+
+    private async loadImageFromPage(pageNo: number): Promise<Image[]> {
+        const options = {
+            uri: `${config.BaseApiUrl}${config.ImageAPI}?page=${pageNo}&gallery_id=${this.galleryId}`,
+            headers: store.getters.ajaxHeader,
+            json: true,
+        };
+
+        const response = await request.get(options) as PagedResult<Image>;
+        const images = response.results as Image[];
+
+        return images;
     }
 
     private afterChange() {
@@ -140,7 +219,7 @@ export default class PhotoSwipeView extends Vue {
     }
 
     private download() {
-        window.console.log(`PhotoSwipeView.download()`)
+        window.console.log(`PhotoSwipeView.download()`);
         if (this.photoswipe) {
             const link = (this.photoswipe.currItem as PhotoSwipeItem).image.original_image;
             window.open(link, `_blank`);
@@ -167,5 +246,15 @@ export default class PhotoSwipeView extends Vue {
     color: #FFF;
     opacity: 0.75;
     padding: 0 10px;
+}
+
+.caption-center {
+    text-align: left;
+    max-width: 420px;
+    margin: 0 auto;
+    font-size: 13px;
+    padding: 10px;
+    line-height: 20px;
+    color: #CCC;
 }
 </style>
