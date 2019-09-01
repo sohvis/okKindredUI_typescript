@@ -56,10 +56,9 @@
             </button>
 
             <div class="pswp__caption">
-                <!-- <div class="pswp__caption__center"></div> -->
+                <div class="pswp__caption__center"></div>
                 <div class="caption-center">
-                    <h4>{{ title }}</h4>
-                    <p>{{ description }}</p>
+                    {{ description }}
                 </div>
             </div>
 
@@ -137,10 +136,19 @@ export default class PhotoSwipeGalleryView extends PhotoSwipeViewBase {
 .caption-center {
     text-align: left;
     max-width: 420px;
-    margin: 0 auto;
+    margin-top: -10px;
+    margin-right: auto;
+    margin-left: auto;
     font-size: 13px;
-    padding: 10px;
+    padding-top: 0px;
+    padding-left: 10px;
+    padding-right: 10px;
     line-height: 20px;
     color: #CCC;
+    font-size: 0.7em;
+}
+
+.pswp__caption__center {
+    font-weight: bold;
 }
 </style>

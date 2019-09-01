@@ -56,10 +56,12 @@
             </button>
 
             <div class="pswp__caption">
-                <!-- <div class="pswp__caption__center"></div> -->
+                <div class="pswp__caption__center"></div>
                 <div class="caption-center">
-                    <h4>{{ title }}</h4>
-                    <p>{{ description }}</p>
+                    {{ description }} 
+                    <router-link class="go-to-gallery" :to="`/gallery/${galleryId}/`">
+                        {{ $t('message.GoToGallery') }} >>
+                    </router-link>
                 </div>
             </div>
 
@@ -94,6 +96,14 @@ import PagedResult from '../../models/data/paged_results';
 export default class PhotoSwipeGalleryView extends PhotoSwipeViewBase {
 
     public personId: string = '0';
+
+    public get galleryId(): number | null {
+        if (this.currentItem) {
+            return this.currentItem.image.gallery_id;
+        }
+
+        return null;
+    }
 
     public async initialize(
         images: Image[],
@@ -137,10 +147,24 @@ export default class PhotoSwipeGalleryView extends PhotoSwipeViewBase {
 .caption-center {
     text-align: left;
     max-width: 420px;
-    margin: 0 auto;
+    margin-top: -10px;
+    margin-right: auto;
+    margin-left: auto;
     font-size: 13px;
-    padding: 10px;
+    padding-top: 0px;
+    padding-left: 10px;
+    padding-right: 10px;
     line-height: 20px;
     color: #CCC;
+    font-size: 0.7em;
+}
+
+.go-to-gallery{ 
+    color: #CCC;
+    text-decoration: underline;
+}
+
+.pswp__caption__center {
+    font-weight: bold;
 }
 </style>

@@ -64,6 +64,7 @@ export default abstract class PhotoSwipeView extends Vue {
         // define options (if needed)
         const options = new PhotoSwipeOptions();
         options.index = selectedIndex;
+        options.scaleMode = 'fit';
 
         // Initializes and opens PhotoSwipe
         this.photoswipe = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
