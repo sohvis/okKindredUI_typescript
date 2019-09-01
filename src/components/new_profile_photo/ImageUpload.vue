@@ -71,6 +71,7 @@ export default class ImageUpload extends Vue {
         this.fileSize = data.file.size;
 
         this.req = new XMLHttpRequest();
+        this.req.responseType = 'json';
         const formData = new FormData();
 
         formData.append('picture', data.file);
@@ -112,7 +113,9 @@ export default class ImageUpload extends Vue {
             window.console.log('ImageUpload TransferDone');
             this.progress = 100;
 
-            store.dispatch('updatePerson', this.req.response);
+            const updatedPerson =  this.req.response as Person;
+
+            store.dispatch('updatePerson', updatedPerson);
             store.commit('updateLoading', false);
 
             this.$emit('done');

@@ -49,7 +49,7 @@
                 use-router>
             </b-pagination-nav>
         </div>
-        <!-- <PhotoSwipeView ref="photoSwipeView"/> -->
+        <PhotoSwipeView ref="photoSwipeView"/>
     </div>
 </template>
 
@@ -63,7 +63,7 @@ import Gallery from '../../models/data/gallery';
 import Person from '../../models/data/person';
 import Image from '../../models/data/image';
 import ImageRow from '../../components/gallery/ImageRow.vue';
-import PhotoSwipeView from '../../components/lightbox/PhotoSwipeGalleryView.vue';
+import PhotoSwipeView from '../../components/lightbox/PhotoSwipePersonView.vue';
 
 
 @Component({
@@ -121,10 +121,12 @@ export default class GalleryView extends Vue {
         window.console.log('PersonGalleryView.vue mounted() call');
 
         try {
-            window.console.log(`selectedPerson`);
+            // Load jwt from cookie and login
+            await store.dispatch('restoreSession');
+
             const selectedPerson = store.getters.selectedPerson as Person;
-            window.console.log(selectedPerson);
-            if(selectedPerson) {
+
+            if (selectedPerson) {
                 this.personName = selectedPerson.name;
             } else {
                 this.$router.push(`/family/profile/`);
@@ -140,7 +142,7 @@ export default class GalleryView extends Vue {
     }
 
     private linkGen(pageNum: number) {
-        return `/gallery/?person_id=${this.personId}&page=${pageNum}`;
+        return `/family/profile/gallery/?person_id=${this.personId}&page=${pageNum}`;
     }
 
     @Watch('watchedProps')
@@ -269,18 +271,17 @@ export default class GalleryView extends Vue {
     }
 
     private async imageClick(imageId: number, rowIndex: number) {
-        window.console.log(`GalleryView.imageClick(imageId: ${imageId}, rowIndex: ${rowIndex}`);
+        window.console.log(`PersonGalleryView.imageClick(imageId: ${imageId}, rowIndex: ${rowIndex}`);
 
-        // if (this.galleryId) {
-        //     const index = this.images.findIndex((item) => item.id === imageId);
+        const index = this.images.findIndex((item) => item.id === imageId);
 
-        //     await (this.$refs.photoSwipeView as PhotoSwipeView).init(
-        //             this.images,
-        //             index,
-        //             this.page,
-        //             this.totalCount,
-        //             this.galleryId);
-        // }
+        await (this.$refs.photoSwipeView as PhotoSwipeView).initialize(
+                this.images,
+                index,
+                this.page,
+                this.totalCount,
+                this.personId);
+
     }
 }
 </script>

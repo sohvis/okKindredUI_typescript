@@ -160,7 +160,7 @@ export default new Vuex.Store({
 
     updatePerson(state, person: Person) {
         for (let i = 0; i < state.people.length; i++) {
-            if (state.people[i].id === person.id) {
+            if (Number(state.people[i].id) === Number(person.id)) {
                 state.people[i] = person;
             }
         }
@@ -458,6 +458,8 @@ export default new Vuex.Store({
     },
 
     updatePerson(context, person: Person) {
+        window.console.log(`updatePerson() action called person:`);
+        window.console.log(person);
         context.commit('updatePerson', person);
     },
   },

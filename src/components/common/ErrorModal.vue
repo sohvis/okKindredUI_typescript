@@ -48,13 +48,19 @@ export default class ErrorModal extends Vue {
     return store.state.error_message;
   }
 
-  get showStandardError() {
+  get showStandardError(): boolean {
     if (store.state.error_message
         && this.specialErrors.indexOf(store.state.error_message) < 0) {
       return store.state.error_message.length > 0;
     }
 
     return false;
+  }
+
+  set showStandardError(value: boolean) {
+    if (!value) {
+      store.commit('setErrorMessage', '');
+    }
   }
 
   get showPasswordBreach() {

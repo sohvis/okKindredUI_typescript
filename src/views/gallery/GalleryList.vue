@@ -9,7 +9,6 @@
                 ref="galleryListActionButton"
                 :selectedGalleryIds="selectedGalleryIds"
                 @actionButtonClicked="actionButtonClicked" 
-                @galleryCreated="galleryCreated"
                 @galleriesDeleted="galleriesDeleted" />
         </div>
         <div id="gallery-container">
@@ -221,10 +220,6 @@ export default class GalleryList extends Vue {
         window.console.log(this.selectedGalleryIds);
     }
 
-    private async galleryCreated() {
-        await this.loadData();
-    }
-
     private async galleriesDeleted() {
         await this.loadData();
     }
@@ -262,5 +257,11 @@ export default class GalleryList extends Vue {
     overflow: hidden;
     padding-bottom: 15px;
     position: relative;
+}
+
+.no-images-message {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    text-align: center;
 }
 </style>

@@ -119,6 +119,7 @@ export default class ImageUploadStatus extends Vue {
             this.progress = 1;
 
             this.req = new XMLHttpRequest();
+            this.req.responseType = 'json';
             const formData = new FormData();
 
             formData.append('picture', this.file);

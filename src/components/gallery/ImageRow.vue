@@ -26,7 +26,7 @@ import ImageItem from './ImageItem.vue';
 export default class ImageRow extends Vue {
 
     public static DEFAULT_HEIGHT = 200;
-    public static MAX_HEIGHT = 400;
+    public static MAX_HEIGHT = 300;
 
     @Prop({ default: [] })
     public imageRow?: Image[];

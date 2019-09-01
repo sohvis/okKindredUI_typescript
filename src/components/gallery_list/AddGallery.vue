@@ -112,11 +112,13 @@ export default class AddGallery extends Vue {
                 json: true,
             };
 
-            const response = await request.post(options);
+            const response = await request.post(options) as Gallery;
             window.console.log(response);
 
-            this.$emit('galleryCreated', response.person);
+            this.$emit('galleryCreated', response);
             (this.$refs.modal as any).hide();
+
+            this.$router.push(`/gallery/${response.id}/`);
 
         } catch (ex) {
             this.errorMessage = ex.toString();

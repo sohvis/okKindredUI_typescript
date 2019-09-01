@@ -93,23 +93,23 @@ import PagedResult from '../../models/data/paged_results';
 })
 export default class PhotoSwipeGalleryView extends PhotoSwipeViewBase {
 
-    public galleryId: number = 0;
+    public personId: string = '0';
 
     public async initialize(
         images: Image[],
         selectedIndex: number,
         currentPage: number,
         totalItems: number,
-        galleryId: number) {
+        personId: string) {
 
-        this.galleryId = galleryId;
+        this.personId = personId;
 
         await this.init(images, selectedIndex, currentPage, totalItems);
     }
 
 
     protected getApiUrl(pageNo: number): string {
-        return `${config.BaseApiUrl}${config.ImageAPI}?page=${pageNo}&gallery_id=${this.galleryId}`;
+        return `${config.BaseApiUrl}${config.ImageAPI}?page=${pageNo}&person_id=${this.personId}`;
     }
 }
 </script>
