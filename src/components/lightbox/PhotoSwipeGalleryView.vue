@@ -58,7 +58,7 @@
             <div class="pswp__caption">
                 <div class="pswp__caption__center"></div>
                 <div class="caption-center">
-                    {{ description }}
+                    <span id="caption-description"></span>
                 </div>
             </div>
 
@@ -77,38 +77,69 @@ import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 import store from '../../store/store';
 import config from '../../config';
 import * as request from 'request-promise-native';
-import PhotoSwipe from 'photoswipe';
-import PhotoSwipeUI_Default from 'photoswipe/dist/photoswipe-ui-default';
 import Image from '../../models/data/image';
-import PhotoSwipeViewBase from './PhotoSwipeViewBase.vue';
 import PhotoSwipeItem from '../../models/data/photoswipe_item';
-import PhotoSwipeOptions from '../../models/data/photoswipe_options';
-import PagedResult from '../../models/data/paged_results';
+import PhotoSwipeWrapper from '../../models/lightbox/photoswipeWrapper';
 
 
 @Component({
   components: {
   },
 })
-export default class PhotoSwipeGalleryView extends PhotoSwipeViewBase {
+export default class PhotoSwipeGalleryView extends Vue {
 
     public galleryId: number = 0;
 
-    public async initialize(
-        images: Image[],
-        selectedIndex: number,
-        currentPage: number,
-        totalItems: number,
-        galleryId: number) {
+    public photoswipeWrapper: PhotoSwipeWrapper | null = null;
+
+    public loadingMore: boolean = false;
+
+    public async init(
+            images: Image[],
+            selectedIndex: number,
+            currentPage: number,
+            totalItems: number,
+            galleryId: number) {
+
+        window.console.log(`PhotoSwipeView.init(selectedIndex: ${selectedIndex},
+            currentPage: ${currentPage}, totalItems: ${totalItems}, galleryId: ${galleryId})`);
 
         this.galleryId = galleryId;
 
-        await this.init(images, selectedIndex, currentPage, totalItems);
+
+        // Initializes and opens PhotoSwipe
+        this.photoswipeWrapper = new PhotoSwipeWrapper(images, selectedIndex);
+
+        this.photoswipeWrapper.photoswipe.listen('afterChange', this.afterChange);
+
+        const urlPrefix = `${config.BaseApiUrl}${config.ImageAPI}?gallery_id=${this.galleryId}&page=`;
+        const getUrl = (pageNo: number) => { return urlPrefix + pageNo.toString(); }
+
+        // load in images from other pages
+        this.loadingMore = true;
+        await this.photoswipeWrapper.loadImagesFromOtherPages(currentPage, totalItems, getUrl);
+        this.loadingMore = false;
     }
 
 
-    protected getApiUrl(pageNo: number): string {
-        return `${config.BaseApiUrl}${config.ImageAPI}?page=${pageNo}&gallery_id=${this.galleryId}`;
+    protected afterChange() {
+        window.console.log(`PhotoSwipeView.afterChange()`);
+
+        if (this.photoswipeWrapper) {
+
+            // Update stuff vue binding doesn't seeem to work
+            const span = document.getElementById('caption-description') as HTMLSpanElement;
+            const description = (this.photoswipeWrapper.photoswipe.currItem as PhotoSwipeItem).image.description;
+            span.innerHTML = description;
+        }
+    }
+
+    protected download() {
+        window.console.log(`PhotoSwipeView.download()`);
+        if (this.photoswipeWrapper) {
+            const link = (this.photoswipeWrapper.photoswipe.currItem as PhotoSwipeItem).image.original_image;
+            window.open(link, `_blank`);
+        }
     }
 }
 </script>

@@ -321,5 +321,6 @@ export const traditionalChinese = {
       ImagesOfX: `{name}的圖片`,
       NoImagesOfPerson: `還沒有標記{name}的圖片。`,
       GoToGalleries: `去畫廊`,
+      GoToGallery: `去畫廊`,
     },
 };

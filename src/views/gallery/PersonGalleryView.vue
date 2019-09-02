@@ -275,7 +275,7 @@ export default class GalleryView extends Vue {
 
         const index = this.images.findIndex((item) => item.id === imageId);
 
-        await (this.$refs.photoSwipeView as PhotoSwipeView).initialize(
+        await (this.$refs.photoSwipeView as PhotoSwipeView).init(
                 this.images,
                 index,
                 this.page,

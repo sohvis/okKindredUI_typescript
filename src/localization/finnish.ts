@@ -285,5 +285,6 @@ export const finnish = {
       ImagesOfX: `Kuvia henkilöstä {name}`,
       NoImagesOfPerson: `{name} -kuvaa ei ole vielä merkitty.`,
       GoToGalleries: `Siirry gallerioihin`,
+      GoToGallery: `Siirry galleriaan`,
     },
 };

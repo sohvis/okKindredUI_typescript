@@ -342,6 +342,7 @@ export const french = {
       // Person Gallery
       ImagesOfX: `Images de {name}`,
       NoImagesOfPerson: `Aucune image de {name} n'a encore été taguée.`,
-      GoToGalleries: `Aller aux galeries`,
+      GoToGalleries: `Voir galeries`,
+      GoToGallery: `Voir la galerie`,
     },
 };

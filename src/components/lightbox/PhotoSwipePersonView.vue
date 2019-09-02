@@ -58,10 +58,11 @@
             <div class="pswp__caption">
                 <div class="pswp__caption__center"></div>
                 <div class="caption-center">
-                    {{ description }} 
-                    <router-link class="go-to-gallery" :to="`/gallery/${galleryId}/`">
+                    <span id="caption-description"></span>
+                    &nbsp;
+                    <span class="go-to-gallery" @click="goToGallery">
                         {{ $t('message.GoToGallery') }} >>
-                    </router-link>
+                    </span>
                 </div>
             </div>
 
@@ -80,46 +81,75 @@ import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 import store from '../../store/store';
 import config from '../../config';
 import * as request from 'request-promise-native';
-import PhotoSwipe from 'photoswipe';
-import PhotoSwipeUI_Default from 'photoswipe/dist/photoswipe-ui-default';
+
 import Image from '../../models/data/image';
-import PhotoSwipeViewBase from './PhotoSwipeViewBase.vue';
 import PhotoSwipeItem from '../../models/data/photoswipe_item';
 import PhotoSwipeOptions from '../../models/data/photoswipe_options';
 import PagedResult from '../../models/data/paged_results';
-
+import PhotoSwipeWrapper from '../../models/lightbox/photoswipeWrapper';
 
 @Component({
   components: {
   },
 })
-export default class PhotoSwipeGalleryView extends PhotoSwipeViewBase {
+export default class PhotoSwipeGalleryView extends Vue {
 
     public personId: string = '0';
 
-    public get galleryId(): number | null {
-        if (this.currentItem) {
-            return this.currentItem.image.gallery_id;
-        }
+    public photoswipeWrapper?: PhotoSwipeWrapper;
 
-        return null;
-    }
+    public loadingMore: boolean = false;
 
-    public async initialize(
-        images: Image[],
-        selectedIndex: number,
-        currentPage: number,
-        totalItems: number,
-        personId: string) {
+    public async init(
+            images: Image[],
+            selectedIndex: number,
+            currentPage: number,
+            totalItems: number,
+            personId: string) {
+
+        window.console.log(`PhotoSwipeView.init(selectedIndex: ${selectedIndex},
+            currentPage: ${currentPage}, totalItems: ${totalItems}, personId: ${personId})`);
 
         this.personId = personId;
 
-        await this.init(images, selectedIndex, currentPage, totalItems);
+        // Initializes and opens PhotoSwipe
+        this.photoswipeWrapper = new PhotoSwipeWrapper(images, selectedIndex);
+
+        this.photoswipeWrapper.photoswipe.listen('afterChange', this.afterChange);
+
+        const urlPrefix = `${config.BaseApiUrl}${config.ImageAPI}?person_id=${this.personId}&page=`;
+        const getUrl = (pageNo: number) => { return urlPrefix + pageNo.toString(); }
+
+        // load in images from other pages
+        this.loadingMore = true;
+        await this.photoswipeWrapper.loadImagesFromOtherPages(currentPage, totalItems, getUrl);
+        this.loadingMore = false;
     }
 
+    protected afterChange() {
+        window.console.log(`PhotoSwipeView.afterChange()`);
 
-    protected getApiUrl(pageNo: number): string {
-        return `${config.BaseApiUrl}${config.ImageAPI}?page=${pageNo}&person_id=${this.personId}`;
+        if (this.photoswipeWrapper) {
+
+            const span = document.getElementById('caption-description') as HTMLSpanElement;
+            const description = (this.photoswipeWrapper.photoswipe.currItem as PhotoSwipeItem).image.description;
+            span.innerHTML = description;
+        }
+    }
+
+    protected download() {
+        window.console.log(`PhotoSwipeView.download()`);
+        if (this.photoswipeWrapper) {
+            const link = (this.photoswipeWrapper.photoswipe.currItem as PhotoSwipeItem).image.original_image;
+            window.open(link, `_blank`);
+        }
+    }
+
+    private goToGallery() {
+        if (this.photoswipeWrapper) {
+            const item = this.photoswipeWrapper.photoswipe.currItem as PhotoSwipeItem;
+            this.$router.push(`/gallery/${item.image.gallery_id}/`);
+        }
     }
 }
 </script>
@@ -162,6 +192,7 @@ export default class PhotoSwipeGalleryView extends PhotoSwipeViewBase {
 .go-to-gallery{ 
     color: #CCC;
     text-decoration: underline;
+    cursor: pointer;
 }
 
 .pswp__caption__center {

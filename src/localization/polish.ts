@@ -353,5 +353,6 @@ export const polish = {
       ImagesOfX: `Obrazy {name}`,
       NoImagesOfPerson: `Żadne obrazy {name} nie zostały jeszcze oznaczone.`,
       GoToGalleries: `Idź do galerii`,
+      GoToGallery: `Idź do galerii`,
     },
 };

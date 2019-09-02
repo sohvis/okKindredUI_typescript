@@ -324,5 +324,6 @@ export const simplifiedChinese = {
       ImagesOfX: `{name}的图片`,
       NoImagesOfPerson: `还没有标记{name}的图片。`,
       GoToGalleries: `去画廊`,
+      GoToGallery: `去画廊`,
     },
 };
