@@ -118,7 +118,7 @@ export default class PhotoSwipeGalleryView extends Vue {
         this.photoswipeWrapper.photoswipe.listen('afterChange', this.afterChange);
 
         const urlPrefix = `${config.BaseApiUrl}${config.ImageAPI}?person_id=${this.personId}&page=`;
-        const getUrl = (pageNo: number) => { return urlPrefix + pageNo.toString(); }
+        const getUrl = (pageNo: number) => urlPrefix + pageNo.toString();
 
         // load in images from other pages
         this.loadingMore = true;

@@ -20,13 +20,13 @@ export default class PhotoSwipeWrapper {
 
             // build items array
             const items = new Array<PhotoSwipeItem>();
-    
+
             for (const image of images) {
                 const item = new PhotoSwipeItem(image);
                 items.push(item);
             }
             window.console.log(items);
-    
+
             // define options
             const options = new PhotoSwipeOptions();
             options.index = selectedIndex;
@@ -34,13 +34,16 @@ export default class PhotoSwipeWrapper {
             options.scaleMode = 'fit';
             // Back button doesn't work if true
             options.history = false;
-    
+
             // Initializes and opens PhotoSwipe
             this.photoswipe = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
             this.photoswipe.init();
     }
 
-    public async loadImagesFromOtherPages(currentPage: number, totalItems: number, urlFunction: (pageNo: number) => string) {
+    public async loadImagesFromOtherPages(
+                    currentPage: number,
+                    totalItems: number,
+                    urlFunction: (pageNo: number) => string) {
 
         try {
 
