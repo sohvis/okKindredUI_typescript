@@ -32,8 +32,12 @@
 
                 <button class="pswp__button pswp__button--close"></button>
 
-                <button class="pswp__button download oi oi-data-transfer-download"
+                <button class="pswp__button custom-button oi oi-data-transfer-download"
                     @click="download">
+                </button>
+
+                <button v-show="displayMap" class="pswp__button custom-button oi oi-map"
+                    @click="showMap">
                 </button>
 
                 <!-- fullscreen -->
@@ -69,7 +73,7 @@
         </div>
 
     </div>
-
+    <MapPopUp ref="mapPopUp" />
 </div>
 
 </template>
@@ -87,9 +91,11 @@ import PhotoSwipeItem from '../../models/data/photoswipe_item';
 import PhotoSwipeOptions from '../../models/data/photoswipe_options';
 import PagedResult from '../../models/data/paged_results';
 import PhotoSwipeWrapper from '../../models/lightbox/photoswipeWrapper';
+import MapPopUp from './MapPopUp.vue';
 
 @Component({
   components: {
+      MapPopUp,
   },
 })
 export default class PhotoSwipeGalleryView extends Vue {
@@ -99,6 +105,8 @@ export default class PhotoSwipeGalleryView extends Vue {
     public photoswipeWrapper?: PhotoSwipeWrapper;
 
     public loadingMore: boolean = false;
+
+    public displayMap: boolean = false;
 
     public async init(
             images: Image[],
@@ -131,9 +139,13 @@ export default class PhotoSwipeGalleryView extends Vue {
 
         if (this.photoswipeWrapper) {
 
+            const image = (this.photoswipeWrapper.photoswipe.currItem as PhotoSwipeItem).image;
+
+            // Update stuff vue binding doesn't seeem to work
             const span = document.getElementById('caption-description') as HTMLSpanElement;
-            const description = (this.photoswipeWrapper.photoswipe.currItem as PhotoSwipeItem).image.description;
-            span.innerHTML = description;
+            span.innerHTML = image.description;
+
+            this.displayMap = !(image.latitude === 0 && image.longitude === 0);
         }
     }
 
@@ -151,13 +163,22 @@ export default class PhotoSwipeGalleryView extends Vue {
             this.$router.push(`/gallery/${item.image.gallery_id}/`);
         }
     }
+
+        private showMap() {
+        window.console.log(`PhotoSwipeView.showMap()`);
+
+        if (this.photoswipeWrapper) {
+            const image = (this.photoswipeWrapper.photoswipe.currItem as PhotoSwipeItem).image;
+            (this.$refs.mapPopUp as MapPopUp).show([image.latitude, image.longitude]);
+        }
+    }
 }
 </script>
 
 
 <style scoped>
 
-.download {
+.custom-button {
     color: white;
     background-image: none !important;
 }
@@ -198,4 +219,9 @@ export default class PhotoSwipeGalleryView extends Vue {
 .pswp__caption__center {
     font-weight: bold;
 }
+
+.pswp {
+    z-index: 1030 !important;
+}
+
 </style>

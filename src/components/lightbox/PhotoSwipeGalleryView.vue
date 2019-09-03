@@ -36,7 +36,7 @@
                     @click="download">
                 </button>
 
-                <button class="pswp__button custom-button oi oi-map"
+                <button v-show="displayMap" class="pswp__button custom-button oi oi-map"
                     @click="showMap">
                 </button>
 
@@ -99,6 +99,8 @@ export default class PhotoSwipeGalleryView extends Vue {
 
     public loadingMore: boolean = false;
 
+    public displayMap: boolean = false;
+
     public async init(
             images: Image[],
             selectedIndex: number,
@@ -137,6 +139,8 @@ export default class PhotoSwipeGalleryView extends Vue {
             // Update stuff vue binding doesn't seeem to work
             const span = document.getElementById('caption-description') as HTMLSpanElement;
             span.innerHTML = image.description;
+
+            this.displayMap = !(image.latitude === 0 && image.longitude === 0);
         }
     }
 
@@ -156,7 +160,6 @@ export default class PhotoSwipeGalleryView extends Vue {
             const image = (this.photoswipeWrapper.photoswipe.currItem as PhotoSwipeItem).image;
             (this.$refs.mapPopUp as MapPopUp).show([image.latitude, image.longitude]);
         }
-
     }
 }
 </script>
