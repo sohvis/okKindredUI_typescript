@@ -4,8 +4,8 @@ import * as request from 'request-promise-native';
 import store from '../../store/store';
 import config from '../../config';
 import Image from '../../models/data/image';
-import PhotoSwipeItem from '../../models/data/photoswipe_item';
-import PhotoSwipeOptions from '../../models/data/photoswipe_options';
+import PhotoSwipeItem from './photoswipe_item';
+import PhotoSwipeOptions from './photoswipe_options';
 import PagedResult from '../../models/data/paged_results';
 
 export default class PhotoSwipeWrapper {
@@ -38,6 +38,24 @@ export default class PhotoSwipeWrapper {
             // Initializes and opens PhotoSwipe
             this.photoswipe = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
             this.photoswipe.init();
+    }
+
+    public updateImage(image: Image) {
+
+        let index = 0;
+        for (index = 0; index < this.photoswipe.items.length; index++) {
+            const item = this.photoswipe.items[index] as PhotoSwipeItem;
+            if (image.id === item.image.id) {
+                const newItem = new PhotoSwipeItem(image);
+                this.photoswipe.items[index] = newItem;
+                // sets a flag that slides should be updated
+                this.photoswipe.invalidateCurrItems();
+                // updates the content of slides
+                this.photoswipe.updateSize(true);
+
+                return;
+            }
+        }
     }
 
     public async loadImagesFromOtherPages(

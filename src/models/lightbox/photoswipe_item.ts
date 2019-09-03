@@ -1,5 +1,5 @@
 import PhotoSwipe from 'photoswipe';
-import Image from './image';
+import Image from '../data/image';
 
 export default class PhotoSwipeItem implements PhotoSwipe.Item {
     public src: string;

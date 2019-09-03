@@ -87,8 +87,7 @@ import config from '../../config';
 import * as request from 'request-promise-native';
 
 import Image from '../../models/data/image';
-import PhotoSwipeItem from '../../models/data/photoswipe_item';
-import PhotoSwipeOptions from '../../models/data/photoswipe_options';
+import PhotoSwipeItem from '../../models/lightbox/photoswipe_item';
 import PagedResult from '../../models/data/paged_results';
 import PhotoSwipeWrapper from '../../models/lightbox/photoswipeWrapper';
 import MapPopUp from './MapPopUp.vue';

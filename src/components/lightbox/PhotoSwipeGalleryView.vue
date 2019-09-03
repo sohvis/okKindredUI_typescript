@@ -40,6 +40,10 @@
                     @click="showMap">
                 </button>
 
+                <button class="pswp__button custom-button oi oi-pencil"
+                    @click="editImage">
+                </button>
+
                 <!-- fullscreen -->
                 <button class="pswp__button pswp__button--fs"></button>
 
@@ -70,6 +74,7 @@
 
     </div>
     <MapPopUp ref="mapPopUp" />
+    <EditImage ref="editImage" />
 </div>
 
 </template>
@@ -82,13 +87,15 @@ import store from '../../store/store';
 import config from '../../config';
 import * as request from 'request-promise-native';
 import Image from '../../models/data/image';
-import PhotoSwipeItem from '../../models/data/photoswipe_item';
+import PhotoSwipeItem from '../../models/lightbox/photoswipe_item';
 import PhotoSwipeWrapper from '../../models/lightbox/photoswipeWrapper';
 import MapPopUp from './MapPopUp.vue';
+import EditImage from './EditImage.vue';
 
 @Component({
   components: {
       MapPopUp,
+      EditImage,
   },
 })
 export default class PhotoSwipeGalleryView extends Vue {
@@ -140,7 +147,7 @@ export default class PhotoSwipeGalleryView extends Vue {
             const span = document.getElementById('caption-description') as HTMLSpanElement;
             span.innerHTML = image.description;
 
-            this.displayMap = !(image.latitude === 0 && image.longitude === 0)
+            this.displayMap = !(image.latitude === 0 && image.longitude === 0);
         }
     }
 
@@ -159,6 +166,13 @@ export default class PhotoSwipeGalleryView extends Vue {
         if (this.photoswipeWrapper) {
             const image = (this.photoswipeWrapper.photoswipe.currItem as PhotoSwipeItem).image;
             (this.$refs.mapPopUp as MapPopUp).show([image.latitude, image.longitude]);
+        }
+    }
+
+    private editImage() {
+        if (this.photoswipeWrapper) {
+            const image = (this.photoswipeWrapper.photoswipe.currItem as PhotoSwipeItem).image;
+            (this.$refs.editImage as EditImage).show(image);
         }
     }
 }
