@@ -32,8 +32,12 @@
 
                 <button class="pswp__button pswp__button--close"></button>
 
-                <button class="pswp__button download oi oi-data-transfer-download"
+                <button class="pswp__button custom-button oi oi-data-transfer-download"
                     @click="download">
+                </button>
+
+                <button class="pswp__button custom-button oi oi-map"
+                    @click="showMap">
                 </button>
 
                 <!-- fullscreen -->
@@ -65,7 +69,7 @@
         </div>
 
     </div>
-
+    <MapPopUp ref="mapPopUp" />
 </div>
 
 </template>
@@ -80,10 +84,11 @@ import * as request from 'request-promise-native';
 import Image from '../../models/data/image';
 import PhotoSwipeItem from '../../models/data/photoswipe_item';
 import PhotoSwipeWrapper from '../../models/lightbox/photoswipeWrapper';
-
+import MapPopUp from './MapPopUp.vue';
 
 @Component({
   components: {
+      MapPopUp,
   },
 })
 export default class PhotoSwipeGalleryView extends Vue {
@@ -122,32 +127,43 @@ export default class PhotoSwipeGalleryView extends Vue {
     }
 
 
-    protected afterChange() {
+    private afterChange() {
         window.console.log(`PhotoSwipeView.afterChange()`);
 
         if (this.photoswipeWrapper) {
 
+            const image = (this.photoswipeWrapper.photoswipe.currItem as PhotoSwipeItem).image;
+
             // Update stuff vue binding doesn't seeem to work
             const span = document.getElementById('caption-description') as HTMLSpanElement;
-            const description = (this.photoswipeWrapper.photoswipe.currItem as PhotoSwipeItem).image.description;
-            span.innerHTML = description;
+            span.innerHTML = image.description;
         }
     }
 
-    protected download() {
+    private download() {
         window.console.log(`PhotoSwipeView.download()`);
+
         if (this.photoswipeWrapper) {
             const link = (this.photoswipeWrapper.photoswipe.currItem as PhotoSwipeItem).image.original_image;
             window.open(link, `_blank`);
         }
     }
+
+    private showMap() {
+        window.console.log(`PhotoSwipeView.showMap()`);
+
+        if (this.photoswipeWrapper) {
+            const image = (this.photoswipeWrapper.photoswipe.currItem as PhotoSwipeItem).image;
+            (this.$refs.mapPopUp as MapPopUp).show([image.latitude, image.longitude]);
+        }
+
+    }
 }
 </script>
 
-<!-- "scoped" attribute removed to fill screen -->
-<style>
+<style scoped>
 
-.download {
+.custom-button {
     color: white;
     background-image: none !important;
 }
@@ -181,5 +197,9 @@ export default class PhotoSwipeGalleryView extends Vue {
 
 .pswp__caption__center {
     font-weight: bold;
+}
+
+.pswp {
+    z-index: 1030 !important;
 }
 </style>

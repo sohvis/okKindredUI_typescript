@@ -154,8 +154,8 @@ export default class PhotoSwipeGalleryView extends Vue {
 }
 </script>
 
-<!-- "scoped" attribute removed to fill screen -->
-<style>
+
+<style scoped>
 
 .download {
     color: white;

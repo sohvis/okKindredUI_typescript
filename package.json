@@ -9,6 +9,8 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
+    "@types/leaflet": "^1.5.1",
+    "@types/leaflet.markercluster": "^1.4.0",
     "@types/photoswipe": "^4.0.29",
     "@types/request-promise-native": "^1.0.16",
     "@types/sha1": "^1.1.2",
