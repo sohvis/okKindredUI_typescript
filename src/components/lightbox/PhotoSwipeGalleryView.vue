@@ -140,7 +140,7 @@ export default class PhotoSwipeGalleryView extends Vue {
             const span = document.getElementById('caption-description') as HTMLSpanElement;
             span.innerHTML = image.description;
 
-            this.displayMap = !(image.latitude === 0 && image.longitude === 0);
+            this.displayMap = !(image.latitude === 0 && image.longitude === 0)
         }
     }
 
@@ -205,4 +205,5 @@ export default class PhotoSwipeGalleryView extends Vue {
 .pswp {
     z-index: 1030 !important;
 }
+
 </style>
