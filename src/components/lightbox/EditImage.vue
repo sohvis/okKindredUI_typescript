@@ -1,6 +1,6 @@
 <template>
 <b-modal
-        ref="modal"
+        ref="editImageModal"
         centered
         v-bind:no-close-on-esc="true"
         v-bind:no-close-on-backdrop="true"
@@ -58,7 +58,7 @@
         </b-alert>
         
     </div>
-    </b-modal>
+</b-modal>
 </template>
 
 <script lang="ts">
@@ -106,7 +106,7 @@ export default class EditImage extends Vue {
         this.rotationStyle = {};
         this.form.title = image.title;
         this.form.description = image.description;
-        (this.$refs.modal as BModal).show();
+        (this.$refs.editImageModal as any).show();
     }
 
  private async submit(evt: any) {
@@ -139,7 +139,7 @@ export default class EditImage extends Vue {
             window.console.log(response);
 
             this.$emit('imageEdited', response);
-            (this.$refs.modal as BModal).hide();
+            (this.$refs.editImageModal as BModal).hide();
 
         } catch (ex) {
             this.errorMessage = ex.toString();
@@ -149,7 +149,7 @@ export default class EditImage extends Vue {
     }
 
     private closeClicked() {
-        (this.$refs.modal as BModal).hide();
+        (this.$refs.editImageModal as BModal).hide();
     }
 
     private rotateClockwise() {
@@ -222,5 +222,12 @@ export default class EditImage extends Vue {
 <style scoped>
 .preview-image {
     max-height: 150px;
+}
+
+.icon-flipped {
+  transform: scaleX(-1);
+  -moz-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  -ms-transform: scaleX(-1);
 }
 </style>
