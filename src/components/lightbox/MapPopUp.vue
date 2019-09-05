@@ -4,7 +4,8 @@
         button-size="lg"
         class="super-modal"
         hide-footer
-        hide-header>
+        hide-header
+        @hidden="onHidden">
     <div>
         <span class="oi oi-x top-corner" @click="closeClicked"></span>
         <div id="map-div" v-bind:style="mapDivStyle"></div>
@@ -82,6 +83,10 @@ export default class MapPopUp extends Vue {
 
     private closeClicked() {
         (this.$refs.modal as BModal).hide();
+    }
+
+    private onHidden() {
+        this.$emit('onHidden');
     }
 }
 </script>

@@ -286,5 +286,9 @@ export const finnish = {
       NoImagesOfPerson: `{name} -kuvaa ei ole vielä merkitty.`,
       GoToGalleries: `Siirry gallerioihin`,
       GoToGallery: `Siirry galleriaan`,
+
+      // Edit Image
+      EditImage: 'Muokkaa Kuvaa',
+      Details: 'Yksityiskohdat',
     },
 };

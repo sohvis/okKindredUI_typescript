@@ -73,8 +73,8 @@
         </div>
 
     </div>
-    <MapPopUp ref="mapPopUp" />
-    <EditImage ref="editImage" />
+    <MapPopUp ref="mapPopUp" @onHidden="popupHidden" />
+    <EditImage ref="editImage" @imageEdited="imageEdited" @onHidden="popupHidden" />
 </div>
 
 </template>
@@ -166,6 +166,9 @@ export default class PhotoSwipeGalleryView extends Vue {
         if (this.photoswipeWrapper) {
             const image = (this.photoswipeWrapper.photoswipe.currItem as PhotoSwipeItem).image;
             (this.$refs.mapPopUp as MapPopUp).show([image.latitude, image.longitude]);
+
+            this.photoswipeWrapper.photoswipe.options.arrowKeys = false;
+            this.photoswipeWrapper.photoswipe.options.escKey = false;
         }
     }
 
@@ -173,6 +176,24 @@ export default class PhotoSwipeGalleryView extends Vue {
         if (this.photoswipeWrapper) {
             const image = (this.photoswipeWrapper.photoswipe.currItem as PhotoSwipeItem).image;
             (this.$refs.editImage as EditImage).show(image);
+
+            this.photoswipeWrapper.photoswipe.options.arrowKeys = false;
+            this.photoswipeWrapper.photoswipe.options.escKey = false;
+        }
+    }
+
+    private imageEdited(image: Image) {
+        if (this.photoswipeWrapper) {
+            this.photoswipeWrapper.updateImage(image);
+        }
+
+        this.$emit('imageEdited', image);
+    }
+
+    private popupHidden() {
+        if (this.photoswipeWrapper) {
+            this.photoswipeWrapper.photoswipe.options.arrowKeys = true;
+            this.photoswipeWrapper.photoswipe.options.escKey = true;
         }
     }
 }

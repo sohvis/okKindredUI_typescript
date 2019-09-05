@@ -344,5 +344,9 @@ export const french = {
       NoImagesOfPerson: `Aucune image de {name} n'a encore été taguée.`,
       GoToGalleries: `Voir galeries`,
       GoToGallery: `Voir la galerie`,
+
+      // Edit Image
+      EditImage: `Éditer l'Image`,
+      Details: 'Détails',
     },
 };

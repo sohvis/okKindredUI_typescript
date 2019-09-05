@@ -1,55 +1,83 @@
 <template>
 <b-modal
-        ref="editImageModal"
-        centered
-        v-bind:no-close-on-esc="true"
-        v-bind:no-close-on-backdrop="true"
-        @ok="submit" 
-        @busy ="busy"
-        :title="$t('message.EditImage')"
-        :okTitle="$t('message.Ok')"
-        :cancelTitle="$t('message.Cancel')" 
-        button-size="lg">
+    ref="editImageModal"
+    centered
+    v-bind:no-close-on-esc="true"
+    v-bind:no-close-on-backdrop="true"
+    @ok="submit" 
+    @busy ="busy"
+    @hidden="onHidden"
+    :title="$t('message.EditImage')"
+    :okTitle="$t('message.Ok')"
+    :cancelTitle="$t('message.Cancel')" 
+    button-size="lg">
     <div>
-        <img id="preview-image" 
-            :src="image.thumbnail"
-            class="preview-image" 
-            v-bind:style="rotationStyle"/>
 
-        <div>
-            <button class="btn btn-lg btn-primary control-padding" @click="rotateAntiClockwise">
-                <span class="oi oi-reload icon-flipped" aria-hidden="true" ></span>
-            </button>
+        <b-card no-body>
+            <b-tabs card justified>
+                <b-tab active>
+                    <template slot="title">
+                        <span class="oi oi-image" aria-hidden="true"></span>
+                        {{ $t('message.Details') }}
+                    </template>
+                    <b-card-text>
+                        <b-form @submit="submit" ref="form">
 
-            <button class="btn btn-lg btn-primary control-padding" @click="rotateClockwise">
-                <span class="oi oi-reload" aria-hidden="true"></span>
-            </button>
-        </div>
+                            <img id="preview-image" 
+                                :src="image.thumbnail"
+                                class="preview-image" 
+                                v-bind:style="rotationStyle"/>
 
-         <b-form @submit="submit" ref="form">
-            <b-form-group
-                :label="$t('message.Title') + '*'"
-                label-for="title"
-                :state="form.title">
-                <b-form-input
-                    id="titleInput"
-                    v-model="form.title"
-                    :state="form.titleState"
-                    maxlength="50"
-                    required>
-                </b-form-input>
-            </b-form-group>
+                            <div class="rotate-container">
+                                <button class="btn btn-sm btn-outline-secondary control-padding"
+                                    type="button"
+                                    @click="rotateAntiClockwise">
+                                    <span class="oi oi-reload icon-flipped" aria-hidden="true" ></span>
+                                </button>
 
-            <b-form-group
-                :label="$t('message.Description')">
-                <b-form-textarea
-                    v-model="form.description" 
-                    rows="5">
-                </b-form-textarea>
-            </b-form-group>
+                                <button class="btn btn-sm btn-outline-secondary control-padding"
+                                    type="button"
+                                    @click="rotateClockwise">
+                                    <span class="oi oi-reload" aria-hidden="true"></span>
+                                </button>
+                            </div>
 
-            <small class="font-italic">* {{$t('message.Required')}}</small>
-        </b-form >
+                            <b-form-group
+                                :label="$t('message.Title') + '*'"
+                                label-for="title"
+                                :state="form.title">
+                                <b-form-input
+                                    id="titleInput"
+                                    v-model="form.title"
+                                    :state="form.titleState"
+                                    maxlength="50"
+                                    required>
+                                </b-form-input>
+                            </b-form-group>
+
+                            <b-form-group
+                                :label="$t('message.Description')">
+                                <b-form-textarea
+                                    v-model="form.description" 
+                                    rows="5">
+                                </b-form-textarea>
+                            </b-form-group>
+                            <small class="font-italic">* {{$t('message.Required')}}</small>
+                        </b-form >
+                    </b-card-text>
+                </b-tab>
+                <b-tab @click="locationTabClicked">
+                    <template slot="title">
+                        <span class="oi oi-map" aria-hidden="true"></span>
+                        {{ $t('message.Location') }}
+                    </template>
+                    <b-card-text>
+                        <EditLocation ref="editLocation" />
+                    </b-card-text>
+                </b-tab>
+            </b-tabs>
+        </b-card>
+
 
         <Loading v-if="busy"/>
 
@@ -68,14 +96,26 @@ import * as request from 'request-promise-native';
 import config from '../../config';
 import store from '../../store/store';
 import Image from '../../models/data/image';
+import Loading from '../../components/common/Loading.vue';
+import EditLocation from '../../components/lightbox/EditLocation.vue';
 
 @Component({
-  components: {
-  },
+    components: {
+        Loading,
+        EditLocation,
+    },
 })
 export default class EditImage extends Vue {
 
     public image?: Image;
+
+    public get thumbnail(): string {
+        if (this.image) {
+            return this.image.thumbnail;
+        } else {
+            return '';
+        }
+    }
 
     public form: any = {
         title: '',
@@ -96,20 +136,26 @@ export default class EditImage extends Vue {
 
     public rotationStyle: any = {};
 
-    public rotation: number = 0;
+    public clockwiseRotation: number = 0;
 
     public show(image: Image) {
         window.console.log(`EditImage.show(image.id: ${image.id})`);
 
         this.image = image;
-        this.rotation = 0;
+        this.clockwiseRotation = 0;
         this.rotationStyle = {};
         this.form.title = image.title;
         this.form.description = image.description;
-        (this.$refs.editImageModal as any).show();
+
+        // No idea why this needs to be delayed. but only works 2nd time otherwise
+        this.$nextTick(() => {
+            (this.$refs.editImageModal as BModal).show();
+            this.$nextTick(() =>
+                (this.$refs.editLocation as EditLocation).initialise(image.latitude, image.longitude));
+        });
     }
 
- private async submit(evt: any) {
+    private async submit(evt: any) {
         window.console.log(`EditImage.submit()`);
 
         evt.preventDefault();
@@ -117,7 +163,7 @@ export default class EditImage extends Vue {
 
         const valid = (this.$refs.form as any).checkValidity();
         this.form.nameState = valid ? 'valid' : 'invalid';
-        if (!valid) {
+        if (!valid || !this.image) {
             this.$emit('onError');
             return;
         }
@@ -125,12 +171,14 @@ export default class EditImage extends Vue {
         try {
             this.busy = true;
             const options = {
-                uri: `${config.BaseApiUrl}${config.ImageAPI}`,
+                uri: `${config.BaseApiUrl}${config.ImageAPI}${this.image.id}/`,
                 headers: store.getters.ajaxHeader,
                 body: {
                     title: this.form.title,
                     description: this.form.description,
-                    rotation: this.rotation,
+                    anticlockwise_angle: 360 - this.clockwiseRotation,
+                    latitude: (this.$refs.editLocation as EditLocation).latitude,
+                    longitude: (this.$refs.editLocation as EditLocation).longitude,
                 },
                 json: true,
             };
@@ -155,10 +203,10 @@ export default class EditImage extends Vue {
     private rotateClockwise() {
         window.console.log('EditImage.rotateClockwise()');
 
-        if (this.rotation >= 270) {
-            this.rotation = 0;
+        if (this.clockwiseRotation >= 270) {
+            this.clockwiseRotation = 0;
         } else {
-            this.rotation += 90;
+            this.clockwiseRotation += 90;
         }
 
         this.setRotation();
@@ -167,10 +215,10 @@ export default class EditImage extends Vue {
     private rotateAntiClockwise() {
         window.console.log('EditImage.rotateAntiClockwise()');
 
-        if (this.rotation < 90) {
-            this.rotation = 270;
+        if (this.clockwiseRotation < 90) {
+            this.clockwiseRotation = 270;
         } else {
-            this.rotation -= 90;
+            this.clockwiseRotation -= 90;
         }
 
         this.setRotation();
@@ -180,17 +228,19 @@ export default class EditImage extends Vue {
         window.console.log('EditImage.setRotation()');
 
         const img = document.getElementById('preview-image') as HTMLImageElement;
-        const rotate = `rotate(${this.rotation}deg)`;
+        const rotate = `rotate(${this.clockwiseRotation}deg)`;
         let marginLeft = '0';
         let marginTop = '0';
+        let marginBottom = '0';
         let transformOrigin = '';
-        switch (this.rotation) {
+        switch (this.clockwiseRotation) {
             case 0:
                 // No changes to default
                 break;
 
             case 90:
                 marginLeft = `${img.height}px`;
+                marginBottom = `${img.width - img.height}px`;
                 transformOrigin = '0 0';
                 break;
 
@@ -200,6 +250,7 @@ export default class EditImage extends Vue {
 
             case 270:
                 marginTop = `${img.width}px`;
+                marginBottom = `-${img.height}px`;
                 transformOrigin = '0 0';
                 break;
         }
@@ -213,7 +264,16 @@ export default class EditImage extends Vue {
             'transform-origin': transformOrigin,
             'margin-left': marginLeft,
             'margin-top': marginTop,
+            'margin-bottom': marginBottom,
         };
+    }
+
+    private locationTabClicked() {
+        (this.$refs.editLocation as EditLocation).Redraw();
+    }
+
+    private onHidden() {
+        this.$emit('onHidden');
     }
 }
 </script>
@@ -221,7 +281,7 @@ export default class EditImage extends Vue {
 
 <style scoped>
 .preview-image {
-    max-height: 150px;
+    max-height: 300px;
 }
 
 .icon-flipped {
@@ -229,5 +289,15 @@ export default class EditImage extends Vue {
   -moz-transform: scaleX(-1);
   -webkit-transform: scaleX(-1);
   -ms-transform: scaleX(-1);
+}
+
+.control-padding {
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+.rotate-container {
+    margin-top: 5px;
+    margin-bottom: 10px;
 }
 </style>

@@ -354,5 +354,9 @@ export const polish = {
       NoImagesOfPerson: `Żadne obrazy {name} nie zostały jeszcze oznaczone.`,
       GoToGalleries: `Idź do galerii`,
       GoToGallery: `Idź do galerii`,
+
+      // Edit Image
+      EditImage: 'Edytuj obrazek',
+      Details: 'Detale',
     },
 };

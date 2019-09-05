@@ -322,5 +322,9 @@ export const traditionalChinese = {
       NoImagesOfPerson: `還沒有標記{name}的圖片。`,
       GoToGalleries: `去畫廊`,
       GoToGallery: `去畫廊`,
+
+      // Edit Image
+      EditImage: '編輯圖像',
+      Details: '細節',
     },
 };

@@ -325,5 +325,9 @@ export const simplifiedChinese = {
       NoImagesOfPerson: `还没有标记{name}的图片。`,
       GoToGalleries: `去画廊`,
       GoToGallery: `去画廊`,
+
+      // Edit Image
+      EditImage: '编辑图像',
+      Details: '细节',
     },
 };
