@@ -20,6 +20,7 @@
                 v-if="opened"
                 variant="secondary"
                 class="gallery-button edit-button"
+                :disabled="!editEnabled"
                 @click="editClicked">
                 <span class="oi oi-pencil"></span>
             </b-button>
@@ -96,6 +97,16 @@ export default class GalleryActionButton extends Vue {
             return false;
         }
     }
+
+    public get editEnabled(): boolean {
+
+        if (this.selectedImageIds) {
+            return this.selectedImageIds.length === 0;
+        } else {
+            return false;
+        }
+    }
+
 
     public opened: boolean = false;
 
@@ -201,12 +212,23 @@ export default class GalleryActionButton extends Vue {
 }
 
 .slide-fade-enter, .slide-fade-leave-to {
-  transform: translateX(10px);
-  opacity: 0;
-  transition: all .3s ease;
+    transform: translateX(10px);
+    opacity: 0;
+    transition: all .3s ease;
 }
 
 .slide-fade-enter-active {
-  transition: all .3s ease;
+    transition: all .3s ease;
+}
+
+/* Need to make danger button look more disabled */
+.btn-danger.disabled {
+    background-color: #f99;
+    border-color: #f99
+}
+
+.btn-secondary.disabled {
+    background-color: #9ca5ad;
+    border-color: #9ca5ad;
 }
 </style>

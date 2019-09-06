@@ -175,4 +175,10 @@ export default class GalleryListActionButton extends Vue {
 .slide-fade-enter-active {
   transition: all .3s ease;
 }
+
+/* Need to make danger button look more disabled */
+.btn-danger.disabled {
+    background-color: #f99;
+    border-color: #f99
+}
 </style>
