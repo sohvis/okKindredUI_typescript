@@ -40,6 +40,10 @@
                     @click="showMap">
                 </button>
 
+                <button class="pswp__button custom-button oi oi-pencil"
+                    @click="editImage">
+                </button>
+
                 <!-- fullscreen -->
                 <button class="pswp__button pswp__button--fs"></button>
 
@@ -73,7 +77,8 @@
         </div>
 
     </div>
-    <MapPopUp ref="mapPopUp" />
+    <MapPopUp ref="mapPopUp" @onHidden="popupHidden" />
+    <EditImage ref="editImage" @imageEdited="imageEdited" @onHidden="popupHidden" />
 </div>
 
 </template>
@@ -91,10 +96,12 @@ import PhotoSwipeItem from '../../models/lightbox/photoswipe_item';
 import PagedResult from '../../models/data/paged_results';
 import PhotoSwipeWrapper from '../../models/lightbox/photoswipeWrapper';
 import MapPopUp from './MapPopUp.vue';
+import EditImage from './EditImage.vue';
 
 @Component({
   components: {
       MapPopUp,
+      EditImage,
   },
 })
 export default class PhotoSwipeGalleryView extends Vue {
@@ -163,12 +170,40 @@ export default class PhotoSwipeGalleryView extends Vue {
         }
     }
 
-        private showMap() {
+    private showMap() {
         window.console.log(`PhotoSwipeView.showMap()`);
 
         if (this.photoswipeWrapper) {
             const image = (this.photoswipeWrapper.photoswipe.currItem as PhotoSwipeItem).image;
             (this.$refs.mapPopUp as MapPopUp).show([image.latitude, image.longitude]);
+
+            this.photoswipeWrapper.photoswipe.options.arrowKeys = false;
+            this.photoswipeWrapper.photoswipe.options.escKey = false;
+        }
+    }
+
+    private editImage() {
+        if (this.photoswipeWrapper) {
+            const image = (this.photoswipeWrapper.photoswipe.currItem as PhotoSwipeItem).image;
+            (this.$refs.editImage as EditImage).show(image);
+
+            this.photoswipeWrapper.photoswipe.options.arrowKeys = false;
+            this.photoswipeWrapper.photoswipe.options.escKey = false;
+        }
+    }
+
+    private imageEdited(image: Image) {
+        if (this.photoswipeWrapper) {
+            this.photoswipeWrapper.updateImage(image);
+        }
+
+        this.$emit('imageEdited', image);
+    }
+
+    private popupHidden() {
+        if (this.photoswipeWrapper) {
+            this.photoswipeWrapper.photoswipe.options.arrowKeys = true;
+            this.photoswipeWrapper.photoswipe.options.escKey = true;
         }
     }
 }

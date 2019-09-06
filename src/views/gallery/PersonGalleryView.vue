@@ -49,7 +49,7 @@
                 use-router>
             </b-pagination-nav>
         </div>
-        <PhotoSwipeView ref="photoSwipeView"/>
+        <PhotoSwipeView ref="photoSwipeView" @imageEdited="imageEdited"/>
     </div>
 </template>
 
@@ -282,6 +282,19 @@ export default class GalleryView extends Vue {
                 this.totalCount,
                 this.personId);
 
+    }
+
+    private imageEdited(image: Image) {
+        window.console.log(`GalleryView.imageEdited(imageId: ${image.id}`);
+
+        let index = 0;
+        for (index = 0; index < this.images.length; index++) {
+            if (image.id === this.images[index].id) {
+                this.images[index] = image;
+                this.setDisplaySizes();
+                return;
+            }
+        }
     }
 }
 </script>
