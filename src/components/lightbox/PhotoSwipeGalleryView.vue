@@ -172,10 +172,10 @@ export default class PhotoSwipeGalleryView extends Vue {
         }
     }
 
-    private editImage() {
+    private async editImage() {
         if (this.photoswipeWrapper) {
             const image = (this.photoswipeWrapper.photoswipe.currItem as PhotoSwipeItem).image;
-            (this.$refs.editImage as EditImage).show(image);
+            await (this.$refs.editImage as EditImage).show(image);
 
             this.photoswipeWrapper.photoswipe.options.arrowKeys = false;
             this.photoswipeWrapper.photoswipe.options.escKey = false;

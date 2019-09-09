@@ -326,5 +326,6 @@ export const traditionalChinese = {
       // Edit Image
       EditImage: '編輯圖像',
       Details: '細節',
+      GalleryThumbnail: `圖庫縮略圖`,
     },
 };

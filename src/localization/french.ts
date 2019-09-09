@@ -348,5 +348,6 @@ export const french = {
       // Edit Image
       EditImage: `Éditer l'Image`,
       Details: 'Détails',
+      GalleryThumbnail: `Vignette pour la Galerie`,
     },
 };

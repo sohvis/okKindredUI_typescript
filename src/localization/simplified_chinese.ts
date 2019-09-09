@@ -329,5 +329,6 @@ export const simplifiedChinese = {
       // Edit Image
       EditImage: '编辑图像',
       Details: '细节',
+      GalleryThumbnail: `图库缩略图`,
     },
 };

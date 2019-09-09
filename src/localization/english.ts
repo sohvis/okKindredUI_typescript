@@ -292,5 +292,6 @@ export const english = {
       // Edit Image
       EditImage: 'Edit Image',
       Details: 'Details',
+      GalleryThumbnail: `Gallery Thumbnail`,
     },
 };

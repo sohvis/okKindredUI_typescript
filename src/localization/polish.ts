@@ -358,5 +358,6 @@ export const polish = {
       // Edit Image
       EditImage: 'Edytuj obrazek',
       Details: 'Detale',
+      GalleryThumbnail: `Miniatura Galerii`,
     },
 };

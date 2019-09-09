@@ -290,5 +290,6 @@ export const finnish = {
       // Edit Image
       EditImage: 'Muokkaa Kuvaa',
       Details: 'Yksityiskohdat',
+      GalleryThumbnail: `Gallerian Pikkukuva`,
     },
 };

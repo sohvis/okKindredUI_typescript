@@ -62,7 +62,12 @@
                                     rows="5">
                                 </b-form-textarea>
                             </b-form-group>
-                            <small class="font-italic">* {{$t('message.Required')}}</small>
+
+                            <b-form-checkbox v-model="setAsGalleryThumbnail" name="check-button" switch>
+                                {{ $t('message.GalleryThumbnail') }}
+                            </b-form-checkbox>
+
+                            <small class="font-italic required-legend">* {{$t('message.Required')}}</small>
                         </b-form >
                     </b-card-text>
                 </b-tab>
@@ -77,7 +82,6 @@
                 </b-tab>
             </b-tabs>
         </b-card>
-
 
         <Loading v-if="busy"/>
 
@@ -96,6 +100,7 @@ import * as request from 'request-promise-native';
 import config from '../../config';
 import store from '../../store/store';
 import Image from '../../models/data/image';
+import Gallery from '../../models/data/gallery';
 import Loading from '../../components/common/Loading.vue';
 import EditLocation from '../../components/lightbox/EditLocation.vue';
 
@@ -108,6 +113,8 @@ import EditLocation from '../../components/lightbox/EditLocation.vue';
 export default class EditImage extends Vue {
 
     public image?: Image;
+
+    public setAsGalleryThumbnail: boolean = false;
 
     public get thumbnail(): string {
         if (this.image) {
@@ -138,7 +145,7 @@ export default class EditImage extends Vue {
 
     public clockwiseRotation: number = 0;
 
-    public show(image: Image) {
+    public async show(image: Image) {
         window.console.log(`EditImage.show(image.id: ${image.id})`);
 
         this.image = image;
@@ -146,6 +153,11 @@ export default class EditImage extends Vue {
         this.rotationStyle = {};
         this.form.title = image.title;
         this.form.description = image.description;
+
+        await store.dispatch('loadCurrentGalleryInfo', image.gallery_id);
+        if (store.state.currentGallery) {
+            this.setAsGalleryThumbnail = image.thumbnail === store.state.currentGallery.thumbnail;
+        }
 
         // No idea why this needs to be delayed. but only works 2nd time otherwise
         this.$nextTick(() => {
@@ -187,6 +199,9 @@ export default class EditImage extends Vue {
             window.console.log(response);
 
             this.$emit('imageEdited', response);
+
+            await this.updateGalleryThumbnail();
+
             (this.$refs.editImageModal as BModal).hide();
 
         } catch (ex) {
@@ -194,6 +209,36 @@ export default class EditImage extends Vue {
         }
 
         this.busy = false;
+    }
+
+    private async updateGalleryThumbnail() {
+        window.console.log(`EditImage.updateGalleryThumbnail()`);
+
+        if (this.image && store.state.currentGallery) {
+
+            const previousValue = this.image.thumbnail === store.state.currentGallery.thumbnail;
+            if (this.setAsGalleryThumbnail !== previousValue) {
+
+                let thumbnail = '';
+                window.console.log(`this.setAsGalleryThumbnail: ${this.setAsGalleryThumbnail}`);
+                if (this.setAsGalleryThumbnail) {
+                    thumbnail = this.image.id.toString();
+                }
+
+                const options = {
+                    uri: `${config.BaseApiUrl}${config.GalleryAPI}${this.image.gallery_id}/`,
+                    headers: store.getters.ajaxHeader,
+                    body: {
+                        thumbnail_id: thumbnail,
+                    },
+                    json: true,
+                };
+
+                const response = await request.patch(options) as Gallery;
+
+                store.dispatch('updateCurrentGallery', response);
+            }
+        }
     }
 
     private closeClicked() {

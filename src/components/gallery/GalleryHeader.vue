@@ -100,15 +100,12 @@ export default class GalleryHeader extends Vue {
         try {
 
             store.commit('updateLoading', true);
-            const options = {
-                uri: `${config.BaseApiUrl}${config.GalleryAPI}${this.galleryId}/`,
-                headers: store.getters.ajaxHeader,
-                json: true,
-            };
 
-            const response = await request.get(options) as Gallery;
+            if (!store.state.currentGallery || store.state.currentGallery.id !== this.galleryId) {
+                await store.dispatch('loadCurrentGalleryInfo', this.galleryId);
+            }
 
-            this.gallery = response;
+            this.gallery = store.state.currentGallery;
 
         } catch (ex) {
             store.commit('setErrorMessage', ex);

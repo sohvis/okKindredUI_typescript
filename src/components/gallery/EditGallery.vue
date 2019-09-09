@@ -117,10 +117,11 @@ export default class EditGallery extends Vue {
                 json: true,
             };
 
-            const response = await request.patch(options);
-            window.console.log(response);
+            const response = await request.patch(options) as Gallery;
 
-            this.$emit('galleryEdited', response.person);
+            store.dispatch('updateCurrentGallery', response);
+
+            this.$emit('galleryEdited', response);
             (this.$refs.modal as any).hide();
 
         } catch (ex) {
