@@ -15,6 +15,7 @@ import GalleryList from './views/gallery/GalleryList.vue';
 import GalleryView from './views/gallery/GalleryView.vue';
 import UploadImages from './views/gallery/UploadImages.vue';
 import PersonGalleryView from './views/gallery/PersonGalleryView.vue';
+import GalleryMap from './views/gallery/GalleryMap.vue';
 
 
 Vue.use(Router);
@@ -110,6 +111,12 @@ export default new Router({
       path: '/gallery/:galleryId/upload/',
       name: 'UploadImages',
       component: UploadImages,
+      props: true,
+    },
+    {
+      path: '/gallery/:galleryId/map/',
+      name: 'GalleryMap',
+      component: GalleryMap,
       props: true,
     },
   ],

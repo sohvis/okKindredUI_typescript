@@ -35,6 +35,15 @@
                 <span class="oi oi-trash"></span>
             </b-button>
         </transition>
+        <transition name="slide-fade">
+            <b-button
+                v-if="opened"
+                variant="info"
+                class="gallery-button map-button"
+                @click="mapClicked">
+                <span class="oi oi-map"></span>
+            </b-button>
+        </transition>
         <b-button
             v-if="!opened"
             variant="outline-primary"
@@ -155,6 +164,12 @@ export default class GalleryActionButton extends Vue {
         this.toggleOpen();
     }
 
+    private mapClicked() {
+        if (this.gallery) {
+            this.$router.push(`/gallery/${this.gallery.id}/map/`);
+        }
+    }
+
 }
 </script>
 
@@ -207,6 +222,13 @@ export default class GalleryActionButton extends Vue {
 .add-button {
     padding-left: 9px;
     padding-right: 11px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.map-button {
+    padding-left: 15px;
+    padding-right: 13px;
     padding-top: 10px;
     padding-bottom: 10px;
 }

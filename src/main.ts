@@ -29,7 +29,7 @@ export const i18n = new VueI18n({
 });
 
 
-new Vue({
+const viewModel = new Vue({
   i18n,
   router,
   store,

@@ -113,7 +113,8 @@ export default class PhotoSwipeGalleryView extends Vue {
             selectedIndex: number,
             currentPage: number,
             totalItems: number,
-            galleryId: number) {
+            galleryId: number,
+            allImagesLoaded: boolean = false) {
 
         window.console.log(`PhotoSwipeView.init(selectedIndex: ${selectedIndex},
             currentPage: ${currentPage}, totalItems: ${totalItems}, galleryId: ${galleryId})`);
@@ -130,9 +131,11 @@ export default class PhotoSwipeGalleryView extends Vue {
         const getUrl = (pageNo: number) => urlPrefix + pageNo.toString();
 
         // load in images from other pages
+        if (!allImagesLoaded) {
         this.loadingMore = true;
         await this.photoswipeWrapper.loadImagesFromOtherPages(currentPage, totalItems, getUrl);
         this.loadingMore = false;
+        }
     }
 
 

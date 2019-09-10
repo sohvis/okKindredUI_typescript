@@ -65,6 +65,7 @@ export default class MapPopUp extends Vue {
 
         const map = L.map('map-div', mapOptions);
 
+        // https://stackoverflow.com/questions/50864855/vue-js-leaflet-marker-is-not-visible
         delete (L.Icon.Default.prototype as any)._getIconUrl;
 
         L.Icon.Default.mergeOptions({
