@@ -1,7 +1,8 @@
 <template>
     <div>
       <div id="gallery-map" class="fullscreen_map" @click="mapClick"></div>
-       <PhotoSwipeView ref="photoSwipeView" @imageEdited="imageEdited"/>
+      <GalleryMapActionButton :galleryId="galleryId" />
+      <PhotoSwipeView ref="photoSwipeView" @imageEdited="imageEdited"/>
     </div>
 </template>
 
@@ -18,12 +19,13 @@ import config from '../../config';
 import PagedResult from '../../models/data/paged_results';
 import Gallery from '../../models/data/gallery';
 import Image from '../../models/data/image';
-import GalleryHeader from '../../components/gallery/GalleryHeader.vue';
+import GalleryMapActionButton from '../../components/gallery_map/GalleryMapActionButton.vue';
 import PhotoSwipeView from '../../components/lightbox/PhotoSwipeGalleryView.vue';
 
 
 @Component({
   components: {
+    GalleryMapActionButton,
     PhotoSwipeView,
   },
 })
@@ -179,29 +181,18 @@ export default class GalleryMap extends Vue {
     }
 
     private getCentre(data: Image[]): [number, number] {
-        let sumLat = 0;
-        let sumLng = 0;
-        let count = 0;
-
         for (const point of data) {
             if (point.latitude !== 0 && point.longitude !== 0) {
-                sumLat += point.latitude;
-                sumLng += point.longitude;
-                count ++;
+                return [point.latitude, point.longitude];
+
             }
         }
 
-        if (count > 0) {
-            return [sumLat / count, sumLng / count];
-        } else {
-            return  [0, 0];
-        }
+        return [0, 0];
     }
 
      private displayMapPoints(data: Image[]) {
         window.console.log('GalleryMap.displayMapPoints()');
-        window.console.log('data:');
-        window.console.log(data);
 
         const markers = L.markerClusterGroup();
 

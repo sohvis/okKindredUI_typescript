@@ -227,8 +227,8 @@ export default class GalleryActionButton extends Vue {
 }
 
 .map-button {
-    padding-left: 15px;
-    padding-right: 13px;
+    padding-left: 16px;
+    padding-right: 12px;
     padding-top: 10px;
     padding-bottom: 10px;
 }
