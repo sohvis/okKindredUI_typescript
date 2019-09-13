@@ -1,10 +1,10 @@
 <template>
     <div class="controls-container">
         <b-button
-            variant="outline-primary"
+            variant="light"
             class="gallery-button action-button"
             @click="galleryButtonClicked">
-            <span class="oi oi-grid-three-up"></span>
+            <span class="oi oi-list"></span>
         </b-button>
     </div>
 </template>
@@ -38,8 +38,8 @@ export default class GalleryMapActionButton extends Vue {
 
 .controls-container {
     float: right; 
-    right: 0;  
-    top: 40px;
+    right: 20px;  
+    top: 60px;
     z-index: 1000;
     position: absolute !important;
 }
