@@ -291,5 +291,7 @@ export const finnish = {
       EditImage: 'Muokkaa Kuvaa',
       Details: 'Yksityiskohdat',
       GalleryThumbnail: `Gallerian Pikkukuva`,
+
+      AddTags: `Napsauta/Touch kuvaa koodata ihmisiä`,
     },
 };

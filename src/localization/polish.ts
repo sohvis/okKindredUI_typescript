@@ -359,5 +359,7 @@ export const polish = {
       EditImage: 'Edytuj obrazek',
       Details: 'Detale',
       GalleryThumbnail: `Miniatura Galerii`,
+
+      AddTags: `Kliknij/retusz obrazu otagować ludz`,
     },
 };

@@ -330,5 +330,7 @@ export const simplifiedChinese = {
       EditImage: '编辑图像',
       Details: '细节',
       GalleryThumbnail: `图库缩略图`,
+
+      AddTags: `点击/触摸图像标记的人`,
     },
 };

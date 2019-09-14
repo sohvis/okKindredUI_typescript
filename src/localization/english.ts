@@ -293,5 +293,7 @@ export const english = {
       EditImage: 'Edit Image',
       Details: 'Details',
       GalleryThumbnail: `Gallery Thumbnail`,
+
+      AddTags: `Click/Touch image to tag people`,
     },
 };

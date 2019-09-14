@@ -349,5 +349,7 @@ export const french = {
       EditImage: `Éditer l'Image`,
       Details: 'Détails',
       GalleryThumbnail: `Vignette pour la Galerie`,
+
+      AddTags: `Cliquez/Touchez image pour marquer les gens`,
     },
 };

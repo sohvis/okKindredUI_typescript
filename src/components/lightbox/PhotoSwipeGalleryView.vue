@@ -44,6 +44,10 @@
                     @click="editImage">
                 </button>
 
+                <button class="pswp__button custom-button oi oi-tag"
+                    @click="toggleTagging">
+                </button>
+
                 <!-- fullscreen -->
                 <button class="pswp__button pswp__button--fs"></button>
 
@@ -75,6 +79,7 @@
     </div>
     <MapPopUp ref="mapPopUp" @onHidden="popupHidden" />
     <EditImage ref="editImage" @imageEdited="imageEdited" @onHidden="popupHidden" />
+    <TaggingOverlay ref="taggingOverlay"/>
 </div>
 
 </template>
@@ -91,11 +96,13 @@ import PhotoSwipeItem from '../../models/lightbox/photoswipe_item';
 import PhotoSwipeWrapper from '../../models/lightbox/photoswipeWrapper';
 import MapPopUp from './MapPopUp.vue';
 import EditImage from './EditImage.vue';
+import TaggingOverlay from './TaggingOverlay.vue';
 
 @Component({
   components: {
       MapPopUp,
       EditImage,
+      TaggingOverlay,
   },
 })
 export default class PhotoSwipeGalleryView extends Vue {
@@ -108,6 +115,8 @@ export default class PhotoSwipeGalleryView extends Vue {
 
     public displayMap: boolean = false;
 
+    public showTagging: boolean = false;
+
     public async init(
             images: Image[],
             selectedIndex: number,
@@ -116,7 +125,7 @@ export default class PhotoSwipeGalleryView extends Vue {
             galleryId: number,
             allImagesLoaded: boolean = false) {
 
-        window.console.log(`PhotoSwipeView.init(selectedIndex: ${selectedIndex},
+        window.console.log(`PhotoSwipeGalleryView.init(selectedIndex: ${selectedIndex},
             currentPage: ${currentPage}, totalItems: ${totalItems}, galleryId: ${galleryId})`);
 
         this.galleryId = galleryId;
@@ -140,7 +149,7 @@ export default class PhotoSwipeGalleryView extends Vue {
 
 
     private afterChange() {
-        window.console.log(`PhotoSwipeView.afterChange()`);
+        window.console.log(`PhotoSwipeGalleryView.afterChange()`);
 
         if (this.photoswipeWrapper) {
 
@@ -155,16 +164,17 @@ export default class PhotoSwipeGalleryView extends Vue {
     }
 
     private download() {
-        window.console.log(`PhotoSwipeView.download()`);
+        window.console.log(`PhotoSwipeGalleryView.download()`);
 
         if (this.photoswipeWrapper) {
             const link = (this.photoswipeWrapper.photoswipe.currItem as PhotoSwipeItem).image.original_image;
             window.open(link, `_blank`);
+            (this.$refs.taggingOverlay as TaggingOverlay).destroy();
         }
     }
 
     private showMap() {
-        window.console.log(`PhotoSwipeView.showMap()`);
+        window.console.log(`PhotoSwipeGalleryView.showMap()`);
 
         if (this.photoswipeWrapper) {
             const image = (this.photoswipeWrapper.photoswipe.currItem as PhotoSwipeItem).image;
@@ -172,6 +182,7 @@ export default class PhotoSwipeGalleryView extends Vue {
 
             this.photoswipeWrapper.photoswipe.options.arrowKeys = false;
             this.photoswipeWrapper.photoswipe.options.escKey = false;
+            (this.$refs.taggingOverlay as TaggingOverlay).destroy();
         }
     }
 
@@ -182,6 +193,7 @@ export default class PhotoSwipeGalleryView extends Vue {
 
             this.photoswipeWrapper.photoswipe.options.arrowKeys = false;
             this.photoswipeWrapper.photoswipe.options.escKey = false;
+            (this.$refs.taggingOverlay as TaggingOverlay).destroy();
         }
     }
 
@@ -197,6 +209,14 @@ export default class PhotoSwipeGalleryView extends Vue {
         if (this.photoswipeWrapper) {
             this.photoswipeWrapper.photoswipe.options.arrowKeys = true;
             this.photoswipeWrapper.photoswipe.options.escKey = true;
+        }
+    }
+
+    private async toggleTagging() {
+        window.console.log(`PhotoSwipeGalleryView.toggleTagging()`);
+
+        if (this.photoswipeWrapper) {
+            (this.$refs.taggingOverlay as TaggingOverlay).toggle(this.photoswipeWrapper);
         }
     }
 }

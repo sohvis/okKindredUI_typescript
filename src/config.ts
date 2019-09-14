@@ -12,6 +12,7 @@ export const configs = {
     GalleryAPI: '/api/gallery/',
     InviteEmailAPI: '/api/invite_email/',
     ImageAPI: '/api/image/',
+    ImageTaggingAPI: '/api/image_tagging/?image_id=',
     LeaveSiteAPI: '/api/delete_account/',
     LocationApi: '/api/location/',
     PasswordChangeAPI: '/api/password_change/',

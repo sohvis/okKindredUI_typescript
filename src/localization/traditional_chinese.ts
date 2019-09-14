@@ -327,5 +327,7 @@ export const traditionalChinese = {
       EditImage: '編輯圖像',
       Details: '細節',
       GalleryThumbnail: `圖庫縮略圖`,
+
+      AddTags: `點擊/觸摸圖像標記的人`,
     },
 };
