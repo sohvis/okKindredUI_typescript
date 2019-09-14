@@ -12,6 +12,7 @@
         :tag="tag">
     </TagBox> 
     <Loading v-show="loading" />
+    <WhoIsThis ref="whoIsThis" @tagCreated="tagCreated" />
 </div>
 </template>
 
@@ -26,11 +27,13 @@ import store from '../../store/store';
 import PhotoSwipeWrapper from '../../models/lightbox/photoswipeWrapper';
 import PhotoSwipeItem from '../../models/lightbox/photoswipe_item';
 import TagBox from './TagBox.vue';
+import WhoIsThis from './WhoIsThis.vue';
 
 @Component({
   components: {
     Loading,
     TagBox,
+    WhoIsThis,
   },
 })
 export default class TaggingOverlay extends Vue {
@@ -44,6 +47,10 @@ export default class TaggingOverlay extends Vue {
     public overlayStyle = {};
 
     public image: Image | null = null;
+
+    public imageElement: HTMLImageElement | null = null;
+
+    public closedClicked = false;
 
     public async toggle(photoswipeWrapper: PhotoSwipeWrapper) {
       window.console.log(`TaggingOverlay.toggle()`);
@@ -61,6 +68,7 @@ export default class TaggingOverlay extends Vue {
     public async initialise(image: Image, photoswipeWrapper: PhotoSwipeWrapper) {
       window.console.log(`TaggingOverlay.initialise()`);
       this.loading = true;
+      this.closedClicked = false;
 
       this.image = image;
       photoswipeWrapper.photoswipe.listen('destroy', this.destroy);
@@ -102,11 +110,11 @@ export default class TaggingOverlay extends Vue {
 
       if (this.image && this.showTagging) {
 
-        const imgElement = this.getImageElement(this.image);
+        this.imageElement = this.getImageElement(this.image);
 
-        if (imgElement) {
+        if (this.imageElement) {
 
-          const dimensions = imgElement.getBoundingClientRect();
+          const dimensions = this.imageElement.getBoundingClientRect();
           this.overlayStyle = {
             top: `${dimensions.top}px`,
             left: `${dimensions.left}px`,
@@ -138,13 +146,51 @@ export default class TaggingOverlay extends Vue {
       return null;
     }
 
-    private closeClicked() {
+    private closeClicked(evt: MouseEvent) {
+      this.closedClicked = true;
       this.destroy();
     }
 
-    private overlayClicked(evt: MouseEvent) {
+    private async overlayClicked(evt: MouseEvent) {
       window.console.log(`TaggingOverlay.overlayClicked()`);
       window.console.log(evt);
+
+      if (this.imageElement && this.image) {
+        const imageDimensions = this.imageElement.getBoundingClientRect();
+
+        // Ensure area is a square
+        const horizSize = 0.03;
+        const vertSize = horizSize / imageDimensions.height * imageDimensions.width;
+
+        let x1 = Math.max(evt.offsetX / imageDimensions.width - horizSize, 0);
+        let x2 = x1 + 2 * horizSize;
+
+        if (x2 > 1) {
+          x2 = 1;
+          x1 = x2 - 2 * horizSize;
+        }
+
+        let y1 = Math.max(evt.offsetY / imageDimensions.height - vertSize, 0);
+        let y2 = y1 + 2 * vertSize;
+
+        if (y2 > 1) {
+          y2 = 1;
+          y1 = y2 - 2 * vertSize;
+        }
+
+        window.console.log(`x1: ${x1}, x2: ${x2}, y1: ${y1}, y2: ${y2}`);
+
+        const image = this.image;
+        this.$nextTick(() => {
+          if (!this.closedClicked) {
+            (this.$refs.whoIsThis as WhoIsThis).show(x1, x2, y1, y2, image);
+          }
+        });
+      }
+    }
+
+    private tagCreated(newTag: Tag) {
+      this.tags.push(newTag);
     }
 }
 </script>

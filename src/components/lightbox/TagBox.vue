@@ -65,7 +65,7 @@ export default class TagBox extends Vue {
 
   private tagNameClick() {
     if (this.tag) {
-      this.$router.push(`/family/tree/?person_id=${this.tag.person_id}`);
+      this.$router.push(`/family/tree/${this.tag.person_id}/`);
     }
   }
 }
