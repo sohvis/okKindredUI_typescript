@@ -23,18 +23,24 @@ Vue.use(Router);
 export default new Router({
   routes: [
     {
-      path: '/family/', // ?person_id=...
+      path: '/family/',
       name: 'Family',
       component: Family,
     },
     {
-      path: '/family/:urlState/', // ?person_id=...
+      path: '/family/:urlState/',
       name: 'FamilyState',
       component: Family,
       props: true,
     },
     {
-      path: '/family/profile/gallery/', // ?person_id=...
+      path: '/family/:urlState/:personId/',
+      name: 'FamilyState',
+      component: Family,
+      props: true,
+    },
+    {
+      path: '/family/profile/gallery/',
       name: 'PersonGalleryView',
       component: PersonGalleryView,
       props: true,
@@ -43,11 +49,6 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home,
-    },
-    {
-      path: '/search/',
-      name: 'Search',
-      component: Search,
     },
     {
       path: '/about/',

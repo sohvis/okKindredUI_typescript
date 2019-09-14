@@ -60,6 +60,13 @@ export default class Family extends Vue {
     @Prop({ default: 'tree' })
     public urlState?: string;
 
+    @Prop({ default: 0 })
+    public personId?: string;
+
+    public get stateAndSelectedPerson(): string {
+        return `${this.state}-${store.state.person_id}`;
+    }
+
     private state: string = '';
 
     private tabIndex: number = 0;
@@ -78,11 +85,11 @@ export default class Family extends Vue {
     }
 
     private route(state: string) {
-        this.$router.push(`/family/${state}/`);
+        this.$router.push(`/family/${state}/${this.personId}/`);
         this.state = state;
     }
 
-    @Watch('state')
+    @Watch('stateAndSelectedPerson')
     private onStateChange() {
         window.console.log('Family.onStateChange()');
 
@@ -104,19 +111,24 @@ export default class Family extends Vue {
         }
     }
 
+    private navigateToDefault() {
+        let newState = 'tree';
+        if (this.urlState) {
+            newState = this.urlState;
+        }
+
+        let personId = store.state.users_person_id;
+        if (this.personId) {
+            personId = this.personId;
+        }
+
+        this.$router.push(`/family/${newState}/${personId}/`);
+    }
+
     private async initialize() {
         window.console.log('Family.initialize()');
 
         try {
-
-            if (this.urlState) {
-                const tabIndex = this.tabIndexByState[this.urlState];
-                this.tabIndex = tabIndex;
-            } else {
-                this.$router.push(`/family/tree/`);
-                this.state = 'tree';
-            }
-
             // Load jwt from cookie and login
             await store.dispatch('restoreSession');
 
@@ -124,16 +136,24 @@ export default class Family extends Vue {
                 await this.LoadData();
             }
 
-            if (this.$route.query.person_id) {
-                const personId = this.$route.query.person_id as string;
+            if (!this.urlState || !this.personId) {
+                this.navigateToDefault();
+                return;
+            }
 
-                const personInFamily = store.state.people
-                            .filter((p) => Number(p.id) === Number(personId)).length > 0;
 
-                if (personInFamily) {
-                    store.dispatch('changePerson', personId);
-                }
-             }
+            const tabIndex = this.tabIndexByState[this.urlState];
+            this.tabIndex = tabIndex;
+
+            const personInFamily = store.state.people
+                        .filter((p) => Number(p.id) === Number(this.personId)).length > 0;
+
+            if (personInFamily) {
+                store.dispatch('changePerson', this.personId);
+            } else {
+                this.navigateToDefault();
+                return;
+            }
 
             window.console.log(`this.urlState: ${this.urlState}`);
 

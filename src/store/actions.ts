@@ -48,9 +48,7 @@ const actions: ActionTree<IState, IState> = {
             } catch {
                 throw new Error('Token verification failed');
             }
-
         }
-
 
         context.commit('updateLoading', false);
     },

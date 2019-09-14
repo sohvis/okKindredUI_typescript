@@ -16,7 +16,7 @@
             <span class="oi oi-image" aria-hidden="true"></span>
             {{ $t("message.Gallery") }}
           </b-nav-item>
-          <b-nav-item v-if="logged_in" to="/search/" :disabled="loading">
+          <b-nav-item v-if="logged_in" @click="searchClicked" :disabled="loading">
             <span class="oi oi-magnifying-glass" aria-hidden="true"></span>
             {{ $t("message.Search") }}
           </b-nav-item>
@@ -48,6 +48,7 @@
     <ErrorModal />
     <router-view/>
 
+    <Search ref="searchModal" />
   </div>
 </template>
 
@@ -61,11 +62,13 @@ import { Component, Vue } from 'vue-property-decorator';
 import Loading from '@/components/common/Loading.vue';
 import ErrorModal from './components/common/ErrorModal.vue';
 import store from './store/store';
+import Search from './components/search/Search.vue';
 
 @Component({
   components: {
     Loading,
     ErrorModal,
+    Search,
   },
 })
 export default class App extends Vue {
@@ -90,6 +93,10 @@ export default class App extends Vue {
     window.console.log('logout clicked on');
     this.$store.dispatch('logout');
     this.$router.push('/accounts/login/');
+  }
+
+  private searchClicked() {
+    (this.$refs.searchModal as Search).show();
   }
 
 }

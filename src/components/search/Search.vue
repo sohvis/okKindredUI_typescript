@@ -1,13 +1,26 @@
 <template>
-    <div class="container">
-        <h2>{{ $t('message.SearchName') }}</h2>
-        <b-form-input 
+    <b-modal ref="searchModal"
+        hide-footer
+        hide-header 
+        button-size="lg">
+
+        <b-input-group>
+            <b-input-group-prepend>
+                <h2>
+                    <span class="oi oi-magnifying-glass search-prepend" aria-hidden="true"></span>
+                </h2>
+            </b-input-group-prepend>
+
+            <b-form-input 
                 id="search-box"
-                size="sm"
+                size="lg"
                 v-model="searchValue"
                 :placeholder='$t("message.Search")'
                 autocomplete="off">
-        </b-form-input>
+            </b-form-input>
+
+        </b-input-group>
+
 
         <div class="text-center spinner-container" v-show="loadingResults">
             <b-spinner></b-spinner>
@@ -28,15 +41,16 @@
             </table>
         </div>
 
-    </div>
+    </b-modal>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Watch} from 'vue-property-decorator';
 import * as request from 'request-promise-native';
-import Person from './../models/data/person';
-import store from '../store/store';
-import { configs } from '../config';
+import Person from '../../models/data/person';
+import store from '../../store/store';
+import { configs } from '../../config';
+import { BModal } from 'bootstrap-vue';
 
 @Component({
   components: {
@@ -52,12 +66,11 @@ export default class Search extends Vue {
 
     private timeOutHandle: any;
 
-    protected async mounted() {
-        window.console.log('Searchbox.vue mounted() call');
+    public async show() {
 
-        try {
-            await store.dispatch('restoreSession');
+        (this.$refs.searchModal as BModal).show();
 
+        this.$nextTick(() => {
             const textbox = document.getElementById('search-box') as HTMLInputElement;
             if (textbox) {
                 setTimeout(() => {
@@ -65,10 +78,11 @@ export default class Search extends Vue {
                     textbox.select();
                 }, 100);
             }
+        });
+    }
 
-        } catch {
-            this.$router.push(`/accounts/login/?next=${this.$router.currentRoute.fullPath}`);
-        }
+    protected async mounted() {
+        window.console.log('Searchbox.vue mounted() call');
     }
 
     @Watch('searchValue')
@@ -124,27 +138,38 @@ export default class Search extends Vue {
 
     private selectPerson(person: Person) {
         store.dispatch('changePerson', person.id);
-        this.$router.push('/family/');
+        this.$router.push(`/family/tree/${person.id}/`);
+
+        (this.$refs.searchModal as BModal).hide();
     }
 
 }
 </script>
 
 <style scoped>
-    .search-thumb {
-        height: 60px;
-    }
+#search-box {
+    border-radius: 20px;
+}
 
-    .search-thumb-col {
-        width: 80px !important;
-    }
+.search-thumb {
+    height: 60px;
+}
 
-    .table > tbody > tr > td {
-        vertical-align: middle;
-        cursor: pointer;
-    }
+.search-thumb-col {
+    width: 80px !important;
+}
 
-    .spinner-container {
-        margin-top: 10px;
-    }
+.table > tbody > tr > td {
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.spinner-container {
+    margin-top: 10px;
+}
+
+.search-prepend {
+    margin-top: 5px;
+    margin-right: 5px;
+}
 </style>
