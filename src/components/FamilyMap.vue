@@ -112,7 +112,7 @@ export default class FamilyMap extends Vue {
 
     const personMap = document.getElementById('person-map') as HTMLDivElement;
 
-    if (personMap.parentNode && this.map && personMap.clientHeight > 0) {
+    if (personMap && personMap.parentNode && this.map && personMap.clientHeight > 0) {
       let location = [53.421458, -2.560874] as [number, number]; // Warrington by default!
 
       const selectedPerson = store.getters.selectedPerson as Person;

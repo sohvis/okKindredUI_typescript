@@ -122,10 +122,11 @@ export default class FamilyTree extends Vue {
         if (canvas.offsetParent) {
           // If height has reduced, we need to redraw canvas
           const newCanvasTop = canvas.getBoundingClientRect().top;
+
           if (newCanvasTop + 10 < previousCanvasTop) {
-            this.setCanvasSize();
-            const tree = (Scroller as any).tree as Tree;
-            tree.render();
+
+            this.initializeTree();
+
           }
 
           window.setTimeout(() => this.monitorHeightChange(newCanvasTop), 1500);

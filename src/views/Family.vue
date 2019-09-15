@@ -125,7 +125,6 @@ export default class Family extends Vue {
 
             if (!this.personId) {
                 this.$router.push(`/family/${this.urlState}/${store.state.person_id}/`);
-                return;
             }
 
             const tabIndex = this.tabIndexByState[this.urlState];
@@ -138,7 +137,6 @@ export default class Family extends Vue {
                 store.dispatch('changePerson', this.personId);
             } else {
                 this.$router.push(`/family/${this.urlState}/${store.state.person_id}/`);
-                return;
             }
 
             this.state = this.urlState;

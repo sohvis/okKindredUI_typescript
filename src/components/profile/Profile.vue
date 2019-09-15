@@ -355,8 +355,8 @@ export default class Profile extends Vue {
 
   @Watch('selectedPersonId')
   private async onSelectedPersonChanged() {
-    const container = document.getElementById('profile-image') as HTMLDivElement;
-    if (container.parentNode  && container.clientHeight > 0) {
+    const profileImage = document.getElementById('profile-image') as HTMLImageElement;
+    if (profileImage && profileImage.parentNode  && profileImage.clientHeight > 0) {
       await this.LoadPersonData();
     }
   }
