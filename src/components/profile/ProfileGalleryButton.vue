@@ -60,7 +60,7 @@ export default class ProfileGalleryButton extends Vue {
   }
 
   private click() {
-    this.$router.push(`/family/profile/gallery/`);
+    this.$router.push(`/person_gallery/`);
   }
 }
 </script>

@@ -40,7 +40,7 @@ export default new Router({
       props: true,
     },
     {
-      path: '/family/profile/gallery/',
+      path: '/person_gallery/',
       name: 'PersonGalleryView',
       component: PersonGalleryView,
       props: true,

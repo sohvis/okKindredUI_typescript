@@ -57,6 +57,7 @@ export default class DeleteImages extends Vue {
         window.console.log(`DeleteGalleries.show()`);
         window.console.log(imageIds);
         this.imageIds = imageIds;
+        this.errorMessage = '';
         (this.$refs.modal as any).show();
     }
 

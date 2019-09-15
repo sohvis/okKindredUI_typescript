@@ -351,5 +351,6 @@ export const french = {
       GalleryThumbnail: `Vignette pour la Galerie`,
 
       AddTags: `Cliquez/Touchez image pour marquer les gens`,
+      WhoIsThis: `Qui est-ce?`,
     },
 };

@@ -4,7 +4,7 @@
     <b-navbar id="navbar" toggleable="md" type="dark" variant="primary" v-bind:sticky="true" class="navbar-background">
       <b-navbar-brand href="/"><strong>ok!Kindred</strong></b-navbar-brand>
       
-      <b-navbar-toggle target="nav_collapse" />
+      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
       <b-collapse is-nav id="nav_collapse">
         <b-navbar-nav>

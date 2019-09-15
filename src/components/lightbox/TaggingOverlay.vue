@@ -158,8 +158,8 @@ export default class TaggingOverlay extends Vue {
       if (this.imageElement && this.image) {
         const imageDimensions = this.imageElement.getBoundingClientRect();
 
-        // Ensure area is a square
-        const horizSize = 0.03;
+        // Ensure area is a square, 4% or 30px whichever is bigger
+        const horizSize = Math.max(0.04, 30 / imageDimensions.width);
         const vertSize = horizSize / imageDimensions.height * imageDimensions.width;
 
         let x1 = Math.max(evt.offsetX / imageDimensions.width - horizSize, 0);

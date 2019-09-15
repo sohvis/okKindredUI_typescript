@@ -329,5 +329,6 @@ export const traditionalChinese = {
       GalleryThumbnail: `圖庫縮略圖`,
 
       AddTags: `點擊/觸摸圖像標記的人`,
+      WhoIsThis: `這是誰？`,
     },
 };

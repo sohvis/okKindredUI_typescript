@@ -361,5 +361,6 @@ export const polish = {
       GalleryThumbnail: `Miniatura Galerii`,
 
       AddTags: `Kliknij/retusz obrazu otagować ludz`,
+      WhoIsThis: `Kto to jest?`,
     },
 };

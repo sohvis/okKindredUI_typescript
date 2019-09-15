@@ -295,5 +295,6 @@ export const english = {
       GalleryThumbnail: `Gallery Thumbnail`,
 
       AddTags: `Click/Touch image to tag people`,
+      WhoIsThis: `Who is this?`,
     },
 };

@@ -293,5 +293,6 @@ export const finnish = {
       GalleryThumbnail: `Gallerian Pikkukuva`,
 
       AddTags: `Napsauta/Touch kuvaa koodata ihmisiä`,
+      WhoIsThis: `Kuka tämä on?`,
     },
 };

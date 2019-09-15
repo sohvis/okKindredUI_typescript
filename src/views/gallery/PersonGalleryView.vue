@@ -142,7 +142,7 @@ export default class GalleryView extends Vue {
     }
 
     private linkGen(pageNum: number) {
-        return `/family/profile/gallery/?person_id=${this.personId}&page=${pageNum}`;
+        return `/person_gallery/?person_id=${this.personId}&page=${pageNum}`;
     }
 
     @Watch('watchedProps')

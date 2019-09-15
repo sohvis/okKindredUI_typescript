@@ -332,5 +332,6 @@ export const simplifiedChinese = {
       GalleryThumbnail: `图库缩略图`,
 
       AddTags: `点击/触摸图像标记的人`,
+      WhoIsThis: `这是谁？`,
     },
 };
