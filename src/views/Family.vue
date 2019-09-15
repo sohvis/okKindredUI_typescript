@@ -63,10 +63,6 @@ export default class Family extends Vue {
     @Prop({ default: 0 })
     public personId?: string;
 
-    public get stateAndSelectedPerson(): string {
-        return `${this.state}-${store.state.person_id}`;
-    }
-
     private state: string = '';
 
     private tabIndex: number = 0;
@@ -89,7 +85,8 @@ export default class Family extends Vue {
         this.state = state;
     }
 
-    @Watch('stateAndSelectedPerson')
+
+    @Watch('state')
     private onStateChange() {
         window.console.log('Family.onStateChange()');
 
@@ -111,22 +108,12 @@ export default class Family extends Vue {
         }
     }
 
-    private navigateToDefault() {
-        let newState = 'tree';
-        if (this.urlState) {
-            newState = this.urlState;
-        }
-
-        let personId = store.state.users_person_id;
-        if (this.personId) {
-            personId = this.personId;
-        }
-
-        this.$router.push(`/family/${newState}/${personId}/`);
-    }
-
     private async initialize() {
         window.console.log('Family.initialize()');
+
+        if (!this.urlState) {
+            return;
+        }
 
         try {
             // Load jwt from cookie and login
@@ -136,11 +123,10 @@ export default class Family extends Vue {
                 await this.LoadData();
             }
 
-            if (!this.urlState || !this.personId) {
-                this.navigateToDefault();
+            if (!this.personId) {
+                this.$router.push(`/family/${this.urlState}/${store.state.person_id}/`);
                 return;
             }
-
 
             const tabIndex = this.tabIndexByState[this.urlState];
             this.tabIndex = tabIndex;
@@ -151,17 +137,11 @@ export default class Family extends Vue {
             if (personInFamily) {
                 store.dispatch('changePerson', this.personId);
             } else {
-                this.navigateToDefault();
+                this.$router.push(`/family/${this.urlState}/${store.state.person_id}/`);
                 return;
             }
 
-            window.console.log(`this.urlState: ${this.urlState}`);
-
-            if (this.urlState) {
-                this.state = this.urlState;
-            } else {
-                this.state = 'tree';
-            }
+            this.state = this.urlState;
 
         } catch (ex) {
             window.console.log(`ex: ${ex}`);

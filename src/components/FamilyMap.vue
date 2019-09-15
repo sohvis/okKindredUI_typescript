@@ -3,8 +3,8 @@
 </template>
 
 
-<script>
-// Not using typescript with this as no offical bindings for Leaflet
+<script lang="ts">
+import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 import L from 'leaflet';
 import 'leaflet.markercluster';
 import 'leaflet/dist/leaflet.css';
@@ -12,131 +12,165 @@ import 'leaflet.markercluster/dist/MarkerCluster.css';
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
 import * as request from 'request-promise-native';
 import store from '../store/store';
+import Person from '../models/data/person';
+import MapMarkerOptions from '../models/map/map_marker_options';
+import config from '../config';
 
-export default {
-  name: 'FamilyMap',
-  data() {
-    return {
-      map: null,
-    };
+
+@Component({
+  components: {
   },
+})
+export default class FamilyMap extends Vue {
 
-  mounted() {
+  public map: L.Map | null = null;
+
+  public mapSelectedPersonId: string = '';
+
+  public get selectedPersonId(): string {
+    return store.state.person_id;
+  }
+
+  public renderMap() {
+    window.console.log('FamilyMap.renderMap()');
+
+    this.initializeSize();
+
+    const data = store.state.people;
+
+    // Remove data points without a longitude and latitude
+    const filteredData = data.filter((value) => {
+      return value.longitude !== 0 && value.latitude !== 0;
+    });
+
+    // Remove any existing map
+    if (this.map) {
+      this.map.off();
+      this.map.remove();
+    }
+
+    const tileOptions = {
+            token: config.MapboxToken,
+            detectRetina: true,
+        } as L.TileLayerOptions;
+
+    const tiles = L.tileLayer('https://api.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.jpg70?access_token={token}',
+                              tileOptions,
+    );
+
+    let location = [53.421458, -2.560874] as [number, number]; // Warrington by default!
+
+    const selectedPerson = store.getters.selectedPerson as Person;
+    this.mapSelectedPersonId = selectedPerson.id;
+    if (selectedPerson.latitude !== 0 && selectedPerson.longitude !== 0) {
+      location = [selectedPerson.latitude, selectedPerson.longitude];
+    }
+
+
+    const mapOptions = {
+        center: location,
+        zoom: 8,
+        zoomControl: false,
+        minZoom: 2,
+        scrollWheelZoom: true,
+        maxBounds: [[-90, -150], [90, 150]],
+        layers: [tiles],
+    } as L.MapOptions;
+
+    this.map = L.map('person-map', mapOptions);
+
+    // Ugh! seriously? https://stackoverflow.com/questions/50864855/vue-js-leaflet-marker-is-not-visible
+    delete (L.Icon.Default.prototype as any)._getIconUrl;
+
+    L.Icon.Default.mergeOptions({
+      iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
+      iconUrl: require('leaflet/dist/images/marker-icon.png'),
+      shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
+    });
+
+    this.map.addControl( L.control.zoom({position: 'bottomleft'}));
+
+    this.displayMapPoints(filteredData);
+
+    // Selected person sync
+    this.map.on('popupopen', (e: any) => {
+        window.console.log(`Map.popupopen`);
+
+        const newPerson = e.popup._source.options.personId as string;
+        this.mapSelectedPersonId = newPerson;
+        store.dispatch('changePerson', newPerson);
+    });
+  }
+
+  protected mounted() {
     window.console.log('FamilyMap.vue mounted() call');
     window.addEventListener('resize', this.initializeSize, false);
-  },
+  }
 
-  methods: {
+  @Watch('selectedPersonId')
+  private centerOnSelectedPerson() {
 
-      initializeSize() {
-        const personMap = document.getElementById('person-map');
-        const computedStyle = window.getComputedStyle(personMap);
+    const personMap = document.getElementById('person-map') as HTMLDivElement;
 
-        if (computedStyle.display !== 'none') {
-          const height = window.innerHeight - personMap.getBoundingClientRect().top - 10;
-          personMap.style.height = `${height}px`;
-          personMap.style.width = `${window.innerWidth - 10}px`;
+    if (personMap.parentNode && this.map && personMap.clientHeight > 0) {
+      let location = [53.421458, -2.560874] as [number, number]; // Warrington by default!
+
+      const selectedPerson = store.getters.selectedPerson as Person;
+
+      if (this.mapSelectedPersonId !== selectedPerson.id) {
+        if (selectedPerson.latitude !== 0 && selectedPerson.longitude !== 0) {
+          location = [selectedPerson.latitude, selectedPerson.longitude];
+
+          this.map.flyTo(location);
         }
-      },
+      }
+    }
 
-      renderMap() {
-        window.console.log('FamilyMap.renderMap()');
+  }
 
-        this.initializeSize();
+  private initializeSize() {
+    const personMap = document.getElementById('person-map') as HTMLDivElement;
 
-        const data = store.state.people;
+    if (personMap.parentNode) {
+      const height = window.innerHeight - personMap.getBoundingClientRect().top - 10;
+      personMap.style.height = `${height}px`;
+      personMap.style.width = `${window.innerWidth - 10}px`;
+    }
+  }
 
-        // Remove data points without a longitude and latitude
-        const filteredData = data.filter((value) => {
-          return value.longitude !== 0 && value.latitude !== 0;
-        });
+  private displayMapPoints(data: Person[]) {
 
-        // Remove any existing map
-        if (this.map) {
-          this.map.off();
-          this.map.remove();
-        }
+    const markers = L.markerClusterGroup();
 
-        const tiles = L.tileLayer('https://api.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.jpg70?access_token={token}', {
-          token: this.$config.MapboxToken,
-        });
-
-        let center = [53.421458, -2.560874]; // Warrington by default!
-
-        window.console.log(`this.$store.state.person_id: ${this.$store.state.person_id}`);
-        const focusedPeople = filteredData.filter((value) => {
-          return value.id === parseInt(this.$store.state.person_id, 10);
-        });
-
-        window.console.log(focusedPeople);
-
-        if (focusedPeople.length > 0) {
-          center = [focusedPeople[0].latitude, focusedPeople[0].longitude];
+    for (const loc of data) {
+        let imageUrl;
+        if (loc.small_thumbnail) {
+            imageUrl = loc.small_thumbnail;
+        } else {
+            imageUrl = 'img/portrait_80.png';
         }
 
-        this.map = L.map('person-map', {
-            center,
-            zoom: 10,
-            zoomControl: false,
-            minZoom: 2,
-            scrollWheelZoom: true,
-            detectRetina: true,
-            maxBounds: [[-90, -150], [90, 150]],
-            layers: [tiles],
-        });
+        const html = `
+          <div class="map-popup-container">
+            <div class="map-popup-content">
+              <img src="${imageUrl}" alt="${loc.name}"/>
+              ${loc.name}
+            </div>
+          </div>
+        `;
 
-        // Ugh! seriously? https://stackoverflow.com/questions/50864855/vue-js-leaflet-marker-is-not-visible
-        delete L.Icon.Default.prototype._getIconUrl;
+        const options = new MapMarkerOptions(loc.id);
+        options.title = loc.name;
+        const marker = L.marker(new L.LatLng(loc.latitude, loc.longitude), options);
+        marker.bindPopup(html);
+        markers.addLayer(marker);
+    }
 
-        L.Icon.Default.mergeOptions({
-          iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
-          iconUrl: require('leaflet/dist/images/marker-icon.png'),
-          shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
-        });
-
-        this.map.addControl( L.control.zoom({position: 'bottomleft'}));
-
-        this.displayMapPoints(filteredData);
-
-        // Selected person sync
-        this.map.on('popupopen', (e) => {
-            window.console.log(e.popup._source.options.id.toString());
-            store.dispatch('changePerson', e.popup._source.options.id.toString());
-        });
-      },
-
-      displayMapPoints(data) {
-
-        const markers = L.markerClusterGroup();
-
-        for (const loc of data) {
-            let imageUrl;
-            if (loc.small_thumbnail) {
-                imageUrl = loc.small_thumbnail;
-            } else {
-                imageUrl = 'img/portrait_80.png';
-            }
-
-            const html = `
-              <div class="map-popup-container">
-                <div class="map-popup-content">
-                  <img src="${imageUrl}" alt="${loc.name}"/>
-                  ${loc.name}
-                </div>
-              </div>
-            `;
-
-            // window.console.debug(html);
-
-            const marker = L.marker(new L.LatLng(loc.latitude, loc.longitude), { id: loc.id , title: loc.name });
-            marker.bindPopup(html);
-            markers.addLayer(marker);
-        }
-
-        this.map.addLayer(markers);
-      },
-  },
-};
+    if (this.map) {
+      this.map.addLayer(markers);
+    }
+  }
+}
 </script>
 
 <!-- "scoped" attribute removed to fill screen -->

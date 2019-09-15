@@ -3,7 +3,7 @@
     <div class="row">      
       <!--Left column-->
       <div v-if="person" class="col-md-4 photo-column">
-        <img :src="profileImage" :alt="person.name"/>
+        <img id="profile-image" :src="profileImage" :alt="person.name"/>
 
         <ProfileGalleryButton
             v-if="!editMode"
@@ -266,7 +266,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 import { Promise } from 'q';
 import Person from '../../models/data/person';
 import GenderOptionsBuilder from '../../models/data/gender_options_builder';
@@ -296,6 +296,10 @@ import ProfileEmitArgs from '../../models/profile_emit_args';
 export default class Profile extends Vue {
 
   public person: Person | null = null;
+
+  public get selectedPersonId(): string {
+    return store.state.person_id;
+  }
 
   public profileImage?: string;
 
@@ -347,6 +351,14 @@ export default class Profile extends Vue {
 
   protected mounted() {
     window.console.log('Profile.vue mounted() called');
+  }
+
+  @Watch('selectedPersonId')
+  private async onSelectedPersonChanged() {
+    const container = document.getElementById('profile-image') as HTMLDivElement;
+    if (container.parentNode  && container.clientHeight > 0) {
+      await this.LoadPersonData();
+    }
   }
 
   private edit() {

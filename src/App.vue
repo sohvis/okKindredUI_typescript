@@ -1,14 +1,15 @@
 <template>
   <div id="app">
     
-    <b-navbar id="navbar" toggleable="md" type="dark" variant="primary" v-bind:sticky="true" class="navbar-background">
+    <b-navbar id="navbar" toggleable="md" type="dark" 
+        variant="primary" v-bind:sticky="false" class="navbar-background">
       <b-navbar-brand href="/"><strong>ok!Kindred</strong></b-navbar-brand>
       
-      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+      <b-navbar-toggle target="nav_collapse" />
 
       <b-collapse is-nav id="nav_collapse">
         <b-navbar-nav>
-          <b-nav-item v-if="logged_in" to="/family/" :disabled="loading">
+          <b-nav-item v-if="logged_in" to="/family/tree/" :disabled="loading">
             <span class="oi oi-people" aria-hidden="true"></span>
             {{ $t("message.Family") }}
           </b-nav-item>

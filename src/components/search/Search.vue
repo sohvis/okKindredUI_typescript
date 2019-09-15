@@ -138,7 +138,12 @@ export default class Search extends Vue {
 
     private selectPerson(person: Person) {
         store.dispatch('changePerson', person.id);
-        this.$router.push(`/family/tree/${person.id}/`);
+
+        if (this.$router.currentRoute.path.includes('/family/')) {
+            store.dispatch('changePerson', person.id);
+        } else {
+            this.$router.push(`/family/tree/${person.id}/`);
+        }
 
         (this.$refs.searchModal as BModal).hide();
     }

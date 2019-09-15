@@ -28,7 +28,7 @@ export default class Home extends Vue {
     try {
         // Load jwt from cookie and login
         await store.dispatch('restoreSession');
-        this.$router.push('/family/');
+        this.$router.push('/family/tree/');
 
     } catch {
         // not logged in, set language from browser

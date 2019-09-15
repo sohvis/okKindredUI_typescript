@@ -77,7 +77,7 @@ export default class Login extends Vue {
                 window.console.log(`next: ${next}`);
                 this.$router.push(next);
             } else {
-                this.$router.push('/family/');
+                this.$router.push('/family/tree/');
             }
 
         } catch (error) {

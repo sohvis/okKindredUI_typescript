@@ -128,7 +128,7 @@ export default class SignUp extends Vue {
                     password: this.password,
                 });
 
-                this.$router.push('/family/');
+                this.$router.push('/family/tree/');
 
             } catch (error) {
 

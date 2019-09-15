@@ -23,6 +23,7 @@ export default class Tree {
     public selectedNode: TreeNode;
     public hoverNode: TreeNode | null;
     public disabled: boolean;
+    public selectedPersonId: string = '';
 
     constructor(canvas: HTMLCanvasElement, people: Person[], relations: Relation[]) {
 
@@ -185,6 +186,7 @@ export default class Tree {
 
         if (oldSelectedId !== newPersonId) {
             this.nodesById[oldSelectedId].selected = false;
+            this.selectedPersonId = newPersonId;
             store.dispatch('changePerson', newPersonId);
             this.nodesById[newPersonId].selected = true;
         }

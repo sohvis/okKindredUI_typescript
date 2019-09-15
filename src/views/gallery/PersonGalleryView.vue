@@ -4,7 +4,7 @@
             <!--Back link-->
             <p>
                 <router-link
-                    to="/family/">
+                    to="/family/tree/">
                     {{ $t('message.Family') }}
                 </router-link>
                 /

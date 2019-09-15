@@ -24,8 +24,7 @@ export default new Router({
   routes: [
     {
       path: '/family/',
-      name: 'Family',
-      component: Family,
+      redirect: '/family/tree/',
     },
     {
       path: '/family/:urlState/',

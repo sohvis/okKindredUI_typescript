@@ -72,7 +72,7 @@ export default class NewProfilePhoto extends Vue {
     }
 
     private uploadDone() {
-      this.$router.push(`/family/`);
+      this.$router.push(`/family/tree/`);
     }
 }
 </script>

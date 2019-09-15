@@ -68,14 +68,16 @@ export default class FamilyTree extends Vue {
       this.initializeTree();
     }
 
+    public get selectedPersonId(): string {
+      return store.state.person_id;
+    }
+
     public initializeTree() {
       window.console.log(`FamilyTree.initializeTree()`);
 
       const canvas = document.getElementById('tree-canvas') as HTMLCanvasElement;
 
-      const computedStyle = window.getComputedStyle(canvas);
-
-      if (computedStyle.display !== 'none') {
+      if (canvas.offsetParent) {
         this.setCanvasSize();
 
         if (this.people && this.relations && this.people.length > 0) {
@@ -83,7 +85,7 @@ export default class FamilyTree extends Vue {
           const tree = new Tree(canvas, this.people, this.relations);
           (Scroller as any).initialize(canvas, tree);
           tree.setDisabled(this.editMode);
-          tree.render(true);
+          tree.render();
         }
       }
     }
@@ -94,6 +96,41 @@ export default class FamilyTree extends Vue {
       this.setCanvasSize();
 
       window.addEventListener('resize', () => this.initializeTree(), false);
+
+      this.monitorHeightChange(0);
+    }
+
+    @Watch('selectedPersonId')
+    private onSelectedPersonChange() {
+      window.console.log(`FamilyTree.onSelectedPersonChange()`);
+
+      const canvas = document.getElementById('tree-canvas') as HTMLCanvasElement;
+      if (canvas.offsetParent && canvas.clientHeight > 0) {
+        const tree = (Scroller as any).tree as Tree;
+        if (tree.selectedPersonId !== this.selectedPersonId) {
+          this.initializeTree();
+        }
+      }
+    }
+
+    private monitorHeightChange(previousCanvasTop: number) {
+      window.console.log('FamilyTree.monitorHeightChange()');
+
+      const canvas = document.getElementById('tree-canvas') as HTMLCanvasElement;
+
+      if (canvas) {
+        if (canvas.offsetParent) {
+          // If height has reduced, we need to redraw canvas
+          const newCanvasTop = canvas.getBoundingClientRect().top;
+          if (newCanvasTop + 10 < previousCanvasTop) {
+            this.setCanvasSize();
+            const tree = (Scroller as any).tree as Tree;
+            tree.render();
+          }
+
+          window.setTimeout(() => this.monitorHeightChange(newCanvasTop), 1500);
+        }
+      }
     }
 
     private zoomIn() {
@@ -144,13 +181,12 @@ export default class FamilyTree extends Vue {
     private setCanvasSize() {
       const canvas = document.getElementById('tree-canvas') as HTMLCanvasElement;
 
-      const computedStyle = window.getComputedStyle(canvas);
-
-      if (computedStyle.display !== 'none') {
+      if (canvas.offsetParent) {
         const height = window.innerHeight - canvas.getBoundingClientRect().top - 10;
 
         canvas.style.width = `${window.innerWidth}px`;
         canvas.style.height = `${height}px`;
+
       }
     }
 }
