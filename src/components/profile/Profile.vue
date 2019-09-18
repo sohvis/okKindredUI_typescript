@@ -26,9 +26,10 @@
 
         <ProfileInviteToJoinButton 
             v-if="!editMode"
-            v-bind:personId="person.id"
-            v-bind:yearOfDeath="person.year_of_death"
-            v-bind:personUserId="person.user_id"/>
+            :personId="person.id"
+            :yearOfDeath="person.year_of_death"
+            :personUserId="person.user_id"
+            :email="person.email"/>
       </div>
 
       <!-- Right info column -->

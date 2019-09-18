@@ -1,8 +1,15 @@
 <template>
-    <b-button class="btn-profile" variant="outline-secondary" v-if="displayButton">
+    <b-button class="btn-profile" variant="outline-secondary" 
+      v-if="displayButton" @click="inviteClicked">
       <span class="oi oi-envelope-closed" aria-hidden="true"></span>
       {{ $t('message.InviteToJoin') }}
+
+        <EmailModal 
+          ref="emailModal"
+          :personId="personId"
+          @emailSet="emailSet" />
     </b-button>
+
 </template>
 
 <script lang="ts">
@@ -13,8 +20,14 @@ import InviteEmail from '../../models/data/invite_email';
 import * as request from 'request-promise-native';
 import store from '../../store/store';
 import { configs } from '../../config';
+import EmailModal from './EmailModal.vue';
 
-@Component({})
+
+@Component({
+  components: {
+      EmailModal,
+  },
+})
 export default class ProfileInviteToJoinButton extends Vue {
 
   @Prop({default: null})
@@ -25,6 +38,9 @@ export default class ProfileInviteToJoinButton extends Vue {
 
   @Prop({default: null})
   public personUserId?: number | null;
+
+  @Prop({default: ''})
+  public email?: string;
 
   public displayButton: boolean = false;
 
@@ -63,7 +79,7 @@ export default class ProfileInviteToJoinButton extends Vue {
 
         // Check if any pending email invites
         const options = {
-            uri: `${configs.BaseApiUrl}${configs.InviteEmailAPI}/${this.personId}`,
+            uri: `${configs.BaseApiUrl}${configs.InviteEmailAPI}${this.personId}/`,
             headers: store.getters.ajaxHeader,
             json: true,
         };
@@ -72,13 +88,56 @@ export default class ProfileInviteToJoinButton extends Vue {
             const inviteEmail = await request.get(options) as InviteEmail;
             window.console.log(inviteEmail);
             this.pendingInvite = inviteEmail;
-            return false;
+            const email = this.email || '';
+
+            // Allow invite if email address is different
+            return email !== inviteEmail.email_address;
 
         } catch (error) {
             window.console.log(error);
             return true;
         }
     }
+  }
+
+  private async inviteClicked() {
+    window.console.log('ProfileInviteToJoinButton.inviteClicked()');
+
+    if (this.email) {
+      await this.createInvite();
+    } else {
+      // Need to capture email
+      (this.$refs.emailModal as EmailModal).initialize();
+    }
+  }
+
+  private async emailSet() {
+    await this.createInvite();
+  }
+
+  private async createInvite() {
+    window.console.log('ProfileInviteToJoinButton.createInvite()');
+
+    const options = {
+        uri: `${configs.BaseApiUrl}${configs.InviteEmailAPI}`,
+        headers: store.getters.ajaxHeader,
+        body: {
+            person_id: this.personId,
+          },
+        json: true,
+      };
+
+    try {
+      store.commit('updateLoading', true);
+      const inviteEmail = await request.post(options) as InviteEmail;
+      window.console.log(inviteEmail);
+      this.displayButton = false;
+
+    } catch (error) {
+        store.commit('setErrorMessage', error);
+    }
+
+    store.commit('updateLoading', false);
   }
 }
 </script>

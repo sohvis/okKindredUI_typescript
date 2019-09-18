@@ -111,7 +111,7 @@ export default class NumberField extends Vue {
       }
 
       const options = {
-          uri: `${configs.BaseApiUrl}${configs.PersonAPI}/${this.personId}`,
+          uri: `${configs.BaseApiUrl}${configs.PersonAPI}${this.personId}/`,
           headers: store.getters.ajaxHeader,
           body: {
             fieldName: this.propertyName,

@@ -57,7 +57,7 @@ export default class BooleanField extends Vue {
     if (this.value !== this.valueEdited) {
 
       const options = {
-          uri: `${configs.BaseApiUrl}${configs.PersonAPI}/${this.personId}`,
+          uri: `${configs.BaseApiUrl}${configs.PersonAPI}${this.personId}/`,
           headers: store.getters.ajaxHeader,
           body: {
             fieldName: this.propertyName,

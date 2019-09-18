@@ -128,7 +128,7 @@ export default class Biography extends Vue {
 
       try {
         const options = {
-            uri: `${configs.BaseApiUrl}${configs.PersonAPI}/${this.personId}`,
+            uri: `${configs.BaseApiUrl}${configs.PersonAPI}${this.personId}/`,
             headers: store.getters.ajaxHeader,
             body: {
               fieldName: 'biography',
