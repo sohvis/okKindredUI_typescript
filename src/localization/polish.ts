@@ -362,5 +362,13 @@ export const polish = {
 
       AddTags: `Kliknij/retusz obrazu otagować ludz`,
       WhoIsThis: `Kto to jest?`,
+
+      // Invite confirmation
+      InviteConfirmation: `ok!Kindred Invite Confirmation`,
+      HelloName: `Hello {name}!`,
+      YouHaveBeenInvited: `Thank you for accepting the invitation from {invitedBy}
+      to join ok!kindred, share your family tree and keep in contact with your family members!`,
+      CannotFindInvite: `ok!Kindred invite not found`,
+      CannotFindInviteDescription: `Please check with whoever sent you the invite and note that invites expire after 2 weeks.`,
     },
 };

@@ -4,7 +4,6 @@ import Home from './views/Home.vue';
 import Login from './views/accounts/Login.vue';
 import About from './views/About.vue';
 import Family from './views/Family.vue';
-import Search from './views/Search.vue';
 import PasswordReset from './views/accounts/PasswordReset.vue';
 import PasswordResetConfirmation from './views/accounts/PasswordResetConfirmation.vue';
 import Settings from './views/accounts/Settings.vue';
@@ -16,6 +15,7 @@ import GalleryView from './views/gallery/GalleryView.vue';
 import UploadImages from './views/gallery/UploadImages.vue';
 import PersonGalleryView from './views/gallery/PersonGalleryView.vue';
 import GalleryMap from './views/gallery/GalleryMap.vue';
+import InviteConfirmation from './views/accounts/InviteConfirmation.vue';
 
 
 Vue.use(Router);
@@ -89,6 +89,12 @@ export default new Router({
       path: '/accounts/sign_up_confirmation/:confirmationToken/',
       name: 'SignUpConfirmation',
       component: SignUpConfirmation,
+      props: true,
+    },
+    {
+      path: '/accounts/invite_confirmation/:confirmationToken/',
+      name: 'InviteConfirmation',
+      component: InviteConfirmation,
       props: true,
     },
     {

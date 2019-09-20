@@ -11,6 +11,7 @@ export const configs = {
     // API endpoints
     GalleryAPI: '/api/gallery/',
     InviteEmailAPI: '/api/invite_email/',
+    InviteEmailConfirmationAPI: '/api/invite_email_confirmation/',
     ImageAPI: '/api/image/',
     ImageTaggingAPI: '/api/image_tagging/?image_id=',
     LeaveSiteAPI: '/api/delete_account/',

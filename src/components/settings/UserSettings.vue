@@ -143,7 +143,7 @@ export default class UserSettings extends Vue {
                 json: true,
             };
 
-            await request.put(options);
+            await request.patch(options);
 
             this.saved = true;
 
