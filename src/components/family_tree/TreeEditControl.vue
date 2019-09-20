@@ -1,6 +1,7 @@
 <template>
   <div class="tree-edit-control-container">
-    <button type="button" class="btn btn-secondary btn-round" @click="click">
+    <button :title="$t('message.Edit')" type="button" 
+      class="btn btn-secondary btn-round" @click="click">
       <span class="oi oi-pencil edit-button" aria-hidden="true"></span>
     </button>
   </div>

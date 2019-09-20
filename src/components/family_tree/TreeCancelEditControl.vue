@@ -1,6 +1,7 @@
 <template>
   <div class="tree-cancel-edit-control-container">
-    <button type="button" class="btn btn-success btn-round" @click="click">
+    <button :title="$t('message.Done')" type="button" 
+        class="btn btn-success btn-round" @click="click">
       <span class="oi oi-check cancel-button" aria-hidden="true"></span>
     </button>
   </div>

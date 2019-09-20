@@ -30,27 +30,35 @@
                     </span>
                 </div>
 
-                <button class="pswp__button pswp__button--close"></button>
+                <button :title="$t('message.Close')" class="pswp__button pswp__button--close">
+                </button>
 
-                <button class="pswp__button custom-button oi oi-data-transfer-download"
+                <button :title="$t('message.Download')"
+                    class="pswp__button custom-button oi oi-data-transfer-download"
                     @click="download">
                 </button>
 
-                <button v-show="displayMap" class="pswp__button custom-button oi oi-map"
+                <button :title="$t('message.Map')"
+                    v-show="displayMap" 
+                    class="pswp__button custom-button oi oi-map"
                     @click="showMap">
                 </button>
 
-                <button class="pswp__button custom-button oi oi-pencil"
+                <button :title="$t('message.EditImage')"
+                    class="pswp__button custom-button oi oi-pencil"
                     @click="editImage">
                 </button>
 
 
-                <button class="pswp__button custom-button oi oi-tag"
+                <button :title="$t('message.Tags')"
+                    class="pswp__button custom-button oi oi-tag"
                     @click="toggleTagging">
                 </button>
 
                 <!-- fullscreen -->
-                <button class="pswp__button pswp__button--fs"></button>
+                <button :title="$t('message.Fullscreen')"
+                    class="pswp__button pswp__button--fs">
+                </button>
 
                 <!-- element will get class pswp__preloader--active when preloader is running -->
                 <div class="pswp__preloader">
@@ -62,10 +70,12 @@
                 </div>
             </div>
 
-            <button class="pswp__button pswp__button--arrow--left">
+            <button :title="$t('message.Previous')"
+                class="pswp__button pswp__button--arrow--left">
             </button>
 
-            <button class="pswp__button pswp__button--arrow--right">
+            <button :title="$t('message.Next')"
+                class="pswp__button pswp__button--arrow--right">
             </button>
 
             <div class="pswp__caption">

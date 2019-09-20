@@ -28,6 +28,13 @@ export const polish = {
       Logout: 'Wyloguj',
       Login: 'Zaloguj się',
       Profile: 'Profil',
+      Toolbar: `Pasek Narzędzi`,
+      Fullscreen: `Pełny Ekran`,
+      Tags: `Etykietki`,
+      Download: `Pobieranie`,
+      Previous: `Poprzedni`,
+      Next: `Następny`,
+      ShowPassword: `Pokaż Hasło`,
 
       // Login
       PleaseSignIn: 'Zaloguj się',

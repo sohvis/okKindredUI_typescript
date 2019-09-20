@@ -1,6 +1,7 @@
 <template>
 <div>
-    <b-button variant="danger" class="delete-control" 
+    <b-button :title="$t('message.Delete')" 
+      variant="danger" class="delete-control" 
       v-bind:style="positionStyle" v-if="deleteAllowed" 
       v-b-modal.delete-modal>
       <span class="oi oi-trash" aria-hidden="true"></span>

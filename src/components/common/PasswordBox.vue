@@ -9,6 +9,7 @@
     </b-form-input>
     <b-input-group-append>
       <b-button 
+        :title="$t('message.ShowPassword')"
         variant="outline-secondary" 
         @click="toggle()"
         :pressed="showPassword"

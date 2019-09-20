@@ -28,6 +28,13 @@ export const english = {
       Logout: 'Logout',
       Login: 'Log In',
       Profile: 'Profile',
+      Toolbar: `Toolbar`,
+      Fullscreen: `Fullscreen`,
+      Tags: `Tags`,
+      Download: `Download`,
+      Previous: `Previous`,
+      Next: `Next`,
+      ShowPassword: `Show Password`,
 
       // Login
       PleaseSignIn: 'Please sign in',

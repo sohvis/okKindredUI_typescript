@@ -29,6 +29,13 @@ export const simplifiedChinese = {
       Logout: '登出',
       Login: '登录',
       Profile: '轮廓',
+      Toolbar: `工具栏`,
+      Fullscreen: `全屏`,
+      Tags: `标签`,
+      Download: `下载`,
+      Previous: `以前`,
+      Next: `未来`,
+      ShowPassword: `显示密码`,
 
       // Login
       PleaseSignIn: '请登录',

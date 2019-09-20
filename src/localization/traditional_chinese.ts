@@ -28,6 +28,13 @@ export const traditionalChinese = {
       Logout: '登出',
       Login: '登錄',
       Profile: '輪廓',
+      Toolbar: `工具欄`,
+      Fullscreen: `全屏`,
+      Tags: `標籤`,
+      Download: `下載`,
+      Previous: `前`,
+      Next: `下面`,
+      ShowPassword: `顯示密碼`,
 
       // Login
       PleaseSignIn: '請登錄',

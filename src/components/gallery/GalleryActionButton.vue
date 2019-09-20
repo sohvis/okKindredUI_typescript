@@ -5,6 +5,7 @@
             <b-button
                 v-if="opened"
                 variant="success"
+                :title="$t('message.UploadImages')"
                 class="gallery-button add-button"
                 @click="addImagesClicked">
                 <sup>
@@ -19,6 +20,7 @@
             <b-button
                 v-if="opened"
                 variant="secondary"
+                :title="$t('message.EditGallery')"
                 class="gallery-button edit-button"
                 :disabled="!editEnabled"
                 @click="editClicked">
@@ -29,6 +31,7 @@
             <b-button
                 v-if="opened"
                 variant="danger"
+                :title="$t('message.DeleteImages')"
                 class="gallery-button delete-button"
                 :disabled="!deleteEnabled"
                 @click="deleteClicked">
@@ -39,6 +42,7 @@
             <b-button
                 v-if="opened"
                 variant="info"
+                :title="$t('message.Map')"
                 class="gallery-button map-button"
                 @click="mapClicked">
                 <span class="oi oi-map"></span>
@@ -47,6 +51,7 @@
         <b-button
             v-if="!opened"
             variant="outline-primary"
+            :title="$t('message.Toolbar')"
             class="gallery-button action-button"
             @click="menuButtonClicked">
             <span class="oi oi-menu"></span>
@@ -54,6 +59,7 @@
         <b-button
             v-if="opened"
             variant="primary"
+            :title="$t('message.Close')"
             class="gallery-button close-button"
             @click="menuButtonClicked">
             <span class="oi oi-x"></span>

@@ -28,6 +28,13 @@ export const french = {
       Logout: 'Déconnecter',
       Login: 'Connecter',
       Profile: 'Profil',
+      Toolbar: `Barre D'Outils`,
+      Fullscreen: `Plein écran`,
+      Tags: `Marques`,
+      Download: `Télécharger`,
+      Previous: `Reculer`,
+      Next: `Avancer`,
+      ShowPassword: `Montrer le Mot de Passe`,
 
       // Login
       PleaseSignIn: 'S\'il vous plaît vous connecter',

@@ -1,6 +1,6 @@
 <template>
 <div>
-    <b-button variant="warning" class="split-control" 
+    <b-button :title="$t('message.BreakLinks')" variant="warning" class="split-control" 
         v-bind:style="positionStyle" v-if="hasRelations" v-b-modal.split-modal>
       <span class="oi oi-link-broken" aria-hidden="true"></span>
     </b-button>

@@ -28,6 +28,13 @@ export const finnish = {
       Logout: 'Kirjautua ulos',
       Login: 'Kirjaudu sisään',
       Profile: 'Profiili',
+      Toolbar: `Toolbar`,
+      Fullscreen: `Koko Näyttö`,
+      Tags: `Leima`,
+      Download: `Ladata`,
+      Previous: `Edellinen`,
+      Next: `Seuraava`,
+      ShowPassword: `Näytä Salasana`,
 
       // Login
       PleaseSignIn: 'Ole hyvä ja kirjaudu sisään',
