@@ -364,11 +364,11 @@ export const polish = {
       WhoIsThis: `Kto to jest?`,
 
       // Invite confirmation
-      InviteConfirmation: `ok!Kindred Invite Confirmation`,
-      HelloName: `Hello {name}!`,
-      YouHaveBeenInvited: `Thank you for accepting the invitation from {invitedBy}
-      to join ok!kindred, share your family tree and keep in contact with your family members!`,
-      CannotFindInvite: `ok!Kindred invite not found`,
-      CannotFindInviteDescription: `Please check with whoever sent you the invite and note that invites expire after 2 weeks.`,
+      InviteConfirmation: `ok!Kindred Potwierdzenie Zaproszenia`,
+      HelloName: `Cześć {name}!`,
+      YouHaveBeenInvited: `Dziękujemy za przyjęcie zaproszenia od {invitedBy}
+      aby dołączyć do ok! kindred, udostępnij swoje drzewo genealogiczne i utrzymuj kontakt z członkami rodziny!`,
+      CannotFindInvite: `ok!Kindred nie znaleziono zaproszenia`,
+      CannotFindInviteDescription: `Skontaktuj się z tym, kto wysłał Ci zaproszenie, i pamiętaj, że zaproszenia wygasają po 2 tygodniach.`,
     },
 };

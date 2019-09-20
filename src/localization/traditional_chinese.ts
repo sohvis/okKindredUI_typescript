@@ -332,11 +332,11 @@ export const traditionalChinese = {
       WhoIsThis: `這是誰？`,
 
       // Invite confirmation
-      InviteConfirmation: `ok!Kindred Invite Confirmation`,
-      HelloName: `Hello {name}!`,
-      YouHaveBeenInvited: `Thank you for accepting the invitation from {invitedBy}
-      to join ok!kindred, share your family tree and keep in contact with your family members!`,
-      CannotFindInvite: `ok!Kindred invite not found`,
-      CannotFindInviteDescription: `Please check with whoever sent you the invite and note that invites expire after 2 weeks.`,
+      InviteConfirmation: `ok!Kindred 邀請確認`,
+      HelloName: `你好 {name}!`,
+      YouHaveBeenInvited: `感謝您接受{inviteBy}的邀請
+      加入 okkindred，分享您的家譜並與您的家人保持聯繫！`,
+      CannotFindInvite: `ok!Kindred 沒有找到邀請`,
+      CannotFindInviteDescription: `請與向您發送邀請的人確認，並註意邀請在2週後過期。`,
     },
 };

@@ -354,11 +354,11 @@ export const french = {
       WhoIsThis: `Qui est-ce?`,
 
       // Invite confirmation
-      InviteConfirmation: `ok!Kindred Invite Confirmation`,
-      HelloName: `Hello {name}!`,
-      YouHaveBeenInvited: `Thank you for accepting the invitation from {invitedBy}
-      to join ok!kindred, share your family tree and keep in contact with your family members!`,
-      CannotFindInvite: `ok!Kindred invite not found`,
-      CannotFindInviteDescription: `Please check with whoever sent you the invite and note that invites expire after 2 weeks.`,
+      InviteConfirmation: `ok!Kindred Confirmation d'Invitation`,
+      HelloName: `Salut {name}!`,
+      YouHaveBeenInvited: `Merci d'avoir accepté l'invitation de {invitedBy}
+      pour joindre ok!kindred, partagez votre arbre généalogique et restez en contact avec les membres de votre famille!`,
+      CannotFindInvite: `ok!Kindred invitation non trouvé`,
+      CannotFindInviteDescription: `S'il vous plaît vérifier avec celui qui vous a envoyé l'invitation et notez que les invitations expirent après 2 semaines.`,
     },
 };

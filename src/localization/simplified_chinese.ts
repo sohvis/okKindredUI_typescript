@@ -335,11 +335,11 @@ export const simplifiedChinese = {
       WhoIsThis: `这是谁？`,
 
       // Invite confirmation
-      InviteConfirmation: `ok!Kindred Invite Confirmation`,
-      HelloName: `Hello {name}!`,
-      YouHaveBeenInvited: `Thank you for accepting the invitation from {invitedBy}
-      to join ok!kindred, share your family tree and keep in contact with your family members!`,
-      CannotFindInvite: `ok!Kindred invite not found`,
-      CannotFindInviteDescription: `Please check with whoever sent you the invite and note that invites expire after 2 weeks.`,
+      InviteConfirmation: `ok!Kindred 邀请确认`,
+      HelloName: `你好 {name}!`,
+      YouHaveBeenInvited: `感谢您接受{inviteBy}的邀请
+      加入{ok！kindred}，分享您的家谱并与您的家人保持联系！`,
+      CannotFindInvite: `ok!Kindred 没有找到邀请`,
+      CannotFindInviteDescription: `请与向您发送邀请的人确认，并注意邀请在2周后过期。`,
     },
 };

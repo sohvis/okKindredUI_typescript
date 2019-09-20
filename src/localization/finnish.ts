@@ -296,11 +296,11 @@ export const finnish = {
       WhoIsThis: `Kuka tämä on?`,
 
       // Invite confirmation
-      InviteConfirmation: `ok!Kindred Invite Confirmation`,
-      HelloName: `Hello {name}!`,
-      YouHaveBeenInvited: `Thank you for accepting the invitation from {invitedBy}
-      to join ok!kindred, share your family tree and keep in contact with your family members!`,
-      CannotFindInvite: `ok!Kindred invite not found`,
-      CannotFindInviteDescription: `Please check with whoever sent you the invite and note that invites expire after 2 weeks.`,
+      InviteConfirmation: `ok!Kindred Kutsu Vahvistus`,
+      HelloName: `Hei {name}!`,
+      YouHaveBeenInvited: `Kiitos, että olet hyväksynyt kutsun käyttäjältä {invitedBy}
+      liittyä ok! -tautiin, jaa sukupuusi ja pidä yhteyttä perheenjäseniisi!`,
+      CannotFindInvite: `ok!Kindred kutsua ei löydy`,
+      CannotFindInviteDescription: `Tarkista, kuka on lähettänyt sinulle kutsun, ja muista, että kutsut vanhenevat 2 viikon kuluttua.`,
     },
 };
