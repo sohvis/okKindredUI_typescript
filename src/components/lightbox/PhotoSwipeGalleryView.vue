@@ -147,7 +147,6 @@ export default class PhotoSwipeGalleryView extends Vue {
         }
     }
 
-
     private afterChange() {
         window.console.log(`PhotoSwipeGalleryView.afterChange()`);
 

@@ -143,9 +143,11 @@ export default class PhotoSwipeGalleryView extends Vue {
         const getUrl = (pageNo: number) => urlPrefix + pageNo.toString();
 
         // load in images from other pages
-        this.loadingMore = true;
-        await this.photoswipeWrapper.loadImagesFromOtherPages(currentPage, totalItems, getUrl);
-        this.loadingMore = false;
+        if (images.length < totalItems) {
+            this.loadingMore = true;
+            await this.photoswipeWrapper.loadImagesFromOtherPages(currentPage, totalItems, getUrl);
+            this.loadingMore = false;
+        }
     }
 
     protected afterChange() {

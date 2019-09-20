@@ -93,6 +93,8 @@ export default class GalleryView extends Vue {
 
     public galleryWidth: number = 800;
 
+    public additionalImages: Image[] = [];
+
     public get numberOfPages(): number {
         return Math.max(1, Math.ceil(this.totalCount / config.PaginationPageSize));
     }
@@ -108,6 +110,7 @@ export default class GalleryView extends Vue {
             // Load jwt from cookie and login
             await store.dispatch('restoreSession');
             await this.loadData();
+            await this.displayImageFromUrl();
 
             window.addEventListener('resize', this.setDisplaySizes);
         } catch (ex) {
@@ -130,10 +133,11 @@ export default class GalleryView extends Vue {
 
         try {
 
-            const imageTask = this.loadImageData();
+            const imageTask = this.loadImageData(this.page);
             const headerTask = (this.$refs.galleryHeader as GalleryHeader).loadGalleryData();
             await imageTask;
             await headerTask;
+            this.setDisplaySizes();
 
             if (this.images.length === 0) {
                 this.showNoImagesMessage = true;
@@ -146,13 +150,13 @@ export default class GalleryView extends Vue {
         store.commit('updateLoading', false);
     }
 
-    private async loadImageData() {
+    private async loadImageData(page: number) {
 
         store.commit('updateLoading', true);
 
         try {
             const options = {
-                uri: `${config.BaseApiUrl}${config.ImageAPI}?page=${this.page}&gallery_id=${this.galleryId}`,
+                uri: `${config.BaseApiUrl}${config.ImageAPI}?page=${page}&gallery_id=${this.galleryId}`,
                 headers: store.getters.ajaxHeader,
                 json: true,
             };
@@ -160,8 +164,7 @@ export default class GalleryView extends Vue {
             const response = await request.get(options) as PagedResult<Image>;
 
             this.images = response.results;
-            this.setDisplaySizes();
-
+            this.additionalImages.push(...this.images);
             this.totalCount = response.count;
 
         } catch (ex) {
@@ -249,7 +252,9 @@ export default class GalleryView extends Vue {
     }
 
     private async imagesDeleted() {
-        await this.loadImageData();
+        window.console.log(`GalleryView.imagesDeleted()`);
+        await this.loadImageData(this.page);
+        this.setDisplaySizes();
     }
 
     private async imageClick(imageId: number, rowIndex: number) {
@@ -276,6 +281,59 @@ export default class GalleryView extends Vue {
                 this.images[index] = image;
                 this.setDisplaySizes();
                 return;
+            }
+        }
+    }
+
+    private async displayImageFromUrl() {
+        if (this.$route.query.image_id && this.galleryId) {
+            const imageId = Number(this.$route.query.image_id);
+
+            window.console.log(`GalleryView.displayImageFromUrl(imageId: ${imageId}`);
+
+            // if the image is already loaded in page, display it
+            let index = this.images.findIndex((item) => item.id === imageId);
+
+            if (index > -1) {
+
+                window.console.log(`image in data loaded from page - displaying`);
+                await (this.$refs.photoSwipeView as PhotoSwipeView).init(
+                    this.images,
+                    index,
+                    this.page,
+                    this.totalCount,
+                    this.galleryId);
+
+            } else {
+                // If image is not in page, then we have to load the other pages before displaying it
+                window.console.log(`image not in data loaded from page - loading all other pages`);
+
+                store.commit('updateLoading', true);
+                const tasks = new Array<Promise<void>>();
+
+                let pageNo: number = this.page;
+                if (this.page < this.numberOfPages) {
+                    for (pageNo = this.page + 1; pageNo <= this.numberOfPages; pageNo++) {
+                        tasks.push(this.loadImageData(pageNo));
+                    }
+                }
+
+                if (this.page  > 1) {
+                    for (pageNo = 1; pageNo < this.page ; pageNo++) {
+                        tasks.push(this.loadImageData(pageNo));
+                    }
+                }
+                await Promise.all(tasks);
+
+                index = this.additionalImages.findIndex((item) => item.id === imageId);
+                await (this.$refs.photoSwipeView as PhotoSwipeView).init(
+                    this.additionalImages,
+                    index,
+                    pageNo,
+                    this.totalCount,
+                    this.galleryId);
+
+                store.commit('updateLoading', false);
             }
         }
     }
