@@ -201,7 +201,9 @@ export const traditionalChinese = {
 
       Female: `女`,
       Male: `男`,
+      NonBinary: `非二進制`,
       Other: `其他`,
+      PreferNotToSay: `不想說`,
 
       Biography: `傳`,
       BiographyNotExist: `傳記還沒有為這個語言編寫`,

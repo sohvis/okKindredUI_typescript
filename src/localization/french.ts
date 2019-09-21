@@ -223,7 +223,9 @@ export const french = {
 
       Female: `Femelle`,
       Male: `Mâle`,
+      NonBinary: `Non binaire`,
       Other: `Autre`,
+      PreferNotToSay: `Je préfère ne pas le dire`,
 
       Biography: `Biographie`,
       BiographyNotExist: `Une biographie n'a pas encore été écrit.`,

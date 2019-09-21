@@ -160,7 +160,9 @@ export const english = {
 
       Female: `Female`,
       Male: `Male`,
+      NonBinary: `Non-Binary`,
       Other: `Other`,
+      PreferNotToSay: `Prefer not to say`,
 
       Biography: `Biography`,
       BiographyNotExist: `A biography has not yet been written.`,

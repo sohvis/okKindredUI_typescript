@@ -165,7 +165,9 @@ export const finnish = {
 
       Female: `Nainen`,
       Male: `Uros`,
+      NonBinary: `Epäbinaarisia`,
       Other: `Muut`,
+      PreferNotToSay: `Olla mieluummin sanomatta`,
 
       Biography: `Elämäkerta`,
       BiographyNotExist: `Elämäkerta ei ole vielä kirjoitettu tällä kielellä.`,

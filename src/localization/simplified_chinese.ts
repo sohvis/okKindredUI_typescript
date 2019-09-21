@@ -204,7 +204,9 @@ export const simplifiedChinese = {
 
       Female: `女`,
       Male: `男`,
+      NonBinary: `非二进制`,
       Other: `其他`,
+      PreferNotToSay: `不想说`,
 
       Biography: `传`,
       BiographyNotExist: `传记还没有为这个语言编写`,

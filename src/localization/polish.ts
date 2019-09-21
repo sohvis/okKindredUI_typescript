@@ -233,7 +233,9 @@ export const polish = {
 
       Female: `Kobieta`,
       Male: `Mężczyzna`,
+      NonBinary: `Nie binarne`,
       Other: `Inna Płeć`,
+      PreferNotToSay: `Wolę nie mówić`,
 
       Biography: `Biografia`,
       BiographyNotExist: `Biografia jeszcze nie zostało napisane w tym języku.`,
