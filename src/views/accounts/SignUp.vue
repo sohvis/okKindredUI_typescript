@@ -89,7 +89,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Watch } from 'vue-property-decorator';
 import * as request from 'request-promise-native';
 import store from '../../store/store';
 import ErrorModal from '../../components/common/ErrorModal.vue';
@@ -173,6 +173,13 @@ export default class SignUp extends Vue {
     protected mounted() {
         i18n.locale = localeMatch.match(navigator.language);
         this.languageOptions = LanguageOptionsBuilder.createDropDownOptions();
+        const genderBuilder = new GenderOptionsBuilder(this);
+        this.genderOptions = genderBuilder.createDropDownOptions();
+    }
+
+    @Watch('form.language')
+    private languageChanged() {
+        i18n.locale = localeMatch.match(this.form.language);
         const genderBuilder = new GenderOptionsBuilder(this);
         this.genderOptions = genderBuilder.createDropDownOptions();
     }
