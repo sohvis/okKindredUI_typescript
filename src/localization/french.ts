@@ -247,7 +247,7 @@ export const french = {
 
       // Password Reset Confirmation
       PasswordResetConfirmation: `Confirmation de Réinitialisation du Mot de Passe`,
-      PasswordResetConfirmationDescription: `Please enter your new password`,
+      PasswordResetConfirmationDescription: `Veuillez entrer votre nouveau mot de passe`,
       PasswordConfirmation: `Mot de Passe Confirmation.`,
       PasswordsNotMatching: `Les mots de passe ne correspondent pas`,
       UpdateMyPassword: 'Réviser mon mot de passe',
