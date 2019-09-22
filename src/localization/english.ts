@@ -213,6 +213,7 @@ export const english = {
       OldPassword: `Old Password`,
       NewPassword: `New Password`,
       PasswordUpdated: `Password Updated`,
+      IncorrectOldPassword: `Your old password is incorrect`,
 
       // Leave Site
       LeaveSite: `Leave ok!Kindred`,

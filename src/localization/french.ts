@@ -276,6 +276,7 @@ export const french = {
       OldPassword: `Ancien Mot de Passe`,
       NewPassword: `Nouveau Mot de Passe`,
       PasswordUpdated: `Nouveau Mot de Passe Enregistré`,
+      IncorrectOldPassword: `Votre ancien mot de passe est incorrect`,
 
       // Leave Site
       LeaveSite: `Quitter ok!Kindred`,

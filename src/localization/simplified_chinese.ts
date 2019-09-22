@@ -257,6 +257,7 @@ export const simplifiedChinese = {
       OldPassword: `旧密码`,
       NewPassword: `新密码`,
       PasswordUpdated: `密码已更新`,
+      IncorrectOldPassword: `您的旧密码不正确`,
 
       // Leave Site
       LeaveSite: `放弃 ok!Kindred`,

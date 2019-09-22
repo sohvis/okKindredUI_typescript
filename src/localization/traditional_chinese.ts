@@ -254,6 +254,7 @@ export const traditionalChinese = {
       OldPassword: `舊密碼`,
       NewPassword: `新密碼`,
       PasswordUpdated: `密碼已更新`,
+      IncorrectOldPassword: `您的舊密碼不正確`,
 
       // Leave Site
       LeaveSite: `放棄 ok!Kindred`,

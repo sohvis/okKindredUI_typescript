@@ -286,6 +286,7 @@ export const polish = {
       OldPassword: `Stare Hasło`,
       NewPassword: `Nowe Hasło`,
       PasswordUpdated: `Hasło Zaktualizowane`,
+      IncorrectOldPassword: `Twoje stare hasło jest nieprawidłowe`,
 
       // Leave Site
       LeaveSite: `Porzucić ok!Kindred`,

@@ -218,6 +218,7 @@ export const finnish = {
       OldPassword: `Vanha Salasana`,
       NewPassword: `Uusi Salasana`,
       PasswordUpdated: `Salasana Päivitetty`,
+      IncorrectOldPassword: `Vanha salasanasi on väärä`,
 
       // Leave Site
       LeaveSite: `Jätä ok!Kindred`,

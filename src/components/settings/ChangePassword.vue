@@ -34,7 +34,6 @@
 
         <b-button type="submit" :disabled="submitDisabled" variant="primary">{{ $t("message.UpdateMyPassword") }}</b-button>
 
- 
         <b-spinner class="password-spinner" small v-show="saving"></b-spinner>
 
         <span v-show="saved" class="saved-message">
@@ -128,8 +127,13 @@ export default class ChangePassword extends Vue {
 
             } catch (ex) {
 
-                // TODO Various error messages based on exception
-                store.commit('setErrorMessage', ex);
+                let message: string = ex.toString();
+
+                // Various error messages based on exception
+                if (ex.toString().includes('Incorrect previous password')) {
+                    message = this.$t('message.IncorrectOldPassword').toString();
+                }
+                store.commit('setErrorMessage', message);
             }
 
         }
