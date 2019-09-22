@@ -23,12 +23,14 @@
             <strong>{{ $t('message.PasswordBreach1') }}</strong>
             <div>{{ $t('message.PasswordBreach2') }}</div>
             <div>
-            {{ $t('message.ForMoreInformation') }}
-            <a href="https://haveibeenpwned.com/Passwords">https://haveibeenpwned.com/Passwords</a>
+                {{ $t('message.ForMoreInformation') }}
+                <a href="https://haveibeenpwned.com/Passwords">https://haveibeenpwned.com/Passwords</a>
             </div>
         </div>
 
-        <b-button type="submit" :disabled="submitDisabled" variant="primary">{{ $t("message.UpdateMyPassword") }}</b-button>
+        <b-button class="submitButton" type="submit" :disabled="submitDisabled" variant="primary">
+            {{ $t("message.UpdateMyPassword") }}
+        </b-button>
 
     </form>
 
@@ -120,8 +122,12 @@ export default class PasswordResetConfirmation extends Vue {
 </script>
 
 <style scoped>
-    .form-password-reset {
-        max-width: 500px;
-    }
+.form-password-reset {
+    max-width: 500px;
+}
 
+.submitButton.disabled {
+    background-color: #aaa;
+    border-color: #aaa
+}
 </style>

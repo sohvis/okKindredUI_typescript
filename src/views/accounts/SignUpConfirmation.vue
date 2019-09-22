@@ -36,7 +36,9 @@
             {{ errorMessage }}
         </b-alert>
         
-        <b-button type="submit" :disabled="submitDisabled" variant="primary">{{ $t("message.Confirm") }}</b-button>
+        <b-button type="submit" class="submitButton" :disabled="submitDisabled" variant="primary">
+            {{ $t("message.Confirm") }}
+        </b-button>
 
     </form>
     
@@ -159,10 +161,15 @@ export default class SignUp extends Vue {
 </script>
 
 <style scoped>
-    .signup-container {
-        max-width: 600px;
-        padding: 15px;
-        margin: 0 auto;
-    }
+.signup-container {
+    max-width: 600px;
+    padding: 15px;
+    margin: 0 auto;
+}
+
+.submitButton.disabled {
+    background-color: #aaa;
+    border-color: #aaa
+}
 
 </style>
