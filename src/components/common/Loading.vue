@@ -1,13 +1,21 @@
 <template>
-  <div class="loading"></div>
+  <div class="loading" :style="zIndexStyle"></div>
 </template>
 
 <script lang="ts">
 
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Prop } from 'vue-property-decorator';
 
 @Component
 export default class Loading extends Vue {
+  @Prop({ default: 999 })
+  public zIndex?: number
+
+  public get zIndexStyle(): any {
+    return {
+      'z-index': this.zIndex,
+    };
+  }
 }
 
 </script>
@@ -18,7 +26,6 @@ export default class Loading extends Vue {
 /* Absolute Center Spinner */
 .loading {
     position: fixed;
-    z-index: 999;
     height: 2em;
     width: 2em;
     overflow: show;

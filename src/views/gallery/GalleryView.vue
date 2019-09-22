@@ -182,8 +182,9 @@ export default class GalleryView extends Vue {
         const galleryContainer = document.getElementById('gallery-container') as HTMLDivElement;
         galleryContainer.style.minHeight = `${window.innerHeight + 10}px`;
 
+        // Rounding error causes last image to appear on next row so take off a pixel
         const imageContainer = document.getElementById('image-container') as HTMLDivElement;
-        this.galleryWidth =  imageContainer.clientWidth;
+        this.galleryWidth =  imageContainer.clientWidth - 1;
 
         // Fiddle to get more images on a portrait phone per row
         let scale = 1;

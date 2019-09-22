@@ -46,7 +46,7 @@
             </table>
         </div>
 
-        <Loading v-show="loading"/>
+        <Loading v-show="loading" :zIndex="1051"/>
 
     </b-modal>
 </template>
