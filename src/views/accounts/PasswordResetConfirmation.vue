@@ -44,6 +44,8 @@ import store from '../../store/store';
 import { configs } from '../../config';
 import PwnedPasswordChecker from '../../models/pwnedPasswordChecker';
 import PasswordBox from '../../components/common/PasswordBox.vue';
+import { localeMatch } from '../../localization/localization';
+import { i18n } from '../../main';
 
 @Component({
   components: {
@@ -79,6 +81,16 @@ export default class PasswordResetConfirmation extends Vue {
             // Get token from get parameter
             window.console.log(this.$route.query.token);
             this.token = this.$route.query.token as string;
+
+            let language: string;
+            if (this.$route.query.language) {
+                language = this.$route.query.language as string;
+            } else {
+                language = navigator.language;
+            }
+
+            window.console.log(`language: ${language}`);
+            i18n.locale = localeMatch.match(language);
 
         } catch {
             window.console.log(`no token specified, redirecting to login screen`);
