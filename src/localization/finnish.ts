@@ -304,6 +304,7 @@ export const finnish = {
 
       AddTags: `Napsauta/Touch kuvaa koodata ihmisiä`,
       WhoIsThis: `Kuka tämä on?`,
+      DeleteTags: `Poista Tunnisteet`,
 
       // Invite confirmation
       InviteConfirmation: `ok!Kindred Kutsu Vahvistus`,

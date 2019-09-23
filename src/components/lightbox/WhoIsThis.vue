@@ -3,8 +3,8 @@
         ref="whoIsThisModal"
         hide-footer
         hide-header 
+        centered
         button-size="lg">
-
         <div>
             <div v-bind:style="cropDiv" class="crop-div">
                 <img v-bind:style="cropImg" :src="image.large_thumbnail">

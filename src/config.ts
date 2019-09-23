@@ -13,7 +13,7 @@ export const configs = {
     InviteEmailAPI: '/api/invite_email/',
     InviteEmailConfirmationAPI: '/api/invite_email_confirmation/',
     ImageAPI: '/api/image/',
-    ImageTaggingAPI: '/api/image_tagging/?image_id=',
+    ImageTaggingAPI: '/api/image_tagging/',
     LeaveSiteAPI: '/api/delete_account/',
     LocationApi: '/api/location/',
     PasswordChangeAPI: '/api/password_change/',

@@ -3,13 +3,12 @@
 </template>
 
 <script lang="ts">
-
 import { Component, Vue, Prop } from 'vue-property-decorator';
 
 @Component
 export default class Loading extends Vue {
   @Prop({ default: 999 })
-  public zIndex?: number
+  public zIndex?: number;
 
   public get zIndexStyle(): any {
     return {
@@ -17,7 +16,6 @@ export default class Loading extends Vue {
     };
   }
 }
-
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

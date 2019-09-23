@@ -362,6 +362,7 @@ export const french = {
 
       AddTags: `Cliquez/Touchez image pour marquer les gens`,
       WhoIsThis: `Qui est-ce?`,
+      DeleteTags: `Supprimer les Etiquettes`,
 
       // Invite confirmation
       InviteConfirmation: `ok!Kindred Confirmation d'Invitation`,

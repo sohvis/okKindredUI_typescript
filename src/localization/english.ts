@@ -306,6 +306,7 @@ export const english = {
 
       AddTags: `Click/Touch image to tag people`,
       WhoIsThis: `Who is this?`,
+      DeleteTags: `Delete Tags`,
 
       // Invite confirmation
       InviteConfirmation: `ok!Kindred Invite Confirmation`,

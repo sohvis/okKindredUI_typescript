@@ -3,16 +3,25 @@
       v-bind:style="overlayStyle" 
       class="tagging-overlay"
       @click="overlayClicked">
-    <span class="oi oi-x top-corner" @click="closeClicked"></span>
+    <span class="oi oi-x top-corner" @click="onCloseClick"></span>
     <div class="add-tags-message">{{ $t('message.AddTags') }}</div>
+
+    <!--Tags-->
     <TagBox 
         v-for="tag of tags" 
         :ref="`tagBox${tag.id}`"
         :key="tag.id" 
         :tag="tag">
     </TagBox> 
+
+    <div class="delete-tags-message" v-if="showDeleteTags" @click="onDeleteTagsClicked">
+      <span class="oi oi-trash"></span>
+      {{ $t('message.DeleteTags') }}
+    </div>
     <Loading v-show="loading" />
     <WhoIsThis ref="whoIsThis" @tagCreated="tagCreated" />
+    <DeleteTags ref="deleteTags" @tagDeleted="tagDeleted"/>
+
 </div>
 </template>
 
@@ -28,12 +37,14 @@ import PhotoSwipeWrapper from '../../models/lightbox/photoswipeWrapper';
 import PhotoSwipeItem from '../../models/lightbox/photoswipe_item';
 import TagBox from './TagBox.vue';
 import WhoIsThis from './WhoIsThis.vue';
+import DeleteTags from './DeleteTags.vue';
 
 @Component({
   components: {
     Loading,
     TagBox,
     WhoIsThis,
+    DeleteTags,
   },
 })
 export default class TaggingOverlay extends Vue {
@@ -50,7 +61,13 @@ export default class TaggingOverlay extends Vue {
 
     public imageElement: HTMLImageElement | null = null;
 
-    public closedClicked = false;
+    public closeClicked = false;
+
+    public deleteTagsClicked = false;
+
+    public get showDeleteTags(): boolean {
+      return this.tags.length > 0;
+    }
 
     public async toggle(photoswipeWrapper: PhotoSwipeWrapper) {
       window.console.log(`TaggingOverlay.toggle()`);
@@ -68,7 +85,7 @@ export default class TaggingOverlay extends Vue {
     public async initialise(image: Image, photoswipeWrapper: PhotoSwipeWrapper) {
       window.console.log(`TaggingOverlay.initialise()`);
       this.loading = true;
-      this.closedClicked = false;
+      this.closeClicked = false;
 
       this.image = image;
       photoswipeWrapper.photoswipe.listen('destroy', this.destroy);
@@ -76,7 +93,7 @@ export default class TaggingOverlay extends Vue {
 
       try {
           const options = {
-              uri: `${config.BaseApiUrl}${config.ImageTaggingAPI}${image.id}`,
+              uri: `${config.BaseApiUrl}${config.ImageTaggingAPI}?image_id=${image.id}`,
               headers: store.getters.ajaxHeader,
               json: true,
           };
@@ -99,6 +116,8 @@ export default class TaggingOverlay extends Vue {
         width: `0px`,
         height: `$0px`,
       };
+
+      this.$emit('taggingOverlayClosed');
     }
 
     protected mounted() {
@@ -146,9 +165,17 @@ export default class TaggingOverlay extends Vue {
       return null;
     }
 
-    private closeClicked(evt: MouseEvent) {
-      this.closedClicked = true;
+    private onCloseClick(evt: MouseEvent) {
+      this.closeClicked = true;
       this.destroy();
+    }
+
+    private onDeleteTagsClicked(evt: MouseEvent) {
+      this.deleteTagsClicked = true;
+
+      if (this.image) {
+        (this.$refs.deleteTags as DeleteTags).show(this.tags, this.image);
+      }
     }
 
     private async overlayClicked(evt: MouseEvent) {
@@ -181,9 +208,14 @@ export default class TaggingOverlay extends Vue {
         window.console.log(`x1: ${x1}, x2: ${x2}, y1: ${y1}, y2: ${y2}`);
 
         const image = this.image;
+
+        // Make sure we don't bring up who is this if close or delete clicked
         this.$nextTick(() => {
-          if (!this.closedClicked) {
+          if (!this.closeClicked && !this.deleteTagsClicked) {
             (this.$refs.whoIsThis as WhoIsThis).show(x1, x2, y1, y2, image);
+          } else {
+            this.closeClicked = false;
+            this.deleteTagsClicked = false;
           }
         });
       }
@@ -191,6 +223,10 @@ export default class TaggingOverlay extends Vue {
 
     private tagCreated(newTag: Tag) {
       this.tags.push(newTag);
+    }
+
+    private tagDeleted(tagId: number) {
+      this.tags = this.tags.filter((t) => t.id !== tagId);
     }
 }
 </script>
@@ -233,6 +269,17 @@ export default class TaggingOverlay extends Vue {
   color: white;
   left: 3px;
   top: 3px;
+  padding-left: 5px;
+  padding-top: 3px;
+  font-size: 0.8em;
+}
+
+.delete-tags-message {
+  cursor: pointer;
+  position: absolute;
+  color: red;
+  left: 3px;
+  bottom: 3px;
   padding-left: 5px;
   padding-top: 3px;
   font-size: 0.8em;

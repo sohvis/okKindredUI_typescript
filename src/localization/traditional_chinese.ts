@@ -340,6 +340,7 @@ export const traditionalChinese = {
 
       AddTags: `點擊/觸摸圖像標記的人`,
       WhoIsThis: `這是誰？`,
+      DeleteTags: `刪除標籤`,
 
       // Invite confirmation
       InviteConfirmation: `ok!Kindred 邀請確認`,

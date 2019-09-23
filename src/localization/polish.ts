@@ -372,6 +372,7 @@ export const polish = {
 
       AddTags: `Kliknij/retusz obrazu otagować ludz`,
       WhoIsThis: `Kto to jest?`,
+      DeleteTags: `Usuń Etykiety`,
 
       // Invite confirmation
       InviteConfirmation: `ok!Kindred Potwierdzenie Zaproszenia`,

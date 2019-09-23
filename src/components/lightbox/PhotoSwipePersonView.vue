@@ -94,7 +94,7 @@
     </div>
     <MapPopUp ref="mapPopUp" @onHidden="popupHidden" />
     <EditImage ref="editImage" @imageEdited="imageEdited" @onHidden="popupHidden" />
-    <TaggingOverlay ref="taggingOverlay"/>
+    <TaggingOverlay ref="taggingOverlay" @taggingOverlayClosed="popupHidden"/>
 </div>
 
 </template>
@@ -232,6 +232,9 @@ export default class PhotoSwipeGalleryView extends Vue {
 
         if (this.photoswipeWrapper) {
             (this.$refs.taggingOverlay as TaggingOverlay).toggle(this.photoswipeWrapper);
+
+            this.photoswipeWrapper.photoswipe.options.arrowKeys = false;
+            this.photoswipeWrapper.photoswipe.options.escKey = false;
         }
     }
 }

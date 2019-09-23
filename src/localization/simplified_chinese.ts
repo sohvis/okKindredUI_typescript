@@ -343,6 +343,7 @@ export const simplifiedChinese = {
 
       AddTags: `点击/触摸图像标记的人`,
       WhoIsThis: `这是谁？`,
+      DeleteTags: `删除标签`,
 
       // Invite confirmation
       InviteConfirmation: `ok!Kindred 邀请确认`,
