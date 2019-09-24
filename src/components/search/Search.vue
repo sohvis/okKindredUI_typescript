@@ -4,29 +4,28 @@
         hide-header 
         button-size="lg">
 
-        <b-input-group>
-            <b-input-group-prepend>
-                <h2>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                 <h2>
                     <span class="oi oi-magnifying-glass search-prepend" aria-hidden="true"></span>
                 </h2>
-            </b-input-group-prepend>
-
-            <b-form-input 
-                id="search-box"
-                size="lg"
-                v-model="searchValue"
-                :placeholder='$t("message.Search")'
+            </div>
+            <input id="search-box"
+                type="text" 
+                class="form-control" 
+                :placeholder="$t('message.Search')" 
+                :aria-label="$t('message.Search')" 
+                aria-describedby="basic-addon1"
+                v-model="searchValue" 
+                @input="evt=>searchValue=evt.target.value"
                 autocomplete="off">
-            </b-form-input>
-
-        </b-input-group>
-
+        </div>
 
         <div class="text-center spinner-container" v-show="loadingResults">
             <b-spinner></b-spinner>
         </div>
 
-        <div class="table-responsive">
+        <div v-if="people.length > 0" class="table-responsive">
             <table class="table table-striped table-hover">
                 <tbody>
                     <tr v-for="person of people" :key="person.id" @click="selectPerson(person)">
@@ -82,12 +81,12 @@ export default class Search extends Vue {
     }
 
     protected async mounted() {
-        window.console.log('Searchbox.vue mounted() call');
+        window.console.log('Search.vue mounted() call');
     }
 
     @Watch('searchValue')
-    private async onChange() {
-        window.console.log('Search.vue onChange() call');
+    private async searchValueChanged() {
+        window.console.log('Search.onInput(evt)');
 
         if (this.timeOutHandle) {
             window.clearTimeout(this.timeOutHandle);
@@ -97,22 +96,20 @@ export default class Search extends Vue {
 
         this.timeOutHandle = setTimeout(async () => {
             await this.search();
-        }, 400);
+        }, 200);
     }
 
     private async search() {
         window.console.log('Search.vue search() call');
 
         try {
-            const textbox = document.getElementById('search-box') as HTMLInputElement;
-
             if (!store.state.people || store.state.people.length === 0) {
                 await store.dispatch('loadTreeData');
             }
 
             if (this.searchValue && this.searchValue.length > 0) {
                 const result = store.state.people.filter((p) =>
-                    p.name.toLocaleLowerCase().indexOf(textbox.value.toLocaleLowerCase()) > -1,
+                    p.name.toLocaleLowerCase().indexOf(this.searchValue.toLocaleLowerCase()) > -1,
                 );
 
                 window.console.log(result);

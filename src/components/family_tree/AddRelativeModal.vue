@@ -97,6 +97,18 @@ export default class AddRelativeModal extends Vue {
 
     private setState(state: string) {
         this.state = state;
+
+        if (state === 'ExistingPerson') {
+            this.$nextTick(() => {
+                const textbox = document.getElementById('relative-search-box') as HTMLInputElement;
+                if (textbox) {
+                    setTimeout(() => {
+                        textbox.focus();
+                        textbox.select();
+                    }, 100);
+                }
+            });
+        }
     }
 
     private handleOk(e: Event) {

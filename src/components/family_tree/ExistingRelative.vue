@@ -1,13 +1,14 @@
 <template>
     <div class="container">
-        <b-form-input 
-                id="search-box"
-                size="sm"
-                v-model="searchValue"
-                :placeholder='$t("message.Search")'
-                @input="onChange">
-        </b-form-input>
-
+        <input id="relative-search-box"
+            type="text" 
+            class="form-control" 
+            :placeholder="$t('message.Search')" 
+            :aria-label="$t('message.Search')" 
+            aria-describedby="basic-addon1"
+            v-model="searchValue" 
+            @input="evt=>searchValue=evt.target.value"
+            autocomplete="off">
         <b-list-group>
             <b-list-group-item v-for="person of peopleResults" 
                     :key="person.id" 
@@ -22,7 +23,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
+import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 import * as request from 'request-promise-native';
 import store from '../../store/store';
 import { configs } from '../../config';
@@ -86,14 +87,13 @@ export default class ExistingRelative extends Vue {
         this.selectedPerson = null;
     }
 
+    @Watch('searchValue')
     private onChange() {
-        const textbox = document.getElementById('search-box') as HTMLInputElement;
-
         this.selectedPerson = null;
 
-        if (textbox.value.length > 0) {
+        if (this.searchValue.length > 0) {
             const result = store.state.people.filter((p) =>
-                p.name.toLocaleLowerCase().indexOf(textbox.value.toLocaleLowerCase()) > -1,
+                p.name.toLocaleLowerCase().indexOf(this.searchValue.toLocaleLowerCase()) > -1,
             );
 
             window.console.log(result);

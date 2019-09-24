@@ -11,21 +11,22 @@
             </div>
             <p>{{ $t('message.WhoIsThis') }}</p>
         </div>
-        <b-input-group>
-            <b-input-group-prepend>
-                <h4>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                 <h2>
                     <span class="oi oi-magnifying-glass search-prepend" aria-hidden="true"></span>
-                </h4>
-            </b-input-group-prepend>
-
-            <b-form-input 
-                id="tag-search-box"
-                v-model="searchValue"
-                :placeholder='$t("message.Search")'
+                </h2>
+            </div>
+            <input id="tag-search-box"
+                type="text" 
+                class="form-control" 
+                :placeholder="$t('message.Search')" 
+                :aria-label="$t('message.Search')" 
+                aria-describedby="basic-addon1"
+                v-model="searchValue" 
+                @input="evt=>searchValue=evt.target.value"
                 autocomplete="off">
-            </b-form-input>
-
-        </b-input-group>
+        </div>
 
         <div class="text-center spinner-container" v-show="loadingResults">
             <b-spinner></b-spinner>
@@ -244,5 +245,9 @@ export default class WhoIsThis extends Vue {
 .search-prepend {
     margin-top: 5px;
     margin-right: 5px;
+}
+
+#tag-search-box {
+    border-radius: 20px;
 }
 </style>
