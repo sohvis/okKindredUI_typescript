@@ -245,6 +245,9 @@ export const polish = {
       ClickToEdit: `Kliknij aby edytowac`,
       UploadNewPhoto: `Prześlij nowe zdjęcie`,
 
+      // Map
+      LocationForPersonNotSpecified: `Lokalizacja nieokreślona dla osoby`,
+
       // Search
       SearchName: `Szukaj`,
 

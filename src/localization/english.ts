@@ -172,6 +172,9 @@ export const english = {
       ClickToEdit: `Click to Edit`,
       UploadNewPhoto: `Upload New Photo`,
 
+      // Map
+      LocationForPersonNotSpecified: `Location not specified for person`,
+
       // Search
       SearchName: `Search Name`,
 

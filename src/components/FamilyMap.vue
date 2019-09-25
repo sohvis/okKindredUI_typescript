@@ -1,5 +1,13 @@
 <template>
-    <div id="person-map" class="fullscreen_map"></div>
+    <div id="person-map" class="fullscreen_map">
+      <b-alert class="map-alert" 
+          v-model="showAlert" 
+          variant="danger" 
+          dismissible
+          @dismissed="onAlertDismissed">
+        <strong>{{ alert }}</strong>
+      </b-alert>
+    </div>
 </template>
 
 
@@ -26,6 +34,18 @@ export default class FamilyMap extends Vue {
   public map: L.Map | null = null;
 
   public mapSelectedPersonId: string = '';
+
+  public alert: string = '';
+
+  public get showAlert(): boolean {
+    return this.alert.length > 0;
+  }
+
+  public set showAlert(value: boolean) {
+    if (!value) {
+      this.alert = '';
+    }
+  }
 
   public get selectedPersonId(): string {
     return store.state.person_id;
@@ -64,6 +84,9 @@ export default class FamilyMap extends Vue {
     this.mapSelectedPersonId = selectedPerson.id;
     if (selectedPerson.latitude !== 0 && selectedPerson.longitude !== 0) {
       location = [selectedPerson.latitude, selectedPerson.longitude];
+      this.alert = '';
+    } else {
+      this.alert = this.$t('message.LocationForPersonNotSpecified') as string;
     }
 
 
@@ -121,7 +144,10 @@ export default class FamilyMap extends Vue {
         if (selectedPerson.latitude !== 0 && selectedPerson.longitude !== 0) {
           location = [selectedPerson.latitude, selectedPerson.longitude];
 
+          this.alert = '';
           this.map.flyTo(location);
+        } else {
+          this.alert = this.$t('message.LocationForPersonNotSpecified') as string;
         }
       }
     }
@@ -170,6 +196,10 @@ export default class FamilyMap extends Vue {
       this.map.addLayer(markers);
     }
   }
+
+  private onAlertDismissed() {
+    this.alert = '';
+  }
 }
 </script>
 
@@ -199,5 +229,12 @@ export default class FamilyMap extends Vue {
   .map-popup-content img {
     display: block;
     margin: 0 auto;
+  }
+
+  .map-alert{
+    margin-top: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+    z-index: 1050;
   }
 </style>

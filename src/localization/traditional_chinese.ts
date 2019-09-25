@@ -213,6 +213,9 @@ export const traditionalChinese = {
       ClickToEdit: `點擊編輯`,
       UploadNewPhoto: `上傳新照片`,
 
+      // Map
+      LocationForPersonNotSpecified: `未為人指定位置`,
+
       // Search
       SearchName: `搜索名稱`,
 

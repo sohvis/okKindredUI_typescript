@@ -214,7 +214,7 @@ export const french = {
       Email: `Email`,
       Occupation: `Occupation`,
       TelephoneNumber: `Numéro de Téléphone`,
-      Location: `Emplacement`,
+      Location: `Lieu`,
       Website: `Numéro de téléphone`,
       SkypeName: `Nom Skype`,
       Facebook: `Facebook`,
@@ -234,6 +234,9 @@ export const french = {
 
       ClickToEdit: `Cliquez pour éditer`,
       UploadNewPhoto: `Télécharger une nouvelle photo`,
+
+      // Map
+      LocationForPersonNotSpecified: `Lieu non spécifié pour personne`,
 
       // Search
       SearchName: `Recherche Nom`,
