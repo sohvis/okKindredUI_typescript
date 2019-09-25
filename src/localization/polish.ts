@@ -331,6 +331,7 @@ export const polish = {
       EmailInUse: `Adres e-mail jest już w użyciu`,
       ThankYou: `Dziękuję Ci!`,
       PleaseCheckEmail: `Sprawdź swój adres e-mail {email}, aby potwierdzić swoje konto.`,
+      InvalidEmail: `Niepoprawny email`,
 
       // Account Confirmation
       AccountConfirmation: `Potwierdzenie Konta`,

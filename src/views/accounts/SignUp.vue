@@ -96,6 +96,7 @@ import ErrorModal from '../../components/common/ErrorModal.vue';
 import config from '../../config';
 import GenderOptionsBuilder from '../../models/data/gender_options_builder';
 import SelectOption from '../../models/data/select_option';
+import EmailHelper from '../../models/emailHelper';
 import LanguageOptionsBuilder from '../../models/data/language_options_builder';
 import { localeMatch } from '../../localization/localization';
 import { i18n } from '../../main';
@@ -132,7 +133,7 @@ export default class SignUp extends Vue {
 
         this.errorMessage = '';
 
-        if (!this.validateEmail()) {
+        if (!EmailHelper.validateEmail(this.form.email)) {
             this.errorMessage = this.$t('message.InvalidEmail').toString();
             return;
         }
@@ -182,13 +183,6 @@ export default class SignUp extends Vue {
         i18n.locale = localeMatch.match(this.form.language);
         const genderBuilder = new GenderOptionsBuilder(this);
         this.genderOptions = genderBuilder.createDropDownOptions();
-    }
-
-    private validateEmail(): boolean {
-        // tslint:disable-next-line:max-line-length
-        const emailRegex = /^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i;
-        const re = new RegExp(emailRegex);
-        return re.test(this.form.email);
     }
 }
 </script>

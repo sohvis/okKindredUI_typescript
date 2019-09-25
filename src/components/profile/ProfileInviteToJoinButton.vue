@@ -7,7 +7,9 @@
         <EmailModal 
           ref="emailModal"
           :personId="personId"
-          @emailSet="emailSet" />
+          :email="email"
+          :language="language"
+          @profileUpdated="profileUpdated" />
     </b-button>
 
 </template>
@@ -41,6 +43,9 @@ export default class ProfileInviteToJoinButton extends Vue {
 
   @Prop({default: ''})
   public email?: string;
+
+  @Prop({default: ''})
+  public language?: string;
 
   public displayButton: boolean = false;
 
@@ -103,16 +108,14 @@ export default class ProfileInviteToJoinButton extends Vue {
   private async inviteClicked() {
     window.console.log('ProfileInviteToJoinButton.inviteClicked()');
 
-    if (this.email) {
-      await this.createInvite();
-    } else {
-      // Need to capture email
-      (this.$refs.emailModal as EmailModal).initialize();
-    }
+    // Need to capture email and language
+    (this.$refs.emailModal as EmailModal).initialize();
   }
 
-  private async emailSet() {
+  private async profileUpdated() {
     await this.createInvite();
+
+    this.$emit('profileUpdated');
   }
 
   private async createInvite() {

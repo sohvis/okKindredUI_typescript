@@ -263,6 +263,7 @@ export const finnish = {
       EmailInUse: `Sähköposti on jo käytössä`,
       ThankYou: `Kiitos!`,
       PleaseCheckEmail: `Tarkista sähköpostisi {email} vahvistaaksesi tilisi.`,
+      InvalidEmail: `Virheellinen sähköpostiosoite`,
 
       // Account Confirmation
       AccountConfirmation: `Tilin Vahvistus`,

@@ -321,6 +321,7 @@ export const french = {
       EmailInUse: `Cet email est déjà utilisé`,
       ThankYou: `Merci!`,
       PleaseCheckEmail: `Veuillez vérifier votre email {email} pour confirmer votre compte.`,
+      InvalidEmail: `Email invalide`,
 
       // Account Confirmation
       AccountConfirmation: `Confirmation du Compte`,

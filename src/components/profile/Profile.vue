@@ -29,7 +29,9 @@
             :personId="person.id"
             :yearOfDeath="person.year_of_death"
             :personUserId="person.user_id"
-            :email="person.email"/>
+            :email="person.email"
+            :language="person.language"
+            @profileUpdated="LoadPersonData"/>
       </div>
 
       <!-- Right info column -->
