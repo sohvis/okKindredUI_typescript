@@ -22,7 +22,6 @@
                 class="form-control" 
                 :placeholder="$t('message.Search')" 
                 :aria-label="$t('message.Search')" 
-                aria-describedby="basic-addon1"
                 v-model="searchValue" 
                 @input="evt=>searchValue=evt.target.value"
                 autocomplete="off">
