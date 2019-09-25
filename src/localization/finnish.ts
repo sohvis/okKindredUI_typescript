@@ -178,7 +178,7 @@ export const finnish = {
       UploadNewPhoto: `Lataa uusi valokuva`,
 
       // Map
-      LocationForPersonNotSpecified: `Location not specified for person`,
+      LocationForPersonNotSpecified: `Sijaintia ei ole määritetty henkilölle`,
 
       // Search
       SearchName: `Haku Name`,
