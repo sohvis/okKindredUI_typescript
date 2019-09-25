@@ -90,6 +90,7 @@ export default class TaggingOverlay extends Vue {
       this.image = image;
       photoswipeWrapper.photoswipe.listen('destroy', this.destroy);
       this.sizeOverlay();
+      photoswipeWrapper.photoswipe.listen('resize', this.sizeOverlay);
 
       try {
           const options = {
@@ -118,10 +119,6 @@ export default class TaggingOverlay extends Vue {
       };
 
       this.$emit('taggingOverlayClosed');
-    }
-
-    protected mounted() {
-      window.addEventListener('resize', () => this.sizeOverlay(), false);
     }
 
     private sizeOverlay() {
