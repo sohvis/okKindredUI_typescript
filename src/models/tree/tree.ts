@@ -89,24 +89,24 @@ export default class Tree {
 
     public render(clearAll = true) {
 
-        // window.console.log(`Tree.Render()`);
-        // window.console.log(`Clearing Canvas`);
+        window.console.log(`Tree.Render()`);
+        window.console.log(`Clearing Canvas`);
         this.clearCanvas(clearAll);
 
         if (clearAll) {
-            // window.console.log(`Adding selected node`);
+            window.console.log(`Adding selected node`);
             this.addLevel0();
 
-            // window.console.log(`Adding ancestors`);
+            window.console.log(`Adding ancestors`);
             this.addAncestors();
 
-            // window.console.log(`Adding descendants`);
+            window.console.log(`Adding descendants`);
             this.addDescendants();
 
             this.setDisabled(this.disabled);
         }
 
-        // window.console.log(`Positioning`);
+        window.console.log(`Positioning`);
 
         const level0Positioner = new Level0Positioner(this);
         level0Positioner.position();
@@ -117,7 +117,7 @@ export default class Tree {
         const descendantPositioner = new TreeDescendantPositioner(this);
         descendantPositioner.position(clearAll);
 
-        // window.console.log(`Rendering levels`);
+        window.console.log(`Rendering levels`);
         for (const treeLevel of this.treeLevels) {
             treeLevel.render();
         }
@@ -249,8 +249,11 @@ export default class Tree {
     }
 
     private addAncestors() {
+        const addedNodesById: { [id: string]: TreeNode; } = {};
+
         let frontier = new Array<TreeNode>();
         frontier.push(this.selectedNode);
+        addedNodesById[this.selectedNode.id] = this.selectedNode;
 
         let level = -1;
 
@@ -263,12 +266,15 @@ export default class Tree {
             for (const node of frontier) {
                 for (const ancestor of node.ancestors) {
 
-                    newFrontier.push(ancestor);
-                    if (ancestor.addToTree === false) {
-                        treeLevel.addNode(ancestor, ancestor.descendants, true);
-                    }
+                    if (!addedNodesById[ancestor.id]) {
+                        newFrontier.push(ancestor);
+                        addedNodesById[ancestor.id] = ancestor;
+                        if (ancestor.addToTree === false) {
+                            treeLevel.addNode(ancestor, ancestor.descendants, true);
+                        }
 
-                    this.createRelations(ancestor);
+                        this.createRelations(ancestor);
+                    }
                 }
             }
 
@@ -283,8 +289,10 @@ export default class Tree {
     }
 
     private addDescendants() {
+        const addedNodesById: { [id: string]: TreeNode; } = {};
         let frontier = new Array<TreeNode>();
         frontier.push(this.selectedNode);
+        addedNodesById[this.selectedNode.id] = this.selectedNode;
 
         let level = 1;
 
@@ -297,12 +305,15 @@ export default class Tree {
             for (const node of frontier) {
                 for (const descendant of node.descendants) {
 
-                    newFrontier.push(descendant);
-                    if (descendant.addToTree === false) {
-                        treeLevel.addNode(descendant, descendant.ancestors, true);
-                    }
+                    if (!addedNodesById[descendant.id]) {
+                        newFrontier.push(descendant);
+                        addedNodesById[descendant.id] = descendant;
+                        if (descendant.addToTree === false) {
+                            treeLevel.addNode(descendant, descendant.ancestors, true);
+                        }
 
-                    this.createRelations(descendant);
+                        this.createRelations(descendant);
+                    }
                 }
             }
 
