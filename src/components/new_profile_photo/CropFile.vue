@@ -109,6 +109,7 @@ export default class CropFile extends Vue {
     }
 
     if (this.jcrop.active) {
+      window.console.log(`this.jcrop.active`);
       this.jcrop.active.pos = rect;
       this.jcrop.active.render();
     } else {
@@ -212,10 +213,13 @@ export default class CropFile extends Vue {
       'margin-top': marginTop,
     };
 
-    window.setTimeout(() => {
+    this.$nextTick(() => {
       this.setOverlay(img);
       this.refreshJcrop();
-    }, 100);
+
+
+      this.$nextTick(() => this.moveCropArea());
+    });
   }
 
 
@@ -223,8 +227,6 @@ export default class CropFile extends Vue {
   private setOverlay(img: HTMLImageElement) {
     window.console.log('ChooseFile.setOverlay()');
     const dimensions = img.getBoundingClientRect();
-
-    window.console.log(dimensions);
 
     this.overlayStyle = {
       'position': 'absolute',
@@ -234,8 +236,6 @@ export default class CropFile extends Vue {
       'width': `${dimensions.width}px`,
       'height': `${dimensions.height}px`,
     };
-
-    window.console.log(this.overlayStyle);
   }
 
   private refreshJcrop() {
@@ -244,6 +244,23 @@ export default class CropFile extends Vue {
         this.jcrop.refresh();
       }
     }, 100);
+  }
+
+  private moveCropArea() {
+    // Move crop area if it is out of bounds after rotation
+    const overlay = document.getElementById('overlay') as HTMLDivElement;
+    const dims = overlay.getBoundingClientRect();
+
+    const rightCrop = this.jcrop.active.pos.x + this.jcrop.active.pos.w;
+    const bottomCrop = this.jcrop.active.pos.y + this.jcrop.active.pos.h;
+
+    if (rightCrop > dims.width || bottomCrop > dims.height) {
+      const smallestDimension = Math.min(dims.width, dims.height);
+
+      const rect = Jcrop.Rect.fromPoints([10, 10], [smallestDimension * 0.75, smallestDimension * 0.75]);
+      this.jcrop.active.pos = rect;
+      this.jcrop.active.render();
+    }
   }
 
 }
