@@ -155,7 +155,7 @@ export default class GalleryList extends Vue {
 
 
         const galleryContainer = document.getElementById('gallery-container') as HTMLDivElement;
-        this.galleryWidth =  galleryContainer.clientWidth;
+        this.galleryWidth =  galleryContainer.clientWidth - 1;
 
         // Fiddle to get more images on a portrait phone per row
         let scale = 1;
