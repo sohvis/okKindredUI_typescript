@@ -67,6 +67,7 @@ export default class Search extends Vue {
 
     public async show() {
 
+        this.searchValue = '';
         (this.$refs.searchModal as BModal).show();
 
         this.$nextTick(() => {
