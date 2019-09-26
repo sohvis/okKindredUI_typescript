@@ -304,6 +304,13 @@ export const traditionalChinese = {
       // Account Confirmation
       AccountConfirmation: `帳戶確認`,
       PleaseCreatePassword: `請為您的帳戶創建密碼：`,
+
+      // Upload New Profile Photo
+      NewProfilePhoto: `新的個人資料照片`,
+      UploadNewProfilePhoto: `為{personName}上傳新的個人資料照片：`,
+      SelectFile: `選擇文件`,
+
+      PleaseTrimImage: `請修整圖像以適合個人資料圖片：`,
       UploadingImagePleaseWait: `正在上傳新圖片，請稍候...`,
 
       // Gallery

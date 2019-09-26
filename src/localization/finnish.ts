@@ -268,6 +268,13 @@ export const finnish = {
       // Account Confirmation
       AccountConfirmation: `Tilin Vahvistus`,
       PleaseCreatePassword: `Luo salasana tilillesi:`,
+
+      // Upload New Profile Photo
+      NewProfilePhoto: `Uusi Profiilikuva`,
+      UploadNewProfilePhoto: `Lataa uusi profiilikuva henkilölle {personName}:`,
+      SelectFile: `Valitse tiedosto`,
+
+      PleaseTrimImage: `Leikkaa kuva profiilikuvan mukaiseksi: `,
       UploadingImagePleaseWait: `Lähetetään uutta kuvaa, odota...`,
 
       // Gallery

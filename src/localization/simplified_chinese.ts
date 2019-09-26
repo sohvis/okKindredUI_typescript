@@ -307,6 +307,13 @@ export const simplifiedChinese = {
       // Account Confirmation
       AccountConfirmation: `帐户确认`,
       PleaseCreatePassword: `请为您的帐户创建密码：`,
+
+      // Upload New Profile Photo
+      NewProfilePhoto: `新的个人资料照片`,
+      UploadNewProfilePhoto: `为{personName}上传新的个人资料照片：`,
+      SelectFile: `选择文件`,
+
+      PleaseTrimImage: `请修整图像以适合个人资料图片：`,
       UploadingImagePleaseWait: `正在上传新图片，请稍候...`,
 
       // Gallery

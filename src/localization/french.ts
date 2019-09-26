@@ -326,6 +326,13 @@ export const french = {
       // Account Confirmation
       AccountConfirmation: `Confirmation du Compte`,
       PleaseCreatePassword: `Veuillez créer un mot de passe pour votre compte:`,
+
+      // Upload New Profile Photo
+      NewProfilePhoto: `Nouvelle Photo de Profil`,
+      UploadNewProfilePhoto: `Téléchargez une nouvelle photo de profil pour {personName}:`,
+      SelectFile: `Choisissez votre fichier`,
+
+      PleaseTrimImage: `Veuillez découper l'image pour l'adapter à une photo de profil:`,
       UploadingImagePleaseWait: `Chargement d'une nouvelle image, veuillez patienter...`,
 
       // Gallery

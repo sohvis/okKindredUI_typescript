@@ -336,6 +336,13 @@ export const polish = {
       // Account Confirmation
       AccountConfirmation: `Potwierdzenie Konta`,
       PleaseCreatePassword: `Utwórz hasło do swojego konta:`,
+
+      // Upload New Profile Photo
+      NewProfilePhoto: `Nowe Zdjęcie Profilowe`,
+      UploadNewProfilePhoto: `Prześlij nowe zdjęcie profilowe dla {personName}:`,
+      SelectFile: `Wybierz plik`,
+
+      PleaseTrimImage: `Przytnij obraz, aby pasował do zdjęcia profilowego:`,
       UploadingImagePleaseWait: `Przesyłanie nowego obrazu, proszę czekać...`,
 
       // Gallery
