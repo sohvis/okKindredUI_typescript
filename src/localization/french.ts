@@ -215,7 +215,7 @@ export const french = {
       Occupation: `Occupation`,
       TelephoneNumber: `Numéro de Téléphone`,
       Location: `Lieu`,
-      Website: `Numéro de téléphone`,
+      Website: `Site Internet`,
       SkypeName: `Nom Skype`,
       Facebook: `Facebook`,
       Twitter: `Twitter`,
