@@ -127,7 +127,8 @@ export default class SignUp extends Vue {
 
     public formSubmitted: boolean = false;
 
-    public async onSubmit() {
+    public async onSubmit(evt: Event) {
+        evt.preventDefault();
         window.console.log(`OnSubmit() called`);
         window.console.log(this.form);
 
