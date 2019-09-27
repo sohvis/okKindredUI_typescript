@@ -81,6 +81,9 @@ export default class FamilyMap extends Vue {
     let location = [53.421458, -2.560874] as [number, number]; // Warrington by default!
 
     const selectedPerson = store.getters.selectedPerson as Person;
+    window.console.log('selectedPerson:');
+    window.console.log(selectedPerson);
+
     this.mapSelectedPersonId = selectedPerson.id;
     if (selectedPerson.latitude !== 0 && selectedPerson.longitude !== 0) {
       location = [selectedPerson.latitude, selectedPerson.longitude];

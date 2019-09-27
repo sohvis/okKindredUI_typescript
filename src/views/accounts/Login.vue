@@ -34,6 +34,7 @@ import ErrorModal from '../../components/common/ErrorModal.vue';
 import PasswordBox from '../../components/common/PasswordBox.vue';
 import config from '../../config';
 import { localeMatch } from '../../localization/localization';
+import { i18n } from '../../main';
 
 @Component({
   components: {
@@ -84,6 +85,12 @@ export default class Login extends Vue {
             window.console.log(error);
             this.loginAttempts++;
             this.loginInvalid = true;
+        }
+    }
+
+    protected mounted() {
+        if (!i18n.locale) {
+            i18n.locale = localeMatch.match(navigator.language);
         }
     }
 }

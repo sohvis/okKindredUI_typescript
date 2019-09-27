@@ -1,3 +1,4 @@
+import Vue from 'vue';
 import { MutationTree } from 'vuex';
 import IState from './IState';
 import { i18n } from '../main';
@@ -99,7 +100,9 @@ const mutations: MutationTree<IState> = {
     updatePerson(state, person: Person) {
         for (let i = 0; i < state.people.length; i++) {
             if (Number(state.people[i].id) === Number(person.id)) {
-                state.people[i] = person;
+
+                // https://stackoverflow.com/questions/40860592/vuex-getter-not-updating
+                Vue.set(state.people, i, person);
             }
         }
     },

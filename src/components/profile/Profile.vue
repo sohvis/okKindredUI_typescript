@@ -406,6 +406,8 @@ export default class Profile extends Vue {
   }
 
   private personUpdated(args: ProfileEmitArgs) {
+      window.console.log('Profile.personUpdated()');
+      window.console.log(args);
       this.person = args.person;
       store.dispatch('updatePerson', args.person);
   }
