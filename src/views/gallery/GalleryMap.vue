@@ -188,7 +188,7 @@ export default class GalleryMap extends Vue {
             }
         }
 
-        return [0, 0];
+        return config.DefaultLocation;
     }
 
      private displayMapPoints(data: Image[]) {

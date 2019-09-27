@@ -36,6 +36,7 @@ export const configs = {
     MinPasswordLength: 8,
     MaxLoginAttempts: 4,
     PaginationPageSize: 20,
+    DefaultLocation: [53.421420, -2.561041] as [number, number],
 };
 
 export default configs;

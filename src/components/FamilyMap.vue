@@ -78,7 +78,7 @@ export default class FamilyMap extends Vue {
                               tileOptions,
     );
 
-    let location = [53.421458, -2.560874] as [number, number]; // Warrington by default!
+    let location = config.DefaultLocation; // Warrington by default!
 
     const selectedPerson = store.getters.selectedPerson as Person;
     window.console.log('selectedPerson:');
