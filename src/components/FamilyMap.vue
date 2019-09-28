@@ -126,6 +126,9 @@ export default class FamilyMap extends Vue {
         this.mapSelectedPersonId = newPerson;
         store.dispatch('changePerson', newPerson);
     });
+
+    const personMap = document.getElementById('person-map') as HTMLDivElement;
+    this.monitorHeightChange(personMap.getBoundingClientRect().top);
   }
 
   protected mounted() {
@@ -164,8 +167,6 @@ export default class FamilyMap extends Vue {
       const height = window.innerHeight - personMap.getBoundingClientRect().top - 10;
       personMap.style.height = `${height}px`;
       personMap.style.width = `${window.innerWidth - 10}px`;
-
-      this.monitorHeightChange(personMap.getBoundingClientRect().top);
     }
   }
 
