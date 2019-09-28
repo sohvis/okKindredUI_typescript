@@ -164,6 +164,8 @@ export default class FamilyMap extends Vue {
       const height = window.innerHeight - personMap.getBoundingClientRect().top - 10;
       personMap.style.height = `${height}px`;
       personMap.style.width = `${window.innerWidth - 10}px`;
+
+      this.monitorHeightChange(personMap.getBoundingClientRect().top);
     }
   }
 
@@ -202,6 +204,26 @@ export default class FamilyMap extends Vue {
 
   private onAlertDismissed() {
     this.alert = '';
+  }
+
+  private monitorHeightChange(previousTop: number) {
+    window.console.log('FamilyMap.monitorHeightChange()');
+
+    const personMap = document.getElementById('person-map') as HTMLDivElement;
+
+    if (personMap && this.map) {
+      if (personMap.offsetParent) {
+        // If height has reduced, we need to redraw canvas
+        const newPersonMapTop = personMap.getBoundingClientRect().top;
+
+        if (newPersonMapTop + 10 < previousTop) {
+          this.initializeSize();
+          this.map.invalidateSize();
+        }
+
+        window.setTimeout(() => this.monitorHeightChange(newPersonMapTop), 1000);
+      }
+    }
   }
 }
 </script>

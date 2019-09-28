@@ -53,18 +53,24 @@ export default class GalleryMap extends Vue {
 
         await this.loadData();
         this.renderMap();
+
+        const mapDiv = document.getElementById('gallery-map') as HTMLDivElement;
+        if (mapDiv && mapDiv.offsetParent) {
+          const newMapDivTop = mapDiv.getBoundingClientRect().top;
+          this.monitorHeightChange(newMapDivTop);
+        }
     }
 
     private initializeSize() {
         window.console.log('GalleryMap.initializeSize()');
 
-        const personMap = document.getElementById('gallery-map') as HTMLDivElement;
-        const computedStyle = window.getComputedStyle(personMap);
+        const mapDiv = document.getElementById('gallery-map') as HTMLDivElement;
+        const computedStyle = window.getComputedStyle(mapDiv);
 
-        if (computedStyle.display !== 'none') {
-          const height = window.innerHeight - personMap.getBoundingClientRect().top - 10;
-          personMap.style.height = `${height}px`;
-          personMap.style.width = `${window.innerWidth - 10}px`;
+        if (mapDiv.offsetParent) {
+          const height = window.innerHeight - mapDiv.getBoundingClientRect().top - 10;
+          mapDiv.style.height = `${height}px`;
+          mapDiv.style.width = `${window.innerWidth - 10}px`;
         }
     }
 
@@ -268,6 +274,26 @@ export default class GalleryMap extends Vue {
                 return;
             }
         }
+    }
+
+    private monitorHeightChange(previousTop: number) {
+      window.console.log('GalleryMap.monitorHeightChange()');
+
+      const mapDiv = document.getElementById('gallery-map') as HTMLDivElement;
+
+      if (mapDiv && this.map) {
+        if (mapDiv.offsetParent) {
+          // If height has reduced, we need to redraw canvas
+          const newMapDivTop = mapDiv.getBoundingClientRect().top;
+
+          if (newMapDivTop + 10 < previousTop) {
+            this.initializeSize();
+            this.map.invalidateSize();
+          }
+
+          window.setTimeout(() => this.monitorHeightChange(newMapDivTop), 1000);
+        }
+      }
     }
 }
 </script>

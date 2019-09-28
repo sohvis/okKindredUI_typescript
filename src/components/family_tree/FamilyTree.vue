@@ -86,6 +86,9 @@ export default class FamilyTree extends Vue {
           (Scroller as any).initialize(canvas, tree);
           tree.setDisabled(this.editMode);
           tree.render();
+
+          const canvasTop = canvas.getBoundingClientRect().top;
+          this.monitorHeightChange(canvasTop);
         }
       }
     }
@@ -96,8 +99,6 @@ export default class FamilyTree extends Vue {
       this.setCanvasSize();
 
       window.addEventListener('resize', () => this.initializeTree(), false);
-
-      this.monitorHeightChange(0);
     }
 
     @Watch('selectedPersonId')
@@ -124,12 +125,10 @@ export default class FamilyTree extends Vue {
           const newCanvasTop = canvas.getBoundingClientRect().top;
 
           if (newCanvasTop + 10 < previousCanvasTop) {
-
             this.initializeTree();
-
           }
 
-          window.setTimeout(() => this.monitorHeightChange(newCanvasTop), 1500);
+          window.setTimeout(() => this.monitorHeightChange(newCanvasTop), 1000);
         }
       }
     }
