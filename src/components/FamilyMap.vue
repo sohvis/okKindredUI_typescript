@@ -23,6 +23,7 @@ import store from '../store/store';
 import Person from '../models/data/person';
 import MapMarkerOptions from '../models/map/map_marker_options';
 import config from '../config';
+import { mapGetters } from 'vuex';
 
 
 @Component({
@@ -138,6 +139,7 @@ export default class FamilyMap extends Vue {
 
   @Watch('selectedPersonId')
   private centerOnSelectedPerson() {
+    window.console.log('FamilyMap.centerOnSelectedPerson()');
 
     const personMap = document.getElementById('person-map') as HTMLDivElement;
 
@@ -145,6 +147,9 @@ export default class FamilyMap extends Vue {
       let location = [53.421458, -2.560874] as [number, number]; // Warrington by default!
 
       const selectedPerson = store.getters.selectedPerson as Person;
+      window.console.log(`selectedPersonId: ${this.selectedPersonId},
+        selectedPerson.id: ${selectedPerson.id},
+        this.mapSelectedPersonId: ${this.mapSelectedPersonId}`);
 
       if (this.mapSelectedPersonId !== selectedPerson.id) {
         if (selectedPerson.latitude !== 0 && selectedPerson.longitude !== 0) {
@@ -152,6 +157,7 @@ export default class FamilyMap extends Vue {
 
           this.alert = '';
           this.map.flyTo(location);
+          this.mapSelectedPersonId = selectedPerson.id;
         } else {
           this.alert = this.$t('message.LocationForPersonNotSpecified') as string;
         }
