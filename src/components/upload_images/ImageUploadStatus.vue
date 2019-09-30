@@ -97,7 +97,6 @@ export default class ImageUploadStatus extends Vue {
 
     public loadFile(file: File) {
         window.console.log('ImageUploadStatus.loadFile()');
-
         window.console.log(file);
 
         this.file = file;
@@ -152,6 +151,7 @@ export default class ImageUploadStatus extends Vue {
 
     private onLoad(e: any) {
         window.console.log('ImageUploadStatus.onLoad()');
+
         if (this.req.status === 200) {
             this.state = 'done';
             this.$emit('finishedProcessing', this.uploadIndex);

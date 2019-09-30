@@ -32,7 +32,7 @@
         <input 
           id="file-input" 
           type="file" 
-          multiple
+          :multiple="uploadMultiple"
           hidden 
           accept="image/x-png,image/gif,image/jpeg"
           @change="filesSelected" />
@@ -79,6 +79,8 @@ export default class UploadImages extends Vue {
 
     public uploadingIndex: number = 0;
 
+    public uploadMultiple: boolean = true;
+
     public get title(): string {
         return this.$route.query.title as string;
     }
@@ -98,7 +100,18 @@ export default class UploadImages extends Vue {
     protected async mounted() {
         window.console.log('UploadImages.vue mounted() call');
 
-        this.selectFilesClick();
+        const isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+        const isAndroid = navigator.userAgent.toLowerCase().indexOf("android") > -1;
+        alert(navigator.platform);
+        // Multiple file upload not working on Firefox Android
+        if (isFirefox && isAndroid) {
+            alert('firefox android');
+            this.uploadMultiple = false;
+        }
+
+        this.$nextTick(() => {
+            this.selectFilesClick();
+        });
     }
 
     private selectFilesClick() {
@@ -108,6 +121,7 @@ export default class UploadImages extends Vue {
 
     private filesSelected(e: any) {
         window.console.log('UploadImages.filesSelected()');
+        window.console.log(e);
 
         const files = e.target.files || e.dataTransfer.files;
         if (files.length === 0) {
