@@ -1,5 +1,5 @@
 import PhotoSwipe from 'photoswipe';
-import PhotoSwipeUI_Default from 'photoswipe/dist/photoswipe-ui-default';
+import PhotoSwipeUI_Default from './photoswipe-ui-default';
 import * as request from 'request-promise-native';
 import store from '../../store/store';
 import config from '../../config';
@@ -35,8 +35,11 @@ export default class PhotoSwipeWrapper {
             // Back button doesn't work if true
             options.history = false;
 
+            window.console.log(PhotoSwipeUI_Default);
+
             // Initializes and opens PhotoSwipe
             this.photoswipe = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
+            window.console.log(this.photoswipe);
             this.photoswipe.init();
     }
 

@@ -34,25 +34,20 @@
                 </button>
 
                 <button :title="$t('message.Download')"
-                    class="pswp__button custom-button oi oi-data-transfer-download"
-                    @click="download">
+                    class="pswp__button pswp__button--download custom-button oi oi-data-transfer-download">
                 </button>
 
                 <button :title="$t('message.Map')"
                     v-show="displayMap" 
-                    class="pswp__button custom-button oi oi-map"
-                    @click="showMap">
+                    class="pswp__button pswp__button--map custom-button oi oi-map">
                 </button>
 
                 <button :title="$t('message.EditImage')"
-                    class="pswp__button custom-button oi oi-pencil"
-                    @click="editImage">
+                    class="pswp__button pswp__button--editimage custom-button oi oi-pencil">
                 </button>
 
-
                 <button :title="$t('message.Tags')"
-                    class="pswp__button custom-button oi oi-tag"
-                    @click="toggleTagging">
+                    class="pswp__button pswp__button--tags custom-button oi oi-tag">
                 </button>
 
                 <!-- fullscreen -->
@@ -148,6 +143,10 @@ export default class PhotoSwipeGalleryView extends Vue {
         this.photoswipeWrapper = new PhotoSwipeWrapper(images, selectedIndex);
 
         this.photoswipeWrapper.photoswipe.listen('afterChange', this.afterChange);
+        this.photoswipeWrapper.photoswipe.listen('download', this.download);
+        this.photoswipeWrapper.photoswipe.listen('map', this.showMap);
+        this.photoswipeWrapper.photoswipe.listen('editImage', this.editImage);
+        this.photoswipeWrapper.photoswipe.listen('tags', this.toggleTagging);
 
         const urlPrefix = `${config.BaseApiUrl}${config.ImageAPI}?person_id=${this.personId}&page=`;
         const getUrl = (pageNo: number) => urlPrefix + pageNo.toString();
@@ -285,8 +284,14 @@ export default class PhotoSwipeGalleryView extends Vue {
     font-weight: bold;
 }
 
+/* make sure underneath modals */
 .pswp {
     z-index: 1030 !important;
+}
+
+/* always show buttons */
+.pswp__top-bar, .pswp__button {
+    opacity:1 !important;
 }
 
 </style>
