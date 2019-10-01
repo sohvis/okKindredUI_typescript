@@ -102,7 +102,7 @@ export default class UploadImages extends Vue {
 
         const isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
         const isAndroid = navigator.userAgent.toLowerCase().indexOf("android") > -1;
-        alert(navigator.platform);
+
         // Multiple file upload not working on Firefox Android
         if (isFirefox && isAndroid) {
             alert('firefox android');
