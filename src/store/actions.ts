@@ -329,21 +329,6 @@ const actions: ActionTree<IState, IState> = {
     updateCurrentGallery(context, gallery: Gallery) {
         context.commit('changeCurrentGallery', gallery);
     },
-
-    debugPrint(context, obj: any) {
-
-        const errorArray = new Array<string>();
-
-        let propValue;
-        for(let propName in obj) {
-            propValue = obj[propName]
-
-            console.log(propName,propValue);
-            errorArray.push(`${propName}: ${propValue}`);
-        }
-
-        context.commit('setErrorMessage', errorArray.join('\n'));
-    }
 };
 
 export default actions;

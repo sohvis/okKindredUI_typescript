@@ -25,7 +25,6 @@ export default class TreeNodeGroup extends Positionable {
     public partnerNodes: TreePartnerNode[];
     public partnerNodesById: { [id: string]: TreePartnerNode; };
     public mainNodesWidth: number;
-    public debugPrint: string;
     public parent: TreeLevel | null;
 
     private ctx: CanvasRenderingContext2D;
@@ -46,7 +45,6 @@ export default class TreeNodeGroup extends Positionable {
         this.partnerNodes = new Array<TreePartnerNode>();
         this.partnerNodesById = {};
         this.mainNodesWidth = 0;
-        this.debugPrint = '';
         this.parent = parent;
         this.commonRelativesById = {};
 
@@ -98,17 +96,6 @@ export default class TreeNodeGroup extends Positionable {
         for (const partnerNode of this.partnerNodes) {
             partnerNode.render();
         }
-
-        // this.showBordersForDebugging(this.ctx);
-
-        // this.ctx.beginPath();
-        // this.ctx.fillStyle = '#000';
-        // this.ctx.font = `12px Arial`;
-
-        // // this.debugPrint = this.debugPrint + ` x:${this.x} xMid:${this.xMid} xRight:${this.xRight}`;
-
-        // this.ctx.fillText(this.debugPrint, this.x, this.y);
-        // this.ctx.stroke();
     }
 
     public clearRenderValues(clearAll = true) {
