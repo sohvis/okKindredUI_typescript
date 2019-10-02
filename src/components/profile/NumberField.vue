@@ -57,7 +57,7 @@ export default class NumberField extends Vue {
   }
 
   protected mounted() {
-    window.console.log('NumberField.vue mounted() called');
+    // window.console.log('NumberField.vue mounted() called');
 
     const input = document.getElementById(this.id) as HTMLInputElement;
     if (input) {
@@ -73,7 +73,7 @@ export default class NumberField extends Vue {
   }
 
   private edit() {
-    window.console.log(`NumberField.edit() propertyName:${this.propertyName}`);
+    // window.console.log(`NumberField.edit() propertyName:${this.propertyName}`);
     this.valueEdited = this.value;
     this.editMode = true;
     const textbox = document.getElementById(this.id) as HTMLInputElement;
@@ -88,7 +88,7 @@ export default class NumberField extends Vue {
   }
 
   private async onBlur() {
-    window.console.log(`NumberField.onBlur() called`);
+    // window.console.log(`NumberField.onBlur() called`);
     await this.endEdit();
   }
 
@@ -101,7 +101,7 @@ export default class NumberField extends Vue {
 
   private async save() {
 
-    window.console.log(`NumberField.save() called`);
+    // window.console.log(`NumberField.save() called`);
 
     if (this.value !== this.valueEdited) {
 
@@ -122,7 +122,7 @@ export default class NumberField extends Vue {
 
       try {
         const response = await request.patch(options) as Person;
-        window.console.log(response);
+        // window.console.log(response);
         const param = new ProfileEmitArgs(
                             response,
                             this.propertyName || '',
@@ -131,7 +131,7 @@ export default class NumberField extends Vue {
 
         this.$emit('valueUpdated', param);
       } catch (ex) {
-        window.console.log(ex);
+        // window.console.log(ex);
         store.commit('setErrorMessage', ex);
       }
     }

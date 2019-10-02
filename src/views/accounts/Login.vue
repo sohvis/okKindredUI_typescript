@@ -57,7 +57,7 @@ export default class Login extends Vue {
     }
 
     public async OnSubmit() {
-        window.console.log(`OnSubmit() called from Login ${this.loginDetails.email} ${this.loginDetails.password}`);
+        // window.console.log(`OnSubmit() called from Login ${this.loginDetails.email} ${this.loginDetails.password}`);
 
         try {
             await this.$store.dispatch('login', {
@@ -68,21 +68,21 @@ export default class Login extends Vue {
             // Check if password is used in a breach
             const numBreaches = await PwnedPasswordChecker.getNumberOfPasswordBreaches(this.loginDetails.password);
             if (numBreaches > 0) {
-                window.console.log(`Password breach, numBreaches: ${numBreaches}`);
+                // window.console.log(`Password breach, numBreaches: ${numBreaches}`);
                 store.commit('setErrorMessage', ErrorModal.passwordBreached);
             }
 
             let next: string;
             if (this.$route.query.next) {
                 next = this.$route.query.next as string;
-                window.console.log(`next: ${next}`);
+                // window.console.log(`next: ${next}`);
                 this.$router.push(next);
             } else {
                 this.$router.push('/family/tree/');
             }
 
         } catch (error) {
-            window.console.log(error);
+            // window.console.log(error);
             this.loginAttempts++;
             this.loginInvalid = true;
         }

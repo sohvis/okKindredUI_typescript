@@ -79,7 +79,7 @@ export default class PasswordResetConfirmation extends Vue {
 
         try {
             // Get token from get parameter
-            window.console.log(this.$route.query.token);
+            // window.console.log(this.$route.query.token);
             this.token = this.$route.query.token as string;
 
             let language: string;
@@ -89,17 +89,17 @@ export default class PasswordResetConfirmation extends Vue {
                 language = navigator.language;
             }
 
-            window.console.log(`language: ${language}`);
+            // window.console.log(`language: ${language}`);
             i18n.locale = localeMatch.match(language);
 
         } catch {
-            window.console.log(`no token specified, redirecting to login screen`);
+            // window.console.log(`no token specified, redirecting to login screen`);
             this.$router.push('/accounts/login/');
         }
     }
 
     private async OnSubmit() {
-        window.console.log(`PasswordResetConfirmation.OnSubmit()`);
+        // window.console.log(`PasswordResetConfirmation.OnSubmit()`);
 
         store.commit('updateLoading', true);
 

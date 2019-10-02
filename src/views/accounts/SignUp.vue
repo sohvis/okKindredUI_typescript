@@ -129,8 +129,8 @@ export default class SignUp extends Vue {
 
     public async onSubmit(evt: Event) {
         evt.preventDefault();
-        window.console.log(`OnSubmit() called`);
-        window.console.log(this.form);
+        // window.console.log(`OnSubmit() called`);
+        // window.console.log(this.form);
 
         this.errorMessage = '';
 
@@ -165,7 +165,7 @@ export default class SignUp extends Vue {
             } else {
                 this.errorMessage = error.toString();
             }
-            window.console.log(error);
+            // window.console.log(error);
 
         }
 

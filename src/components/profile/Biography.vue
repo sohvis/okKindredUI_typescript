@@ -76,7 +76,7 @@ export default class Biography extends Vue {
   private timeOutHandle: any;
 
   protected mounted() {
-    window.console.log('Biography.vue mounted() called');
+    // window.console.log('Biography.vue mounted() called');
   }
 
   private edit() {
@@ -85,14 +85,14 @@ export default class Biography extends Vue {
   }
 
   private async onBlur() {
-    window.console.log(`Biography.onBlur() called`);
+    // window.console.log(`Biography.onBlur() called`);
 
     await this.doneEditing();
   }
 
   private async doneEditing() {
 
-    window.console.log(`Biography.doneEditing() called`);
+    // window.console.log(`Biography.doneEditing() called`);
 
     this.editMode = false;
 
@@ -107,7 +107,7 @@ export default class Biography extends Vue {
 
   @Watch('biographyEdited')
   private async onChange() {
-    window.console.log(`Biography.onChange() called`);
+    // window.console.log(`Biography.onChange() called`);
 
     if (this.biographyEdited !== this.biography) {
       if (this.timeOutHandle) {
@@ -122,7 +122,7 @@ export default class Biography extends Vue {
 
   private async save() {
 
-    window.console.log(`Biography.save() called`);
+    // window.console.log(`Biography.save() called`);
 
     if (this.biography !== this.biographyEdited) {
 
@@ -138,7 +138,7 @@ export default class Biography extends Vue {
         };
 
         const response = await request.patch(options) as Person;
-        window.console.log(response);
+        // window.console.log(response);
         const param = new ProfileEmitArgs(
                       response,
                       'biography',

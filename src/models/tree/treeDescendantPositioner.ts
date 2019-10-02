@@ -80,7 +80,7 @@ export default class TreePositionerType2 implements TreePositioner {
 
 
     private lineUpWithRelatives(group: TreeNodeGroup, previousGroup: TreeNodeGroup | null) {
-        // window.console.log(`TreePositionerType2.lineUpWithRelatives`);
+        // // window.console.log(`TreePositionerType2.lineUpWithRelatives`);
         const parentNode = this.getParentPartnerNode(group);
 
         if (parentNode) {

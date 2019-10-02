@@ -34,7 +34,7 @@ export default class MapPopUp extends Vue {
 
     public show(location: [number, number]) {
 
-        window.console.log(`MapPopUp.show(location: ${location})`);
+        // window.console.log(`MapPopUp.show(location: ${location})`);
 
         // Set map to half of window height
         this.mapDivStyle.height = `${window.innerHeight / 2}px`;

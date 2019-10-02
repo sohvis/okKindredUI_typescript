@@ -146,7 +146,7 @@ export default class EditImage extends Vue {
     public clockwiseRotation: number = 0;
 
     public async show(image: Image) {
-        window.console.log(`EditImage.show(image.id: ${image.id})`);
+        // window.console.log(`EditImage.show(image.id: ${image.id})`);
 
         this.image = image;
         this.clockwiseRotation = 0;
@@ -168,7 +168,7 @@ export default class EditImage extends Vue {
     }
 
     private async submit(evt: any) {
-        window.console.log(`EditImage.submit()`);
+        // window.console.log(`EditImage.submit()`);
 
         evt.preventDefault();
         this.errorMessage = '';
@@ -196,7 +196,7 @@ export default class EditImage extends Vue {
             };
 
             const response = await request.patch(options) as Image;
-            window.console.log(response);
+            // window.console.log(response);
 
             this.$emit('imageEdited', response);
 
@@ -212,7 +212,7 @@ export default class EditImage extends Vue {
     }
 
     private async updateGalleryThumbnail() {
-        window.console.log(`EditImage.updateGalleryThumbnail()`);
+        // window.console.log(`EditImage.updateGalleryThumbnail()`);
 
         if (this.image && store.state.currentGallery) {
 
@@ -220,7 +220,7 @@ export default class EditImage extends Vue {
             if (this.setAsGalleryThumbnail !== previousValue) {
 
                 let thumbnail = '';
-                window.console.log(`this.setAsGalleryThumbnail: ${this.setAsGalleryThumbnail}`);
+                // window.console.log(`this.setAsGalleryThumbnail: ${this.setAsGalleryThumbnail}`);
                 if (this.setAsGalleryThumbnail) {
                     thumbnail = this.image.id.toString();
                 }
@@ -246,7 +246,7 @@ export default class EditImage extends Vue {
     }
 
     private rotateClockwise() {
-        window.console.log('EditImage.rotateClockwise()');
+        // window.console.log('EditImage.rotateClockwise()');
 
         if (this.clockwiseRotation >= 270) {
             this.clockwiseRotation = 0;
@@ -258,7 +258,7 @@ export default class EditImage extends Vue {
     }
 
     private rotateAntiClockwise() {
-        window.console.log('EditImage.rotateAntiClockwise()');
+        // window.console.log('EditImage.rotateAntiClockwise()');
 
         if (this.clockwiseRotation < 90) {
             this.clockwiseRotation = 270;
@@ -270,7 +270,7 @@ export default class EditImage extends Vue {
     }
 
     private setRotation() {
-        window.console.log('EditImage.setRotation()');
+        // window.console.log('EditImage.setRotation()');
 
         const img = document.getElementById('preview-image') as HTMLImageElement;
         const rotate = `rotate(${this.clockwiseRotation}deg)`;

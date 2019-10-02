@@ -84,7 +84,7 @@ export default class EmailModal extends Vue {
   }
 
   public initialize() {
-      window.console.log('EmailModal.initialize()');
+      // window.console.log('EmailModal.initialize()');
 
       this.languageOptions = LanguageOptionsBuilder.createDropDownOptions();
 
@@ -100,7 +100,7 @@ export default class EmailModal extends Vue {
   }
 
   private async submit(evt: Event) {
-    window.console.log('EmailModal.submit()');
+    // window.console.log('EmailModal.submit()');
 
     evt.preventDefault();
     this.errorMessage = '';
@@ -142,7 +142,7 @@ export default class EmailModal extends Vue {
     };
 
     const response = await request.patch(options) as Person;
-    window.console.log(response);
+    // window.console.log(response);
 
     return response;
   }

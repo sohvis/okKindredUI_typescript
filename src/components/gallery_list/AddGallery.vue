@@ -88,7 +88,7 @@ export default class AddGallery extends Vue {
     }
 
     private async submit(evt: any) {
-        window.console.log(`AddGallery.submit()`);
+        // window.console.log(`AddGallery.submit()`);
 
         evt.preventDefault();
         this.errorMessage = '';
@@ -113,7 +113,7 @@ export default class AddGallery extends Vue {
             };
 
             const response = await request.post(options) as Gallery;
-            window.console.log(response);
+            // window.console.log(response);
 
             this.$emit('galleryCreated', response);
             (this.$refs.modal as any).hide();

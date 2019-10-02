@@ -25,17 +25,17 @@ export default class ProfileGalleryButton extends Vue {
 
 
   public async initialize() {
-      window.console.log('ProfileGalleryButton.vue initialize() called');
+      // window.console.log('ProfileGalleryButton.vue initialize() called');
   }
 
   protected async mounted() {
-    window.console.log('ProfileGalleryButton.vue mounted() called');
+    // window.console.log('ProfileGalleryButton.vue mounted() called');
     this.displayButton = await this.doesPersonHaveTaggedPictures();
   }
 
   private async doesPersonHaveTaggedPictures() {
 
-    window.console.log('ProfileGalleryButton.vue doesPersonHaveTaggedPictures() called');
+    // window.console.log('ProfileGalleryButton.vue doesPersonHaveTaggedPictures() called');
 
     if (!this.personId) {
       return false;

@@ -99,25 +99,25 @@ export default class GalleryListActionButton extends Vue {
     }
 
     private addGalleryClicked() {
-        window.console.log(`GalleryListActionButton.addClicked()`);
+        // window.console.log(`GalleryListActionButton.addClicked()`);
         this.addGallery();
     }
 
     private deleteClicked() {
-        window.console.log(`GalleryListActionButton.deleteClicked()`);
+        // window.console.log(`GalleryListActionButton.deleteClicked()`);
         if (this.selectedGalleryIds) {
             (this.$refs.deleteGalleries as DeleteGalleries).show(this.selectedGalleryIds);
         }
     }
 
     private galleriesDeleted() {
-        window.console.log(`GalleryListActionButton.galleriesDeleted()`);
+        // window.console.log(`GalleryListActionButton.galleriesDeleted()`);
         this.toggleOpen();
         this.$emit('galleriesDeleted');
     }
 
     private galleryCreated() {
-        window.console.log(`GalleryListActionButton.galleryCreated()`);
+        // window.console.log(`GalleryListActionButton.galleryCreated()`);
         this.toggleOpen();
         this.$emit('galleryCreated');
     }

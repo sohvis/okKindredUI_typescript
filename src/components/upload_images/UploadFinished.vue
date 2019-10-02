@@ -63,7 +63,7 @@ export default class UploadFinished extends Vue {
 
 
     private ok(evt: any) {
-        window.console.log(`UploadFinished.ok()`);
+        // window.console.log(`UploadFinished.ok()`);
 
         if (this.backLink &&  (!this.failedCount || this.failedCount === 0)) {
             this.$router.push(this.backLink);

@@ -96,7 +96,7 @@ export default class ChangePassword extends Vue {
     }
 
     private async OnSubmit() {
-        window.console.log(`PasswordResetConfirmation.OnSubmit()`);
+        // window.console.log(`PasswordResetConfirmation.OnSubmit()`);
 
         this.saving = true;
         this.saved = false;

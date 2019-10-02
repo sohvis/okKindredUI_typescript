@@ -32,7 +32,7 @@ export default class PartneredRelation implements TreeRelation {
 
     public render() {
 
-        // window.console.log(`PartneredRelation.Render() id:${this.id}`);
+        // // window.console.log(`PartneredRelation.Render() id:${this.id}`);
 
         // Sort nodes into order left to right
         const nodes = [this.node1, this.node2];

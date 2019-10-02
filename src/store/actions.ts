@@ -9,14 +9,14 @@ import Gallery from '../models/data/gallery';
 
 const actions: ActionTree<IState, IState> = {
     changeLanguage(context, payload) {
-        window.console.log(`changeLanguage called new language: ${payload}`);
+        // window.console.log(`changeLanguage called new language: ${payload}`);
 
         context.commit('changeLanguage', payload);
         window.localStorage.setItem('language', payload);
     },
 
     async changePerson(context, payload) {
-        window.console.log(`changePerson called new person id: ${payload}`);
+        // window.console.log(`changePerson called new person id: ${payload}`);
         context.commit('changePerson', payload);
 
         // Make sure local storage is done asynchronously
@@ -25,7 +25,7 @@ const actions: ActionTree<IState, IState> = {
     },
 
     async restoreSession(context) {
-        window.console.log('restoreSession() called');
+        // window.console.log('restoreSession() called');
 
         context.commit('updateLoading', true);
 
@@ -34,14 +34,14 @@ const actions: ActionTree<IState, IState> = {
 
         if (!context.state.access_token) {
             // No Access token
-            window.console.log('No Access token');
+            // window.console.log('No Access token');
             context.commit('updateLoading', false);
             throw new Error('No Access token');
 
 
         } else {
             // Access token found, verify it
-            window.console.log(`Access token found: ${context.state.access_token}`);
+            // window.console.log(`Access token found: ${context.state.access_token}`);
 
             try {
                 await context.dispatch('verifyToken');
@@ -54,8 +54,8 @@ const actions: ActionTree<IState, IState> = {
     },
 
     async saveState(context) {
-        window.console.log(`saving credentials as local storage, access token: ${context.state.access_token}`);
-        window.console.log(context.state);
+        // window.console.log(`saving credentials as local storage, access token: ${context.state.access_token}`);
+        // window.console.log(context.state);
 
         // Make sure local storage is done asynchronously
         await null;
@@ -67,15 +67,15 @@ const actions: ActionTree<IState, IState> = {
     },
 
     restoreState(context) {
-        window.console.log('retrieving credentials from local storage');
+        // window.console.log('retrieving credentials from local storage');
         context.state.access_token = window.localStorage.getItem('access_token') || '';
         context.state.refresh_token = window.localStorage.getItem('refresh_token') || '';
         context.state.language = window.localStorage.getItem('language') || '';
         context.state.person_id = window.localStorage.getItem('person_id') || '0';
         context.state.users_person_id = window.localStorage.getItem('users_person_id') || '0';
 
-        window.console.log(`access token: ${context.state.access_token}`);
-        window.console.log(context.state);
+        // window.console.log(`access token: ${context.state.access_token}`);
+        // window.console.log(context.state);
 
         if (i18n.locale !== context.state.language) {
             i18n.locale = context.state.language;
@@ -84,7 +84,7 @@ const actions: ActionTree<IState, IState> = {
 
     async login(context, payload) {
 
-        window.console.log('login() action called');
+        // window.console.log('login() action called');
         context.commit('updateLoading', true);
 
         const options = {
@@ -98,8 +98,8 @@ const actions: ActionTree<IState, IState> = {
 
         try {
             const response = await request.post(options);
-            window.console.log(`login response:`);
-            window.console.log(response);
+            // window.console.log(`login response:`);
+            // window.console.log(response);
 
             // Save access tokens in state
             context.commit('login', {
@@ -114,7 +114,7 @@ const actions: ActionTree<IState, IState> = {
             context.dispatch('saveState');
 
         } catch (error) {
-            window.console.log(error);
+            // window.console.log(error);
             throw error;
 
         } finally {
@@ -123,7 +123,7 @@ const actions: ActionTree<IState, IState> = {
     },
 
     async logout(context) {
-        window.console.log('logout() action called');
+        // window.console.log('logout() action called');
 
         context.commit('updateLoading', true);
         context.commit('logout');
@@ -132,7 +132,7 @@ const actions: ActionTree<IState, IState> = {
     },
 
     async verifyToken(context) {
-        window.console.log(`verifyToken() Called`);
+        // window.console.log(`verifyToken() Called`);
         context.commit('updateLoading', true);
 
         const options = {
@@ -145,8 +145,8 @@ const actions: ActionTree<IState, IState> = {
 
         try {
             const response = await request.post(options);
-            window.console.log(response);
-            window.console.log(`Token Verified`);
+            // window.console.log(response);
+            // window.console.log(`Token Verified`);
             context.commit('login', {
                 access_token: context.state.access_token,
                 refresh_token: context.state.refresh_token,
@@ -156,7 +156,7 @@ const actions: ActionTree<IState, IState> = {
             });
 
         } catch (error) {
-            window.console.log(`Token Verification Failed ${error}, attempting refresh`);
+            // window.console.log(`Token Verification Failed ${error}, attempting refresh`);
 
 
             // Verify token fails, so refresh it
@@ -172,7 +172,7 @@ const actions: ActionTree<IState, IState> = {
     },
 
     async refreshToken(context) {
-        window.console.log(`refreshToken() Called`);
+        // window.console.log(`refreshToken() Called`);
         context.commit('updateLoading', true);
 
         const options = {
@@ -185,9 +185,9 @@ const actions: ActionTree<IState, IState> = {
 
         try {
             const response = await request.post(options);
-            window.console.log(response);
+            // window.console.log(response);
 
-            window.console.log(`Token Refreshed: ${response.access}`);
+            // window.console.log(`Token Refreshed: ${response.access}`);
 
             context.commit('login', {
                 access_token: response.access,
@@ -200,7 +200,7 @@ const actions: ActionTree<IState, IState> = {
             context.dispatch('saveState');
 
         } catch (error) {
-            window.console.log(error);
+            // window.console.log(error);
             throw error;
         } finally {
             context.commit('updateLoading', false);
@@ -208,7 +208,7 @@ const actions: ActionTree<IState, IState> = {
     },
 
     async loadTreeData(context) {
-        window.console.log(`loadTreeData() Called`);
+        // window.console.log(`loadTreeData() Called`);
         context.commit('updateLoading', true);
 
         const optionsPerson = {
@@ -234,7 +234,7 @@ const actions: ActionTree<IState, IState> = {
             context.commit('setRelations', relations);
 
         } catch (error) {
-            window.console.log(`: ${error}`);
+            // window.console.log(`: ${error}`);
             context.commit('setErrorMessage', error);
         }
 
@@ -297,13 +297,13 @@ const actions: ActionTree<IState, IState> = {
     },
 
     updatePerson(context, person: Person) {
-        window.console.log(`updatePerson() action called person:`);
-        window.console.log(person);
+        // window.console.log(`updatePerson() action called person:`);
+        // window.console.log(person);
         context.commit('updatePerson', person);
     },
 
     async loadCurrentGalleryInfo(context, galleryId: number) {
-        window.console.log(`loadGallery() Called`);
+        // window.console.log(`loadGallery() Called`);
 
         if (!context.state.currentGallery || context.state.currentGallery.id !== galleryId) {
             context.commit('updateLoading', true);

@@ -132,8 +132,8 @@ export default class PhotoSwipeGalleryView extends Vue {
             galleryId: number,
             allImagesLoaded: boolean = false) {
 
-        window.console.log(`PhotoSwipeGalleryView.init(selectedIndex: ${selectedIndex},
-            currentPage: ${currentPage}, totalItems: ${totalItems}, galleryId: ${galleryId})`);
+        // window.console.log(`PhotoSwipeGalleryView.init(selectedIndex: ${selectedIndex},
+        //    currentPage: ${currentPage}, totalItems: ${totalItems}, galleryId: ${galleryId})`);
 
         this.galleryId = galleryId;
 
@@ -159,7 +159,7 @@ export default class PhotoSwipeGalleryView extends Vue {
     }
 
     private afterChange() {
-        window.console.log(`PhotoSwipeGalleryView.afterChange()`);
+        // window.console.log(`PhotoSwipeGalleryView.afterChange()`);
 
         if (this.photoswipeWrapper) {
 
@@ -174,7 +174,7 @@ export default class PhotoSwipeGalleryView extends Vue {
     }
 
     private download() {
-        window.console.log(`PhotoSwipeGalleryView.download()`);
+        // window.console.log(`PhotoSwipeGalleryView.download()`);
 
         if (this.photoswipeWrapper) {
             const link = (this.photoswipeWrapper.photoswipe.currItem as PhotoSwipeItem).image.original_image;
@@ -184,7 +184,7 @@ export default class PhotoSwipeGalleryView extends Vue {
     }
 
     private showMap() {
-        window.console.log(`PhotoSwipeGalleryView.showMap()`);
+        // window.console.log(`PhotoSwipeGalleryView.showMap()`);
 
         if (this.photoswipeWrapper) {
             const image = (this.photoswipeWrapper.photoswipe.currItem as PhotoSwipeItem).image;
@@ -223,7 +223,7 @@ export default class PhotoSwipeGalleryView extends Vue {
     }
 
     private async toggleTagging() {
-        window.console.log(`PhotoSwipeGalleryView.toggleTagging()`);
+        // window.console.log(`PhotoSwipeGalleryView.toggleTagging()`);
 
         if (this.photoswipeWrapper) {
             (this.$refs.taggingOverlay as TaggingOverlay).toggle(this.photoswipeWrapper);

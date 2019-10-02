@@ -58,7 +58,7 @@ export default class AddPartner extends Vue {
   }
 
   public click() {
-    window.console.log(`AddPartner.click()`);
+    // window.console.log(`AddPartner.click()`);
     (this.$refs.addRelativeModal as AddRelativeModal).show();
   }
 }

@@ -94,7 +94,7 @@ export default class WhoIsThis extends Vue {
     private loading: boolean = false;
 
     public async show(x1: number, x2: number, y1: number, y2: number, image: Image) {
-        window.console.log('WhoIsThis.show()');
+        // window.console.log('WhoIsThis.show()');
 
         this.searchValue = '';
         this.x1 = x1;
@@ -132,12 +132,12 @@ export default class WhoIsThis extends Vue {
     }
 
     protected async mounted() {
-        window.console.log('WhoIsThis.vue mounted() call');
+        // window.console.log('WhoIsThis.vue mounted() call');
     }
 
     @Watch('searchValue')
     private async onChange() {
-        window.console.log('WhoIsThis.vue onChange() call');
+        // window.console.log('WhoIsThis.vue onChange() call');
 
         if (this.timeOutHandle) {
             window.clearTimeout(this.timeOutHandle);
@@ -151,7 +151,7 @@ export default class WhoIsThis extends Vue {
     }
 
     private async search() {
-        window.console.log('Search.vue search() call');
+        // window.console.log('Search.vue search() call');
 
         try {
 
@@ -164,7 +164,7 @@ export default class WhoIsThis extends Vue {
                     p.name.toLocaleLowerCase().indexOf(this.searchValue.toLocaleLowerCase()) > -1,
                 );
 
-                window.console.log(result);
+                // window.console.log(result);
 
                 for (const person of result) {
                     if (!person.small_thumbnail) {

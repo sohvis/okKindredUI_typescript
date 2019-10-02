@@ -44,9 +44,9 @@ export default class ImageRow extends Vue {
 
     @Watch('imageRow')
     public renderGalleryItems(): void {
-        window.console.log(`ImageRow.render()`);
+        // window.console.log(`ImageRow.render()`);
 
-        window.console.log(`this.width: ${this.width}`);
+        // window.console.log(`this.width: ${this.width}`);
 
         if (this.imageRow && this.width) {
             const h = this.getHeight();
@@ -71,7 +71,7 @@ export default class ImageRow extends Vue {
 
     private getHeight(): number {
 
-        window.console.log(`ImageRow.getHeight()`);
+        // window.console.log(`ImageRow.getHeight()`);
 
         if (!this.imageRow || !this.width) {
             return ImageRow.DEFAULT_HEIGHT;
@@ -85,7 +85,7 @@ export default class ImageRow extends Vue {
         }
         const value = this.width / sum;
 
-        window.console.log(`getHeight(): ${value}`);
+        // window.console.log(`getHeight(): ${value}`);
         return Math.min(ImageRow.MAX_HEIGHT, value);
     }
 

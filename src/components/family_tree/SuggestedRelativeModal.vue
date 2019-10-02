@@ -95,24 +95,24 @@ export default class SuggestedRelativeModal extends Vue {
     }
 
     protected mounted() {
-        window.console.log(`SuggestedRelativeModal.mounted()`);
+        // window.console.log(`SuggestedRelativeModal.mounted()`);
     }
 
     private async onYes() {
-        window.console.log(`SuggestedRelativeModal.onYes()`);
+        // window.console.log(`SuggestedRelativeModal.onYes()`);
 
         this.busy = true;
         this.errorMessage = '';
 
         const predictionControl = 'SuggestRelative' + this.selectedId;
-        window.console.log(this.$refs[predictionControl]);
+        // window.console.log(this.$refs[predictionControl]);
 
         try {
             await ((this.$refs[predictionControl] as Vue[])[0] as SuggestedRelative).submit();
             this.moveNext();
 
         } catch (ex) {
-            window.console.log(ex);
+            // window.console.log(ex);
             this.errorMessage = ex.toString();
         }
 
@@ -120,12 +120,12 @@ export default class SuggestedRelativeModal extends Vue {
     }
 
     private onNo() {
-        window.console.log(`SuggestedRelativeModal.onNo()`);
+        // window.console.log(`SuggestedRelativeModal.onNo()`);
         this.moveNext();
     }
 
     private moveNext() {
-        window.console.log(`SuggestedRelativeModal.onNo()`);
+        // window.console.log(`SuggestedRelativeModal.onNo()`);
         if (this.selectedIndex < this.relationPredictions.length - 1) {
             this.selectedIndex++;
         } else {

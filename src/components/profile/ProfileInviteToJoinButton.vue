@@ -54,11 +54,11 @@ export default class ProfileInviteToJoinButton extends Vue {
 
 
   public async initialize() {
-      window.console.log('ProfileInviteToJoinButton.vue initialize() called');
+      // window.console.log('ProfileInviteToJoinButton.vue initialize() called');
   }
 
   protected async mounted() {
-    window.console.log('ProfileInviteToJoinButton.vue mounted() called');
+    // window.console.log('ProfileInviteToJoinButton.vue mounted() called');
     this.displayButton = await this.invite_allowed();
   }
 
@@ -71,7 +71,7 @@ export default class ProfileInviteToJoinButton extends Vue {
   }
 
   private async invite_allowed() {
-    window.console.log('ProfileInviteToJoinButton.vue invite_allowed() called');
+    // window.console.log('ProfileInviteToJoinButton.vue invite_allowed() called');
     if (!this.personId || this.profileIsCurrentUser()) {
       return false;
     }
@@ -91,7 +91,7 @@ export default class ProfileInviteToJoinButton extends Vue {
 
         try {
             const inviteEmail = await request.get(options) as InviteEmail;
-            window.console.log(inviteEmail);
+            // window.console.log(inviteEmail);
             this.pendingInvite = inviteEmail;
             const email = this.email || '';
 
@@ -99,14 +99,14 @@ export default class ProfileInviteToJoinButton extends Vue {
             return email !== inviteEmail.email_address;
 
         } catch (error) {
-            window.console.log(error);
+            // window.console.log(error);
             return true;
         }
     }
   }
 
   private async inviteClicked() {
-    window.console.log('ProfileInviteToJoinButton.inviteClicked()');
+    // window.console.log('ProfileInviteToJoinButton.inviteClicked()');
 
     // Need to capture email and language
     (this.$refs.emailModal as EmailModal).initialize();
@@ -119,7 +119,7 @@ export default class ProfileInviteToJoinButton extends Vue {
   }
 
   private async createInvite() {
-    window.console.log('ProfileInviteToJoinButton.createInvite()');
+    // window.console.log('ProfileInviteToJoinButton.createInvite()');
 
     const options = {
         uri: `${configs.BaseApiUrl}${configs.InviteEmailAPI}`,
@@ -133,7 +133,7 @@ export default class ProfileInviteToJoinButton extends Vue {
     try {
       store.commit('updateLoading', true);
       const inviteEmail = await request.post(options) as InviteEmail;
-      window.console.log(inviteEmail);
+      // window.console.log(inviteEmail);
       this.displayButton = false;
 
     } catch (error) {

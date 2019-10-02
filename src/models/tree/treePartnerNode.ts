@@ -20,7 +20,7 @@ export default class TreePartnerNode extends Positionable {
 
     constructor(ctx: CanvasRenderingContext2D, mainNode: TreeNode, parent: TreeNodeGroup) {
 
-        // window.console.log(`TreePartnerNode.constructor()`);
+        // // window.console.log(`TreePartnerNode.constructor()`);
 
         const width = (mainNode.partners.length + 1) * TreeNode.WIDTH
                         + (mainNode.partners.length) * TreeNode.MIN_SPACING;

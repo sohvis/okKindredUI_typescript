@@ -35,7 +35,7 @@ export default class PasswordReset extends Vue {
     public submitted: boolean = false;
 
     public async OnSubmit() {
-        window.console.log(`PasswordReset.OnSubmit() called from Login ${this.email}`);
+        // window.console.log(`PasswordReset.OnSubmit() called from Login ${this.email}`);
 
         store.commit('updateLoading', true);
         try {

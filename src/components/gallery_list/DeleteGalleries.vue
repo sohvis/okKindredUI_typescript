@@ -56,15 +56,15 @@ export default class DeleteGalleries extends Vue {
     }
 
     public show(galleryIds: number[]) {
-        window.console.log(`DeleteGalleries.show()`);
-        window.console.log(galleryIds);
+        // window.console.log(`DeleteGalleries.show()`);
+        // window.console.log(galleryIds);
         this.galleryIds = galleryIds;
         (this.$refs.modal as any).show();
     }
 
 
     private async submit(evt: any) {
-        window.console.log(`DeleteGalleries.submit()`);
+        // window.console.log(`DeleteGalleries.submit()`);
 
         evt.preventDefault();
         this.busy = true;
@@ -98,7 +98,7 @@ export default class DeleteGalleries extends Vue {
         };
 
         const response = await request.delete(options);
-        window.console.log(response);
+        // window.console.log(response);
     }
 }
 </script>

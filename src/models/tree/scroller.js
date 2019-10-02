@@ -46,14 +46,14 @@ export const Scroller = {
         canvas.addEventListener('DOMMouseScroll', Scroller.handleScroll,false);
         canvas.addEventListener('mousewheel',Scroller.handleScroll,false);
 
-        window.console.log(`Scroller.canvas.offsetTop: ${Scroller.canvas.offsetTop}`);
-        window.console.log(`Scroller.canvasOffset().top: ${Scroller.canvasOffset().top}`);
-        window.console.log(`Scroller.tree.dpr: ${Scroller.tree.dpr}`);
+        // window.console.log(`Scroller.canvas.offsetTop: ${Scroller.canvas.offsetTop}`);
+        // window.console.log(`Scroller.canvasOffset().top: ${Scroller.canvasOffset().top}`);
+        // window.console.log(`Scroller.tree.dpr: ${Scroller.tree.dpr}`);
 
     },
 
     mousedown: (evt) => {
-        window.console.log(`mousedown`);
+        // window.console.log(`mousedown`);
 
         if (Scroller.tree.disabled) {
             return;
@@ -174,7 +174,7 @@ export const Scroller = {
 
     smoothTranslateTo: (x, y) => {
 
-        window.console.log(`Scroller.smoothTranslateTo(x: ${x}, y: ${y})`);
+        // window.console.log(`Scroller.smoothTranslateTo(x: ${x}, y: ${y})`);
 
         const centerPos = Scroller.ctx.transformedPoint(
             Scroller.canvas.width / 2 / Scroller.tree.dpr, 
@@ -200,19 +200,19 @@ export const Scroller = {
 
     smoothTranslateAndZoomTo: (x, y, zoom) => {
 
-        window.console.log(`Scroller.smoothTranslateAndZoomTo(x: ${x}, y: ${y}), zoom: ${zoom}`);
+        // window.console.log(`Scroller.smoothTranslateAndZoomTo(x: ${x}, y: ${y}), zoom: ${zoom}`);
         const centerPos = Scroller.ctx.transformedPoint(
                             Scroller.canvas.width / 2 / Scroller.tree.dpr, 
                             Scroller.canvas.height / 2 / Scroller.tree.dpr);
         const pos = Scroller.ctx.transformedPoint(x, y);
-        window.console.log(`pos.x: ${pos.x}, pos.y: ${pos.y})`);
+        // window.console.log(`pos.x: ${pos.x}, pos.y: ${pos.y})`);
 
         const steps = 10;
         const dx = (centerPos.x - x) / steps;
         const dy = (centerPos.y - y) / steps;
 
         const dz = Math.pow((zoom / Scroller.ctx.getTransform().a), 1 / steps);
-        window.console.log(`dz: ${dz}`);
+        // window.console.log(`dz: ${dz}`);
         
         Scroller.animateMoveAndZoom(1, steps, dx, dy, steps, dz, x, y);
     },

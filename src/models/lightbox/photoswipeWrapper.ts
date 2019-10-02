@@ -25,7 +25,7 @@ export default class PhotoSwipeWrapper {
                 const item = new PhotoSwipeItem(image);
                 items.push(item);
             }
-            window.console.log(items);
+            // window.console.log(items);
 
             // define options
             const options = new PhotoSwipeOptions();
@@ -35,11 +35,11 @@ export default class PhotoSwipeWrapper {
             // Back button doesn't work if true
             options.history = false;
 
-            window.console.log(PhotoSwipeUI_Default);
+            // window.console.log(PhotoSwipeUI_Default);
 
             // Initializes and opens PhotoSwipe
             this.photoswipe = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
-            window.console.log(this.photoswipe);
+            // window.console.log(this.photoswipe);
             this.photoswipe.init();
     }
 

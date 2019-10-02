@@ -39,7 +39,7 @@ export default class TagToDelete extends Vue {
     public saving: boolean = false;
 
     protected async mounted() {
-        window.console.log('DeleteTags.vue mounted() call');
+        // window.console.log('DeleteTags.vue mounted() call');
     }
 
      private async click() {

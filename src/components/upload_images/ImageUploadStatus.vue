@@ -96,8 +96,8 @@ export default class ImageUploadStatus extends Vue {
     private req: XMLHttpRequest = new XMLHttpRequest();
 
     public loadFile(file: File) {
-        window.console.log('ImageUploadStatus.loadFile()');
-        window.console.log(file);
+        // window.console.log('ImageUploadStatus.loadFile()');
+        // window.console.log(file);
 
         this.file = file;
         this.state = 'pending';
@@ -107,9 +107,9 @@ export default class ImageUploadStatus extends Vue {
     }
 
     public upload() {
-        window.console.log('ImageUploadStatus.upload()');
+        // window.console.log('ImageUploadStatus.upload()');
 
-        window.console.log(`this.galleryId: ${this.galleryId}`);
+        // window.console.log(`this.galleryId: ${this.galleryId}`);
         if (this.galleryId && this.file && this.state === 'pending') {
 
             this.state = 'uploading';
@@ -135,11 +135,11 @@ export default class ImageUploadStatus extends Vue {
     }
 
     protected mounted() {
-        window.console.log('ImageUploadStatus.vue mounted() called');
+        // window.console.log('ImageUploadStatus.vue mounted() called');
     }
 
     private updateProgress(progress: any) {
-        window.console.log('ImageUploadStatus.updateProgress()');
+        // window.console.log('ImageUploadStatus.updateProgress()');
 
         this.progress = Math.min(100, progress.loaded / this.fileSize * 100);
 
@@ -150,7 +150,7 @@ export default class ImageUploadStatus extends Vue {
     }
 
     private onLoad(e: any) {
-        window.console.log('ImageUploadStatus.onLoad()');
+        // window.console.log('ImageUploadStatus.onLoad()');
 
         if (this.req.status === 200) {
             this.state = 'done';
@@ -167,8 +167,8 @@ export default class ImageUploadStatus extends Vue {
     }
 
     private fileReaderOnLoad(e: any) {
-        window.console.log('ImageUploadStatus.fileReaderOnLoad()');
-        window.console.log(e);
+        // window.console.log('ImageUploadStatus.fileReaderOnLoad()');
+        // window.console.log(e);
 
         const img = document.getElementById(`thumbnail-img-${this.uploadIndex}`) as HTMLImageElement;
         img.src = e.target.result;

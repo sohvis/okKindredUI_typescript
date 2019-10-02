@@ -95,7 +95,7 @@ export default class GalleryHeader extends Vue {
 
     @Watch('watchedProps')
     public async loadGalleryData() {
-        window.console.log(`GalleryHeader.loadGalleryData()`);
+        // window.console.log(`GalleryHeader.loadGalleryData()`);
 
         try {
 
@@ -119,7 +119,7 @@ export default class GalleryHeader extends Vue {
     }
 
     private editGalleryClicked() {
-        window.console.log(`GalleryHeader.editGalleryClicked()`);
+        // window.console.log(`GalleryHeader.editGalleryClicked()`);
 
         if (this.gallery) {
             (this.$refs.editGallery as EditGallery).show(this.gallery);
@@ -127,7 +127,7 @@ export default class GalleryHeader extends Vue {
     }
 
     private async galleryEdited() {
-        window.console.log(`GalleryHeader.galleryEdited()`);
+        // window.console.log(`GalleryHeader.galleryEdited()`);
 
         await this.loadGalleryData();
     }

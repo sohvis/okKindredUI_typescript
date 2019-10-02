@@ -40,9 +40,9 @@ export default class GalleryRow extends Vue {
 
     @Watch('galleryRow')
     public renderGalleryItems(): void {
-        window.console.log(`GalleryRow.render()`);
+        // window.console.log(`GalleryRow.render()`);
 
-        window.console.log(`this.width: ${this.width}`);
+        // window.console.log(`this.width: ${this.width}`);
 
         if (this.galleryRow && this.width) {
             const h = this.getHeight();
@@ -67,7 +67,7 @@ export default class GalleryRow extends Vue {
 
     private getHeight(): number {
 
-        window.console.log(`GalleryRow.getHeight()`);
+        // window.console.log(`GalleryRow.getHeight()`);
 
         if (!this.galleryRow || !this.width) {
             return GalleryRow.DEFAULT_HEIGHT;
@@ -81,7 +81,7 @@ export default class GalleryRow extends Vue {
         }
         const value = this.width / sum;
 
-        window.console.log(`getHeight(): ${value}`);
+        // window.console.log(`getHeight(): ${value}`);
         return Math.min(GalleryRow.MAX_HEIGHT, value);
     }
 

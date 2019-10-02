@@ -102,7 +102,7 @@ export default class AboutComponent extends Vue {
 
     public scroll(divId: string) {
 
-        window.console.log(`AboutComponent.scroll(divID: ${divId}) called`);
+        // window.console.log(`AboutComponent.scroll(divID: ${divId}) called`);
 
         const divTop = (document.getElementById(divId) as HTMLElement)
                             .getBoundingClientRect().top;
@@ -110,7 +110,7 @@ export default class AboutComponent extends Vue {
         const navHeight = (document.getElementById('navbar')as HTMLElement)
                                 .clientHeight;
 
-        window.console.log(`divTop: ${divTop}`);
+        // window.console.log(`divTop: ${divTop}`);
         window.scroll({
             top: divTop + window.scrollY - navHeight,
             left: 0,

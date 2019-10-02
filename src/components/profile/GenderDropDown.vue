@@ -48,7 +48,7 @@ export default class GenderDropDown extends Vue {
   public editMode: boolean = false;
 
   protected mounted() {
-    window.console.log('GenderDropDown.vue mounted() called');
+    // window.console.log('GenderDropDown.vue mounted() called');
 
     const genderBuilder = new GenderOptionsBuilder(this);
     this.genderDisplayByValue = genderBuilder.localisedGendersByKey;
@@ -56,13 +56,13 @@ export default class GenderDropDown extends Vue {
   }
 
   private edit() {
-    window.console.log(`GenderDropDown.edit()`);
+    // window.console.log(`GenderDropDown.edit()`);
     this.valueEdited = this.value;
     this.editMode = true;
   }
 
   private async onChange() {
-    window.console.log(`GenderDropDown.onBlur() called`);
+    // window.console.log(`GenderDropDown.onBlur() called`);
     await this.endEdit();
   }
 
@@ -76,7 +76,7 @@ export default class GenderDropDown extends Vue {
 
   private async save() {
 
-    window.console.log(`GenderDropDown.save() called`);
+    // window.console.log(`GenderDropDown.save() called`);
 
     if (this.value !== this.valueEdited) {
 
@@ -92,7 +92,7 @@ export default class GenderDropDown extends Vue {
 
       try {
         const response = await request.patch(options) as Person;
-        window.console.log(response);
+        // window.console.log(response);
         const param = new ProfileEmitArgs(
                             response,
                             GenderDropDown.propertyName,

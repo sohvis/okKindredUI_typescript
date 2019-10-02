@@ -97,7 +97,7 @@ export default class SignUp extends Vue {
 
 
     public async onSubmit() {
-        window.console.log(`OnSubmit() called`);
+        // window.console.log(`OnSubmit() called`);
 
         this.errorMessage = '';
 
@@ -123,7 +123,7 @@ export default class SignUp extends Vue {
                 };
 
                 const user = await request.put(options) as User;
-                window.console.log(user);
+                // window.console.log(user);
 
                 await this.$store.dispatch('login', {
                     email: user.email,
@@ -135,7 +135,7 @@ export default class SignUp extends Vue {
             } catch (error) {
 
                 this.errorMessage = error.toString();
-                window.console.log(error);
+                // window.console.log(error);
             }
         }
 
@@ -143,9 +143,9 @@ export default class SignUp extends Vue {
     }
 
     protected mounted() {
-        window.console.log(`SignUpCOnfirmation.mounted()`);
+        // window.console.log(`SignUpCOnfirmation.mounted()`);
         this.confirmationToken = this.$route.params.confirmationToken;
-        window.console.log(`this.confirmationToken: ${this.confirmationToken}`);
+        // window.console.log(`this.confirmationToken: ${this.confirmationToken}`);
 
         let language: string;
         if (this.$route.query.language) {
@@ -154,7 +154,7 @@ export default class SignUp extends Vue {
             language = navigator.language;
         }
 
-        window.console.log(`language: ${language}`);
+        // window.console.log(`language: ${language}`);
         i18n.locale = localeMatch.match(language);
     }
 }

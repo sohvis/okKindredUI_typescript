@@ -75,7 +75,7 @@ export default class LeaveSiteMultipleUsers extends Vue {
     }
 
     private async leaveSite() {
-      window.console.log(`LeaveSiteMultipleUsers.leaveSite()`);
+      // window.console.log(`LeaveSiteMultipleUsers.leaveSite()`);
 
       store.commit('updateLoading', true);
 

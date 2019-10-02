@@ -112,7 +112,7 @@ export default class AddRelativeModal extends Vue {
     }
 
     private handleOk(e: Event) {
-        window.console.log(`AddRelativeModal.handleOk()`);
+        // window.console.log(`AddRelativeModal.handleOk()`);
         // Prevent modal from closing
         e.preventDefault();
         // (this.$refs.modal as any).hide();
@@ -120,11 +120,11 @@ export default class AddRelativeModal extends Vue {
     }
 
     private resetModal() {
-        window.console.log(`AddRelativeModal.resetModal()`);
+        // window.console.log(`AddRelativeModal.resetModal()`);
     }
 
     private submit() {
-        window.console.log(`AddRelativeModal.submit()`);
+        // window.console.log(`AddRelativeModal.submit()`);
         this.showError = false;
         this.busy = true;
 
@@ -140,7 +140,7 @@ export default class AddRelativeModal extends Vue {
     }
 
     private onError(errorMessage: string) {
-        window.console.log(`AddRelativeModal.onError()`);
+        // window.console.log(`AddRelativeModal.onError()`);
 
         if (errorMessage) {
             this.showError = true;
@@ -151,7 +151,7 @@ export default class AddRelativeModal extends Vue {
     }
 
     private personCreated(person: Person) {
-        window.console.log(`AddRelativeModal.personCreated()`);
+        // window.console.log(`AddRelativeModal.personCreated()`);
 
         this.busy = false;
 
@@ -160,7 +160,7 @@ export default class AddRelativeModal extends Vue {
     }
 
     private relationCreated() {
-        window.console.log(`AddRelativeModal.personCreated()`);
+        // window.console.log(`AddRelativeModal.personCreated()`);
 
         this.busy = false;
 

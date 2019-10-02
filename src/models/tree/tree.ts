@@ -89,24 +89,24 @@ export default class Tree {
 
     public render(clearAll = true) {
 
-        window.console.log(`Tree.Render()`);
-        window.console.log(`Clearing Canvas`);
+        // window.console.log(`Tree.Render()`);
+        // window.console.log(`Clearing Canvas`);
         this.clearCanvas(clearAll);
 
         if (clearAll) {
-            window.console.log(`Adding selected node`);
+            // window.console.log(`Adding selected node`);
             this.addLevel0();
 
-            window.console.log(`Adding ancestors`);
+            // window.console.log(`Adding ancestors`);
             this.addAncestors();
 
-            window.console.log(`Adding descendants`);
+            // window.console.log(`Adding descendants`);
             this.addDescendants();
 
             this.setDisabled(this.disabled);
         }
 
-        window.console.log(`Positioning`);
+        // window.console.log(`Positioning`);
 
         const level0Positioner = new Level0Positioner(this);
         level0Positioner.position();
@@ -117,7 +117,7 @@ export default class Tree {
         const descendantPositioner = new TreeDescendantPositioner(this);
         descendantPositioner.position(clearAll);
 
-        window.console.log(`Rendering levels`);
+        // window.console.log(`Rendering levels`);
         for (const treeLevel of this.treeLevels) {
             treeLevel.render();
         }
@@ -128,7 +128,7 @@ export default class Tree {
     }
 
     public click(x: number, y: number) {
-        window.console.log(`Tree.click(x:${x} , y:${y})`);
+        // window.console.log(`Tree.click(x:${x} , y:${y})`);
 
         const node = this.getNodeAtXY(x, y);
         if (node) {
@@ -138,7 +138,7 @@ export default class Tree {
     }
 
     public hover(x: number, y: number) {
-        // window.console.log(`Tree.hover(x:${x} , y:${y})`);
+        // // window.console.log(`Tree.hover(x:${x} , y:${y})`);
 
         const node = this.getNodeAtXY(x, y);
 
@@ -179,7 +179,7 @@ export default class Tree {
     }
 
     private changeSelectedPerson(newPersonId: string) {
-        window.console.log(`state.changeSelectedPerson(newPersonId: ${newPersonId})`);
+        // window.console.log(`state.changeSelectedPerson(newPersonId: ${newPersonId})`);
 
         // Get old selected id
         const oldSelectedId = store.state.person_id;
@@ -234,12 +234,12 @@ export default class Tree {
 
     private addLevel0() {
 
-        window.console.log(`Tree.addLevel0()`);
+        // window.console.log(`Tree.addLevel0()`);
         const level0 = new TreeLevel(this.canvas, this.ctx, 0, 0);
 
-        window.console.log(`store.state.person_id: ${store.state.person_id}`);
+        // window.console.log(`store.state.person_id: ${store.state.person_id}`);
         this.selectedNode =  this.nodesById[store.state.person_id];
-        window.console.log(this.selectedNode);
+        // window.console.log(this.selectedNode);
 
         level0.addSelectedNode(this.selectedNode, this.dpr);
         this.createRelations(this.selectedNode);

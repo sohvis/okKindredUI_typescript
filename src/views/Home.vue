@@ -23,7 +23,7 @@ import store from '../store/store';
 export default class Home extends Vue {
 
   protected async mounted() {
-    window.console.log(`Home.mounted()`);
+    // window.console.log(`Home.mounted()`);
 
     try {
         // Load jwt from cookie and login

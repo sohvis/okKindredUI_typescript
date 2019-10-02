@@ -8,7 +8,7 @@ export default class Line {
     public lineWidth: number;
 
     constructor(start: Point, end: Point, strokeStyle: string, lineWidth: number) {
-        window.console.log(`Line constructor()`);
+        // window.console.log(`Line constructor()`);
         this.start = start;
         this.end = end;
         this.strokeStyle = strokeStyle;
@@ -16,8 +16,8 @@ export default class Line {
     }
 
     public draw(ctx: CanvasRenderingContext2D) {
-        window.console.log(`Line.draw()`);
-        window.console.log(this);
+        // window.console.log(`Line.draw()`);
+        // window.console.log(this);
         ctx.beginPath();
 
         ctx.strokeStyle = this.strokeStyle;

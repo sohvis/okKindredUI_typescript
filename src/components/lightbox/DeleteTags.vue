@@ -45,7 +45,7 @@ export default class DeleteTags extends Vue {
     private loading: boolean = false;
 
     public async show(tags: Tag[], image: Image) {
-        window.console.log('DeleteTags.show()');
+        // window.console.log('DeleteTags.show()');
 
         this.tags = tags;
         this.image = image;
@@ -56,7 +56,7 @@ export default class DeleteTags extends Vue {
     }
 
     protected async mounted() {
-        window.console.log('DeleteTags.vue mounted() call');
+        // window.console.log('DeleteTags.vue mounted() call');
     }
 
     private tagDeleted(tagId: number) {

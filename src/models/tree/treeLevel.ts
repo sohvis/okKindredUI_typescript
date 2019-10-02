@@ -28,7 +28,7 @@ export default class TreeLevel extends Positionable {
     }
 
     public addSelectedNode(node: TreeNode, dpr: number) {
-        // window.console.log(`TreeLevel.addSelectedNode()`);
+        // // window.console.log(`TreeLevel.addSelectedNode()`);
 
         // If already have position values, re-use them
         if (!node.hasYValue) {
@@ -64,7 +64,7 @@ export default class TreeLevel extends Positionable {
 
     public getLargestOverlap() {
 
-        // window.console.log(`TreeLevel.getLargestOverlap() level: ${this.level}`);
+        // // window.console.log(`TreeLevel.getLargestOverlap() level: ${this.level}`);
 
         let largestOverlap = 0;
         let previousGroup;

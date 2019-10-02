@@ -53,7 +53,7 @@ export default class DeletePerson extends Vue {
   }
 
   public async handleOk() {
-    window.console.log(`DeletePerson.handleOk()`);
+    // window.console.log(`DeletePerson.handleOk()`);
 
     try {
       store.commit('updateLoading', true);
@@ -69,7 +69,7 @@ export default class DeletePerson extends Vue {
       await store.dispatch('removePerson', selectedPersonId);
 
 } catch (ex) {
-        window.console.log(ex);
+        // window.console.log(ex);
         store.commit('setErrorMessage', ex);
     }
     store.commit('updateLoading', false);
@@ -77,7 +77,7 @@ export default class DeletePerson extends Vue {
   }
 
   protected async mounted() {
-    window.console.log(`DeletePerson.mounted()`);
+    // window.console.log(`DeletePerson.mounted()`);
 
     const selectedPerson = store.state.person_id;
 
@@ -88,7 +88,7 @@ export default class DeletePerson extends Vue {
     };
 
     const person = await request.get(options) as Person;
-    window.console.log(person);
+    // window.console.log(person);
     if (!person.user_id) {
       this.deleteAllowed = true;
     }

@@ -80,9 +80,9 @@ export default class EditGallery extends Vue {
     }
 
     public show(gallery: Gallery) {
-        window.console.log(`EditGallery.show()`);
+        // window.console.log(`EditGallery.show()`);
 
-        window.console.log(gallery);
+        // window.console.log(gallery);
 
         this.form.id = gallery.id;
         this.form.title = gallery.title;
@@ -93,7 +93,7 @@ export default class EditGallery extends Vue {
     }
 
     private async submit(evt: any) {
-        window.console.log(`EditGallery.submit()`);
+        // window.console.log(`EditGallery.submit()`);
 
         evt.preventDefault();
         this.errorMessage = '';

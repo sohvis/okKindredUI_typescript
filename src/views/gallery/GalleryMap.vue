@@ -39,7 +39,7 @@ export default class GalleryMap extends Vue {
     public map?: L.Map;
 
     protected async mounted() {
-        window.console.log('GalleryMap.vue mounted() call');
+        // window.console.log('GalleryMap.vue mounted() call');
 
         try {
             this.initializeSize();
@@ -47,7 +47,7 @@ export default class GalleryMap extends Vue {
             // Load jwt from cookie and login
             await store.dispatch('restoreSession');
         } catch (ex) {
-            window.console.log(`ex: ${ex}`);
+            // window.console.log(`ex: ${ex}`);
             this.$router.push(`/accounts/login/?next=${this.$router.currentRoute.fullPath}`);
         }
 
@@ -62,7 +62,7 @@ export default class GalleryMap extends Vue {
     }
 
     private initializeSize() {
-        window.console.log('GalleryMap.initializeSize()');
+        // window.console.log('GalleryMap.initializeSize()');
 
         const mapDiv = document.getElementById('gallery-map') as HTMLDivElement;
         const computedStyle = window.getComputedStyle(mapDiv);
@@ -75,7 +75,7 @@ export default class GalleryMap extends Vue {
     }
 
     private async loadData() {
-        window.console.log(`GalleryMap.loadData()`);
+        // window.console.log(`GalleryMap.loadData()`);
 
         store.commit('updateLoading', true);
 
@@ -92,7 +92,7 @@ export default class GalleryMap extends Vue {
     }
 
     private async loadImageData() {
-        window.console.log('GalleryMap.loadImageData()');
+        // window.console.log('GalleryMap.loadImageData()');
 
         try {
             // Load page 1 to find out number of results
@@ -101,7 +101,7 @@ export default class GalleryMap extends Vue {
 
             const pageCount = PagedResult.PAGE_COUNT(firstResponse.count);
 
-            window.console.log(`pageCount: ${pageCount}`);
+            // window.console.log(`pageCount: ${pageCount}`);
 
             if (pageCount > 1) {
                 const tasks = new Array<Promise<PagedResult<Image>>>();
@@ -122,7 +122,7 @@ export default class GalleryMap extends Vue {
     }
 
     private async loadImageFromPage(pageNo: number): Promise<PagedResult<Image>> {
-        window.console.log(`GalleryMap.loadImageFromPage(pageNo: ${pageNo})`);
+        // window.console.log(`GalleryMap.loadImageFromPage(pageNo: ${pageNo})`);
         const options = {
             uri: `${config.BaseApiUrl}${config.ImageAPI}?page=${pageNo}&gallery_id=${this.galleryId}`,
             headers: store.getters.ajaxHeader,
@@ -130,12 +130,12 @@ export default class GalleryMap extends Vue {
         };
 
         const response = await request.get(options) as PagedResult<Image>;
-        window.console.log(response);
+        // window.console.log(response);
         return response;
     }
 
     private renderMap() {
-        window.console.log('GalleryMap.renderMap()');
+        // window.console.log('GalleryMap.renderMap()');
 
         // Remove data points without a longitude and latitude
         const filteredData = this.images.filter((value) => {
@@ -198,7 +198,7 @@ export default class GalleryMap extends Vue {
     }
 
      private displayMapPoints(data: Image[]) {
-        window.console.log('GalleryMap.displayMapPoints()');
+        // window.console.log('GalleryMap.displayMapPoints()');
 
         const markers = L.markerClusterGroup();
 
@@ -222,8 +222,8 @@ export default class GalleryMap extends Vue {
      }
 
     private async mapClick(e: MouseEvent) {
-      window.console.log(`GalleryMap.mapClick(e:`);
-      window.console.log(e);
+      // window.console.log(`GalleryMap.mapClick(e:`);
+      // window.console.log(e);
 
       let index = 0;
       // find which image got clicked
@@ -237,7 +237,7 @@ export default class GalleryMap extends Vue {
           if (rect) {
             if (rect.left < e.clientX && e.clientX < rect.right) {
               if (rect.top < e.clientY && e.clientY < rect.bottom) {
-                window.console.log(rect);
+                // window.console.log(rect);
                 await this.imageClick(image.id, index);
               }
             }
@@ -249,7 +249,7 @@ export default class GalleryMap extends Vue {
     }
 
     private async imageClick(imageId: number, index: number) {
-        window.console.log(`GalleryMap.imageClick(imageId: ${imageId})`);
+        // window.console.log(`GalleryMap.imageClick(imageId: ${imageId})`);
 
         if (this.galleryId) {
 
@@ -264,7 +264,7 @@ export default class GalleryMap extends Vue {
     }
 
     private imageEdited(image: Image) {
-        window.console.log(`GalleryMap.imageEdited(imageId: ${image.id}`);
+        // window.console.log(`GalleryMap.imageEdited(imageId: ${image.id}`);
 
         let index = 0;
         for (index = 0; index < this.images.length; index++) {
@@ -277,7 +277,7 @@ export default class GalleryMap extends Vue {
     }
 
     private monitorHeightChange(previousTop: number) {
-      window.console.log('GalleryMap.monitorHeightChange()');
+      // window.console.log('GalleryMap.monitorHeightChange()');
 
       const mapDiv = document.getElementById('gallery-map') as HTMLDivElement;
 

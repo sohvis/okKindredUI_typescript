@@ -14,7 +14,7 @@ import { Component, Vue } from 'vue-property-decorator';
 export default class TreeCancelEditControls extends Vue {
 
   private click() {
-    window.console.log(`TreeCancelEditControls.click()`);
+    // window.console.log(`TreeCancelEditControls.click()`);
     this.$emit('click');
   }
 }

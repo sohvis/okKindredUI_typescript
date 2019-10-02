@@ -37,12 +37,12 @@ export default class LeaveSite extends Vue {
     }
 
     public async initialize() {
-        window.console.log(`UserSettings.initialize()`);
+        // window.console.log(`UserSettings.initialize()`);
         await this.loadData();
     }
 
     public async loadData() {
-        window.console.log(`LeaveSite.loadData()`);
+        // window.console.log(`LeaveSite.loadData()`);
 
         this.showOptions = false;
         store.commit('updateLoading', true);

@@ -14,7 +14,7 @@ import { Component, Vue } from 'vue-property-decorator';
 export default class TreeNavControls extends Vue {
 
   private click() {
-    window.console.log(`TreeNavControls.click()`);
+    // window.console.log(`TreeNavControls.click()`);
     this.$emit('click');
   }
 }
