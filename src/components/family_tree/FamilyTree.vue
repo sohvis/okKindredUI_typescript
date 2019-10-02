@@ -31,6 +31,7 @@ import AddPartner from './AddPartner.vue';
 import DeletePerson from './DeletePerson.vue';
 import SplitRelations from './SplitRelations.vue';
 import NewPersonResponse from '../../models/data/new_person_response';
+import BrowserDetection from '../../models/browserDetection';
 
 
 @Component({
@@ -87,8 +88,11 @@ export default class FamilyTree extends Vue {
           tree.setDisabled(this.editMode);
           tree.render();
 
-          const canvasTop = canvas.getBoundingClientRect().top;
-          this.monitorHeightChange(canvasTop);
+          // Need to resize if menu is open and not on iOS
+          if (BrowserDetection.isMobileMenuOpen() && !BrowserDetection.is_iOS()) {
+            const canvasTop = canvas.getBoundingClientRect().top;
+            this.monitorHeightChange(canvasTop);
+          }
         }
       }
     }
@@ -128,7 +132,9 @@ export default class FamilyTree extends Vue {
             this.initializeTree();
           }
 
-          window.setTimeout(() => this.monitorHeightChange(newCanvasTop), 1000);
+          if (BrowserDetection.isMobileMenuOpen()) {
+            window.setTimeout(() => this.monitorHeightChange(newCanvasTop), 1000);
+          }
         }
       }
     }

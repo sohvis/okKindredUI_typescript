@@ -61,6 +61,7 @@ import store from '../../store/store';
 import config from '../../config';
 import ImageUploadStatus from '../../components/upload_images/ImageUploadStatus.vue';
 import UploadFinished from '../../components/upload_images/UploadFinished.vue';
+import BrowserDetection from '../../models/browserDetection';
 
 @Component({
   components: {
@@ -100,12 +101,8 @@ export default class UploadImages extends Vue {
     protected async mounted() {
         window.console.log('UploadImages.vue mounted() call');
 
-        const isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
-        const isAndroid = navigator.userAgent.toLowerCase().indexOf('android') > -1;
-
         // Multiple file upload not working on Firefox Android
-        if (isFirefox && isAndroid) {
-            alert('firefox android');
+        if (BrowserDetection.isFirefox() && BrowserDetection.isAndroid()) {
             this.uploadMultiple = false;
         }
 
