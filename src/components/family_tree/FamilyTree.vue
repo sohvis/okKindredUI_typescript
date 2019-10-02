@@ -74,7 +74,7 @@ export default class FamilyTree extends Vue {
     }
 
     public initializeTree() {
-      window.console.log(`FamilyTree.initializeTree()`);
+      // window.console.log(`FamilyTree.initializeTree()`);
 
       const canvas = document.getElementById('tree-canvas') as HTMLCanvasElement;
 
@@ -98,7 +98,7 @@ export default class FamilyTree extends Vue {
     }
 
     protected mounted() {
-      window.console.log('FamilyTree.vue mounted() call');
+      // window.console.log('FamilyTree.vue mounted() call');
 
       this.setCanvasSize();
 
@@ -107,7 +107,7 @@ export default class FamilyTree extends Vue {
 
     @Watch('selectedPersonId')
     private onSelectedPersonChange() {
-      window.console.log(`FamilyTree.onSelectedPersonChange()`);
+      // window.console.log(`FamilyTree.onSelectedPersonChange()`);
 
       const canvas = document.getElementById('tree-canvas') as HTMLCanvasElement;
       if (canvas.offsetParent && canvas.clientHeight > 0) {
@@ -119,7 +119,7 @@ export default class FamilyTree extends Vue {
     }
 
     private monitorHeightChange(previousCanvasTop: number) {
-      window.console.log('FamilyTree.monitorHeightChange()');
+      // window.console.log('FamilyTree.monitorHeightChange()');
 
       const canvas = document.getElementById('tree-canvas') as HTMLCanvasElement;
 
@@ -152,7 +152,7 @@ export default class FamilyTree extends Vue {
     }
 
     private edit() {
-      window.console.log('FamilyTree.vue edit() call');
+      // window.console.log('FamilyTree.vue edit() call');
       const tree = (Scroller as any).tree as Tree;
       (Scroller as any).smoothTranslateAndZoomTo(tree.selectedNode.xMid, tree.selectedNode.yMid, 1);
 

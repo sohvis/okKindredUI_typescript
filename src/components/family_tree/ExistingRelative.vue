@@ -46,7 +46,7 @@ export default class ExistingRelative extends Vue {
     public selectedPerson: Person | null = null;
 
     public async submit() {
-        window.console.log(`ExitingRelative.submit()`);
+        // window.console.log(`ExitingRelative.submit()`);
 
         if (!this.selectedPerson) {
             this.$emit('onError');
@@ -74,14 +74,14 @@ export default class ExistingRelative extends Vue {
             this.$emit('relationCreated');
 
         } catch (ex) {
-                window.console.log(ex);
+                // window.console.log(ex);
                 this.$emit('onError', ex);
         }
 
     }
 
     protected mounted() {
-        window.console.log(`ExistingRelative.mounted()`);
+        // window.console.log(`ExistingRelative.mounted()`);
         this.predictRelations();
         this.selectedPerson = null;
     }
@@ -95,7 +95,7 @@ export default class ExistingRelative extends Vue {
                 p.name.toLocaleLowerCase().indexOf(this.searchValue.toLocaleLowerCase()) > -1,
             );
 
-            window.console.log(result);
+            // window.console.log(result);
 
             for (const person of result) {
                 if (!person.small_thumbnail) {
@@ -119,7 +119,7 @@ export default class ExistingRelative extends Vue {
     }
 
     private async selectPerson(person: Person) {
-        window.console.log(`ExistingRelative.selectPerson() person.name: ${person.name}`);
+        // window.console.log(`ExistingRelative.selectPerson() person.name: ${person.name}`);
         this.selectedPerson = person;
     }
 }

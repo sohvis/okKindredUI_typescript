@@ -118,7 +118,7 @@ export default class GalleryView extends Vue {
     }
 
     protected async mounted() {
-        window.console.log('PersonGalleryView.vue mounted() call');
+        // window.console.log('PersonGalleryView.vue mounted() call');
 
         try {
             // Load jwt from cookie and login
@@ -137,7 +137,7 @@ export default class GalleryView extends Vue {
             window.addEventListener('resize', this.setDisplaySizes);
             window.onresize = () => this.setDisplaySizes();
         } catch (ex) {
-            window.console.log(`ex: ${ex}`);
+            // window.console.log(`ex: ${ex}`);
             this.$router.push(`/accounts/login/?next=${this.$router.currentRoute.fullPath}`);
         }
     }
@@ -148,7 +148,7 @@ export default class GalleryView extends Vue {
 
     @Watch('watchedProps')
     private async loadData() {
-        window.console.log(`GalleryView.loadData()`);
+        // window.console.log(`GalleryView.loadData()`);
 
         store.commit('updateLoading', true);
 
@@ -197,7 +197,7 @@ export default class GalleryView extends Vue {
 
 
     private setDisplaySizes() {
-        window.console.log(`GalleryView.setDisplaySizes()`);
+        // window.console.log(`GalleryView.setDisplaySizes()`);
 
         // Force scrollbar to show so calcs are correct
         const galleryContainer = document.getElementById('gallery-container') as HTMLDivElement;
@@ -250,7 +250,7 @@ export default class GalleryView extends Vue {
     }
 
     private selectionChanged(imageId: number, checked: boolean) {
-        window.console.log(`GalleryView.selectionChanged(galleryId: ${imageId}, checked: ${checked})`);
+        // window.console.log(`GalleryView.selectionChanged(galleryId: ${imageId}, checked: ${checked})`);
 
         const selectedIds = new Array<number>();
 
@@ -272,7 +272,7 @@ export default class GalleryView extends Vue {
     }
 
     private async imageClick(imageId: number, rowIndex: number) {
-        window.console.log(`PersonGalleryView.imageClick(imageId: ${imageId}, rowIndex: ${rowIndex}`);
+        // window.console.log(`PersonGalleryView.imageClick(imageId: ${imageId}, rowIndex: ${rowIndex}`);
 
         const index = this.images.findIndex((item) => item.id === imageId);
 
@@ -286,7 +286,7 @@ export default class GalleryView extends Vue {
     }
 
     private imageEdited(image: Image) {
-        window.console.log(`GalleryView.imageEdited(imageId: ${image.id}`);
+        // window.console.log(`GalleryView.imageEdited(imageId: ${image.id}`);
 
         let index = 0;
         for (index = 0; index < this.images.length; index++) {

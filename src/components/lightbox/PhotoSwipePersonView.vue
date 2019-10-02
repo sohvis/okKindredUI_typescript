@@ -134,8 +134,8 @@ export default class PhotoSwipeGalleryView extends Vue {
             totalItems: number,
             personId: string) {
 
-        window.console.log(`PhotoSwipePersonView.init(selectedIndex: ${selectedIndex},
-            currentPage: ${currentPage}, totalItems: ${totalItems}, personId: ${personId})`);
+        // window.console.log(`PhotoSwipePersonView.init(selectedIndex: ${selectedIndex},
+        //    currentPage: ${currentPage}, totalItems: ${totalItems}, personId: ${personId})`);
 
         this.personId = personId;
 
@@ -160,7 +160,7 @@ export default class PhotoSwipeGalleryView extends Vue {
     }
 
     protected afterChange() {
-        window.console.log(`PhotoSwipePersonView.afterChange()`);
+        // window.console.log(`PhotoSwipePersonView.afterChange()`);
 
         if (this.photoswipeWrapper) {
 
@@ -175,7 +175,7 @@ export default class PhotoSwipeGalleryView extends Vue {
     }
 
     protected download() {
-        window.console.log(`PhotoSwipePersonView.download()`);
+        // window.console.log(`PhotoSwipePersonView.download()`);
         if (this.photoswipeWrapper) {
             const link = (this.photoswipeWrapper.photoswipe.currItem as PhotoSwipeItem).image.original_image;
             window.open(link, `_blank`);
@@ -190,7 +190,7 @@ export default class PhotoSwipeGalleryView extends Vue {
     }
 
     private showMap() {
-        window.console.log(`PhotoSwipePersonView.showMap()`);
+        // window.console.log(`PhotoSwipePersonView.showMap()`);
 
         if (this.photoswipeWrapper) {
             const image = (this.photoswipeWrapper.photoswipe.currItem as PhotoSwipeItem).image;
@@ -227,7 +227,7 @@ export default class PhotoSwipeGalleryView extends Vue {
     }
 
     private async toggleTagging() {
-        window.console.log(`PhotoSwipePersonView.toggleTagging()`);
+        // window.console.log(`PhotoSwipePersonView.toggleTagging()`);
 
         if (this.photoswipeWrapper) {
             (this.$refs.taggingOverlay as TaggingOverlay).toggle(this.photoswipeWrapper);

@@ -61,7 +61,7 @@ export default class CropFile extends Vue {
   }
 
   public loadFile(file: File) {
-    window.console.log('ChooseFile.loadFile()');
+    // window.console.log('ChooseFile.loadFile()');
 
     this.fileReader.onload = this.fileReaderOnLoad;
     this.file = file;
@@ -74,12 +74,12 @@ export default class CropFile extends Vue {
   }
 
   protected mounted() {
-    window.console.log('ChooseFile.vue mounted() called');
+    // window.console.log('ChooseFile.vue mounted() called');
 
   }
 
   private fileReaderOnLoad(e: any) {
-    window.console.log('ChooseFile.fileReaderOnLoad()');
+    // window.console.log('ChooseFile.fileReaderOnLoad()');
 
     const img = document.getElementById('crop-image') as HTMLImageElement;
 
@@ -100,7 +100,7 @@ export default class CropFile extends Vue {
 
     if (this.jcrop) {
       // resize widget
-      window.console.log(this.jcrop);
+      // window.console.log(this.jcrop);
     } else {
       this.jcrop = Jcrop.attach('overlay', {
         multiMax: 1,
@@ -109,7 +109,7 @@ export default class CropFile extends Vue {
     }
 
     if (this.jcrop.active) {
-      window.console.log(`this.jcrop.active`);
+      // window.console.log(`this.jcrop.active`);
       this.jcrop.active.pos = rect;
       this.jcrop.active.render();
     } else {
@@ -124,7 +124,7 @@ export default class CropFile extends Vue {
   }
 
   private rotateClockwise() {
-    window.console.log('ChooseFile.rotateClockwise()');
+    // window.console.log('ChooseFile.rotateClockwise()');
 
     if (this.rotation >= 270) {
       this.rotation = 0;
@@ -136,7 +136,7 @@ export default class CropFile extends Vue {
   }
 
   private rotateAntiClockwise() {
-    window.console.log('ChooseFile.rotateAntiClockwise()');
+    // window.console.log('ChooseFile.rotateAntiClockwise()');
 
     if (this.rotation < 90) {
       this.rotation = 270;
@@ -150,7 +150,7 @@ export default class CropFile extends Vue {
 
   // Opens input file
   private nextClick() {
-    window.console.log('ChooseFile.nextClick()');
+    // window.console.log('ChooseFile.nextClick()');
 
     const cropArgs = new CropArgs(
       store.state.person_id,
@@ -160,13 +160,13 @@ export default class CropFile extends Vue {
       this.rotation,
     );
 
-    window.console.log(cropArgs);
+    // window.console.log(cropArgs);
 
     this.$emit('next', cropArgs);
   }
 
   private backClick() {
-    window.console.log('ChooseFile.backClick()');
+    // window.console.log('ChooseFile.backClick()');
 
     // reset the rotation if going back
     this.resetRotation();
@@ -175,7 +175,7 @@ export default class CropFile extends Vue {
   }
 
   private setRotation() {
-    window.console.log('ChooseFile.setRotation()');
+    // window.console.log('ChooseFile.setRotation()');
 
     const img = document.getElementById('crop-image') as HTMLImageElement;
     const rotate = `rotate(${this.rotation}deg)`;
@@ -225,7 +225,7 @@ export default class CropFile extends Vue {
 
   // Create an overlay to bind JCrop to as it can't handle rotations
   private setOverlay(img: HTMLImageElement) {
-    window.console.log('ChooseFile.setOverlay()');
+    // window.console.log('ChooseFile.setOverlay()');
     const dimensions = img.getBoundingClientRect();
 
     this.overlayStyle = {

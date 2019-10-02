@@ -75,14 +75,14 @@ export default class UserSettings extends Vue {
     private timeOutHandle: any;
 
     public async initialize() {
-        window.console.log(`UserSettings.initialize()`);
+        // window.console.log(`UserSettings.initialize()`);
         this.saving = false;
         this.saved = false;
         await this.loadData();
     }
 
     public async loadData() {
-        window.console.log(`UserSettings.loadData()`);
+        // window.console.log(`UserSettings.loadData()`);
 
         store.commit('updateLoading', true);
 
@@ -114,7 +114,7 @@ export default class UserSettings extends Vue {
     }
 
     public onChange() {
-        window.console.log(`UserSettings.onChange() called`);
+        // window.console.log(`UserSettings.onChange() called`);
 
         if (this.timeOutHandle) {
             window.clearTimeout(this.timeOutHandle);
@@ -128,7 +128,7 @@ export default class UserSettings extends Vue {
 
     public async save() {
 
-        window.console.log(`UserSettings.dataChanged()`);
+        // window.console.log(`UserSettings.dataChanged()`);
 
         this.saving = true;
         this.saved = false;
@@ -156,7 +156,7 @@ export default class UserSettings extends Vue {
     }
 
     protected async mounted() {
-        window.console.log(`UserSettings.mounted()`);
+        // window.console.log(`UserSettings.mounted()`);
 
         this.languageOptions = LanguageOptionsBuilder.createDropDownOptions();
     }

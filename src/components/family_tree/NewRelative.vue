@@ -74,7 +74,7 @@ export default class NewRelative extends Vue {
     };
 
     public async submit() {
-        window.console.log(`NewRelative.submit()`);
+        // window.console.log(`NewRelative.submit()`);
 
         const valid = (this.$refs.form as any).checkValidity();
         this.form.nameState = valid ? 'valid' : 'invalid';
@@ -107,7 +107,7 @@ export default class NewRelative extends Vue {
             this.$emit('personCreated', response.person);
 
         } catch (ex) {
-            window.console.log(ex);
+            // window.console.log(ex);
             this.$emit('onError', ex);
         }
 

@@ -33,7 +33,7 @@ export default class ChooseFile extends Vue {
   public currentPhoto: string = '';
 
   protected mounted() {
-    window.console.log('ChooseFile.vue mounted() called');
+    // window.console.log('ChooseFile.vue mounted() called');
 
     const selectedPerson = store.getters.selectedPerson as Person;
 
@@ -59,12 +59,12 @@ export default class ChooseFile extends Vue {
 
   private fileSelected(e: any) {
 
-    window.console.log(`ChooseFile.fileSelected()`);
+    // window.console.log(`ChooseFile.fileSelected()`);
 
     const files = e.target.files || e.dataTransfer.files;
     if (files.length === 1) {
 
-      window.console.log(files[0]);
+      // window.console.log(files[0]);
       this.$emit('fileSelected', files[0]);
     }
   }

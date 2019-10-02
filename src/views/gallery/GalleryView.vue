@@ -104,7 +104,7 @@ export default class GalleryView extends Vue {
     }
 
     protected async mounted() {
-        window.console.log('GalleryView.vue mounted() call');
+        // window.console.log('GalleryView.vue mounted() call');
 
         try {
             // Load jwt from cookie and login
@@ -115,7 +115,7 @@ export default class GalleryView extends Vue {
             window.addEventListener('resize', this.setDisplaySizes);
             window.onresize = () => this.setDisplaySizes();
         } catch (ex) {
-            window.console.log(`ex: ${ex}`);
+            // window.console.log(`ex: ${ex}`);
             this.$router.push(`/accounts/login/?next=${this.$router.currentRoute.fullPath}`);
         }
     }
@@ -126,7 +126,7 @@ export default class GalleryView extends Vue {
 
     @Watch('watchedProps')
     private async loadData() {
-        window.console.log(`GalleryView.loadData()`);
+        // window.console.log(`GalleryView.loadData()`);
 
         store.commit('updateLoading', true);
 
@@ -177,7 +177,7 @@ export default class GalleryView extends Vue {
 
 
     private setDisplaySizes() {
-        window.console.log(`GalleryView.setDisplaySizes()`);
+        // window.console.log(`GalleryView.setDisplaySizes()`);
 
         // Force scrollbar to show so calcs are correct
         const galleryContainer = document.getElementById('gallery-container') as HTMLDivElement;
@@ -236,7 +236,7 @@ export default class GalleryView extends Vue {
     }
 
     private selectionChanged(imageId: number, checked: boolean) {
-        window.console.log(`GalleryView.selectionChanged(galleryId: ${imageId}, checked: ${checked})`);
+        // window.console.log(`GalleryView.selectionChanged(galleryId: ${imageId}, checked: ${checked})`);
 
         const selectedIds = new Array<number>();
 
@@ -254,13 +254,13 @@ export default class GalleryView extends Vue {
     }
 
     private async imagesDeleted() {
-        window.console.log(`GalleryView.imagesDeleted()`);
+        // window.console.log(`GalleryView.imagesDeleted()`);
         await this.loadImageData(this.page);
         this.setDisplaySizes();
     }
 
     private async imageClick(imageId: number, rowIndex: number) {
-        window.console.log(`GalleryView.imageClick(imageId: ${imageId}, rowIndex: ${rowIndex}`);
+        // window.console.log(`GalleryView.imageClick(imageId: ${imageId}, rowIndex: ${rowIndex}`);
 
         if (this.galleryId) {
             const index = this.images.findIndex((item) => item.id === imageId);
@@ -275,7 +275,7 @@ export default class GalleryView extends Vue {
     }
 
     private imageEdited(image: Image) {
-        window.console.log(`GalleryView.imageEdited(imageId: ${image.id}`);
+        // window.console.log(`GalleryView.imageEdited(imageId: ${image.id}`);
 
         let index = 0;
         for (index = 0; index < this.images.length; index++) {
@@ -291,14 +291,14 @@ export default class GalleryView extends Vue {
         if (this.$route.query.image_id && this.galleryId) {
             const imageId = Number(this.$route.query.image_id);
 
-            window.console.log(`GalleryView.displayImageFromUrl(imageId: ${imageId}`);
+            // window.console.log(`GalleryView.displayImageFromUrl(imageId: ${imageId}`);
 
             // if the image is already loaded in page, display it
             let index = this.images.findIndex((item) => item.id === imageId);
 
             if (index > -1) {
 
-                window.console.log(`image in data loaded from page - displaying`);
+                // window.console.log(`image in data loaded from page - displaying`);
                 await (this.$refs.photoSwipeView as PhotoSwipeView).init(
                     this.images,
                     index,
@@ -308,7 +308,7 @@ export default class GalleryView extends Vue {
 
             } else {
                 // If image is not in page, then we have to load the other pages before displaying it
-                window.console.log(`image not in data loaded from page - loading all other pages`);
+                // window.console.log(`image not in data loaded from page - loading all other pages`);
 
                 store.commit('updateLoading', true);
                 const tasks = new Array<Promise<void>>();

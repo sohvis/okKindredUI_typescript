@@ -34,7 +34,7 @@ export default class TagBox extends Vue {
 
   @Watch('tag')
   public updateStyle() {
-    window.console.log('TagBox.updateStyle()');
+    // window.console.log('TagBox.updateStyle()');
 
     if (this.tag) {
       const tagBox = document.getElementById(`tag-box-${this.tag.id}`) as HTMLDivElement;
@@ -59,7 +59,7 @@ export default class TagBox extends Vue {
   }
 
   protected mounted() {
-    window.console.log('TagBox.mounted()');
+    // window.console.log('TagBox.mounted()');
     this.updateStyle();
   }
 

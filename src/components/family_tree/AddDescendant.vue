@@ -57,7 +57,7 @@ export default class AddDescendant extends Vue {
   }
 
   public click() {
-    window.console.log(`AddDescendant.click()`);
+    // window.console.log(`AddDescendant.click()`);
     (this.$refs.addRelativeModal as AddRelativeModal).show();
   }
 }

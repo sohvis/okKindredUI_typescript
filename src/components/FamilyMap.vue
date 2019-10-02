@@ -54,7 +54,7 @@ export default class FamilyMap extends Vue {
   }
 
   public renderMap() {
-    window.console.log('FamilyMap.renderMap()');
+    // window.console.log('FamilyMap.renderMap()');
 
     this.initializeSize();
 
@@ -83,8 +83,8 @@ export default class FamilyMap extends Vue {
     let location = config.DefaultLocation; // Warrington by default!
 
     const selectedPerson = store.getters.selectedPerson as Person;
-    window.console.log('selectedPerson:');
-    window.console.log(selectedPerson);
+    // window.console.log('selectedPerson:');
+    // window.console.log(selectedPerson);
 
     this.mapSelectedPersonId = selectedPerson.id;
     if (selectedPerson.latitude !== 0 && selectedPerson.longitude !== 0) {
@@ -122,7 +122,7 @@ export default class FamilyMap extends Vue {
 
     // Selected person sync
     this.map.on('popupopen', (e: any) => {
-        window.console.log(`Map.popupopen`);
+        // window.console.log(`Map.popupopen`);
 
         const newPerson = e.popup._source.options.personId as string;
         this.mapSelectedPersonId = newPerson;
@@ -137,13 +137,13 @@ export default class FamilyMap extends Vue {
   }
 
   protected mounted() {
-    window.console.log('FamilyMap.vue mounted() call');
+    // window.console.log('FamilyMap.vue mounted() call');
     window.addEventListener('resize', this.initializeSize, false);
   }
 
   @Watch('selectedPersonId')
   private centerOnSelectedPerson() {
-    window.console.log('FamilyMap.centerOnSelectedPerson()');
+    // window.console.log('FamilyMap.centerOnSelectedPerson()');
 
     const personMap = document.getElementById('person-map') as HTMLDivElement;
 
@@ -216,7 +216,7 @@ export default class FamilyMap extends Vue {
   }
 
   private monitorHeightChange(previousTop: number) {
-    window.console.log('FamilyMap.monitorHeightChange()');
+    // window.console.log('FamilyMap.monitorHeightChange()');
 
     const personMap = document.getElementById('person-map') as HTMLDivElement;
 

@@ -16,7 +16,7 @@ import * as request from 'request-promise-native';
 export default class PwnedPasswordChecker {
 
     public static async getNumberOfPasswordBreaches(password: string): Promise<number> {
-        window.console.log(`PwnedPasswordChecker.getPasswordBreaches()`);
+        // window.console.log(`PwnedPasswordChecker.getPasswordBreaches()`);
 
         if (!password || password.length < 6) {
             throw new Error('Password must have more than 5 characters');
@@ -45,7 +45,7 @@ export default class PwnedPasswordChecker {
             return response.split('\n');
 
         } catch (ex) {
-            window.console.log(ex);
+            // window.console.log(ex);
             return [];
         }
     }

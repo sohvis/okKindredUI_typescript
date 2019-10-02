@@ -74,7 +74,7 @@ export default class Family extends Vue {
     };
 
     protected async mounted() {
-      window.console.log('Family.vue mounted() call');
+      // window.console.log('Family.vue mounted() call');
       document.body.scrollTop = document.documentElement.scrollTop = 0;
       await this.initialize();
       document.body.scrollTop = document.documentElement.scrollTop = 0;
@@ -88,7 +88,7 @@ export default class Family extends Vue {
 
     @Watch('state')
     private onStateChange() {
-        window.console.log('Family.onStateChange()');
+        // window.console.log('Family.onStateChange()');
 
         if (store.state.people.length > 0) {
             switch (this.state) {
@@ -109,7 +109,7 @@ export default class Family extends Vue {
     }
 
     private async initialize() {
-        window.console.log('Family.initialize()');
+        // window.console.log('Family.initialize()');
 
         if (!this.urlState) {
             return;
@@ -142,7 +142,7 @@ export default class Family extends Vue {
             this.state = this.urlState;
 
         } catch (ex) {
-            window.console.log(`ex: ${ex}`);
+            // window.console.log(`ex: ${ex}`);
             this.$router.push(`/accounts/login/?next=${this.$router.currentRoute.fullPath}`);
         }
     }
@@ -151,7 +151,7 @@ export default class Family extends Vue {
         try {
             await store.dispatch('loadTreeData');
         } catch (ex) {
-            window.console.log(ex);
+            // window.console.log(ex);
             store.commit('setErrorMessage', ex);
         }
     }

@@ -54,8 +54,8 @@ export default class DeleteImages extends Vue {
     }
 
     public show(imageIds: number[]) {
-        window.console.log(`DeleteGalleries.show()`);
-        window.console.log(imageIds);
+        // window.console.log(`DeleteGalleries.show()`);
+        // window.console.log(imageIds);
         this.imageIds = imageIds;
         this.errorMessage = '';
         (this.$refs.modal as any).show();
@@ -63,7 +63,7 @@ export default class DeleteImages extends Vue {
 
 
     private async submit(evt: any) {
-        window.console.log(`DeleteGalleries.submit()`);
+        // window.console.log(`DeleteGalleries.submit()`);
 
         evt.preventDefault();
         this.busy = true;
@@ -97,7 +97,7 @@ export default class DeleteImages extends Vue {
         };
 
         const response = await request.delete(options);
-        window.console.log(response);
+        // window.console.log(response);
     }
 }
 </script>

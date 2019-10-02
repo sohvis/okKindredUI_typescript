@@ -28,7 +28,7 @@ export default class RaisedRelation implements TreeRelation {
     }
 
     public render() {
-        // window.console.log(`RaisedRelation.render()`);
+        // // window.console.log(`RaisedRelation.render()`);
 
         // Sort nodes that have a position in horizontal order
         const fromNodes = this.fromNodes

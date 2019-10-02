@@ -53,7 +53,7 @@ export default class Settings extends Vue {
     public state: string = 'usersettings';
 
     public userSettingsInit() {
-        window.console.log(`Settings.userSettingsInit()`);
+        // window.console.log(`Settings.userSettingsInit()`);
 
         this.state = 'usersettings';
         const userSettings = this.$refs.userSettings as UserSettings;
@@ -63,13 +63,13 @@ export default class Settings extends Vue {
     }
 
     public changePasswordInit() {
-        window.console.log(`Settings.changePasswordInit()`);
+        // window.console.log(`Settings.changePasswordInit()`);
 
         this.state = 'changePassword';
     }
 
     public leaveInit() {
-        window.console.log(`Settings.leaveInit()`);
+        // window.console.log(`Settings.leaveInit()`);
 
         this.state = 'leaveSite';
         const leaveSite = this.$refs.leaveSite as UserSettings;
@@ -79,7 +79,7 @@ export default class Settings extends Vue {
     }
 
     protected async mounted() {
-        window.console.log(`Settings.mounted()`);
+        // window.console.log(`Settings.mounted()`);
 
         try {
             await store.dispatch('restoreSession');

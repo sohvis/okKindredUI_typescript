@@ -70,7 +70,7 @@ export default class TaggingOverlay extends Vue {
     }
 
     public async toggle(photoswipeWrapper: PhotoSwipeWrapper) {
-      window.console.log(`TaggingOverlay.toggle()`);
+      // window.console.log(`TaggingOverlay.toggle()`);
 
       this.showTagging = !this.showTagging;
       if (this.showTagging) {
@@ -83,7 +83,7 @@ export default class TaggingOverlay extends Vue {
     }
 
     public async initialise(image: Image, photoswipeWrapper: PhotoSwipeWrapper) {
-      window.console.log(`TaggingOverlay.initialise()`);
+      // window.console.log(`TaggingOverlay.initialise()`);
       this.loading = true;
       this.closeClicked = false;
 
@@ -108,7 +108,7 @@ export default class TaggingOverlay extends Vue {
     }
 
     public destroy() {
-      window.console.log(`TaggingOverlay.destroy()`);
+      // window.console.log(`TaggingOverlay.destroy()`);
       this.showTagging = false;
       this.tags = [];
       this.overlayStyle = {
@@ -122,7 +122,7 @@ export default class TaggingOverlay extends Vue {
     }
 
     private sizeOverlay() {
-      window.console.log(`TaggingOverlay.sizeOverlay()`);
+      // window.console.log(`TaggingOverlay.sizeOverlay()`);
 
       if (this.image && this.showTagging) {
 
@@ -146,7 +146,7 @@ export default class TaggingOverlay extends Vue {
     }
 
     private getImageElement(image: Image): HTMLImageElement | null {
-      window.console.log(`TaggingOverlay.getImageElement()`);
+      // window.console.log(`TaggingOverlay.getImageElement()`);
 
       // Gets image element
       const pswpImg = document.getElementsByClassName('pswp__img');
@@ -158,7 +158,7 @@ export default class TaggingOverlay extends Vue {
         }
       }
 
-      window.console.log(`no image element found`);
+      // window.console.log(`no image element found`);
       return null;
     }
 
@@ -176,8 +176,8 @@ export default class TaggingOverlay extends Vue {
     }
 
     private async overlayClicked(evt: MouseEvent) {
-      window.console.log(`TaggingOverlay.overlayClicked()`);
-      window.console.log(evt);
+      // window.console.log(`TaggingOverlay.overlayClicked()`);
+      // window.console.log(evt);
 
       if (this.imageElement && this.image) {
         const imageDimensions = this.imageElement.getBoundingClientRect();
@@ -202,7 +202,7 @@ export default class TaggingOverlay extends Vue {
           y1 = y2 - 2 * vertSize;
         }
 
-        window.console.log(`x1: ${x1}, x2: ${x2}, y1: ${y1}, y2: ${y2}`);
+        // window.console.log(`x1: ${x1}, x2: ${x2}, y1: ${y1}, y2: ${y2}`);
 
         const image = this.image;
 

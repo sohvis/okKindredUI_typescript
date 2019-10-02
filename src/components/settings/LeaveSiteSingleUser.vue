@@ -46,7 +46,7 @@ export default class LeaveSiteSingleUser extends Vue {
     }
 
     private async leaveSite() {
-        window.console.log('LeaveSiteSingleUser.leaveSite()');
+        // window.console.log('LeaveSiteSingleUser.leaveSite()');
 
         store.commit('updateLoading', true);
 

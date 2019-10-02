@@ -82,12 +82,12 @@ export default class Search extends Vue {
     }
 
     protected async mounted() {
-        window.console.log('Search.vue mounted() call');
+        // window.console.log('Search.vue mounted() call');
     }
 
     @Watch('searchValue')
     private async searchValueChanged() {
-        window.console.log('Search.onInput(evt)');
+        // window.console.log('Search.onInput(evt)');
 
         if (this.timeOutHandle) {
             window.clearTimeout(this.timeOutHandle);
@@ -101,7 +101,7 @@ export default class Search extends Vue {
     }
 
     private async search() {
-        window.console.log('Search.vue search() call');
+        // window.console.log('Search.vue search() call');
 
         try {
             if (!store.state.people || store.state.people.length === 0) {
@@ -113,7 +113,7 @@ export default class Search extends Vue {
                     p.name.toLocaleLowerCase().indexOf(this.searchValue.toLocaleLowerCase()) > -1,
                 );
 
-                window.console.log(result);
+                // window.console.log(result);
 
                 for (const person of result) {
                     if (!person.small_thumbnail) {

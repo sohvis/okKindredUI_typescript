@@ -41,7 +41,7 @@ export default class BooleanField extends Vue {
   }
 
   private async onChange() {
-    window.console.log(`BooleanField.onChange() called`);
+    // window.console.log(`BooleanField.onChange() called`);
 
     // Checkboxes need a few miliseconds to register change
     setTimeout(async () => {
@@ -51,7 +51,7 @@ export default class BooleanField extends Vue {
 
   private async save() {
 
-    window.console.log(`BooleanField.save() called`);
+    // window.console.log(`BooleanField.save() called`);
     store.commit('updateLoading', true);
 
     if (this.value !== this.valueEdited) {
@@ -68,7 +68,7 @@ export default class BooleanField extends Vue {
 
       try {
         const response = await request.patch(options) as Person;
-        window.console.log(response);
+        // window.console.log(response);
         const param = new ProfileEmitArgs(
                             response,
                             this.propertyName || '',

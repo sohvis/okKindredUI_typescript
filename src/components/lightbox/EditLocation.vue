@@ -63,7 +63,7 @@ export default class EditLocation extends Vue {
     private marker?: L.Marker;
 
     public initialise(latitude: number, longitude: number) {
-        window.console.log(`EditLocation.initialise()`);
+        // window.console.log(`EditLocation.initialise()`);
 
         this.latitude = latitude;
         this.longitude = longitude;
@@ -119,8 +119,8 @@ export default class EditLocation extends Vue {
     }
 
     private async addressSearch() {
-        window.console.log(`EditLocation.addressSearch()`);
-        window.console.log(`this.address: ${this.address}`);
+        // window.console.log(`EditLocation.addressSearch()`);
+        // window.console.log(`this.address: ${this.address}`);
 
         try {
             this.errorMessage = '';
@@ -132,7 +132,7 @@ export default class EditLocation extends Vue {
             };
 
             const response = await request.get(options) as Location;
-            window.console.log(response);
+            // window.console.log(response);
 
             this.latitude = response.latitude;
             this.longitude = response.longitude;

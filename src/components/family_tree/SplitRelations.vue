@@ -70,7 +70,7 @@ export default class SplitRelations extends Vue {
   }
 
   protected mounted() {
-    window.console.log(`SplitRelations.mounted()`);
+    // window.console.log(`SplitRelations.mounted()`);
 
     this.relations = SplitRelation.createSplitRelations(
                                         Number(store.state.person_id),
@@ -79,7 +79,7 @@ export default class SplitRelations extends Vue {
   }
 
   private async split(relation: SplitRelation) {
-    window.console.log(`SplitRelations.split()`);
+    // window.console.log(`SplitRelations.split()`);
 
     try {
       this.loading = true;
@@ -98,7 +98,7 @@ export default class SplitRelations extends Vue {
                                     store.state.relations,
                                     store.state.people);
     } catch (ex) {
-      window.console.log(ex);
+      // window.console.log(ex);
       this.$emit('onError', ex);
     }
 

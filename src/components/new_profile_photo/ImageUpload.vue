@@ -63,7 +63,7 @@ export default class ImageUpload extends Vue {
     }
 
     public upload(data: CropArgs) {
-        window.console.log('ImageUpload.upload()');
+        // window.console.log('ImageUpload.upload()');
         store.commit('updateLoading', true);
 
         this.state = 'uploading';
@@ -92,11 +92,11 @@ export default class ImageUpload extends Vue {
     }
 
     protected mounted() {
-        window.console.log('ImageUpload.vue mounted() called');
+        // window.console.log('ImageUpload.vue mounted() called');
     }
 
     private updateProgress(progress: any) {
-        window.console.log('ImageUpload.updateProgress()');
+        // window.console.log('ImageUpload.updateProgress()');
 
         // Start at 3 and end at 98 to allow for processing time
         this.progress = Math.min(100, progress.loaded / this.fileSize * 100);
@@ -107,10 +107,10 @@ export default class ImageUpload extends Vue {
     }
 
     private onLoad(e: any) {
-        window.console.log('ImageUpload.onLoad()');
+        // window.console.log('ImageUpload.onLoad()');
         if (this.req.status === 200) {
             // Note: .response instead of .responseText
-            window.console.log('ImageUpload TransferDone');
+            // window.console.log('ImageUpload TransferDone');
             this.progress = 100;
 
             const updatedPerson =  this.req.response as Person;
@@ -125,9 +125,9 @@ export default class ImageUpload extends Vue {
     }
 
     private transferFailed(error: any) {
-        window.console.log('ImageUpload.transferFailed()');
+        // window.console.log('ImageUpload.transferFailed()');
 
-        window.console.log(error);
+        // window.console.log(error);
 
 
         store.commit('updateLoading', false);

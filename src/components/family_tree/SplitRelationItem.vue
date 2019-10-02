@@ -41,12 +41,12 @@ export default class SplitRelationItem extends Vue {
 
 
   protected mounted() {
-    window.console.log(`SplitRelationItem.mounted()`);
+    // window.console.log(`SplitRelationItem.mounted()`);
 
     window.setTimeout(() => this.drawLines(), 200);
   }
   protected drawLines() {
-    window.console.log(`SplitRelationItem.drawLines()`);
+    // window.console.log(`SplitRelationItem.drawLines()`);
 
     if (this.splitRelation) {
       const canvas = document.getElementById('lineCanvas' + this.splitRelation.id) as HTMLCanvasElement;

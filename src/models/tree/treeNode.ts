@@ -81,8 +81,8 @@ export default class TreeNode extends  Positionable {
 
     public render() {
 
-        // window.console.log(`TreeNode: ${this.id} Render()`);
-        // window.console.log(`x:${this.x} y:${this.y}`);
+        // // window.console.log(`TreeNode: ${this.id} Render()`);
+        // // window.console.log(`x:${this.x} y:${this.y}`);
 
         if (!this.hasXValue || !this.hasYValue) {
             return;

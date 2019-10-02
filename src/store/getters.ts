@@ -7,7 +7,7 @@ const getters: GetterTree<IState, IState> = {
     language: (state): string => {
         const locale = localeMatch.match(state.language);
 
-        window.console.log(`store.language(state) locale: ${locale}`);
+        // window.console.log(`store.language(state) locale: ${locale}`);
         return locale;
     },
 
@@ -21,8 +21,8 @@ const getters: GetterTree<IState, IState> = {
     },
 
     selectedPerson: (state): Person | null => {
-        window.console.log(`store.selectedPerson(state)`);
-        window.console.log(`state.person_id: ${state.person_id}`);
+        // window.console.log(`store.selectedPerson(state)`);
+        // window.console.log(`state.person_id: ${state.person_id}`);
         for (const person of state.people) {
             if (Number(state.person_id) === Number(person.id)) {
                 return person;

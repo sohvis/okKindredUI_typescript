@@ -95,7 +95,7 @@ export default class GalleryList extends Vue {
     public editMode: boolean = false;
 
     protected async mounted() {
-        window.console.log('GalleryList.vue mounted() call');
+        // window.console.log('GalleryList.vue mounted() call');
 
         try {
             // Load jwt from cookie and login
@@ -105,7 +105,7 @@ export default class GalleryList extends Vue {
             window.addEventListener('resize', this.setDisplaySizes);
             window.onresize = () => this.setDisplaySizes();
         } catch (ex) {
-            window.console.log(`ex: ${ex}`);
+            // window.console.log(`ex: ${ex}`);
             this.$router.push(`/accounts/login/?next=${this.$router.currentRoute.fullPath}`);
         }
     }
@@ -116,7 +116,7 @@ export default class GalleryList extends Vue {
 
     @Watch('page')
     private async loadData() {
-        window.console.log(`GalleryList.loadData()`);
+        // window.console.log(`GalleryList.loadData()`);
 
         store.commit('updateLoading', true);
 
@@ -147,7 +147,7 @@ export default class GalleryList extends Vue {
     }
 
     private setDisplaySizes() {
-        window.console.log(`GalleryList.setDisplaySizes()`);
+        // window.console.log(`GalleryList.setDisplaySizes()`);
 
         // Force scrollbar to show so calcs are correct
         const galleryListContainer = document.getElementById('gallerylist-container') as HTMLDivElement;
@@ -168,7 +168,7 @@ export default class GalleryList extends Vue {
             scale = 0.75 /  dpr;
         }
 
-        window.console.log(`this.galleryWidth: ${this.galleryWidth}`);
+        // window.console.log(`this.galleryWidth: ${this.galleryWidth}`);
 
         const imageRows = new Array<Gallery[]>();
         let imageRow = new Array<Gallery>();
@@ -198,13 +198,13 @@ export default class GalleryList extends Vue {
     }
 
     private actionButtonClicked(opened: boolean) {
-        window.console.log(`GalleryList.actionButtonClicked(opened: ${opened})`);
+        // window.console.log(`GalleryList.actionButtonClicked(opened: ${opened})`);
         this.selectedGalleryIds = [];
         this.editMode = opened;
     }
 
     private selectionChanged(galleryId: number, checked: boolean) {
-        window.console.log(`GalleryList.selectionChanged(galleryId: ${galleryId}, checked: ${checked})`);
+        // window.console.log(`GalleryList.selectionChanged(galleryId: ${galleryId}, checked: ${checked})`);
         const selectedIds = new Array<number>();
 
         for (const gallery of this.galleries) {
@@ -218,7 +218,7 @@ export default class GalleryList extends Vue {
         }
 
         this.selectedGalleryIds = selectedIds;
-        window.console.log(this.selectedGalleryIds);
+        // window.console.log(this.selectedGalleryIds);
     }
 
     private async galleriesDeleted() {

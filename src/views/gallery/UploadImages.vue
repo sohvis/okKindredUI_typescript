@@ -99,7 +99,7 @@ export default class UploadImages extends Vue {
     public successCount: number = 0;
 
     protected async mounted() {
-        window.console.log('UploadImages.vue mounted() call');
+        // window.console.log('UploadImages.vue mounted() call');
 
         // Multiple file upload not working on Firefox Android
         if (BrowserDetection.isFirefox() && BrowserDetection.isAndroid()) {
@@ -117,8 +117,8 @@ export default class UploadImages extends Vue {
     }
 
     private filesSelected(e: any) {
-        window.console.log('UploadImages.filesSelected()');
-        window.console.log(e);
+        // window.console.log('UploadImages.filesSelected()');
+        // window.console.log(e);
 
         const files = e.target.files || e.dataTransfer.files;
         if (files.length === 0) {
@@ -133,7 +133,7 @@ export default class UploadImages extends Vue {
     }
 
     private startUpload() {
-        window.console.log('UploadImages.startUpload()');
+        // window.console.log('UploadImages.startUpload()');
 
         store.commit('updateLoading', true);
 
@@ -156,7 +156,7 @@ export default class UploadImages extends Vue {
     }
 
     private finishedUpload(fileIndex: number) {
-        window.console.log(`UploadImages.finishedUpload(fileIndex: ${fileIndex})`);
+        // window.console.log(`UploadImages.finishedUpload(fileIndex: ${fileIndex})`);
 
         if (fileIndex < this.files.length - 1) {
             const nextUpload = (this.$refs[`imageUploadStatus_${fileIndex + 1}`] as Vue[])[0]  as ImageUploadStatus;
@@ -165,7 +165,7 @@ export default class UploadImages extends Vue {
     }
 
     private finishedProcessing(fileIndex: number) {
-        window.console.log(`UploadImages.finishedProcessing(fileIndex: ${fileIndex})`);
+        // window.console.log(`UploadImages.finishedProcessing(fileIndex: ${fileIndex})`);
 
         let success = 0;
         let failed = 0;

@@ -84,14 +84,14 @@ export default class App extends Vue {
   }
 
   protected mounted() {
-    window.console.log('App.vue mounted() call');
+    // window.console.log('App.vue mounted() call');
 
     // Reset loading count
     store.state.loading_count = 0;
   }
 
   private logout(this: any) {
-    window.console.log('logout clicked on');
+    // window.console.log('logout clicked on');
     this.$store.dispatch('logout');
     this.$router.push('/accounts/login/');
   }

@@ -57,7 +57,7 @@ export default class TextField extends Vue {
   }
 
   protected mounted() {
-    window.console.log('TextField.vue mounted() called');
+    // window.console.log('TextField.vue mounted() called');
 
     const input = document.getElementById(this.id) as HTMLInputElement;
     if (input) {
@@ -72,7 +72,7 @@ export default class TextField extends Vue {
   }
 
   private edit() {
-    window.console.log(`TextField.edit() propertyName:${this.propertyName}`);
+    // window.console.log(`TextField.edit() propertyName:${this.propertyName}`);
     this.valueEdited = this.value;
     this.editMode = true;
     const textbox = document.getElementById(this.id) as HTMLInputElement;
@@ -86,7 +86,7 @@ export default class TextField extends Vue {
   }
 
   private async onBlur() {
-    window.console.log(`TextField.onBlur() called`);
+    // window.console.log(`TextField.onBlur() called`);
     await this.endEdit();
   }
 
@@ -100,7 +100,7 @@ export default class TextField extends Vue {
 
   private async save() {
 
-    window.console.log(`TextField.save() called`);
+    // window.console.log(`TextField.save() called`);
 
     if (this.value !== this.valueEdited) {
 
@@ -116,7 +116,7 @@ export default class TextField extends Vue {
 
       try {
         const response = await request.patch(options) as Person;
-        window.console.log(response);
+        // window.console.log(response);
         const param = new ProfileEmitArgs(
                             response,
                             this.propertyName || '',

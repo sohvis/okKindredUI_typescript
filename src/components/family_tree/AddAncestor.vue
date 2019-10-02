@@ -57,7 +57,7 @@ export default class AddAncestor extends Vue {
   }
 
   public click() {
-    window.console.log(`AddAncestor.click()`);
+    // window.console.log(`AddAncestor.click()`);
     (this.$refs.addRelativeModal as AddRelativeModal).show();
   }
 }

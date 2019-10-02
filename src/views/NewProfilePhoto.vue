@@ -42,7 +42,7 @@ export default class NewProfilePhoto extends Vue {
     public state: string = 'ChooseFile';
 
     protected async mounted() {
-      window.console.log('NewProfilePhoto.vue mounted() call');
+      // window.console.log('NewProfilePhoto.vue mounted() call');
       this.chooseFile();
     }
 
@@ -52,9 +52,9 @@ export default class NewProfilePhoto extends Vue {
     }
 
     private fileSelected(file: File) {
-      window.console.log('NewProfilePhoto.fileSelected()');
-      window.console.log('file:');
-      window.console.log(file);
+      // window.console.log('NewProfilePhoto.fileSelected()');
+      // window.console.log('file:');
+      // window.console.log(file);
 
       this.setState('CropFile');
 

@@ -122,9 +122,9 @@ export default class InviteConfirmation extends Vue {
     }
 
     protected async mounted() {
-        window.console.log(`InviteConfirmation.mounted()`);
+        // window.console.log(`InviteConfirmation.mounted()`);
         this.confirmationToken = this.$route.params.confirmationToken;
-        window.console.log(`this.confirmationToken: ${this.confirmationToken}`);
+        // window.console.log(`this.confirmationToken: ${this.confirmationToken}`);
 
         store.commit('updateLoading', true);
 
@@ -136,7 +136,7 @@ export default class InviteConfirmation extends Vue {
             };
 
             const invite = await request.get(options) as InviteEmail;
-            window.console.log(invite);
+            // window.console.log(invite);
 
             i18n.locale = localeMatch.match(invite.language);
             this.name = invite.person_name;
@@ -146,7 +146,7 @@ export default class InviteConfirmation extends Vue {
         } catch (error) {
 
             this.errorMessage = error.toString();
-            window.console.log(error);
+            // window.console.log(error);
             this.confirmationTokenInvalid = true;
         }
 
@@ -155,7 +155,7 @@ export default class InviteConfirmation extends Vue {
 
 
     private async onSubmit() {
-        window.console.log(`InviteConfirmation.OnSubmit()`);
+        // window.console.log(`InviteConfirmation.OnSubmit()`);
 
         this.errorMessage = '';
 
@@ -181,7 +181,7 @@ export default class InviteConfirmation extends Vue {
                 };
 
                 const invite = await request.patch(options) as InviteEmail;
-                window.console.log(invite);
+                // window.console.log(invite);
 
                 await this.$store.dispatch('login', {
                     email: this.emailAddress,
@@ -193,7 +193,7 @@ export default class InviteConfirmation extends Vue {
             } catch (error) {
 
                 this.errorMessage = error.toString();
-                window.console.log(error);
+                // window.console.log(error);
             }
         }
 

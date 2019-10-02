@@ -138,8 +138,8 @@ export default class TreeNodeGroup extends Positionable {
 
     public getCentrePositionOfCommonRelatives(): number {
 
-        // window.console.log(`TreeNodeGroup.getCentrePositionOfCommonRelatives()`);
-        // window.console.log(this.commonRelatives);
+        // // window.console.log(`TreeNodeGroup.getCentrePositionOfCommonRelatives()`);
+        // // window.console.log(this.commonRelatives);
         if (this.commonRelatives.length > 0) {
             let sumX = 0;
             let count = 0;

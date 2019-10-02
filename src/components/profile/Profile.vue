@@ -325,11 +325,11 @@ export default class Profile extends Vue {
   }
 
   get profileIsCurrentUser(): boolean {
-    window.console.log('Profile.vue profileIsCurrentUser() called');
+    // window.console.log('Profile.vue profileIsCurrentUser() called');
 
     if (this.person && store.state.users_person_id) {
-      window.console.log(`store.state.users_person_id: ${store.state.users_person_id}`);
-      window.console.log(`this.person.id: ${this.person.id}`);
+      // window.console.log(`store.state.users_person_id: ${store.state.users_person_id}`);
+      // window.console.log(`this.person.id: ${this.person.id}`);
       return Number(store.state.users_person_id) === Number(this.person.id);
     } else {
       return false;
@@ -341,11 +341,11 @@ export default class Profile extends Vue {
   }
 
   public async initialize() {
-      window.console.log('Profile.vue initialize() called');
+      // window.console.log('Profile.vue initialize() called');
 
       try {
         await this.LoadPersonData();
-        window.console.log(this.person);
+        // window.console.log(this.person);
 
       } catch (ex) {
         store.commit('setErrorMessage', ex);
@@ -353,7 +353,7 @@ export default class Profile extends Vue {
   }
 
   protected mounted() {
-    window.console.log('Profile.vue mounted() called');
+    // window.console.log('Profile.vue mounted() called');
   }
 
   @Watch('selectedPersonId')
@@ -374,7 +374,7 @@ export default class Profile extends Vue {
 
   private async LoadPersonData() {
 
-    window.console.log('LoadPersonData() call');
+    // window.console.log('LoadPersonData() call');
 
     this.person = null;
 
@@ -406,8 +406,8 @@ export default class Profile extends Vue {
   }
 
   private personUpdated(args: ProfileEmitArgs) {
-      window.console.log('Profile.personUpdated()');
-      window.console.log(args);
+      // window.console.log('Profile.personUpdated()');
+      // window.console.log(args);
       this.person = args.person;
       store.dispatch('updatePerson', args.person);
   }

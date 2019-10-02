@@ -1,14 +1,5 @@
 export default class BrowserDetection {
 
-    private static iDevices: string[] = [
-        'iPad Simulator',
-        'iPhone Simulator',
-        'iPod Simulator',
-        'iPad',
-        'iPhone',
-        'iPod'
-    ];
-
     public static isAndroid(): boolean {
         return navigator.userAgent.toLowerCase().indexOf('android') > -1;
     }
@@ -20,7 +11,7 @@ export default class BrowserDetection {
     public static is_iOS(): boolean {
         if (!!navigator.platform) {
             while (BrowserDetection.iDevices.length) {
-                if (navigator.platform === BrowserDetection.iDevices.pop()){ return true; }
+                if (navigator.platform === BrowserDetection.iDevices.pop()) { return true; }
             }
         }
 
@@ -31,4 +22,13 @@ export default class BrowserDetection {
         const mobileMenu = document.getElementById('nav_collapse') as HTMLDivElement;
         return mobileMenu.clientHeight > 80;
     }
+
+    private static iDevices: string[] = [
+        'iPad Simulator',
+        'iPhone Simulator',
+        'iPod Simulator',
+        'iPad',
+        'iPhone',
+        'iPod',
+    ];
 }

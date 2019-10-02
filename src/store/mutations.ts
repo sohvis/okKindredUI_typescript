@@ -63,12 +63,12 @@ const mutations: MutationTree<IState> = {
             text = text.substring(0, 500);
         }
 
-        window.console.log(`state.setErrorMessage() message: ${text}`);
+        // window.console.log(`state.setErrorMessage() message: ${text}`);
         state.error_message = text;
     },
 
     setDebugMessage(state, message: string) {
-        window.console.log(message);
+        // window.console.log(message);
         state.debug_message = message;
     },
 

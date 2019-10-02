@@ -61,7 +61,7 @@ export default class SuggestedRelative extends Vue {
     }
 
     public async submit() {
-        window.console.log(`SuggestedRelative.submit()`);
+        // window.console.log(`SuggestedRelative.submit()`);
 
         if (!this.relationPrediction) {
             this.$emit('onError');
@@ -87,7 +87,7 @@ export default class SuggestedRelative extends Vue {
     }
 
     protected mounted() {
-        window.console.log(`SuggestedRelative.mounted()`);
+        // window.console.log(`SuggestedRelative.mounted()`);
     }
 }
 </script>

@@ -27,7 +27,7 @@ export const messages = {
 export const localeMatch = {
     match(lang: string): string {
 
-        window.console.log(`match(lang: ${lang})`);
+        // window.console.log(`match(lang: ${lang})`);
         if (!lang) {
             lang = navigator.language;
         }
