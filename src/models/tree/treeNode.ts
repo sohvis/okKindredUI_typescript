@@ -140,8 +140,6 @@ export default class TreeNode extends  Positionable {
             this.drawArrow();
         }
 
-        this.ctx.save();
-
         // this.showBordersForDebugging(this.ctx);
     }
 
