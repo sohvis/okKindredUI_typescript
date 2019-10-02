@@ -230,7 +230,6 @@ export default class Tree {
 
         // Restore the transform
         this.ctx.restore();
-
     }
 
     private addLevel0() {

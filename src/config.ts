@@ -1,6 +1,6 @@
 export const configs = {
-    BaseApiUrl: 'https://www.okkindred.com',
-    // BaseApiUrl: 'https://justinhui.pythonanywhere.com',
+    // BaseApiUrl: 'https://api.okkindred.com',
+    BaseApiUrl: 'https://justinhui.pythonanywhere.com',
 
     // Auth
     ObtainTokenAPI: '/api/auth/obtain_token/',
@@ -42,5 +42,5 @@ export const configs = {
 export default configs;
 
 // tslint:disable-next-line:max-line-length
-// node node_modules/s3-deploy/bin/s3-deploy './dist/**' --cwd './dist/' --region us-east-1 --bucket okkindredui --profile default
+// node node_modules/s3-deploy/bin/s3-deploy './dist/**' --cwd './dist/' --region us-east-1 --bucket beta.okkindredui --profile default
 
