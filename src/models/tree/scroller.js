@@ -344,9 +344,11 @@ export const Scroller = {
         var restore = ctx.restore;
         ctx.restore = function(){
             xform = savedTransforms.pop();
+
+            // Reset saved transforms to avoid memory leak
+            savedTransforms = [];
             return restore.call(ctx);
         };
-
         var scale = ctx.scale;
         ctx.scale = function(sx,sy){
             xform = xform.scaleNonUniform(sx,sy);
