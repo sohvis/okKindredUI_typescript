@@ -24,6 +24,7 @@ import Person from '../models/data/person';
 import MapMarkerOptions from '../models/map/map_marker_options';
 import config from '../config';
 import { mapGetters } from 'vuex';
+import BrowserDetection from '../models/browserDetection';
 
 
 @Component({
@@ -128,8 +129,11 @@ export default class FamilyMap extends Vue {
         store.dispatch('changePerson', newPerson);
     });
 
-    const personMap = document.getElementById('person-map') as HTMLDivElement;
-    this.monitorHeightChange(personMap.getBoundingClientRect().top);
+    // Need to resize if menu is open and not on iOS
+    if (BrowserDetection.isMobileMenuOpen() && !BrowserDetection.is_iOS()) {
+      const personMap = document.getElementById('person-map') as HTMLDivElement;
+      this.monitorHeightChange(personMap.getBoundingClientRect().top);
+    }
   }
 
   protected mounted() {
@@ -226,7 +230,9 @@ export default class FamilyMap extends Vue {
           this.map.invalidateSize();
         }
 
-        window.setTimeout(() => this.monitorHeightChange(newPersonMapTop), 1000);
+        if (BrowserDetection.isMobileMenuOpen()) {
+          window.setTimeout(() => this.monitorHeightChange(newPersonMapTop), 1000);
+        }
       }
     }
   }
