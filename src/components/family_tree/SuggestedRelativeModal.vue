@@ -15,8 +15,7 @@
                 <SuggestedRelative
                     :ref="'SuggestRelative' + relationPrediction.id"
                     v-if="selectedId === relationPrediction.id"
-                    v-bind:relationPrediction="relationPrediction" 
-                    @onError = "onError"/>
+                    v-bind:relationPrediction="relationPrediction" />
             </div>
         </template>
 
