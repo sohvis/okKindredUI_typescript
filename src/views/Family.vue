@@ -134,7 +134,7 @@ export default class Family extends Vue {
                         .filter((p) => Number(p.id) === Number(this.personId)).length > 0;
 
             if (personInFamily) {
-                store.dispatch('changePerson', this.personId);
+                await store.dispatch('changePerson', this.personId);
             } else {
                 this.$router.push(`/family/${this.urlState}/${store.state.person_id}/`);
             }

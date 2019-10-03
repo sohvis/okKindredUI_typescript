@@ -60,13 +60,19 @@ export default class FamilyTree extends Vue {
     }
 
     @Watch('people', {deep: true})
-    public onPeopleChanged() {
-      this.initializeTree();
+    public onPeopleChanged(value: Person[], oldValue: Person[]) {
+      // We only want this to fire if tree is already displayed
+      if (oldValue && oldValue.length > 0) {
+        this.initializeTree();
+      }
     }
 
     @Watch('relations', {deep: true})
-    public onRelationsChanged() {
-      this.initializeTree();
+    public onRelationsChanged(value: Relation[], oldValue: Relation[]) {
+      // We only want this to fire if tree is already displayed
+      if (oldValue && oldValue.length > 0) {
+        this.initializeTree();
+      }
     }
 
     public get selectedPersonId(): string {
@@ -112,7 +118,7 @@ export default class FamilyTree extends Vue {
       const canvas = document.getElementById('tree-canvas') as HTMLCanvasElement;
       if (canvas.offsetParent && canvas.clientHeight > 0) {
         const tree = (Scroller as any).tree as Tree;
-        if (tree.selectedPersonId !== this.selectedPersonId) {
+        if (tree && tree.selectedPersonId !== this.selectedPersonId) {
           this.initializeTree();
         }
       }

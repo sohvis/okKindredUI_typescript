@@ -41,6 +41,3 @@ export const configs = {
 
 export default configs;
 
-// tslint:disable-next-line:max-line-length
-// node node_modules/s3-deploy/bin/s3-deploy './dist/**' --cwd './dist/' --region us-east-1 --bucket okkindredui --profile default
-
