@@ -14,6 +14,15 @@
         :tag="tag">
     </TagBox> 
 
+    <!--Suggest tags -->
+    <SuggestedTagBox
+        v-for="suggestedTag of suggestedTags" 
+        :ref="`suggestedTagBox${suggestedTag.id}`"
+        :key="suggestedTag.id" 
+        :suggestedTag="suggestedTag"
+        @suggestedTagClick="suggestedTagClick">
+    </SuggestedTagBox>
+
     <div class="delete-tags-message" v-if="showDeleteTags" @click="onDeleteTagsClicked">
       <span class="oi oi-trash"></span>
       {{ $t('message.DeleteTags') }}
@@ -21,7 +30,9 @@
     <Loading v-show="loading" />
     <WhoIsThis ref="whoIsThis" @tagCreated="tagCreated" />
     <DeleteTags ref="deleteTags" @tagDeleted="tagDeleted"/>
-
+    <WhoIsThisFromSuggested ref="whoIsThisFromSuggested" 
+            @suggestedTagConverted="suggestedTagConverted" 
+            @hidden="onWhoIsThisFromSuggestedHidden" />
 </div>
 </template>
 
@@ -31,13 +42,16 @@ import * as request from 'request-promise-native';
 import config from '../../config';
 import Image from '../../models/data/image';
 import Tag from '../../models/data/tag';
+import SuggestedTag from '../../models/data/suggested_tag';
 import Loading from '../common/Loading.vue';
 import store from '../../store/store';
 import PhotoSwipeWrapper from '../../models/lightbox/photoswipeWrapper';
 import PhotoSwipeItem from '../../models/lightbox/photoswipe_item';
 import TagBox from './TagBox.vue';
+import SuggestedTagBox from './SuggestedTagBox.vue';
 import WhoIsThis from './WhoIsThis.vue';
 import DeleteTags from './DeleteTags.vue';
+import WhoIsThisFromSuggested from './WhoIsThisFromSuggested.vue';
 
 @Component({
   components: {
@@ -45,6 +59,8 @@ import DeleteTags from './DeleteTags.vue';
     TagBox,
     WhoIsThis,
     DeleteTags,
+    SuggestedTagBox,
+    WhoIsThisFromSuggested,
   },
 })
 export default class TaggingOverlay extends Vue {
@@ -55,15 +71,15 @@ export default class TaggingOverlay extends Vue {
 
     public tags: Tag[] = [];
 
+    public suggestedTags: SuggestedTag[] = [];
+
     public overlayStyle = {};
 
     public image: Image | null = null;
 
     public imageElement: HTMLImageElement | null = null;
 
-    public closeClicked = false;
-
-    public deleteTagsClicked = false;
+    public preventOverlayClick = false;
 
     public get showDeleteTags(): boolean {
       return this.tags.length > 0;
@@ -85,26 +101,14 @@ export default class TaggingOverlay extends Vue {
     public async initialise(image: Image, photoswipeWrapper: PhotoSwipeWrapper) {
       // window.console.log(`TaggingOverlay.initialise()`);
       this.loading = true;
-      this.closeClicked = false;
+      this.preventOverlayClick = false;
 
       this.image = image;
       photoswipeWrapper.photoswipe.listen('destroy', this.destroy);
       this.sizeOverlay();
       photoswipeWrapper.photoswipe.listen('resize', this.sizeOverlay);
 
-      try {
-          const options = {
-              uri: `${config.BaseApiUrl}${config.ImageTaggingAPI}?image_id=${image.id}`,
-              headers: store.getters.ajaxHeader,
-              json: true,
-          };
-
-          this.tags = await request.get(options) as Tag[];
-
-      } finally {
-
-        this.loading = false;
-      }
+      await this.loadData(image);
     }
 
     public async switchImage(image: Image) {
@@ -112,19 +116,7 @@ export default class TaggingOverlay extends Vue {
       this.image = image;
       this.sizeOverlay();
 
-      try {
-          const options = {
-              uri: `${config.BaseApiUrl}${config.ImageTaggingAPI}?image_id=${image.id}`,
-              headers: store.getters.ajaxHeader,
-              json: true,
-          };
-
-          this.tags = await request.get(options) as Tag[];
-
-      } finally {
-
-        this.loading = false;
-      }
+      await this.loadData(image);
     }
 
     public destroy() {
@@ -139,6 +131,31 @@ export default class TaggingOverlay extends Vue {
       };
 
       this.$emit('taggingOverlayClosed');
+    }
+
+    private async loadData(image: Image) {
+      try {
+          const tagOptions = {
+              uri: `${config.BaseApiUrl}${config.ImageTaggingAPI}?image_id=${image.id}`,
+              headers: store.getters.ajaxHeader,
+              json: true,
+          };
+
+          const suggestedTagOptions = {
+              uri: `${config.BaseApiUrl}${config.SuggestedTaggingAPI}?image_id=${image.id}`,
+              headers: store.getters.ajaxHeader,
+              json: true,
+          };
+
+          const tagTask = request.get(tagOptions)
+          const suggestedTagTask = request.get(suggestedTagOptions)
+          this.tags = await tagTask as Tag[];
+          this.suggestedTags = await suggestedTagTask as SuggestedTag[]
+
+      } finally {
+
+        this.loading = false;
+      }
     }
 
     private sizeOverlay() {
@@ -160,6 +177,10 @@ export default class TaggingOverlay extends Vue {
 
           for (const tag of this.tags) {
             ((this.$refs[`tagBox${tag.id}`] as Vue[])[0] as TagBox).updateStyle();
+          }
+
+          for (const suggestedTag of this.suggestedTags) {
+            ((this.$refs[`suggestedTagBox${suggestedTag.id}`] as Vue[])[0] as SuggestedTagBox).updateStyle();
           }
         }
       }
@@ -183,12 +204,12 @@ export default class TaggingOverlay extends Vue {
     }
 
     private onCloseClick(evt: MouseEvent) {
-      this.closeClicked = true;
+      this.preventOverlayClick = true;
       this.destroy();
     }
 
     private onDeleteTagsClicked(evt: MouseEvent) {
-      this.deleteTagsClicked = true;
+      this.preventOverlayClick = true;
 
       if (this.image) {
         (this.$refs.deleteTags as DeleteTags).show(this.tags, this.image);
@@ -228,11 +249,10 @@ export default class TaggingOverlay extends Vue {
 
         // Make sure we don't bring up who is this if close or delete clicked
         this.$nextTick(() => {
-          if (!this.closeClicked && !this.deleteTagsClicked) {
+          if (!this.preventOverlayClick) {
             (this.$refs.whoIsThis as WhoIsThis).show(x1, x2, y1, y2, image);
           } else {
-            this.closeClicked = false;
-            this.deleteTagsClicked = false;
+            this.preventOverlayClick = false;
           }
         });
       }
@@ -244,6 +264,27 @@ export default class TaggingOverlay extends Vue {
 
     private tagDeleted(tagId: number) {
       this.tags = this.tags.filter((t) => t.id !== tagId);
+    }
+
+    private suggestedTagClick(suggestedTag: SuggestedTag) {
+      this.preventOverlayClick = true;
+
+      if (this.image) {
+        const whoIsThisFromSuggested = this.$refs.whoIsThisFromSuggested as WhoIsThisFromSuggested
+        whoIsThisFromSuggested.show(suggestedTag, this.image);
+      }
+    }
+
+    private suggestedTagConverted(suggestedTag: SuggestedTag, newTag: Tag) {
+      window.console.log('TaggingOverlay.suggestedTagConverted()');
+
+      this.preventOverlayClick = false;
+      this.tags.push(newTag);
+      this.suggestedTags = this.suggestedTags.filter((t) => t.id !== suggestedTag.id);
+    }
+
+    private onWhoIsThisFromSuggestedHidden() {
+      this.preventOverlayClick = false;
     }
 }
 </script>
