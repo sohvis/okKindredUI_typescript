@@ -1,6 +1,6 @@
 export const configs = {
-    BaseApiUrl: 'https://api.okkindred.com',
-    // BaseApiUrl: 'https://justinhui.pythonanywhere.com',
+    // BaseApiUrl: 'https://api.okkindred.com',
+    BaseApiUrl: 'https://justinhui.pythonanywhere.com',
 
     // Auth
     ObtainTokenAPI: '/api/auth/obtain_token/',
@@ -22,6 +22,7 @@ export const configs = {
     ProfileImageAPI: '/api/profile_image/',
     RelationAPI: '/api/relation/',
     SignUpAPI: '/api/sign_up/',
+    SuggestedTaggingAPI: '/api//api/suggested_image_tagging/',
     UserSettingsAPI: '/api/user_settings/',
     UsersAPI: '/api/users/',
 
