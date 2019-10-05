@@ -101,10 +101,30 @@ export default class TaggingOverlay extends Vue {
 
           this.tags = await request.get(options) as Tag[];
 
-        } finally {
+      } finally {
 
-          this.loading = false;
-        }
+        this.loading = false;
+      }
+    }
+
+    public async switchImage(image: Image) {
+      this.loading = true;
+      this.image = image;
+      this.sizeOverlay();
+
+      try {
+          const options = {
+              uri: `${config.BaseApiUrl}${config.ImageTaggingAPI}?image_id=${image.id}`,
+              headers: store.getters.ajaxHeader,
+              json: true,
+          };
+
+          this.tags = await request.get(options) as Tag[];
+
+      } finally {
+
+        this.loading = false;
+      }
     }
 
     public destroy() {

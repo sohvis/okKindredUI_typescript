@@ -159,7 +159,7 @@ export default class PhotoSwipeGalleryView extends Vue {
         }
     }
 
-    protected afterChange() {
+    protected async afterChange() {
         // window.console.log(`PhotoSwipePersonView.afterChange()`);
 
         if (this.photoswipeWrapper) {
@@ -171,6 +171,11 @@ export default class PhotoSwipeGalleryView extends Vue {
             span.innerHTML = image.description;
 
             this.displayMap = !(image.latitude === 0 && image.longitude === 0);
+
+            const taggingOverlay = this.$refs.taggingOverlay as TaggingOverlay;
+            if (taggingOverlay.showTagging) {
+                await taggingOverlay.switchImage(image);
+            }
         }
     }
 
