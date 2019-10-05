@@ -1,10 +1,11 @@
 <template>
     <b-modal 
-        ref="whoIsThisModal"
+        ref="whoIsThisFromSuggestedModal"
         hide-footer
         hide-header 
         centered
-        button-size="lg">
+        button-size="lg"
+        @hidden="onHidden">
         <div>
             <div v-bind:style="cropDiv" class="crop-div">
                 <img v-bind:style="cropImg" :src="thumbnail">
@@ -17,7 +18,7 @@
                     <span class="oi oi-magnifying-glass search-prepend" aria-hidden="true"></span>
                 </h2>
             </div>
-            <input id="tag-search-box"
+            <input id="suggested-tag-search-box"
                 type="text" 
                 class="form-control" 
                 :placeholder="$t('message.Search')" 
@@ -60,6 +61,7 @@ import store from '../../store/store';
 import config from '../../config';
 import { BModal } from 'bootstrap-vue';
 import Loading from '../common/Loading.vue';
+import SuggestedTag from '../../models/data/suggested_tag';
 import Tag from '../../models/data/tag';
 
 @Component({
@@ -67,7 +69,9 @@ import Tag from '../../models/data/tag';
       Loading,
   },
 })
-export default class WhoIsThis extends Vue {
+export default class WhoIsThisFromSuggested extends Vue {
+
+    public suggestedTag?: SuggestedTag;
 
     public searchValue: string = '';
 
@@ -101,18 +105,19 @@ export default class WhoIsThis extends Vue {
 
     private loading: boolean = false;
 
-    public async show(x1: number, x2: number, y1: number, y2: number, image: Image) {
-        // window.console.log('WhoIsThis.show()');
+    public show(suggestedTag: SuggestedTag, image: Image) {
+        window.console.log('WhoIsThisFromSuggested.show()');
 
+        this.suggestedTag = suggestedTag;
         this.searchValue = '';
-        this.x1 = x1;
-        this.x2 = x2;
-        this.y1 = y1;
-        this.y2 = y2;
+        this.x1 = suggestedTag.x1;
+        this.x2 = suggestedTag.x2;
+        this.y1 = suggestedTag.y1;
+        this.y2 = suggestedTag.y2;
         this.image = image;
 
-        const width = (x2 - x1) * image.large_thumbnail_width;
-        const height = (y2 - y1) * image.large_thumbnail_height;
+        const width = (this.x2 - this.x1) * image.large_thumbnail_width;
+        const height = (this.y2 - this.y1) * image.large_thumbnail_height;
 
         this.cropDiv = {
             width: `${width}px`,
@@ -120,15 +125,15 @@ export default class WhoIsThis extends Vue {
         };
 
         this.cropImg = {
-            'margin-left': `-${x1 * image.large_thumbnail_width}px`,
-            'margin-top': `-${y1 * image.large_thumbnail_height}px`,
+            'margin-left': `-${this.x1 * image.large_thumbnail_width}px`,
+            'margin-top': `-${this.y1 * image.large_thumbnail_height}px`,
         };
 
         this.$nextTick(() => {
-            (this.$refs.whoIsThisModal as any).show();
+            (this.$refs.whoIsThisFromSuggestedModal as any).show();
 
             this.$nextTick(() => {
-                const textbox = document.getElementById('tag-search-box') as HTMLInputElement;
+                const textbox = document.getElementById('suggested-tag-search-box') as HTMLInputElement;
                 if (textbox) {
                     setTimeout(() => {
                         textbox.focus();
@@ -140,12 +145,12 @@ export default class WhoIsThis extends Vue {
     }
 
     protected async mounted() {
-        // window.console.log('WhoIsThis.vue mounted() call');
+        // window.console.log('WhoIsThisFromSuggested.vue mounted() call');
     }
 
     @Watch('searchValue')
     private async onChange() {
-        // window.console.log('WhoIsThis.vue onChange() call');
+        // window.console.log('WhoIsThisFromSuggested.vue onChange() call');
 
         if (this.timeOutHandle) {
             window.clearTimeout(this.timeOutHandle);
@@ -159,7 +164,7 @@ export default class WhoIsThis extends Vue {
     }
 
     private async search() {
-        // window.console.log('Search.vue search() call');
+        // window.console.log('WhoIsThisFromSuggested.vue search() call');
 
         try {
 
@@ -195,33 +200,32 @@ export default class WhoIsThis extends Vue {
 
     private async selectPerson(person: Person) {
 
-        if (this.image) {
+        if (this.image && this.suggestedTag) {
             this.loading = true;
 
             try {
                 const options = {
-                    uri: `${config.BaseApiUrl}${config.ImageTaggingAPI}`,
+                    uri: `${config.BaseApiUrl}${config.SuggestedTaggingAPI}${this.suggestedTag.id}/`,
                     headers: store.getters.ajaxHeader,
                     body: {
-                        x1: this.x1,
-                        x2: this.x2,
-                        y1: this.y1,
-                        y2: this.y2,
-                        image_id: this.image.id,
                         person_id: person.id,
                     },
                     json: true,
                 };
 
-                const tag = await request.post(options) as Tag;
-                this.$emit('tagCreated', tag);
+                const newTag = await request.patch(options) as Tag;
+                this.$emit('suggestedTagConverted', this.suggestedTag, newTag);
 
-                (this.$refs.whoIsThisModal as BModal).hide();
+                (this.$refs.whoIsThisFromSuggestedModal as BModal).hide();
 
             } finally {
                 this.loading = false;
             }
         }
+    }
+
+    private onHidden() {
+        this.$emit('hidden');
     }
 
 }
@@ -254,7 +258,7 @@ export default class WhoIsThis extends Vue {
     margin-right: 5px;
 }
 
-#tag-search-box {
+#suggested-tag-search-box {
     border-radius: 20px;
 }
 </style>

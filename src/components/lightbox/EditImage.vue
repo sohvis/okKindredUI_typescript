@@ -24,7 +24,7 @@
                         <b-form @submit="submit" ref="form">
 
                             <img id="preview-image" 
-                                :src="image.thumbnail"
+                                v-bind:src="thumbnail"
                                 class="preview-image" 
                                 v-bind:style="rotationStyle"/>
 
@@ -116,13 +116,7 @@ export default class EditImage extends Vue {
 
     public setAsGalleryThumbnail: boolean = false;
 
-    public get thumbnail(): string {
-        if (this.image) {
-            return this.image.thumbnail;
-        } else {
-            return '';
-        }
-    }
+    public thumbnail: string = '';
 
     public form: any = {
         title: '',
@@ -149,6 +143,7 @@ export default class EditImage extends Vue {
         // window.console.log(`EditImage.show(image.id: ${image.id})`);
 
         this.image = image;
+        this.thumbnail = image.thumbnail;
         this.clockwiseRotation = 0;
         this.rotationStyle = {};
         this.form.title = image.title;
