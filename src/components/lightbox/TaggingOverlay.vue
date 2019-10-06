@@ -23,7 +23,9 @@
         @suggestedTagClick="suggestedTagClick">
     </SuggestedTagBox>
 
-    <div class="delete-tags-message" v-if="showDeleteTags" @click="onDeleteTagsClicked">
+    <div class="delete-tags-message" 
+        v-if="showDeleteTags" 
+        @click="onDeleteTagsClicked">
       <span class="oi oi-trash"></span>
       {{ $t('message.DeleteTags') }}
     </div>
@@ -86,7 +88,7 @@ export default class TaggingOverlay extends Vue {
     }
 
     public async toggle(photoswipeWrapper: PhotoSwipeWrapper) {
-      // window.console.log(`TaggingOverlay.toggle()`);
+      window.console.log(`TaggingOverlay.toggle()`);
 
       this.showTagging = !this.showTagging;
       if (this.showTagging) {
@@ -99,9 +101,9 @@ export default class TaggingOverlay extends Vue {
     }
 
     public async initialise(image: Image, photoswipeWrapper: PhotoSwipeWrapper) {
-      // window.console.log(`TaggingOverlay.initialise()`);
+      window.console.log(`TaggingOverlay.initialise()`);
       this.loading = true;
-      this.preventOverlayClick = false;
+      this.preventOverlayClick = true;
 
       this.image = image;
       photoswipeWrapper.photoswipe.listen('destroy', this.destroy);
@@ -109,6 +111,8 @@ export default class TaggingOverlay extends Vue {
       photoswipeWrapper.photoswipe.listen('resize', this.sizeOverlay);
 
       await this.loadData(image);
+
+      this.preventOverlayClick = false;
     }
 
     public async switchImage(image: Image) {
@@ -147,10 +151,10 @@ export default class TaggingOverlay extends Vue {
               json: true,
           };
 
-          const tagTask = request.get(tagOptions)
-          const suggestedTagTask = request.get(suggestedTagOptions)
+          const tagTask = request.get(tagOptions);
+          const suggestedTagTask = request.get(suggestedTagOptions);
           this.tags = await tagTask as Tag[];
-          this.suggestedTags = await suggestedTagTask as SuggestedTag[]
+          this.suggestedTags = await suggestedTagTask as SuggestedTag[];
 
       } finally {
 
@@ -217,10 +221,10 @@ export default class TaggingOverlay extends Vue {
     }
 
     private async overlayClicked(evt: MouseEvent) {
-      // window.console.log(`TaggingOverlay.overlayClicked()`);
+      window.console.log(`TaggingOverlay.overlayClicked()`);
       // window.console.log(evt);
 
-      if (this.imageElement && this.image) {
+      if (this.imageElement && this.image && !this.preventOverlayClick) {
         const imageDimensions = this.imageElement.getBoundingClientRect();
 
         // Ensure area is a square, 4% or 30px whichever is bigger
@@ -270,7 +274,7 @@ export default class TaggingOverlay extends Vue {
       this.preventOverlayClick = true;
 
       if (this.image) {
-        const whoIsThisFromSuggested = this.$refs.whoIsThisFromSuggested as WhoIsThisFromSuggested
+        const whoIsThisFromSuggested = this.$refs.whoIsThisFromSuggested as WhoIsThisFromSuggested;
         whoIsThisFromSuggested.show(suggestedTag, this.image);
       }
     }

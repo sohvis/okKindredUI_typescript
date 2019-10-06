@@ -102,7 +102,7 @@ export default class WhoIsThis extends Vue {
     private loading: boolean = false;
 
     public async show(x1: number, x2: number, y1: number, y2: number, image: Image) {
-        // window.console.log('WhoIsThis.show()');
+        window.console.log('WhoIsThis.show()');
 
         this.searchValue = '';
         this.x1 = x1;
