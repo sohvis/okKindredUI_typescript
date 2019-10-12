@@ -270,12 +270,12 @@ export default class TaggingOverlay extends Vue {
       this.tags = this.tags.filter((t) => t.id !== tagId);
     }
 
-    private suggestedTagClick(suggestedTag: SuggestedTag) {
+    private async suggestedTagClick(suggestedTag: SuggestedTag) {
       this.preventOverlayClick = true;
 
       if (this.image) {
         const whoIsThisFromSuggested = this.$refs.whoIsThisFromSuggested as WhoIsThisFromSuggested;
-        whoIsThisFromSuggested.show(suggestedTag, this.image);
+        await whoIsThisFromSuggested.show(suggestedTag, this.image);
       }
     }
 
