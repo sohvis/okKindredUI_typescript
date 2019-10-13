@@ -76,9 +76,7 @@ export default class FamilyMap extends Vue {
             detectRetina: true,
         } as L.TileLayerOptions;
 
-    const tiles = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/outdoors-v11/tiles/{z}/{x}/{y}?access_token={token}',
-                              tileOptions,
-    );
+    const tiles = L.tileLayer(config.MapboxTileAPi, tileOptions);
 
     let location = config.DefaultLocation; // Warrington by default!
 

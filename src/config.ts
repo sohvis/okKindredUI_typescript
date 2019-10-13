@@ -28,6 +28,7 @@ export const configs = {
 
     // External APIs
     PwnedPasswordsAPI: 'https://api.pwnedpasswords.com/range/',
+    MapboxTileAPi: 'https://api.mapbox.com/styles/v1/mapbox/outdoors-v11/tiles/{z}/{x}/{y}?access_token={token}',
 
     // JS tokens
     MapboxToken: 'pk.eyJ1Ijoib2traW5kcmVkIiwiYSI6Ild2MnY5dDQifQ.EHr6blIYPYeg4bWmSStT-g',

@@ -86,8 +86,7 @@ export default class EditLocation extends Vue {
             detectRetina: true,
         } as L.TileLayerOptions;
 
-        const tiles = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/outdoors-v11/tiles/{z}/{x}/{y}?access_token={token}',
-                                    tileOptions);
+        const tiles = L.tileLayer(config.MapboxTileAPi, tileOptions);
 
         const mapOptions = {
             center: location,
