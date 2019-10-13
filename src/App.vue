@@ -13,7 +13,7 @@
             <span class="oi oi-people" aria-hidden="true"></span>
             {{ $t("message.Family") }}
           </b-nav-item>
-          <b-nav-item v-if="logged_in" to="/gallery/" :disabled="loading">
+          <b-nav-item v-if="logged_in" to="/gallery/?page=1" :disabled="loading">
             <span class="oi oi-image" aria-hidden="true"></span>
             {{ $t("message.Gallery") }}
           </b-nav-item>

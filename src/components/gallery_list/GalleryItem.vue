@@ -1,7 +1,7 @@
 <template>
     <div class="gallery-thumb-container"
         @click="click"
-        :to="`/gallery/${this.gallery.id}/`">
+        :to="`/gallery/${this.gallery.id}/?page=1`">
         <img v-if="hasThumbnail"
             :src="gallery.thumbnail" 
             :width="gallery.display_width"
@@ -73,7 +73,7 @@ export default class GalleryItem extends Vue {
             if (this.editMode) {
                 (this.$refs.checkBox as CheckBox).toggle();
             } else {
-                this.$router.push(`/gallery/${this.gallery.id}/`);
+                this.$router.push(`/gallery/${this.gallery.id}/?page=1`);
             }
         }
     }
