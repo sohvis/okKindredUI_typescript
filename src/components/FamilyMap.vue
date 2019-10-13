@@ -74,7 +74,9 @@ export default class FamilyMap extends Vue {
     const tileOptions = {
             token: config.MapboxToken,
             detectRetina: true,
-        } as L.TileLayerOptions;
+            zoomOffset: -1,
+            tileSize: 512,
+    } as L.TileLayerOptions;
 
     const tiles = L.tileLayer(config.MapboxTileAPi, tileOptions);
 
