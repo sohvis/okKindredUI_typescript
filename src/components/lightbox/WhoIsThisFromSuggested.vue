@@ -105,7 +105,7 @@ export default class WhoIsThisFromSuggested extends Vue {
 
     private loading: boolean = false;
 
-    public show(suggestedTag: SuggestedTag, image: Image) {
+    public async show(suggestedTag: SuggestedTag, image: Image) {
         window.console.log('WhoIsThisFromSuggested.show()');
 
         this.suggestedTag = suggestedTag;
@@ -128,6 +128,8 @@ export default class WhoIsThisFromSuggested extends Vue {
             'margin-left': `-${this.x1 * image.large_thumbnail_width}px`,
             'margin-top': `-${this.y1 * image.large_thumbnail_height}px`,
         };
+
+        await this.addSuggestedPeople();
 
         this.$nextTick(() => {
             (this.$refs.whoIsThisFromSuggestedModal as any).show();
@@ -163,6 +165,31 @@ export default class WhoIsThisFromSuggested extends Vue {
         }, 400);
     }
 
+    private async addSuggestedPeople() {
+        window.console.log('WhoIsThisFromSuggested.addSuggestedPeople()');
+        if (this.suggestedTag && this.suggestedTag.person_id) {
+
+            if (!store.state.people || store.state.people.length === 0) {
+                await store.dispatch('loadTreeData');
+            }
+
+            const suggestedPersonId = Number(this.suggestedTag.person_id);
+            window.console.log(`suggestedPersonId: ${suggestedPersonId}`);
+
+            const result = store.state.people.filter((p) => Number(p.id) === suggestedPersonId);
+
+            for (const person of result) {
+                if (!person.small_thumbnail) {
+                    person.small_thumbnail = 'img/portrait_80.png';
+                }
+            }
+
+            window.console.log(result);
+
+            this.people = result;
+        }
+    }
+
     private async search() {
         // window.console.log('WhoIsThisFromSuggested.vue search() call');
 
@@ -189,6 +216,7 @@ export default class WhoIsThisFromSuggested extends Vue {
 
             } else {
                 this.people = [];
+                this.addSuggestedPeople();
             }
 
         } catch (ex) {
