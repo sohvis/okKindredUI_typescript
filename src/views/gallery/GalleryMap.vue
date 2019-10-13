@@ -149,8 +149,10 @@ export default class GalleryMap extends Vue {
         }
 
         const tileOptions = {
-            token: config.MapboxToken,
-            detectRetina: true,
+                token: config.MapboxToken,
+                detectRetina: true,
+                zoomOffset: -1,
+                tileSize: 512,
         } as L.TileLayerOptions;
 
         const tiles = L.tileLayer(config.MapboxTileAPi, tileOptions);
