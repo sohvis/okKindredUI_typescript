@@ -125,7 +125,7 @@
                 <div v-if="!editMode">
                   <a :href="'mailto:'+ person.email">{{ person.email }}</a>
                 </div>
-                <TextField 
+                <EmailField 
                     v-if="editMode"
                     v-bind:personId="person.id"
                     v-bind:propertyName="'email'"
@@ -280,6 +280,7 @@ import Biography from './Biography.vue';
 import ProfileInviteToJoinButton from './ProfileInviteToJoinButton.vue';
 import ProfileGalleryButton from './ProfileGalleryButton.vue';
 import TextField from './TextField.vue';
+import EmailField from './EmailField.vue';
 import NumberField from './NumberField.vue';
 import BooleanField from './BooleanField.vue';
 import GenderDropDown from './GenderDropDown.vue';
@@ -291,6 +292,7 @@ import ProfileEmitArgs from '../../models/profile_emit_args';
       ProfileInviteToJoinButton,
       ProfileGalleryButton,
       TextField,
+      EmailField,
       NumberField,
       GenderDropDown,
       BooleanField,
