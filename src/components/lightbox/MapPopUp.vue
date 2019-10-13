@@ -50,12 +50,12 @@ export default class MapPopUp extends Vue {
             detectRetina: true,
         } as L.TileLayerOptions;
 
-        const tiles = L.tileLayer('https://api.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.jpg70?access_token={token}',
+        const tiles = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/outdoors-v11/tiles/{z}/{x}/{y}?access_token={token}',
                                     tileOptions);
 
         const mapOptions = {
             center: location,
-            zoom: 8,
+            zoom: 14,
             zoomControl: false,
             minZoom: 2,
             scrollWheelZoom: true,
