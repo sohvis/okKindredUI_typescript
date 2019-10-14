@@ -84,7 +84,7 @@ export default class SplitRelations extends Vue {
     try {
       this.loading = true;
       const options = {
-          uri: `${configs.BaseApiUrl}${configs.RelationAPI}${relation.id}`,
+          uri: `${configs.BaseApiUrl}${configs.RelationAPI}${relation.id}/`,
           headers: store.getters.ajaxHeader,
           json: true,
       };
