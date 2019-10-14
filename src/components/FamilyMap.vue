@@ -167,7 +167,6 @@ export default class FamilyMap extends Vue {
 
       // Need to resize if menu is open and not on iOS
       if (BrowserDetection.isMobileMenuOpen() && !BrowserDetection.is_iOS()) {
-        const personMap = document.getElementById('person-map') as HTMLDivElement;
         this.monitorHeightChange(personMap.getBoundingClientRect().top);
       }
     }

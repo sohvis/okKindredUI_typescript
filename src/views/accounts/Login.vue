@@ -28,6 +28,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import * as request from 'request-promise-native';
 import PwnedPasswordChecker from '../../models/pwnedPasswordChecker';
 import store from '../../store/store';
 import ErrorModal from '../../components/common/ErrorModal.vue';
@@ -50,11 +51,7 @@ export default class Login extends Vue {
 
     public loginInvalid = false;
 
-    public loginAttempts: number = 0;
-
-    public get accountLocked(): boolean {
-        return this.loginAttempts >= config.MaxLoginAttempts;
-    }
+    public accountLocked: boolean = false;
 
     public async OnSubmit() {
         // window.console.log(`OnSubmit() called from Login ${this.loginDetails.email} ${this.loginDetails.password}`);
@@ -82,15 +79,33 @@ export default class Login extends Vue {
             }
 
         } catch (error) {
-            // window.console.log(error);
-            this.loginAttempts++;
             this.loginInvalid = true;
+            this.accountLocked = await this.isIpLocked();
         }
     }
 
     protected mounted() {
         if (!i18n.locale) {
             i18n.locale = localeMatch.match(navigator.language);
+        }
+    }
+
+    private async isIpLocked(): Promise<boolean> {
+        try {
+            store.commit('updateLoading', true);
+            const options = {
+                uri: `${config.BaseApiUrl}${config.IsLockedAPI}`,
+                json: true,
+            };
+
+            const isLocked =  await request.get(options) as boolean;
+
+            return isLocked;
+        } catch (error) {
+            store.commit('setErrorMessage', error);
+            return false;
+        } finally {
+            store.commit('updateLoading', false);
         }
     }
 }
