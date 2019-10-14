@@ -14,6 +14,7 @@ export const configs = {
     InviteEmailConfirmationAPI: '/api/invite_email_confirmation/',
     ImageAPI: '/api/image/',
     ImageTaggingAPI: '/api/image_tagging/',
+    IsLockedAPI : '/api/auth/is_locked/',
     LeaveSiteAPI: '/api/delete_account/',
     LocationApi: '/api/location/',
     PasswordChangeAPI: '/api/password_change/',
