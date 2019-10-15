@@ -82,7 +82,7 @@
                 {{ errorMessage }}
             </b-alert>
 
-            <b-button type="submit" variant="primary">Submit</b-button>
+            <b-button type="submit" variant="primary">{{$t('message.Confirm')}}</b-button>
         </b-form >
     </div>
   </div>
