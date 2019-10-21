@@ -204,7 +204,7 @@ export default class GalleryView extends Vue {
         galleryContainer.style.minHeight = `${window.innerHeight + 10}px`;
 
         const imageContainer = document.getElementById('image-container') as HTMLDivElement;
-        this.galleryWidth =  imageContainer.clientWidth;
+        this.galleryWidth =  imageContainer.clientWidth - 1;
 
         // Fiddle to get more images on a portrait phone per row
         let scale = 1;
