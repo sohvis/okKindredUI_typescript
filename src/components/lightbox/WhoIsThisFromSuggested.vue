@@ -133,16 +133,6 @@ export default class WhoIsThisFromSuggested extends Vue {
 
         this.$nextTick(() => {
             (this.$refs.whoIsThisFromSuggestedModal as any).show();
-
-            this.$nextTick(() => {
-                const textbox = document.getElementById('suggested-tag-search-box') as HTMLInputElement;
-                if (textbox) {
-                    setTimeout(() => {
-                        textbox.focus();
-                        textbox.select();
-                    }, 100);
-                }
-            });
         });
     }
 
