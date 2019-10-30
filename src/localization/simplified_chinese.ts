@@ -303,6 +303,7 @@ export const simplifiedChinese = {
       ThankYou: `謝謝！ `,
       PleaseCheckEmail: `請檢查您的電子郵件{email}以確認您的帳戶。 `,
       InvalidEmail: `不合规电邮`,
+      AlreadySignedUp: `已经有帐号了？`,
 
       // Account Confirmation
       AccountConfirmation: `帐户确认`,

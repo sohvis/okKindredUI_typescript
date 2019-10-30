@@ -77,6 +77,3 @@ export default class NewProfilePhoto extends Vue {
 }
 </script>
 
-<!-- "scoped" attribute removed to fill screen -->
-<style scoped>
-</style>
