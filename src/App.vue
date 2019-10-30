@@ -3,7 +3,10 @@
     
     <b-navbar id="navbar" toggleable="md" type="dark" 
         variant="primary" v-bind:sticky="false" class="navbar-background">
-      <b-navbar-brand href="/"><strong>ok!Kindred</strong></b-navbar-brand>
+      <b-navbar-brand href="/">
+        <img src="img/logo.png" class="site-logo"/>
+        <strong>ok!Kindred</strong>
+      </b-navbar-brand>
       
       <b-navbar-toggle target="nav_collapse" />
 
@@ -108,4 +111,8 @@ export default class App extends Vue {
     background-color: #250042 !important;
   }
 
+  .site-logo {
+    height: 23px;
+    margin-right: 4px;
+  }
 </style>
