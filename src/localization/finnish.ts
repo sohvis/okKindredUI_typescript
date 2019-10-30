@@ -264,6 +264,7 @@ export const finnish = {
       ThankYou: `Kiitos!`,
       PleaseCheckEmail: `Tarkista sähköpostisi {email} vahvistaaksesi tilisi.`,
       InvalidEmail: `Virheellinen sähköpostiosoite`,
+      AlreadySignedUp: `Onko sinulla jo tili?`,
 
       // Account Confirmation
       AccountConfirmation: `Tilin Vahvistus`,

@@ -259,6 +259,7 @@ export const english = {
       ThankYou: `Thank you!`,
       PleaseCheckEmail: `Please check your email {email} to confirm your account.`,
       InvalidEmail: `Invalid email`,
+      AlreadySignedUp: `Already have an account?`,
 
       // Account Confirmation
       AccountConfirmation: `Account Confirmation`,

@@ -300,6 +300,7 @@ export const traditionalChinese = {
       ThankYou: `谢谢！`,
       PleaseCheckEmail: `请检查您的电子邮件{email}以确认您的帐户。`,
       InvalidEmail: `不合規電郵`,
+      AlreadySignedUp: `已經有帳號了？`,
 
       // Account Confirmation
       AccountConfirmation: `帳戶確認`,

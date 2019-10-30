@@ -84,6 +84,12 @@
 
             <b-button type="submit" variant="primary">{{$t('message.Confirm')}}</b-button>
         </b-form >
+
+        <div class="login">
+            <hr/>
+            {{ $t("message.AlreadySignedUp") }}
+            <router-link to="/accounts/login/">{{ $t("message.Login") }}</router-link>
+        </div>
     </div>
   </div>
 </template>
@@ -191,6 +197,14 @@ export default class SignUp extends Vue {
 <style scoped>
     .signup-container {
         max-width: 600px;
+        padding: 15px;
+        margin: 0 auto;
+    }
+
+    .login {
+        opacity: 0.85;
+        max-width: 330px;
+        margin-top: 50px;
         padding: 15px;
         margin: 0 auto;
     }
