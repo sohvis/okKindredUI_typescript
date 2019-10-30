@@ -3,7 +3,7 @@
     
     <b-navbar id="navbar" toggleable="md" type="dark" 
         variant="primary" v-bind:sticky="false" class="navbar-background">
-      <b-navbar-brand href="/">
+      <b-navbar-brand to="/">
         <img src="img/logo.png" class="site-logo"/>
         <strong>ok!Kindred</strong>
       </b-navbar-brand>
