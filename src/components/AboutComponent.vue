@@ -88,7 +88,7 @@
             {{ $t("message.AboutFooter") }}
         </p>
 
-        <div class="privacy-policy">
+        <div class="privacy-policy-link">
             <router-link to="/privacy_policy/">{{ $t("message.PrivacyPolicy") }}</router-link>
         </div>
     </footer>
@@ -145,7 +145,7 @@ export default class AboutComponent extends Vue {
         height: auto;
     }
 
-    .privacy-policy {
+    .privacy-policy-link {
         text-align: center;
         font-size: small;
     }

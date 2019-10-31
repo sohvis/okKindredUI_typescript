@@ -58,5 +58,9 @@ export default class PrivacyPolicy extends Vue {}
       padding-bottom: 15px;
 
     }
+
+    .privacy-policy {
+      margin-bottom: 50px;
+    }
 </style>
 
