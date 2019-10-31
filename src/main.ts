@@ -28,8 +28,8 @@ export const i18n = new VueI18n({
   messages, // set locale messages
 });
 
-
-const viewModel = new Vue({
+// Add vue js to global variables so callable outside app
+(window as any).viewModel = new Vue({
   i18n,
   router,
   store,
