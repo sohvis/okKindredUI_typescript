@@ -320,5 +320,55 @@ export const english = {
       to join ok!kindred, share your family tree and keep in contact with your family members!`,
       CannotFindInvite: `ok!Kindred invite not found`,
       CannotFindInviteDescription: `Please check with whoever sent you the invite and note that invites expire after 2 weeks.`,
+
+      // Privacy Policy
+      PrivacyPolicy: `Privacy Policy`,
+      WhoAreWe: `Who Are We`,
+      WhoAreWeDescription: `ok!Kindred is operated by Tech Luminaire Ltd:`,
+      CompanyContactEmail: `Our email for all ok!kindred enquiries is info@okkindred.com`,
+      CompanyContactTelephone: `Our telephone number is +44 2476 982000.  Please note that we don't provide technical support over the phone.`,
+      CompanyNumber: `We are registered in England and Wales as company 08864499.`,
+      CompanyVATNumber: `VAT No: 207242637`,
+
+      WhatInformationWeCollect: `What Information We Collect`,
+      WhatInformationWeCollectDescription: `We collect data to build up a family tree and profile of people in your family tree.
+      This is information that you choose to store on the site and includes names, birth years, locations, contact details and images.`,
+      WhatInformationWeCollectDescription2: `Automated information such as the internet protocol (IP) address
+      used to connect your device to the internet, connection information such as browser type and version,
+      information about your device including device-type and device identifier, is also collected`,
+
+      WhatWeDoWithInformation: `What We Do With Your Information`,
+      WhatWeDoWithInformationDescription: `The information you share with the site is used to create your family tree/network.
+      Automated information is used to help us to monitor and improve the service.
+      Your photos are used to train the service to help you tag your own photos.
+      Your location that you submit on your profile is sent to Google or Microsoft's geolocation services to place the person on a map.
+      No other information is sent with the location.  We do not sell or give your data to any other third parties.`,
+
+      HowWeStoreYourInformation: `How We Store Your Information`,
+      HowWeStoreYourInformationDescription: `Our service operates off PythonAnywhere (https://www.pythonanywhere.com) and your data is stored on their servers.
+      They operate servers in the US managed by Amazon Web Services, which is certified under the EU-US Privacy Shield Framework.
+      This provides certain safeguards in relation to the handling of your personal data.
+      Photos are stored directly on to Amazon Web Services without going through PythonAnywhere.`,
+      HowWeStoreYourInformationDescription2: `If you are the sole user in your family network, in general your data is deleted as soon as you delete your account.
+      If there are many users within your family network, you are treated as joint owners of the data.
+      When you delete your account, you may choose to delete your profile.
+      The entire family network information is deleted when all users in your family network delete their accounts.
+      Data backups may be kept for up to 2 weeks.`,
+
+      YourDataProtectionRights: `Your Data Protection Rights`,
+      YourDataProtectionRightsDescription: `You have the right to ask us for copies of your personal information and
+      to rectify information you think is inaccurate.
+      You also have the right to ask us to complete information you think is incomplete.
+      You have the right to ask us to erase your personal information in certain circumstances.
+      You have the right to ask us to restrict the processing of your information in certain circumstances.
+      You have the the right to object to the processing of your personal data in certain circumstances.
+      You have the right to ask that we transfer the information you gave us to another organisation, or to you,
+      in certain circumstances.
+      You are not required to pay any charge for exercising your rights. If you make a request, we have one month to respond to you.`,
+
+      HowToComplain: `How To Complain`,
+      HowToComplainDescription: ` If you have a complaint about how we are dealing with your personal information, please contact us via the email address above.
+      If you are not happy with our response or think we are not handling your personal information in accordance with the law,
+      you can complain to the Information Commissioner's Office (ICO):`,
     },
 };

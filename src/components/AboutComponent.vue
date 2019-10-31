@@ -84,7 +84,13 @@
     <hr>
 
     <footer class="about-footer">
-        <p>{{ $t("message.AboutFooter") }}</p>
+        <p>
+            {{ $t("message.AboutFooter") }}
+        </p>
+
+        <div class="privacy-policy">
+            <router-link to="/privacy_policy/">{{ $t("message.PrivacyPolicy") }}</router-link>
+        </div>
     </footer>
 
 </div> <!-- /container -->
@@ -127,6 +133,7 @@ export default class AboutComponent extends Vue {
 
     .about-footer {
         margin-top: 30px;
+        margin-bottom: 50px;
     }
 
     .about-container {
@@ -136,5 +143,10 @@ export default class AboutComponent extends Vue {
     .fluid-image {
         max-width: 100%;
         height: auto;
+    }
+
+    .privacy-policy {
+        text-align: center;
+        font-size: small;
     }
 </style>
