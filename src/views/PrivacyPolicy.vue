@@ -31,6 +31,9 @@
     <h2>{{ $t('message.YourDataProtectionRights') }}</h2>
     <p>{{ $t('message.YourDataProtectionRightsDescription') }}</p>
 
+    <h2>{{ $t('message.LinksToOtherWebsites') }}</h2>
+    <p>{{ $t('message.LinksToOtherWebsitesDescription') }}</p>
+    
     <h2>{{ $t('message.HowToComplain') }}</h2>
     <p>{{ $t('message.HowToComplainDescription') }}</p>
     <a href="https://ico.org.uk/">https://ico.org.uk/</a>
