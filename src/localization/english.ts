@@ -331,14 +331,18 @@ export const english = {
       CompanyVATNumber: `VAT No: 207242637`,
 
       WhatInformationWeCollect: `What Information We Collect`,
-      WhatInformationWeCollectDescription: `We collect data to build up a family tree and profile of people in your family tree.
-      This is information that you choose to store on the site and includes names, birth years, locations, contact details and images.`,
+      WhatInformationWeCollectDescription: `We collect data to create your user account, 
+      build up a family tree and profile of people in your family tree.
+      To create your user account we require the following information: name, email address and gender.
+      To create your family tree and profiles, we require name, gender and how family members are related. 
+      Other data you may additionally choose to store on the site includes birth years, locations, email and other contact details, 
+      biographical information and images.`,
       WhatInformationWeCollectDescription2: `Automated information such as the internet protocol (IP) address
       used to connect your device to the internet, connection information such as browser type and version,
       information about your device including device-type and device identifier, is also collected.`,
 
       WhatWeDoWithInformation: `What We Do With Your Information`,
-      WhatWeDoWithInformationDescription: `We do not sell your data to any third parties.
+      WhatWeDoWithInformationDescription: `Your data is not shared or sold or used for any marketing purposes.
       The information you share with the site is used to create your family tree/network.
       Automated information is used to help us to monitor and improve the service.
       Your photos are used to train the service to help you tag your own photos.
