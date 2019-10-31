@@ -325,5 +325,60 @@ export const finnish = {
       liittyä ok! -tautiin, jaa sukupuusi ja pidä yhteyttä perheenjäseniisi!`,
       CannotFindInvite: `ok!Kindred kutsua ei löydy`,
       CannotFindInviteDescription: `Tarkista, kuka on lähettänyt sinulle kutsun, ja muista, että kutsut vanhenevat 2 viikon kuluttua.`,
+
+      // Privacy Policy
+      PrivacyPolicy: `Tietosuojakäytäntö`,
+      WhoAreWe: `Keitä me olemme`,
+      WhoAreWeDescription: `ok!Kindred  ylläpitää Tech Luminaire Ltd:`,
+      CompanyContactEmail: `Sähköposti kaikista ok!kindred on  info@okkindred.com`,
+      CompanyContactTelephone: `Puhelinnumeromme on +44 2476 982000. Huomaa, että emme tarjoa teknistä tukea puhelimitse.`,
+      CompanyNumber: `Olemme rekisteröity Englannissa ja Walesissa yrityksenä 08864499.`,
+      CompanyVATNumber: `ALV-numero: 207242637`,
+
+      WhatInformationWeCollect: `Mitä tietoja keräämme`,
+      WhatInformationWeCollectDescription: `Keräämme tietoja sukupuun ja sukupuussa olevien ihmisten profiilin luomiseksi.
+      Nämä tiedot, jotka päätät tallentaa sivustoon, sisältävät nimet, syntymävuodet, sijainnit, yhteystiedot ja kuvat.`,
+      WhatInformationWeCollectDescription2: `Lisäksi kerätään automatisoituja tietoja, kuten Internet Protocol (IP) -osoite,
+      jota käytetään laitteen yhdistämiseen Internetiin, yhteydetiedot, kuten selaimen tyyppi ja versio, tietoja laitteesta,
+      mukaan lukien laitetyyppi ja laitetunniste.`,
+
+      WhatWeDoWithInformation: `Mitä teemme tietoihisi`,
+      WhatWeDoWithInformationDescription: `Emme myy tietojasi kolmansille osapuolille.
+      Sivuston kanssa jakamasi tietoja käytetään sukupuusi / verkon luomiseen.
+      Automatisoitua tietoa käytetään palvelun seuraamiseen ja parantamiseen.
+      Valokuvia käytetään kouluttamaan palvelua, jonka avulla voit merkitä omat valokuvasi.
+      Sijaintisi, jonka lähetät profiilissasi, lähetetään Googlen tai Microsoftin paikannuspalveluille henkilön sijoittamiseksi kartalle.
+      Muita tietoja ei lähetetä sijainnin yhteydessä.
+      Yksikään perheverkon ulkopuolella olevasta yleisöstä ei voi nähdä sukupuun tietoja, jotka jaat palvelun kanssa.
+      Kuinka tallennamme tietojasi`,
+
+      HowWeStoreYourInformation: `Palvelumme toimii`,
+      HowWeStoreYourInformationDescription: `PythonAnywhere-sivustolla (https://www.pythonanywhere.com) ja tietosi tallennetaan heidän palvelimilleen.
+      He käyttävät palvelimia Yhdysvalloissa, jota hallinnoi Amazon Web Services, joka on sertifioitu EU: n ja Yhdysvaltojen tietosuojakilven puitteissa.
+      Tämä tarjoaa suojatoimenpiteitä henkilötietojesi käsittelyssä.
+      Valokuvat tallennetaan suoraan Amazon Web Services -palveluun käymättä läpi PythonAnywhere-sivua.
+      Tietojasi ei välitetä muille kolmansille osapuolille.`,
+      HowWeStoreYourInformationDescription2: `Jos olet ainoa käyttäjä perheverkossa, tietosi yleensä poistetaan heti, kun poistat tilisi.
+      Jos perheverkossa on paljon käyttäjiä, sinua kohdellaan tiedon yhteisomistajana.
+      Kun poistat tilisi, voit poistaa profiilisi. Koko perheverkon tiedot poistetaan, kun kaikki perheverkon käyttäjät poistavat tilinsä.
+      Tietojen varmuuskopioita voidaan säilyttää jopa 2 viikkoa`,
+
+      YourDataProtectionRights: `Tietosuojaoikeutesi`,
+      YourDataProtectionRightsDescription: `Sinulla on oikeus pyytää meiltä kopioita henkilökohtaisista tiedoistasi ja oikaista tiedot,
+      jotka sinun mielestäsi ovat epätarkkoja.
+      Sinulla on myös oikeus pyytää meitä antamaan täydelliset tiedot, jotka arvelet puutteellisiksi.
+      Sinulla on oikeus pyytää meitä poistamaan henkilökohtaiset tietosi tietyissä olosuhteissa.
+      Sinulla on oikeus pyytää meitä rajoittamaan tietosi käsittelyä tietyissä olosuhteissa.
+      Sinulla on oikeus tietyissä olosuhteissa vastustaa henkilötietojesi käsittelyä.
+      Sinulla on oikeus pyytää, että siirrämme meille antamasi tiedot toiselle organisaatiolle tai sinulle tietyissä olosuhteissa.
+      Sinun ei tarvitse maksaa mitään maksua oikeuksien käyttämisestä.
+      Jos teet pyynnön, meillä on kuukausi aikaa vastata sinulle.`,
+
+      HowToComplain: `Kuinka valittaa`,
+      HowToComplainDescription: `Jos sinulla on valitus siitä, miten käsittelemme henkilökohtaisia ​​tietojasi,
+      ota meihin yhteyttä yllä olevan sähköpostiosoitteen kautta.
+      Jos et ole tyytyväinen vastaukseemme tai epäilet,
+      että emme käsittele henkilökohtaisia ​​tietojasi lain mukaisesti,
+      voit tehdä valituksen tietovaltuutetun toimistolle (ICO):`,
     },
 };

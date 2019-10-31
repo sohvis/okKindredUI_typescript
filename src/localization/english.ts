@@ -335,20 +335,24 @@ export const english = {
       This is information that you choose to store on the site and includes names, birth years, locations, contact details and images.`,
       WhatInformationWeCollectDescription2: `Automated information such as the internet protocol (IP) address
       used to connect your device to the internet, connection information such as browser type and version,
-      information about your device including device-type and device identifier, is also collected`,
+      information about your device including device-type and device identifier, is also collected.`,
 
       WhatWeDoWithInformation: `What We Do With Your Information`,
-      WhatWeDoWithInformationDescription: `The information you share with the site is used to create your family tree/network.
+      WhatWeDoWithInformationDescription: `We do not sell your data to any third parties.
+      The information you share with the site is used to create your family tree/network.
       Automated information is used to help us to monitor and improve the service.
       Your photos are used to train the service to help you tag your own photos.
       Your location that you submit on your profile is sent to Google or Microsoft's geolocation services to place the person on a map.
-      No other information is sent with the location.  We do not sell or give your data to any other third parties.`,
+      No other information is sent with the location.
+      No members of the public outside of your family network are able to see the family tree data you share with the service.`,
 
       HowWeStoreYourInformation: `How We Store Your Information`,
       HowWeStoreYourInformationDescription: `Our service operates off PythonAnywhere (https://www.pythonanywhere.com) and your data is stored on their servers.
       They operate servers in the US managed by Amazon Web Services, which is certified under the EU-US Privacy Shield Framework.
-      This provides certain safeguards in relation to the handling of your personal data.
-      Photos are stored directly on to Amazon Web Services without going through PythonAnywhere.`,
+      This provides safeguards in relation to the handling of your personal data.
+      Photos are stored directly on to Amazon Web Services without going through PythonAnywhere.
+      Your data is not transmitted to any other third parties.`,
+
       HowWeStoreYourInformationDescription2: `If you are the sole user in your family network, in general your data is deleted as soon as you delete your account.
       If there are many users within your family network, you are treated as joint owners of the data.
       When you delete your account, you may choose to delete your profile.

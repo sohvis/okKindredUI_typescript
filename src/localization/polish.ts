@@ -393,5 +393,58 @@ export const polish = {
       aby dołączyć do ok! kindred, udostępnij swoje drzewo genealogiczne i utrzymuj kontakt z członkami rodziny!`,
       CannotFindInvite: `ok!Kindred nie znaleziono zaproszenia`,
       CannotFindInviteDescription: `Skontaktuj się z tym, kto wysłał Ci zaproszenie, i pamiętaj, że zaproszenia wygasają po 2 tygodniach.`,
+
+      // Privacy Policy
+      PrivacyPolicy: `Polityka Prywatności`,
+      WhoAreWe: `Kim jesteśmy`,
+      WhoAreWeDescription: `ok!Kindred jest obsługiwany przez Tech Luminaire Ltd:`,
+      CompanyContactEmail: `Nasz e-mail na wszystkie zapytania ok!Kindred to info@okkindred.com`,
+      CompanyContactTelephone: `Nasz numer telefonu to +44 2476 982000. Należy pamiętać, że nie zapewniamy wsparcia technicznego przez telefon.`,
+      CompanyNumber: `Jesteśmy zarejestrowani w Anglii i Walii jako firma 08864499.`,
+      CompanyVATNumber: `Nr VAT: 207242637`,
+
+      WhatInformationWeCollect: `Jakie Informacje Zbieramy`,
+      WhatInformationWeCollectDescription: `Gromadzimy dane w celu utworzenia drzewa genealogicznego i profilu osób w Twoim drzewie genealogicznym.
+      Są to informacje, które zdecydujesz się przechowywać na stronie i obejmują imiona, lata urodzenia, lokalizacje, dane kontaktowe i zdjęcia.`,
+      WhatInformationWeCollectDescription2: `Gromadzone są również zautomatyzowane informacje,
+      takie jak adres protokołu internetowego (IP) używany do łączenia urządzenia z Internetem,
+      informacje o połączeniu, takie jak typ i wersja przeglądarki, informacje o urządzeniu, w tym typ urządzenia i identyfikator urządzenia.`,
+
+      WhatWeDoWithInformation: `Co Robimy z Twoimi Danymi`,
+      WhatWeDoWithInformationDescription: `Nie sprzedajemy twoich danych stronom trzecim.
+      Informacje, które udostępniasz na stronie, są wykorzystywane do utworzenia twojego drzewa genealogicznego / sieci.
+      Zautomatyzowane informacje służą nam do monitorowania i ulepszania usługi.
+      Twoje zdjęcia służą do szkolenia serwisu, aby pomóc ci oznaczać własne zdjęcia.
+      Twoja lokalizacja, którą przesyłasz w swoim profilu, jest wysyłana do usług geolokalizacyjnych Google lub Microsoft w celu umieszczenia tej osoby na mapie.
+      Z lokalizacją nie są wysyłane żadne inne informacje.
+      Żaden członek społeczności spoza Twojej sieci rodzinnej nie może zobaczyć danych drzewa genealogicznego udostępnianych w usłudze.`,
+
+      HowWeStoreYourInformation: `Jak przechowujemy Twoje dane`,
+      HowWeStoreYourInformationDescription: `Nasz serwis działa poza PythonAnywhere (https://www.pythonanywhere.com),
+      a twoje dane są przechowywane na ich serwerach.
+      Obsługują serwery w USA zarządzane przez Amazon Web Services, który posiada certyfikat EU-US Privacy Shield Framework.
+      Zapewnia to zabezpieczenia związane z przetwarzaniem danych osobowych.
+      Zdjęcia są przechowywane bezpośrednio w Amazon Web Services bez przechodzenia przez PythonAnywhere.
+      Twoje dane nie są przekazywane żadnym stronom trzecim.`,
+      HowWeStoreYourInformationDescription2: `Jeśli jesteś jedynym użytkownikiem w sieci rodzinnej,
+      Twoje dane są usuwane natychmiast po usunięciu konta.
+      Jeśli w Twojej sieci rodzinnej jest wielu użytkowników, jesteś traktowany jako współwłaściciel danych.
+      Po usunięciu konta możesz usunąć swój profil.
+      Informacje o całej sieci rodzinnej są usuwane, gdy wszyscy użytkownicy w sieci rodzinnej usuwają swoje konta.
+      Kopie zapasowe danych mogą być przechowywane do 2 tygodni.`,
+
+      YourDataProtectionRights: `Twoje Prawa do Ochrony Danych`,
+      YourDataProtectionRightsDescription: `Masz prawo poprosić nas o kopie danych osobowych i sprostować informacje, które uważasz za niedokładne.
+      Masz również prawo poprosić nas o uzupełnienie informacji, które uważasz za niekompletne.
+      Masz prawo poprosić nas o usunięcie twoich danych osobowych w określonych okolicznościach.
+      Masz prawo poprosić nas o ograniczenie przetwarzania twoich informacji w określonych okolicznościach.
+      Masz prawo w określonych okolicznościach sprzeciwić się przetwarzaniu twoich danych osobowych.
+      Masz prawo poprosić, abyśmy przekazali informacje, które nam przekazałeś, do innej organizacji lub do Ciebie, w pewnych okolicznościach.
+      Nie musisz płacić żadnych opłat za wykonywanie swoich praw. Jeśli złożysz prośbę, mamy jeden miesiąc na udzielenie odpowiedzi.`,
+
+      HowToComplain: `Jak Złożyć Skargę`,
+      HowToComplainDescription: `Jeśli masz skargę dotyczącą tego, jak postępujemy z Twoimi danymi osobowymi, skontaktuj się z nami za pośrednictwem powyższego adresu e-mail.
+      Jeśli nie jesteś zadowolony z naszej odpowiedzi lub uważasz, że nie przetwarzamy twoich danych osobowych zgodnie z prawem,
+      możesz złożyć skargę do biura komisarza ds. Informacji (ICO):`,
     },
 };

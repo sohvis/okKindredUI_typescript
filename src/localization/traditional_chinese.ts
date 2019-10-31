@@ -361,5 +361,45 @@ export const traditionalChinese = {
       加入 okkindred，分享您的家譜並與您的家人保持聯繫！`,
       CannotFindInvite: `ok!Kindred 沒有找到邀請`,
       CannotFindInviteDescription: `請與向您發送邀請的人確認，並註意邀請在2週後過期。`,
+
+
+      // Privacy Policy
+      PrivacyPolicy: `隱私政策`,
+      WhoAreWe: `我們是誰`,
+      WhoAreWeDescription: `ok!Kindred 由 Tech Luminaire Ltd 經營:`,
+      CompanyContactEmail: `我們所有 ok!kindred 諮詢的電子郵件是 info@okkindred.com`,
+      CompanyContactTelephone: `我們的電話號碼是+44 2476982000。請注意，我們不通過電話提供技術支持。`,
+      CompanyNumber: `我們在英格蘭和威爾士註冊為公司08864499。`,
+      CompanyVATNumber: `增值稅號：207242637`,
+
+      WhatInformationWeCollect: `我們收集什麼信息`,
+      WhatInformationWeCollectDescription: `我們收集數據以建立家譜和您家譜中人員的資料。
+      這是您選擇存儲在網站上的信息，包括姓名，出生年月，位置，聯繫方式和圖像。`,
+      WhatInformationWeCollectDescription2: `還將收集自動信息，例如用於將設備連接到Internet的Internet協議（IP）地址，
+      連接信息（例如瀏覽器類型和版本），有關設備的信息（包括設備類型和設備標識符）。`,
+
+      WhatWeDoWithInformation: `我們如何處理您的信息`,
+      WhatWeDoWithInformationDescription: `我們不會將您的數據出售給任何第三方。您與網站共享的信息用於創建您的家譜/網絡。
+      自動化信息用於幫助我們監視和改進服務。您的照片用於訓練服務，以幫助您標記自己的照片。
+      您在個人資料上提交的位置信息將發送到Google或Microsoft的地理位置服務，以將該人放置在地圖上。
+      該位置不會發送其他信息。您的家庭網絡外部的任何公眾都無法看到您與服務共享的家譜數據。`,
+
+      HowWeStoreYourInformation: `我們如何存儲您的信息`,
+      HowWeStoreYourInformationDescription: `我們的服務在PythonAnywhere（https://www.pythonanywhere.com）上運行，您的數據存儲在其服務器上。
+      他們在美國操作由Amazon Web Services管理的服務器，該服務器已通過歐盟-美國隱私保護框架認證。這為處理您的個人數據提供了保障。
+      照片無需通過PythonAnywhere即可直接存儲到Amazon Web Services。您的數據不會傳輸給任何其他第三方。`,
+      HowWeStoreYourInformationDescription2: `如果您是家庭網絡中的唯一用戶，則通常在刪除帳戶後即會刪除您的數據。如果您的家庭網絡中有很多用戶，則將您視為數據的共同所有者。
+      刪除帳戶時，您可以選擇刪除個人資料。當您的家庭網絡中的所有用戶刪除其帳戶時，整個家庭網絡信息都將被刪除。數據備份最多可以保留2週。`,
+
+      YourDataProtectionRights: `您的數據保護權利`,
+      YourDataProtectionRightsDescription: `您有權要求我們提供您的個人信息的副本，並糾正您認為不正確的信息。
+      您也有權要求我們完成您認為不完整的信息。您有權要求我們在某些​​情況下刪除您的個人信息。
+      您有權要求我們在某些​​情況下限制您信息的處理。您有權在某些情況下反對處理您的個人數據。
+      您有權要求我們在某些​​情況下將您提供給我們的信息轉移給另一個組織或您。
+      您無需為行使權利而支付任何費用。如果您提出要求，我們有一個月的時間回复您。`,
+
+      HowToComplain: `如何投訴`,
+      HowToComplainDescription: `如果您對我們如何處理您的個人信息有任何投訴，請通過上面的電子郵件地址與我們聯繫。
+      如果您對我們的答復不滿意或認為我們沒有依法處理您的個人信息，則可以向信息專員辦公室（ICO）投訴:`,
     },
 };
