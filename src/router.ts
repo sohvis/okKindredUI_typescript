@@ -16,6 +16,7 @@ import UploadImages from './views/gallery/UploadImages.vue';
 import PersonGalleryView from './views/gallery/PersonGalleryView.vue';
 import GalleryMap from './views/gallery/GalleryMap.vue';
 import InviteConfirmation from './views/accounts/InviteConfirmation.vue';
+import PrivacyPolicy from './views/PrivacyPolicy.vue';
 
 
 Vue.use(Router);
@@ -124,6 +125,11 @@ export default new Router({
       name: 'GalleryMap',
       component: GalleryMap,
       props: true,
+    },
+    {
+      path: '/privacy_policy/',
+      name: 'PrivacyPolicy',
+      component: PrivacyPolicy,
     },
   ],
 });

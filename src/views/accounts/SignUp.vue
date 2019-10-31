@@ -91,6 +91,10 @@
             <router-link to="/accounts/login/">{{ $t("message.Login") }}</router-link>
         </div>
     </div>
+
+    <div class="privacy-policy">
+        <router-link to="/privacy_policy/">{{ $t("message.PrivacyPolicy") }}</router-link>
+    </div>
   </div>
 </template>
 
@@ -207,6 +211,11 @@ export default class SignUp extends Vue {
         margin-top: 50px;
         padding: 15px;
         margin: 0 auto;
+        text-align: center;
     }
 
+    .privacy-policy {
+        text-align: center;
+        font-size: small;
+    }
 </style>

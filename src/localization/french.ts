@@ -383,5 +383,57 @@ export const french = {
       pour joindre ok!kindred, partagez votre arbre généalogique et restez en contact avec les membres de votre famille!`,
       CannotFindInvite: `ok!Kindred invitation non trouvé`,
       CannotFindInviteDescription: `S'il vous plaît vérifier avec celui qui vous a envoyé l'invitation et notez que les invitations expirent après 2 semaines.`,
+
+      // Privacy Policy
+      PrivacyPolicy: `Politique de Confidentialité`,
+      WhoAreWe: `Qui Sommes Nous?`,
+      WhoAreWeDescription: `ok!Kindred est opéré par Tech Luminaire Ltd:`,
+      CompanyContactEmail: `Notre email pour toutes les demandes de renseignements ok!kindred enquiries est info@okkindred.com`,
+      CompanyContactTelephone: `Notre numéro de téléphone est le +44 2476 982000. Veuillez noter que nous ne fournissons pas d'assistance technique par téléphone.`,
+      CompanyNumber: `Nous sommes enregistrés en Angleterre et au Pays de Galles sous le numéro 08864499.`,
+      CompanyVATNumber: `Numéro de TVA: 207242637`,
+
+      WhatInformationWeCollect: `Quelles Informations Collectons-Nous?`,
+      WhatInformationWeCollectDescription: `Nous recueillons des données pour créer un arbre généalogique et un profil des personnes de votre arbre généalogique.
+      Ce sont des informations que vous choisissez de stocker sur le site. Elles incluent les noms, les années de naissance, les lieux, les coordonnées et les images.`,
+      WhatInformationWeCollectDescription2: `Des informations automatisées telles que l'adresse IP (Internet Protocol) utilisée pour connecter votre appareil à Internet,
+      des informations de connexion telles que le type et la version du navigateur, des informations sur votre appareil,
+      y compris le type d'appareil et son identifiant, sont également collectées.`,
+
+      WhatWeDoWithInformation: `Ce que nous faisons avec vos informations`,
+      WhatWeDoWithInformationDescription: `Nous ne vendons pas vos données à des tiers.
+      Les informations que vous partagez avec le site sont utilisées pour créer votre arbre généalogique / réseau.
+      Les informations automatisées sont utilisées pour nous aider à surveiller et à améliorer le service.
+      Vos photos sont utilisées pour former le service afin de vous aider à marquer vos propres photos.
+      Votre position que vous indiquez sur votre profil est envoyée à Google ou aux services de géolocalisation de Microsoft afin de placer la personne sur une carte.
+      Aucune autre information n'est envoyée avec l'emplacement.
+      Aucun membre du public en dehors de votre réseau familial ne peut voir les données de l'arbre généalogique que vous partagez avec le service.`,
+
+      HowWeStoreYourInformation: `Comment Nous Stockons vos Informations`,
+      HowWeStoreYourInformationDescription: `Notre service fonctionne sur PythonAnywhere (https://www.pythonanywhere.com) et vos données sont stockées sur leurs serveurs.
+      Ils exploitent des serveurs aux États-Unis gérés par Amazon Web Services, qui est certifié dans le cadre du bouclier de protection de la vie privée UE-États-Unis.
+      Cela fournit des garanties en ce qui concerne le traitement de vos données personnelles.
+      Les photos sont stockées directement dans Amazon Web Services sans passer par PythonAnywhere.
+      Vos données ne sont pas transmises à des tiers.`,
+      HowWeStoreYourInformationDescription2: `Si vous êtes le seul utilisateur de votre réseau familial, vos données sont généralement supprimées dès que vous supprimez votre compte.
+      S'il y a beaucoup d'utilisateurs dans votre réseau familial, vous êtes traité en tant que copropriétaire des données.
+      Lorsque vous supprimez votre compte, vous pouvez choisir de supprimer votre profil.
+      Toutes les informations du réseau familial sont supprimées lorsque tous les utilisateurs de votre réseau familial suppriment leurs comptes.
+      Les sauvegardes de données peuvent être conservées jusqu'à 2 semaines.`,
+
+      YourDataProtectionRights: `Vos Droits de Protection des Données`,
+      YourDataProtectionRightsDescription: `Vous avez le droit de nous demander des copies de vos informations personnelles et de rectifier les informations que vous jugez inexactes.
+      Vous avez également le droit de nous demander de compléter des informations que vous jugez incomplètes.
+      Vous avez le droit de nous demander d'effacer vos informations personnelles dans certaines circonstances.
+      Vous avez le droit de nous demander de limiter le traitement de vos informations dans certaines circonstances.
+      Vous avez le droit de vous opposer au traitement de vos données personnelles dans certaines circonstances.
+      Vous avez le droit de demander que nous transmettions les informations que vous nous avez données à une autre organisation ou à vous-même, dans certaines circonstances.
+      Vous n'êtes pas tenu de payer des frais pour l'exercice de vos droits. Si vous faites une demande, nous avons un mois pour vous répondre.`,
+
+      HowToComplain: `Comment se Plaindre`,
+      HowToComplainDescription: `Si vous avez une plainte concernant la manière dont nous traitons vos informations personnelles,
+      veuillez nous contacter via l'adresse électronique ci-dessus.
+      Si vous n'êtes pas satisfait de notre réponse ou pensez que nous ne traitons pas vos informations personnelles conformément à la loi,
+      vous pouvez déposer une plainte auprès du Bureau du Commissaire à l'information (ICO):`,
     },
 };
