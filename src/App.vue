@@ -86,11 +86,29 @@ export default class App extends Vue {
     return store.getters.loading;
   }
 
+  public isMounted: boolean = false;
+
+  public initialRoute: string = '';
+
+  public navigateTo(route: string) {
+    if (this.isMounted) {
+      this.$router.push(route);
+    } else {
+      this.initialRoute = route;
+    }
+  }
+
   protected mounted() {
     // window.console.log('App.vue mounted() call');
 
     // Reset loading count
     store.state.loading_count = 0;
+    this.isMounted = true;
+
+    if (this.initialRoute) {
+      this.$router.push(this.initialRoute );
+      this.initialRoute = '';
+    }
   }
 
   private logout(this: any) {
