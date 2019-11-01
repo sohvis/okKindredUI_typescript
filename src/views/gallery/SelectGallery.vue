@@ -2,7 +2,7 @@
 <template>
     <div class="container" id="gallerylist-container">
         <h1>
-            {{ $t('message.ChooseGallery') }}
+            {{ $t('message.SelectGallery') }}
         </h1>
 
         <div class="table-responsive">
@@ -11,7 +11,7 @@
                     <tr v-for="gallery of galleries" 
                         :key="gallery.id" 
                         @click="selectGallery(gallery)"
-                        class="choose-gallery-row">
+                        class="select-gallery-row">
                         <td>
                             {{ gallery.title }}
                         </td>
@@ -64,13 +64,7 @@ export default class SelectGallery extends Vue {
 
         try {
             // Get page 1
-            const options = {
-                uri: `${config.BaseApiUrl}${config.GalleryAPI}?page=1`,
-                headers: store.getters.ajaxHeader,
-                json: true,
-            };
-
-            const response = await request.get(options) as PagedResult<Gallery>;
+            const response = await this.loadDatafromPage(1);
             this.galleries = response.results;
 
             // Get all other pages concurrently
@@ -84,7 +78,8 @@ export default class SelectGallery extends Vue {
                     json: true,
                 };
 
-                tasks.push(request.get(pageOptions));
+                const task = this.loadDatafromPage(page);
+                tasks.push(task);
             }
 
             const results = await Promise.all(tasks);
@@ -101,6 +96,18 @@ export default class SelectGallery extends Vue {
         store.commit('updateLoading', false);
     }
 
+    private async loadDatafromPage(page: number): Promise<PagedResult<Gallery>> {
+        const pageOptions = {
+                    uri: `${config.BaseApiUrl}${config.GalleryAPI}?page=${page}`,
+                    headers: store.getters.ajaxHeader,
+                    json: true,
+                };
+
+        const result = await request.get(pageOptions) as PagedResult<Gallery>;
+
+        return result;
+    }
+
    private selectGallery(gallery: Gallery) {
         window.console.log(`GalleryList.selectGallery(galleryId: ${gallery.id})`);
    }
@@ -108,7 +115,7 @@ export default class SelectGallery extends Vue {
 </script>
 
 <style scoped>
-    .choose-gallery-row{
+    .select-gallery-row{
         cursor: pointer;
     }
 </style>

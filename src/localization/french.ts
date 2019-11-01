@@ -350,6 +350,9 @@ export const french = {
       DeleteImages: `Suppression d'image`,
       DeleteImagesDesc: `Êtes-vous sûr de vouloir supprimer les images sélectionnées?`,
 
+      // Select Gallery
+      SelectGallery: `Sélectionnez une Galerie`,
+
       // Upload Images
       UploadImages: `Importer des images`,
       SelectFiles: `Sélectionnez les fichiers`,
@@ -429,6 +432,10 @@ export const french = {
       Vous avez le droit de vous opposer au traitement de vos données personnelles dans certaines circonstances.
       Vous avez le droit de demander que nous transmettions les informations que vous nous avez données à une autre organisation ou à vous-même, dans certaines circonstances.
       Vous n'êtes pas tenu de payer des frais pour l'exercice de vos droits. Si vous faites une demande, nous avons un mois pour vous répondre.`,
+
+      LinksToOtherWebsites: `Liens vers d'autres Sites Web`,
+      LinksToOtherWebsitesDescription: `Ce site contient des liens vers d'autres sites.
+      Nous ne sommes pas responsables du contenu des autres sites Web ni de la manière dont ils traitent les informations personnelles.`,
 
       HowToComplain: `Comment se Plaindre`,
       HowToComplainDescription: `Si vous avez une plainte concernant la manière dont nous traitons vos informations personnelles,

@@ -292,6 +292,9 @@ export const finnish = {
       DeleteImages: `Poista Kuvat`,
       DeleteImagesDesc: `Haluatko varmasti jättää valitut kuvat poistamaan?`,
 
+      // Select Gallery
+      SelectGallery: `Valitse Galleria`,
+
       // Upload Images
       UploadImages: `Lataa Kuvat`,
       SelectFiles: `Valitse Tiedostot`,
@@ -373,6 +376,10 @@ export const finnish = {
       Sinulla on oikeus pyytää, että siirrämme meille antamasi tiedot toiselle organisaatiolle tai sinulle tietyissä olosuhteissa.
       Sinun ei tarvitse maksaa mitään maksua oikeuksien käyttämisestä.
       Jos teet pyynnön, meillä on kuukausi aikaa vastata sinulle.`,
+
+      LinksToOtherWebsites: `Linkit Muille Verkkosivustoille`,
+      LinksToOtherWebsitesDescription: `Tämä sivusto sisältää linkkejä muille verkkosivustoille.
+      Emme ole vastuussa muiden verkkosivustojen sisällöstä tai siitä, kuinka ne käsittelevät henkilökohtaisia tietoja.`,
 
       HowToComplain: `Kuinka valittaa`,
       HowToComplainDescription: `Jos sinulla on valitus siitä, miten käsittelemme henkilökohtaisia ​​tietojasi,
