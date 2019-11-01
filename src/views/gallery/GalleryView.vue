@@ -95,6 +95,8 @@ export default class GalleryView extends Vue {
 
     public additionalImages: Image[] = [];
 
+    public isMounted: boolean = false;
+
     public get numberOfPages(): number {
         return Math.max(1, Math.ceil(this.totalCount / config.PaginationPageSize));
     }
@@ -109,13 +111,16 @@ export default class GalleryView extends Vue {
         try {
             // Load jwt from cookie and login
             await store.dispatch('restoreSession');
+
+            this.isMounted = true;
             await this.loadData();
             await this.displayImageFromUrl();
 
             window.addEventListener('resize', this.setDisplaySizes);
             window.onresize = () => this.setDisplaySizes();
+
         } catch (ex) {
-            // window.console.log(`ex: ${ex}`);
+            window.console.log(`ex: ${ex}`);
             this.$router.push(`/accounts/login/?next=${this.$router.currentRoute.fullPath}`);
         }
     }
@@ -127,28 +132,29 @@ export default class GalleryView extends Vue {
     @Watch('watchedProps')
     private async loadData() {
         // window.console.log(`GalleryView.loadData()`);
+        if (this.isMounted) {
+            store.commit('updateLoading', true);
 
-        store.commit('updateLoading', true);
+            this.showNoImagesMessage = false;
 
-        this.showNoImagesMessage = false;
+            try {
 
-        try {
+                const imageTask = this.loadImageData(this.page);
+                const headerTask = (this.$refs.galleryHeader as GalleryHeader).loadGalleryData();
+                await imageTask;
+                await headerTask;
+                this.setDisplaySizes();
 
-            const imageTask = this.loadImageData(this.page);
-            const headerTask = (this.$refs.galleryHeader as GalleryHeader).loadGalleryData();
-            await imageTask;
-            await headerTask;
-            this.setDisplaySizes();
+                if (this.images.length === 0) {
+                    this.showNoImagesMessage = true;
+                }
 
-            if (this.images.length === 0) {
-                this.showNoImagesMessage = true;
+            } catch (ex) {
+                store.commit('setErrorMessage', ex);
             }
 
-        } catch (ex) {
-            store.commit('setErrorMessage', ex);
+            store.commit('updateLoading', false);
         }
-
-        store.commit('updateLoading', false);
     }
 
     private async loadImageData(page: number) {
