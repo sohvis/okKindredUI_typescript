@@ -374,6 +374,9 @@ export const english = {
       in certain circumstances.
       You are not required to pay any charge for exercising your rights. If you make a request, we have one month to respond to you.`,
 
+      LinksToOtherWebsites: `Links To Other Websites`,  
+      LinksToOtherWebsitesDescription: `This site contains links to other websites. We are not responsible for the content of other websites or how they processes personal information.`,
+        
       HowToComplain: `How To Complain`,
       HowToComplainDescription: ` If you have a complaint about how we are dealing with your personal information, please contact us via the email address above.
       If you are not happy with our response or think we are not handling your personal information in accordance with the law,
