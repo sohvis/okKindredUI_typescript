@@ -287,6 +287,9 @@ export const english = {
       DeleteImages: `Delete Images`,
       DeleteImagesDesc: `Are you sure you want to leave delete the selected images?`,
 
+      // Select Gallery
+      SelectGallery: `Select Gallery`,
+
       // Upload Images
       UploadImages: `Upload Images`,
       SelectFiles: `Select Files`,
@@ -326,16 +329,17 @@ export const english = {
       WhoAreWe: `Who Are We`,
       WhoAreWeDescription: `ok!Kindred is operated by Tech Luminaire Ltd:`,
       CompanyContactEmail: `Our email for all ok!kindred enquiries is info@okkindred.com`,
-      CompanyContactTelephone: `Our telephone number is +44 2476 982000.  Please note that we don't provide technical support over the phone.`,
+      CompanyContactTelephone: `Our telephone number is +44 2476 982000.
+      Please note that we don't provide technical support over the phone.`,
       CompanyNumber: `We are registered in England and Wales as company 08864499.`,
       CompanyVATNumber: `VAT No: 207242637`,
 
       WhatInformationWeCollect: `What Information We Collect`,
-      WhatInformationWeCollectDescription: `We collect data to create your user account, 
+      WhatInformationWeCollectDescription: `We collect data to create your user account,
       build up a family tree and profile of people in your family tree.
       To create your user account we require the following information: name, email address and gender.
-      To create your family tree and profiles, we require name, gender and how family members are related. 
-      Other data you may additionally choose to store on the site includes birth years, locations, email and other contact details, 
+      To create your family tree and profiles, we require name, gender and how family members are related.
+      Other data you may additionally choose to store on the site includes birth years, locations, email and other contact details,
       biographical information and images.`,
       WhatInformationWeCollectDescription2: `Automated information such as the internet protocol (IP) address
       used to connect your device to the internet, connection information such as browser type and version,
@@ -351,13 +355,15 @@ export const english = {
       No members of the public outside of your family network are able to see the family tree data you share with the service.`,
 
       HowWeStoreYourInformation: `How We Store Your Information`,
-      HowWeStoreYourInformationDescription: `Our service operates off PythonAnywhere (https://www.pythonanywhere.com) and your data is stored on their servers.
+      HowWeStoreYourInformationDescription: `Our service operates off PythonAnywhere
+      (https://www.pythonanywhere.com) and your data is stored on their servers.
       They operate servers in the US managed by Amazon Web Services, which is certified under the EU-US Privacy Shield Framework.
       This provides safeguards in relation to the handling of your personal data.
       Photos are stored directly on to Amazon Web Services without going through PythonAnywhere.
       Your data is not transmitted to any other third parties.`,
 
-      HowWeStoreYourInformationDescription2: `If you are the sole user in your family network, in general your data is deleted as soon as you delete your account.
+      HowWeStoreYourInformationDescription2: `If you are the sole user in your family network,
+      in general your data is deleted as soon as you delete your account.
       If there are many users within your family network, you are treated as joint owners of the data.
       When you delete your account, you may choose to delete your profile.
       The entire family network information is deleted when all users in your family network delete their accounts.
@@ -374,8 +380,13 @@ export const english = {
       in certain circumstances.
       You are not required to pay any charge for exercising your rights. If you make a request, we have one month to respond to you.`,
 
+      LinksToOtherWebsites: `Links To Other Websites`,
+      LinksToOtherWebsitesDescription: `This site contains links to other websites.
+      We are not responsible for the content of other websites or how they processes personal information.`,
+
       HowToComplain: `How To Complain`,
-      HowToComplainDescription: ` If you have a complaint about how we are dealing with your personal information, please contact us via the email address above.
+      HowToComplainDescription: ` If you have a complaint about how we are dealing with your personal information,
+      please contact us via the email address above.
       If you are not happy with our response or think we are not handling your personal information in accordance with the law,
       you can complain to the Information Commissioner's Office (ICO):`,
     },

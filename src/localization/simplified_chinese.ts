@@ -331,6 +331,9 @@ export const simplifiedChinese = {
       DeleteImages: `删除图像`,
       DeleteImagesDesc: `您确定要删除所选的画廊吗？`,
 
+      // Select Gallery
+      SelectGallery: `选择图库`,
+
       // Upload Images
       UploadImages: `上传图片`,
       SelectFiles: `选择文件`,
@@ -402,6 +405,10 @@ export const simplifiedChinese = {
         您有权要求我们在某些情况下限制您信息的处理。您有权在某些情况下反对处理您的个人数据。
         您有权要求我们在某些情况下将您提供给我们的信息转移给另一个组织或您。您无需为行使权利而支付任何费用。
         如果您提出要求，我们有一个月的时间回复您。`,
+
+        LinksToOtherWebsites: `链接到其他网站`,
+        LinksToOtherWebsitesDescription: `该网站包含指向其他网站的链接。
+        我们对其他网站的内容或它们如何处理个人信息概不负责。`,
 
         HowToComplain: `如何投诉`,
         HowToComplainDescription: `如果您对我们如何处理您的个人信息有任何投诉，请通过上面的电子邮件地址与我们联系。

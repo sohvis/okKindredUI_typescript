@@ -328,6 +328,9 @@ export const traditionalChinese = {
       DeleteImages: `刪除圖像`,
       DeleteImagesDesc: `您確定要刪除所選的畫廊嗎？`,
 
+      // Select Gallery
+      SelectGallery: `選擇圖庫`,
+
       // Upload Images
       UploadImages: `上傳圖片`,
       SelectFiles: `選擇文件`,
@@ -397,6 +400,10 @@ export const traditionalChinese = {
       您有權要求我們在某些​​情況下限制您信息的處理。您有權在某些情況下反對處理您的個人數據。
       您有權要求我們在某些​​情況下將您提供給我們的信息轉移給另一個組織或您。
       您無需為行使權利而支付任何費用。如果您提出要求，我們有一個月的時間回复您。`,
+
+      LinksToOtherWebsites: `鏈接到其他網站`,
+      LinksToOtherWebsitesDescription: `該網站包含指向其他網站的鏈接。
+      我們對其他網站的內容或它們如何處理個人信息概不負責。`,
 
       HowToComplain: `如何投訴`,
       HowToComplainDescription: `如果您對我們如何處理您的個人信息有任何投訴，請通過上面的電子郵件地址與我們聯繫。

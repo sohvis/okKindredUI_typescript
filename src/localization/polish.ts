@@ -360,6 +360,9 @@ export const polish = {
       DeleteImages: `Usuń Obrazy`,
       DeleteImagesDesc: `Czy na pewno chcesz usunąć wybrane galerie?`,
 
+      // Select Gallery
+      SelectGallery: `Wybierz Galerię`,
+
       // Upload Images
       UploadImages: `Przesyłać Zdjęcia`,
       SelectFiles: `Wybierz Pliki`,
@@ -441,6 +444,10 @@ export const polish = {
       Masz prawo w określonych okolicznościach sprzeciwić się przetwarzaniu twoich danych osobowych.
       Masz prawo poprosić, abyśmy przekazali informacje, które nam przekazałeś, do innej organizacji lub do Ciebie, w pewnych okolicznościach.
       Nie musisz płacić żadnych opłat za wykonywanie swoich praw. Jeśli złożysz prośbę, mamy jeden miesiąc na udzielenie odpowiedzi.`,
+
+      LinksToOtherWebsites: `Linki do Innych Stron Internetowych`,
+      LinksToOtherWebsitesDescription: `Ta strona zawiera linki do innych stron internetowych.
+      Nie ponosimy odpowiedzialności za treść innych stron internetowych ani sposób, w jaki przetwarzają one dane osobowe.`,
 
       HowToComplain: `Jak Złożyć Skargę`,
       HowToComplainDescription: `Jeśli masz skargę dotyczącą tego, jak postępujemy z Twoimi danymi osobowymi, skontaktuj się z nami za pośrednictwem powyższego adresu e-mail.
