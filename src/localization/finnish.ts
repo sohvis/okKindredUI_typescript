@@ -82,12 +82,12 @@ export const finnish = {
 
       FAQHeading: 'Usein kysytyt kysymykset',
       Question1: 'Näkeekö kuka tahansa perheeni tiedot?',
-      Answer1: `No, only people within your family tree that you have invited can see the information you input.  The information is also not searchable by outside users or search engines.`,
+      Answer1: `Ei, ainoastaan ihmiset jotka ovat osa sukupuutasi ja jotka olet kutsunut sivustolle voivat nähdä tallentamasi tiedot. Ulkopuoliset käyttäjät tai hakukoneet eivät voi myöskään etsiä sivustolle tallentamia tietojasi.`,
 
       Question2: `Onko tietoni turvassa?`,
-      Answer2: `Otamme turvallisuuden ja yksityisyyden hyvin vakavasti. Pidämme yksityiskohdat perheemme tällä sivustolla, ja emme koskaan tee mitään vaarantaa nämä tiedot
-      Vain oman perheen jäsenille, että kutsut jakaa puu näkevät tiedot, jotka annat sivustolla.
-      Lisäksi emme myy, vaihda tai vuokraa henkilökohtaisia ​​tunnistetietoja muille.`,
+      Answer2: `Otamme turvallisuuden ja yksityisyyden hyvin vakavasti. Me tallennamme tietoja perheestämme tälle sivustolle, emmekä koskaan tee mitään mikä vaarantaisi perheemme tiedot.
+      Ainoastaan oman perheesi jäsenet, jotka kutsut sivustolle ja joiden kanssa jaat sukupuusi näkevät tiedot, jotka tallennat sivustolla.
+      Emme myöskään myy, vaihda tai vuokraa henkilökohtaisia ​​tunnistetietoja muille.`,
       Answer2a: `Sivusto on isännöi <a href="https://www.pythonanywhere.com/?affiliate_id=00022aed\">PythonAnywhere</a> joka itse ottaa yksityisyyttä hyvin vakavasti.
       Käytämme myös <a href="https://aws.amazon.com/s3/"> Amazon S3</a> tallentaa kaikki kuvat, jotka lataat.
       Teemme käyttää kolmannen osapuolen <a href="https://en.wikipedia.org/wiki/Geocoding">geocoding</a> palvelujen (Google & Microsoft).
@@ -106,34 +106,33 @@ export const finnish = {
       Answer3b: `Olemme tyytyväisiä kuka tahansa ideoita tai joka haluaa osallistua tähän projektiin ja tehdä se paremmin! Olemme erityisen tarvitsevat apua kääntämistä muille kielille.
       Ole hyvä <a href="mailto:info@okkindred.com?subject=Development">yhteyttä</a> jos haluat edistää, tai (vielä parempi) esittää pull pyynnön Github :)`,
 
-      Question4: `Mitä se sinulle, jos se on ilmainen?`,
-      Answer4: `Olemme ohjelmistokehittäjiä, ja tämä on projekti luotu meidän vapaa-aikaa laajentaa skillset ja lisätä tuotevalikoimaamme keuliminen muille.
-      Tämä oli paras tapa järjestää tietoa oman perheen, ja toivomme, että uudet käyttäjät tarjota ehdotuksia parantaa sivuston tai jopa edistää koodia.`,
+      Question4: `Mitä sinä saat tästä sivustosta, kun se on ilmainen?`,
+      Answer4: `Olemme ohjelmistokehittäjiä, ja tämä projekti on luotu vapaa-ajallamme laajentaa taitojamme ja että voimme lisätä tämän portfolioomme näyttääkseemme muille taitojamme.
+      Tämä oli paras tapa järjestää oman perheemme tietoja ja toivomme, että uudet käyttäjät tekevät ehdotuksia sivuston parantamiseen tai jopa edistävät koodia.`,
 
-      Question5: `Mitä selaimia tämä työ?`,
-      Answer5: `Sivusto on testattu uusimman version alkuun selainten työpöydällä ja mobiili.
-      Ongelma voi olla ei-tuetuissa selaimissa, kuten vanhemmat Android selaimilla, Internet Explorer 9 ja alla.`,
+      Question5: `Millä selaimilla tämä sivusto toimii?`,
+      Answer5: `Sivusto on testattu suosituinpien selaimien uusimmilla mobiili ja työpöytä versioilla.
+      Ongelmia voi aiheutua tukemattomia selaimia käytettäessä, kuten vanhempia Android selaimia, Internet Explorer 9 ja sen aiempia versioita.`,
 
-      Question6: `Onko olemassa rajoitusta kuvia voin ladata?`,
-      Answer6: `Ei tällä hetkellä ei ole. Kuvat tallennetaan <a href="https://aws.amazon.com/s3/">Amazon S3</a> joka on erittäin hyvin halpaa, joten emme mielessä arvoisesti kustannuksia.
-      Jos kuitenkin paljon käyttäjiä alkaa ladata tuhansia ja tuhansia kuvia, meidän on luotava raja.`,
+      Question6: `Onko kuvien lataamisessa rajoituksia?`,
+      Answer6: `Ei, tällä hetkellä kuvien lataamisessa ei ole rajoituksia. Kuvat tallennetaan <a href="https://aws.amazon.com/s3/">Amazon S3</a> palveluun, joka on erittäin edullinen, joten meitä ei haittaa että katamme tästä kertyvät kustannukset.
+      Jos kuitenkin useammat käyttäjät alkavat lataamaan tuhansia ja tuhansia kuvia, meidän on luotava raja kuvien lataamiseen.`,
 
-      Question7: `Voinko mainostaa sivustossasi?`,
-      Answer7: `Meillä ei ole suunnitelmia nostaa rahaa kautta mainoksia sivuston lähinnä emme halua alistaa meidän Grandmas mitään enemmän mainontaa kuin he nykyisin saavat`,
+      Question7: `Voinko mainostaa sivustollanne?`,
+      Answer7: `Meillä ei ole suunnitelmia kerätä rahaa mainokset kautta, sillä emme halua alistaa meidän mummojamme yhtään enemmälle mainonnalle kuin mitä he jo nyt joutuvat näkemään.`,
 
       Question8: `Löysin virheen!`,
-      Answer8: `Kerro meille! Voit <a href="mailto:info@okkindred.com?Subject=I%%20found%%20a%%20bug!">meille sähköpostia</a> tai voit lisätä sen <a href=https: //github.com/JustinWingChungHui/okKindred/issues">issues lista </a> Github.
-      Jos se on turvallisuus bug täytyy tietää ASAP, jotta voimme korjata sen!`,
+      Answer8: `Kerro meille! Voit lähettää <a href="mailto:info@okkindred.com?Subject=I%%20found%%20a%%20bug!">meille sähköpostia</a> tai voit lisätä virheen Github:in <a href=https: //github.com/JustinWingChungHui/okKindred/issues">issues</a> listaan.
+      Jos virhe liittyy sivuston turvallisuuteen, kerro meille heti, jotta voimme korjata sen!`,
 
-      Question9: `Voitteko lisätä ominaisuus, joten se voi tehdä xxxxx haluta?`,
-      Answer9: `Voit vapaasti pyytää uusia ominaisuuksia kautta <a href="mailto:"info@okkindred.com?Subject=Feature%%20Request">info@okkindred.com</a>.
-      Tulemme varmasti pitävät niitä varsinkin jos se hyödyttää paljon ihmisiä (eli meidän perhe).
-      Tämä sivusto tehdään vapaa-ajalla, joten pyyntöjä tehdään, kun he ovat tehneet.`,
+      Question9: `Voitteko lisätä ominaisuudeen, jotta se voi tehdä xxxxx?`,
+      Answer9: `Voit pyytää uusia ominaisuuksia sähköpostitse <a href="mailto:"info@okkindred.com?Subject=Feature%%20Request">info@okkindred.com</a>.
+      Harkitsemme ehdotuksia, erityisesti jos siitä on hyötyä monille ihmisille (esimerkiksi perheenjäsenillemme).
+      Tätä sivustoa tehdään vapaa-ajalla, joten pyyntöjä tehdään, kun niihen pystytään.`,
 
-      Question10: `Muut sukututkimus sivustot etsiä paikallisia kirjaa auttaa luomaan puu, voit tehdä saman?`,
-      Answer10: `Meillä ei ole suunnitelmia toteuttaa tämän vielä. Syy tähän on se, että suurin osa perheen peräisin Kiinasta.
-      Koska sisällissodat joka tapahtui Kiinassa 1900-luvulla ja epävakautta viimeisten vuosikymmenien aikana Qing-dynastian,
-      Muutama käyttökelpoinen kirjaa olemassa, jotka olisi hyödyllistä meille.`,
+      Question10: `Muut sukututkimus sivustot etsivät paikallisia tietokantoja auttaakseen sukupuun luomisessa, voitteko tehdä saman?`,
+      Answer10: `Meillä ei ole suunnitelmia toteuttaa tätä vielä. Syy tähän on se, että suurin osa perheestämme on peräisin Kiinasta.
+      Kiinassa 1900-luvulla tapahtuneiden sisällisotien ja Qing-dynastian aikaisen vuosikymmeniä kestäneiden epävakauksien vuoksi, hyvin pieni määrä hyödyllisiä ja käytettäviä tietoja on olemassa.`,
       Answer10a: `Koska monet sukututkimusta sivustot tehdä tämän jo, me yrittäisi keskittyä enemmän sosiaalisen verkottumisen puolella tämän projektin.
       Kuitenkin, että ei ole sanoa, että jos ajan suuri tarve kävi ilmeiseksi, emme olisi tarkastella toteuttaa tällainen ominaisuus.`,
 
@@ -141,22 +140,22 @@ export const finnish = {
       Answer11: `Olemme yrittäneet pitää sivuston mahdollisimman yksinkertainen ja mahdollisimman kattavat. Määritelmät "Raised", "Raised" ja "Partneroitu antaa riittävästi tietoa rakentaa puuhun.
       Ne sisältävät kulttuurien suhteita, jotka eivät ole avioliittokäsite.
       Ne voivat sisältää parisuhteiden, common law kumppanit, eronneita, adoptoidut ja muita määritelmiä, jotka voidaan tai ei ole eri kulttuureissa`,
-
+        
       AboutFooter: `Justin Wing Chung Hui & Adrian Chu`,
 
       // Profile
       LockedForOtherUsers: `Lukittu muille käyttäjille`,
       Name: `Nimi`,
       Gender: `Sukupuoli`,
-      BirthYear: `Syntymä vuosi`,
-      DeathYear: `Kuolin vuosi`,
+      BirthYear: `Syntymävuosi`,
+      DeathYear: `Kuolinvuosi`,
       SpokenLanguages: `Puhutut kielet`,
       Email: `Sähköposti`,
       Occupation: `Ammatti`,
       TelephoneNumber: `Puhelinnumero`,
       Location: `Sijainti`,
       Website: `Verkkosivusto`,
-      SkypeName: `Skype tunnus`,
+      SkypeName: `Skype-tunnus`,
       Facebook: `Facebook`,
       Twitter: `Twitter`,
       LinkedIn: `LinkedIn`,
@@ -182,93 +181,93 @@ export const finnish = {
       SearchName: `Hae nimellä`,
 
       // Password reset
-      PasswordReset: `Salasanan nollaus`,
-      PasswordResetDescription: `Anna sähköpostiosoitteesi salasanan palauttamisen aloittamiseksi:`,
-      ResetMyPassword: `Nollaa salasanani`,
-      PasswordResetRequested: `Salasanan palautus pyydetty`,
+      PasswordReset: `Salasanan vaihto`,
+      PasswordResetDescription: `Anna sähköpostiosoitteesi salasanan vaihtamisen aloittamiseksi:`,
+      ResetMyPassword: `Vaihda salasanani`,
+      PasswordResetRequested: `Salasanan vaihto pyydetty`,
       CheckYourEmailForReset: `Tarkista sähköpostisi saadaksesi lisätietoja.`,
 
       // Password Reset Confirmation
-      PasswordResetConfirmation: `Salasanan Palautuksen Vahvistus`,
+      PasswordResetConfirmation: `Salasanan vaihdon vahvistus`,
       PasswordResetConfirmationDescription: `Anna uusi salasana. Uuden salasanasi on oltava vähintään 8 merkkiä pitkä.`,
       PasswordConfirmation: `Vahvista uusi salasana`,
       PasswordsNotMatching: `Salasanat eivät täsmää`,
-      UpdateMyPassword: 'Päivitä Salasanani',
+      UpdateMyPassword: 'Päivitä salasanani',
 
       // Settings
       UserSettings: `Käyttäjäasetukset`,
-      ChangePassword: `Vaihda Salasana`,
+      ChangePassword: `Vaihda salasana`,
       LeaveokKindred: `Jätä ok!Kindred`,
 
       // User Settings
       LanguageLabel: `Kieli:`,
       ReceiveFamilyEmailUpdates: `Vastaanota sähköpostiviestejä, kun perheen tietoja päivitetään`,
-      ReceivePhotoTaggingEmailUpdates: 'Vastaanota sähköpostiviestejä, kun olet merkitty valokuviin',
-      UserSettingsSaved: `Käyttäjän Asetukset Tallennettu`,
+      ReceivePhotoTaggingEmailUpdates: 'Vastaanota sähköpostiviestejä, kun sinut on merkitty valokuviin',
+      UserSettingsSaved: `Käyttäjänasetukset tallennettu`,
 
       // Password breach
       PasswordBreach1: `Tämä salasana ei ole turvallinen!`,
-      PasswordBreach2: `Sitä on käytetty muissa sivustoissa, joissa on rikottu yksityisyyttä ja joiden pitäisi olla
-      muutettu pitämään ok! Kindred -tilisi turvallisena`,
+      PasswordBreach2: `Sitä on käytetty muilla sivustoilla, joissa on ollut tietovuoto ja salasana 
+      tulee muuttaa, jotta ok!Kindred-tilisi pysyy turvallisena`,
       PasswordBreach3: `Ole hyvä ja vaihda salasanasi menemällä `,
       ForMoreInformation: `Lisätietoja:`,
 
       // Change Password
-      ChangePasswordDescription: `Anna vanha salasana ja luo uusi salasana ja vahvista se. Sinun pitäisi olla uusi salasana
-      oltava vähintään 8 merkkiä pitkä`,
-      OldPassword: `Vanha Salasana`,
-      NewPassword: `Uusi Salasana`,
-      PasswordUpdated: `Salasana Päivitetty`,
+      ChangePasswordDescription: `Anna vanha salasanasi, ja luo uusi salasana ja vahvista se. Uuden salasanasi tulee olla
+      vähintään 8 merkkiä pitkä`,
+      OldPassword: `Vanha salasana`,
+      NewPassword: `Uusi salasana`,
+      PasswordUpdated: `Salasana päivitetty`,
       IncorrectOldPassword: `Vanha salasanasi on väärä`,
 
       // Leave Site
       LeaveSite: `Jätä ok!Kindred`,
-      LeaveSiteSingleUserDescription: `Poistuessasi ok! Kindred -toiminnosta kaikki profiilisi, kaikki perheen tiedot ja kuvat poistetaan.`,
+      LeaveSiteSingleUserDescription: `Poistuessasi ok!Kindred-sivustolta kaikki profiilisi sekä perheesi kaikki tiedot ja kuvat poistetaan.`,
       EnterYourPasswordToConfirm: `Anna salasana vahvistaaksesi:`,
-      CurrentUsersAccessToFamilyData: `Nämä ovat kaikkia käyttäjiä, jotka nykyään hallitsevat perhesivuja:`,
-      LeaveSiteMultipleUsersDescription: `Nämä ovat kaikkia käyttäjiä, jotka nykyään hallitsevat perhesivuja:`,
-      LeaveSiteMultipleUsersDescription2: `Jos kaikki edellä mainitut käyttäjät poistuvat sivustosta, koko perheen tiedot poistetaan.`,
+      CurrentUsersAccessToFamilyData: `Nämä ovat käyttäjät, jotka hallinnoivat sukupuusi tietoja nyt:`,
+      LeaveSiteMultipleUsersDescription: `Nämä ovat käyttäjät, jotka nykyään hallitsevat perhesivuja:`,
+      LeaveSiteMultipleUsersDescription2: `Jos kaikki edellä mainitut käyttäjät poistuvat sivustosta, perheen kaikki tiedot poistetaan.`,
       DeleteMyProfile: `Poista profiili`,
-      LeaveSiteKeepMyProfile: `Profiili säilyy`,
+      LeaveSiteKeepMyProfile: `Profiili säilytetään`,
       LeaveSiteDeleteMyProfile: `Profiili poistetaan`,
 
       // Edit Tree
-      AddAncestor: `Lisää Esi-isä`,
-      AddDescendant: `Lisää Jälkeläinen`,
-      AddPartner: `Lisää Kumppani`,
+      AddAncestor: `Lisää esi-isä`,
+      AddDescendant: `Lisää jälkeläinen`,
+      AddPartner: `Lisää kumppani`,
 
       AreYouSureDelete: `Oletko varma, että haluat poistaa profiilin?`,
 
-      NewPerson: `Uusi Henkilö`,
-      ExistingPerson: `Olemassa Oleva Henkilö`,
-      Required: `Edellytetään`,
+      NewPerson: `Uusi henkilö`,
+      ExistingPerson: `Olemassa oleva henkilö`,
+      Required: `Pakollinen`,
 
       // Split relation
-      BreakLinks: `Tauko Suhde`,
-      Raised: `Esille`,
+      BreakLinks: `Poista suhde`,
+      Raised: `Kasvattanut`,
       RaisedBy: `Kasvatettu`,
       Partnered: `Yhteistyöhön`,
 
       // Suggested relations,
-      SuggestedRelations: `Ehdotetut Suhteet`,
-      AreXandYPartners: `Ovatko {fromPersonName} ja {toPersonName} kumppanit?`,
-      DidXraiseY: `Esille {fromPersonName} {toPersonName}??`,
+      SuggestedRelations: `Ehdotetut suhteet`,
+      AreXandYPartners: `Ovatko {fromPersonName} ja {toPersonName} kumppaneita?`,
+      DidXraiseY: `Onko {fromPersonName} kasvattanut {toPersonName}?`,
 
       // Sign Up
       JoinSite: `Liity ok!Kindred`,
-      JoinSiteDescription: `Jos haluat perustaa uuden perheverkon ja liittyä ok! Sukulaiseen, anna
-      seuraava tieto:`,
-      EmailInUse: `Sähköposti on jo käytössä`,
+      JoinSiteDescription: `Jos haluat perustaa uuden perheverkoston ja liittyä ok!Kindred:iin, anna
+      seuraavat tiedot:`,
+      EmailInUse: `Sähköpostiosoite on jo käytössä`,
       ThankYou: `Kiitos!`,
       PleaseCheckEmail: `Tarkista sähköpostisi {email} vahvistaaksesi tilisi.`,
       InvalidEmail: `Virheellinen sähköpostiosoite`,
 
       // Account Confirmation
-      AccountConfirmation: `Tilin Vahvistus`,
+      AccountConfirmation: `Tilin vahvistus`,
       PleaseCreatePassword: `Luo salasana tilillesi:`,
 
       // Upload New Profile Photo
-      NewProfilePhoto: `Uusi Profiilikuva`,
+      NewProfilePhoto: `Uusi profiilikuva`,
       UploadNewProfilePhoto: `Lataa uusi profiilikuva henkilölle {personName}:`,
       SelectFile: `Valitse tiedosto`,
 
@@ -280,47 +279,47 @@ export const finnish = {
       NoGalleries: `Kuvagallerioita ei löytynyt.`,
       AddNewGallery: 'Lisää uusi galleria',
       NoImagesInGallery: `Galleriasta ei löytynyt kuvia`,
-      AddNewImages: `Lisää Uusia Kuvia`,
-      CreateNewGallery: `Luo Uusi Galleria`,
-      EditGallery: `Muokkaa Galleriaa`,
-      DeleteGalleries: `Poista Galleriat`,
-      DeleteGalleriesDesc: `Haluatko varmasti jättää valitut galleriat poistamaan?
+      AddNewImages: `Lisää uusia kuvia`,
+      CreateNewGallery: `Luo uusi galleria`,
+      EditGallery: `Muokkaa galleriaa`,
+      DeleteGalleries: `Poista galleriat`,
+      DeleteGalleriesDesc: `Haluatko varmasti poistaa valitut galleriat?
       Se poistaa myös kaikki niissä olevat kuvat.`,
-      DeleteImages: `Poista Kuvat`,
-      DeleteImagesDesc: `Haluatko varmasti jättää valitut kuvat poistamaan?`,
+      DeleteImages: `Poista kuvat`,
+      DeleteImagesDesc: `Haluatko varmasti poistaa kaikki kuvat?`,
 
       // Upload Images
-      UploadImages: `Lataa Kuvat`,
-      SelectFiles: `Valitse Tiedostot`,
-      Pending: `Odotettaessa`,
-      Uploading: `Lataaminen`,
-      Processing: `Käsittely`,
+      UploadImages: `Lataa kuvat`,
+      SelectFiles: `Valitse tiedostot`,
+      Pending: `Jonossa`,
+      Uploading: `Ladataan`,
+      Processing: `Käsittelee`,
       Failed: `Epäonnistui`,
-      UploadFinished: `Lataa Valmis`,
-      AllUploadsSuccessful: `Kaikki Lataukset Onnistuneet`,
-      XSuccessfulYFailed: `{success} kuvat ladattu onnistuneesti, {fail} epäonnistui`,
+      UploadFinished: `Lataus valmis`,
+      AllUploadsSuccessful: `Kaikki lataukset ovat onnistuneet`,
+      XSuccessfulYFailed: `{success} kuvat ladattu onnistuneesti, {fail} kuvien lataus epäonnistui`,
 
       // Person Gallery
       ImagesOfX: `Kuvia henkilöstä {name}`,
-      NoImagesOfPerson: `{name} -kuvaa ei ole vielä merkitty.`,
+      NoImagesOfPerson: `{name} -kuvaa ei ole vielä lisätty.`,
       GoToGalleries: `Siirry gallerioihin`,
       GoToGallery: `Siirry galleriaan`,
 
       // Edit Image
-      EditImage: 'Muokkaa Kuvaa',
-      Details: 'Yksityiskohdat',
-      GalleryThumbnail: `Gallerian Pikkukuva`,
+      EditImage: 'Muokkaa kuvaa',
+      Details: 'Tiedot',
+      GalleryThumbnail: `Gallerian esikatselukuva`,
 
-      AddTags: `Napsauta/Touch kuvaa koodata ihmisiä`,
+      AddTags: `Klikkaa kuvaa tägätäksesi ihmisiä`,
       WhoIsThis: `Kuka tämä on?`,
-      DeleteTags: `Poista Tunnisteet`,
+      DeleteTags: `Poista tagit`,
 
       // Invite confirmation
-      InviteConfirmation: `ok!Kindred Kutsu Vahvistus`,
+      InviteConfirmation: `ok!Kindred kutsun vahvistus`,
       HelloName: `Hei {name}!`,
       YouHaveBeenInvited: `Kiitos, että olet hyväksynyt kutsun käyttäjältä {invitedBy}
-      liittyä ok! -tautiin, jaa sukupuusi ja pidä yhteyttä perheenjäseniisi!`,
+      liittyä ok!Kindred sivustoon, jossa voit jakaa sukupuusi ja pitää yhteyttä perheenjäseniisi!`,
       CannotFindInvite: `ok!Kindred kutsua ei löydy`,
-      CannotFindInviteDescription: `Tarkista, kuka on lähettänyt sinulle kutsun, ja muista, että kutsut vanhenevat 2 viikon kuluttua.`,
+      CannotFindInviteDescription: `Tarkista kuka on lähettänyt sinulle kutsun, ja muista, että kutsut vanhenevat 2 viikon jälkeen.`,
     },
 };
