@@ -4,16 +4,16 @@ export const finnish = {
     message: {
 
       // Global
-      Edit: `Muokata`,
-      Done: `Tehty`,
-      Delete: `Poistaa`,
+      Edit: `Muokkaa`,
+      Done: `Valmis`,
+      Delete: `Poista`,
       Ok: `Kunnossa`,
-      Cancel: `Peruuttaa`,
-      Close: `Sulkea`,
-      Yes: `Joo`,
+      Cancel: `Peruuta`,
+      Close: `Sulje`,
+      Yes: `Kyllä`,
       No: `Ei`,
-      Confirm: `Vahvistaa`,
-      Back: `Palata`,
+      Confirm: `Vahvista`,
+      Back: `Takaisin`,
       Title: `Otsikko`,
       Description: `Kuvaus`,
 
@@ -23,67 +23,65 @@ export const finnish = {
       Map: 'Kartta',
       Gallery: 'Galleria',
       Search: 'Hae',
-      About: 'Noin',
+      About: 'Info',
       Settings: 'Asetukset',
-      Logout: 'Kirjautua ulos',
+      Logout: 'Kirjaudu ulos',
       Login: 'Kirjaudu sisään',
       Profile: 'Profiili',
-      Toolbar: `Toolbar`,
-      Fullscreen: `Koko Näyttö`,
-      Tags: `Leima`,
-      Download: `Ladata`,
+      Toolbar: `Työkalut`,
+      Fullscreen: `Koko näyttö`,
+      Tags: `Tagi`,
+      Download: `Lataa`,
       Previous: `Edellinen`,
       Next: `Seuraava`,
-      ShowPassword: `Näytä Salasana`,
+      ShowPassword: `Näytä salasana`,
 
       // Login
       PleaseSignIn: 'Ole hyvä ja kirjaudu sisään',
       EmailAddress: 'Sähköpostiosoite',
       Password: 'Salasana',
       SignIn: 'Kirjaudu sisään',
-      IForgotMyPassword: 'unohdin salasanani',
+      IForgotMyPassword: 'Unohdin salasanani',
       InvalidLogin: 'Virheellinen kirjautuminen',
-      AccountLocked: 'Tilisi on nyt lukittu 24 tunnin ajan 4 epäonnistuneet kirjautumisyrityksiä',
+      AccountLocked: 'Tilisi on nyt lukittu 24 tunnin ajaksi neljän epäonnistuneet kirjautumisyrityksen jälkeen',
       NoAccount: `Ei tiliä eikä kutsua?`,
-      SignUp: `Ilmoittautua`,
+      SignUp: `Ilmoittaudu`,
 
       // Introduction
-      Slide1Header: 'Tervetuloa ok! Kindred',
-      Slide1Desc: 'Vapaan ja avoimen lähdekoodin yhteistyöhön sukupuu ja valokuvien jakamiseen verkkosivuilla',
-      Slide2Header: 'Luoda ja jakaa',
-      Slide2Desc: 'Luo ja jaa monikielinen sukupuu perheen kanssa ja kutsu perheenjäseniä nähdäksesi osoitteen ja liittää siihen',
-      Slide3Header: 'Kartta perheesi',
-      Slide3Desc: 'Plot the locations of each of your relatives on a map',
+      Slide1Header: 'Tervetuloa ok!Kindred:iin',
+      Slide1Desc: 'Ilmainen ja avoimen lähdekoodin verkkosivu sukupuun rakentamiseen ja valokuvien jakamiseen yhdessä muiden kanssa',
+      Slide2Header: 'Luo ja jaa',
+      Slide2Desc: 'Luo ja jaa monikielinen sukupuu perheesi kanssa ja kutsu perheenjäseniä katsomaan sukupuutasi ja lisäämään tietoa',
+      Slide3Header: 'Kartta perheestäsi',
+      Slide3Desc: 'Merkitse eri perheenjäseniesi sijainnit kartalle',
       Slide4Header: 'Jaa valokuvia',
-      Slide4Desc: 'Jaa valokuvia yksityisesti välillä perheen ja merkitä perheenjäsenet',
-      SignUpButton: 'Kirjaudu',
+      Slide4Desc: 'Jaa valokuvia yksityisesti perheesi kesken ja merkitse perheenjäseniä',
+      SignUpButton: 'Liity ja luo tili',
 
       // About
-      ViewDetails: 'Tarkemmat tiedot',
+      ViewDetails: 'Lue lisää',
       OurStory: 'Meidän tarinamme',
       OurStoryStub: 'Haluatko tietää tarinan siitä, kuinka ja miksi olemme luoneet tämän sivuston?',
       ContactUs: 'Ota meihin yhteyttä',
-      ContactUsStub: 'Jos sinulla on kysyttävää, haluat ilmoittaa bug, kysy ominaisuus tai edistää lähdekoodia.',
+      ContactUsStub: 'Jos sinulla on kysyttävää, haluat ilmoittaa viasta, pyytää uutta ominaisuutta tai edistää lähdekoodia.',
       FAQ: 'FAQ',
-      FAQStub: 'Usein Kysytyt Kysymykset',
+      FAQStub: 'Usein kysytyt kysymykset',
 
-      StoryHeading: 'Miten se alkoi',
-      StoryText1: `Hei. Olen Justin vasemmalla. Ja olen Adrian oikealla.`,
-      StoryText2: `Tämä on sivusto tallentaa Sukupuussamme ja toimivat vähän kuin sosiaalinen verkosto. Voit ylläpitää profiilin täällä ja selvittää, miten pitkälle puu saavuttaa!
-      Koska henkilö lisätään sukupuun, he saavat sähköpostitse, jotta Sivusto innostui meidän perhejuhliin ja vaikeudet selittää, kuinka me kaikki liittyvät.
-      Perheemme on nyt hyvin monipuolinen monien etnisten ryhmien ja on levinnyt ympäri maailmaa.
-      Kun perhe kasvaa ja kehittyy, halusimme tavan dokumentoida kaikki ja pitää yhteyttä.`,
+      StoryHeading: 'Miten kaikki alkoi',
+      StoryText1: `Hei. Olen Justin vasemmalla ja olen Adrian oikealla.`,
+      StoryText2: `Tämä on sivusto, jolla voimme tallentaa sukupuumme ja se toimii myös vähän niin kuin sosiaalinen verkosto. Voit ylläpitää profiilia täällä ja selvittää, miten pitkälle sukupuusi jatkuu!
+      Kun henkilö lisätään sukupuuhun, hän saa ilmoituksen sähköpostitse, jotta voivat liittyä sivustoon ja lisätä tietoa sukupuuhun. Inspiraatio sivuston luomiseen tuli perhejuhlistamme ja vaikeudesta selittää sukulaissuhteemme.
+      Perheemme on nyt hyvin monipuolinen, siihen kuuluu monia etnisiä ryhmiä ja on levinnyt ympäri maailmaa.`,
 
-      ContactHeading: 'Ottaa yhteyttä',
+      ContactHeading: 'Ota yhteyttä',
       ContactEmail: `Ota yhteyttä sähköpostitse <a href="mailto:info@okkindred.com">info@okkindred.com</a>`,
-      ContactText1: `Jos olet meidän perheessä me haluamme kuulla sinusta ja ovat tervetulleita ja pysyä ympäri tahansa.
-      Jos sinulla on kirjautuminen tähän sivustoon ja ovat osa perhettäni, saat minun puhelinnumero ja osoite minun profiili`,
-      ContactText3: `Vaihtoehtoisesti, jos etsit apua käyttää sivustoa, tai vaikka haluat meidän auttaa perustaa oman samanlainen sivuston ota pudottaa meidät linja!
-      Olemme ihan mukavia ihmisiä ja eivät halua puhua ihmisille kiinnostunut sames me saamme: Geek tavaraa, ohjelmistoja, musiikkia ja hullu pan
-      maailmanlaajuinen kiinalaisten perheiden ...`,
+      ContactText1: `Jos olet sukulaisemme, haluamme kuulla sinusta ja olet tervetullut vierailemaan luonamme.
+      Jos sinulla on tili tälle sivustolle ja olet osa perhettäni, löydät puhelinnumeroni ja osoiteeni profiilistani`,
+      ContactText3: `Vaihtoehtoisesti, jos tarvitset apua sivuston käytössä, tai jos haluat meidän auttavan sinua perustamaan oman samanlaisen sivuston, ota meihin yhteyttä!
+      Olemme ihan mukavia ihmisiä ja tykkäämme puhua ihmisille jotka ovat kiinnostuneet samoista asoista kuin me: nörttien jutuista, ohjelmistoista, musiikista ja hassuista maailmanlaajuisista kiinalaisperheistä ...`,
 
-      FAQHeading: 'Usein Kysytyt Kysymykset',
-      Question1: 'Näkeekö kukaan perheeni tiedot?',
+      FAQHeading: 'Usein kysytyt kysymykset',
+      Question1: 'Näkeekö kuka tahansa perheeni tiedot?',
       Answer1: `No, only people within your family tree that you have invited can see the information you input.  The information is also not searchable by outside users or search engines.`,
 
       Question2: `Onko tietoni turvassa?`,
@@ -150,43 +148,43 @@ export const finnish = {
       LockedForOtherUsers: `Lukittu muille käyttäjille`,
       Name: `Nimi`,
       Gender: `Sukupuoli`,
-      BirthYear: `Syntymä Vuosi`,
-      DeathYear: `Kuoleman Vuosi`,
-      SpokenLanguages: `Puhutut Kielet`,
+      BirthYear: `Syntymä vuosi`,
+      DeathYear: `Kuolin vuosi`,
+      SpokenLanguages: `Puhutut kielet`,
       Email: `Sähköposti`,
       Occupation: `Ammatti`,
-      TelephoneNumber: `Tel Number`,
+      TelephoneNumber: `Puhelinnumero`,
       Location: `Sijainti`,
       Website: `Verkkosivusto`,
-      SkypeName: `Skype Nimi`,
+      SkypeName: `Skype tunnus`,
       Facebook: `Facebook`,
       Twitter: `Twitter`,
       LinkedIn: `LinkedIn`,
 
       Female: `Nainen`,
-      Male: `Uros`,
-      NonBinary: `Epäbinaarisia`,
-      Other: `Muut`,
-      PreferNotToSay: `Olla mieluummin sanomatta`,
+      Male: `Mies`,
+      NonBinary: `Muusukupuolinen (ei-binäärinen)`,
+      Other: `Muu`,
+      PreferNotToSay: `En halua kertoa`,
 
       Biography: `Elämäkerta`,
-      BiographyNotExist: `Elämäkerta ei ole vielä kirjoitettu tällä kielellä.`,
-      InviteToJoin: `Kutsu liittymään`,
+      BiographyNotExist: `Elämäkertaa ei ole vielä kirjoitettu tällä kielellä.`,
+      InviteToJoin: `Kutsu liittymään sivustoon`,
       Photos: `Valokuvat`,
 
-      ClickToEdit: `Napsauta Muokkaa`,
+      ClickToEdit: `Klikkaa muokataksesi`,
       UploadNewPhoto: `Lataa uusi valokuva`,
 
       // Map
       LocationForPersonNotSpecified: `Sijaintia ei ole määritetty henkilölle`,
 
       // Search
-      SearchName: `Haku Name`,
+      SearchName: `Hae nimellä`,
 
       // Password reset
-      PasswordReset: `Salasanan Nollaus`,
+      PasswordReset: `Salasanan nollaus`,
       PasswordResetDescription: `Anna sähköpostiosoitteesi salasanan palauttamisen aloittamiseksi:`,
-      ResetMyPassword: `Nollaa Salasanani`,
+      ResetMyPassword: `Nollaa salasanani`,
       PasswordResetRequested: `Salasanan palautus pyydetty`,
       CheckYourEmailForReset: `Tarkista sähköpostisi saadaksesi lisätietoja.`,
 
