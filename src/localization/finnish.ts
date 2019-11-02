@@ -7,7 +7,7 @@ export const finnish = {
       Edit: `Muokkaa`,
       Done: `Valmis`,
       Delete: `Poista`,
-      Ok: `Kunnossa`,
+      Ok: `Ok`,
       Cancel: `Peruuta`,
       Close: `Sulje`,
       Yes: `Kyllä`,
@@ -88,23 +88,23 @@ export const finnish = {
       Answer2: `Otamme turvallisuuden ja yksityisyyden hyvin vakavasti. Me tallennamme tietoja perheestämme tälle sivustolle, emmekä koskaan tee mitään mikä vaarantaisi perheemme tiedot.
       Ainoastaan oman perheesi jäsenet, jotka kutsut sivustolle ja joiden kanssa jaat sukupuusi näkevät tiedot, jotka tallennat sivustolla.
       Emme myöskään myy, vaihda tai vuokraa henkilökohtaisia ​​tunnistetietoja muille.`,
-      Answer2a: `Sivusto on isännöi <a href="https://www.pythonanywhere.com/?affiliate_id=00022aed\">PythonAnywhere</a> joka itse ottaa yksityisyyttä hyvin vakavasti.
-      Käytämme myös <a href="https://aws.amazon.com/s3/"> Amazon S3</a> tallentaa kaikki kuvat, jotka lataat.
-      Teemme käyttää kolmannen osapuolen <a href="https://en.wikipedia.org/wiki/Geocoding">geocoding</a> palvelujen (Google & Microsoft).
-      Tämä on muuntaa sijainti tulee pituus- ja leveysasteen, jotta voimme piirtää sen kartalla.
-      Kuitenkin mitään muita tunnistetietoja paloja tiedot (esim. Nimi) syötetään tähän paikkaan näille kolmansille osapuolille.
-      Niinpä esimerkiksi lähetämme ainoastaan termiä "Hong Kong" Google, joka sitten antaa meille leveys- ja pituusaste, jotta voimme piirtää sen kartalla.`,
-      Answer2b: `Jos olet huolestunut, sivusto on täysin avoimen lähdekoodin, joten voit
-      ottaa kopion lähdekoodista (katso jäljempänä), on katsoa, ​​miten tiedot on
-      tallennettu tai jopa isännöidä omaa version tällä sivustolla.
-      Meillä on enemmän kuin mielellään auttaa asettaa sen.`,
+      Answer2a: `Sivusto on isännöity <a href="https://www.pythonanywhere.com/?affiliate_id=00022aed\">PythonAnywhere</a> palvelussa, joka ottaa yksityissuojan hyvin vakavasti.
+      Käytämme myös <a href="https://aws.amazon.com/s3/"> Amazon S3</a> palvelua, jonne kaikki sivustolle ladatut kuvat tallennetaan.
+      Käyttää kolmannen osapuolen <a href="https://en.wikipedia.org/wiki/Geocoding">geokoodaus</a> palveluja (Google & Microsoft).
+      Geokoodaus palvelut muuntavat sijainnin pituus- ja leveysasteiksi, jotta voimme piirtää sen kartalla.
+      Mitään muita tunnistetietoja (esim. nimeä) ei anneta sijainnin lisäksi näille kolmansille osapuolille.
+      Esimerkiksi, lähetämme ainoastaan sijainnin "Hong Kong" Googlen geokoodaus palveluun, joka sitten antaa meille Hong Kongin leveys- ja pituusasteeen, jotta voimme piirtää sen kartalla.`,
+      Answer2b: `Jos olet huolestunut, sivustomme lähdekoodi on täysin avoin, joten voit
+      ottaa kopion lähdekoodista (katso lähdekoodin tiedot alempana), katsoa, ​​miten tietosi on
+      tallennettu tai jopa isännöidä oman version tästä sivustosta.
+      Autamme mielellämme oman sivustosi perustamisessa.`,
 
-      Question3: `Voinko nähdä lähdekoodia?`,
-      Answer3: `Lähdekoodi sijaitsee <a href="https://github.com/JustinWingChungHui/okKindred">Github.com</a>. Mitä näet okKindred.com otetaan "production" haara.`,
-      Answer3a: `Olemme antanut sen jollain <a href="https://en.wikipedia.org/wiki/MIT_License">MIT lisenssin</a> mikä tarkoittaa vapaasti käyttää, kopioida ja muokata koodia oman tarkoitukseen.
-      <a href="https://github.com/JustinWingChungHui/okKindred/blob/master/README.rst">README</a> sisältää perustiedot yleiskuvan siitä, miten se toimii ja askel askeleelta ohjeet sijoittaa oman esimerkiksi.`,
-      Answer3b: `Olemme tyytyväisiä kuka tahansa ideoita tai joka haluaa osallistua tähän projektiin ja tehdä se paremmin! Olemme erityisen tarvitsevat apua kääntämistä muille kielille.
-      Ole hyvä <a href="mailto:info@okkindred.com?subject=Development">yhteyttä</a> jos haluat edistää, tai (vielä parempi) esittää pull pyynnön Github :)`,
+      Question3: `Voinko nähdä lähdekoodin?`,
+      Answer3: `Tämän sivuston lähdekoodi sijaitsee <a href="https://github.com/JustinWingChungHui/okKindred">Github.com</a>. Mitä näet okKindred.com sivustolla otetaan Githubin "production" haarasta.`,
+      Answer3a: `Sivustollamme on <a href="https://en.wikipedia.org/wiki/MIT_License">MIT lisenssi</a> mikä tarkoittaa että voit vapaasti käyttää, kopioida ja muokata koodia omiin tarkoituksiisi.
+      <a href="https://github.com/JustinWingChungHui/okKindred/blob/master/README.rst">README</a> tiedosto sisältää yleiskuvauksen siitä, miten sivusto toimii ja ohjeet miten otat käyttöön oman instanssin.`,
+      Answer3b: `Otamme mielellämme vastaan ideoita ja olet tervetullut osallistumaan tähän projektiin ja parantamaan sitä! Tarvitsemme erityisesti apua sivuston kääntämisessä muille kielille.
+      Ota <a href="mailto:info@okkindred.com?subject=Development">yhteyttä</a> jos haluat auttaa projektia, tai (mieluiten) esittää pull requestin Githubissa :)`,
 
       Question4: `Mitä sinä saat tästä sivustosta, kun se on ilmainen?`,
       Answer4: `Olemme ohjelmistokehittäjiä, ja tämä projekti on luotu vapaa-ajallamme laajentaa taitojamme ja että voimme lisätä tämän portfolioomme näyttääkseemme muille taitojamme.
@@ -136,10 +136,10 @@ export const finnish = {
       Answer10a: `Koska monet sukututkimusta sivustot tehdä tämän jo, me yrittäisi keskittyä enemmän sosiaalisen verkottumisen puolella tämän projektin.
       Kuitenkin, että ei ole sanoa, että jos ajan suuri tarve kävi ilmeiseksi, emme olisi tarkastella toteuttaa tällainen ominaisuus.`,
 
-      Question11: `Sillä kuvataan suhteita olet "Partneroitu" mutta ei "Naimisissa", olet "Raised" mutta ei "synnyttänyt"?`,
-      Answer11: `Olemme yrittäneet pitää sivuston mahdollisimman yksinkertainen ja mahdollisimman kattavat. Määritelmät "Raised", "Raised" ja "Partneroitu antaa riittävästi tietoa rakentaa puuhun.
-      Ne sisältävät kulttuurien suhteita, jotka eivät ole avioliittokäsite.
-      Ne voivat sisältää parisuhteiden, common law kumppanit, eronneita, adoptoidut ja muita määritelmiä, jotka voidaan tai ei ole eri kulttuureissa`,
+      Question11: `Käytätte suhteiden kuvaamisessa "Parisuhteessa" eikä "Naimisissa", tai "Kasvattanut" eikä "Synnyttänyt"?`,
+      Answer11: `Olemme yrittäneet pitää sivuston mahdollisimman yksinkertaisena ja mahdollisimman kattavat. Määritelmät "Kasvattanut" ja "Parisuhteessa" antavat riittävästi tietoa rakentaa sukupuun.
+      Käsitteet sisältävät monikulttuurisia suhteita, joissa ei välttämättä ole avioliittokäsitettä.
+      Ne voivat sisältää rekisteröidyn parisuhteen, avoliiton, eronneita, adoptoidut ja muita määritelmiä, joita esiintyy eri kulttuureissa`,
         
       AboutFooter: `Justin Wing Chung Hui & Adrian Chu`,
 
