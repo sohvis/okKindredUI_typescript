@@ -9,7 +9,7 @@ export const localeStrings: { [id: string]: string; } = {
     'en': 'English',
     'fr': 'Français',
     'pl': 'Polski',
-    'fi': 'Suomalainen',
+    'fi': 'Suomi',
     'zh-cn': '简体中文',
     'zh-tw': '繁體中文',
 };
