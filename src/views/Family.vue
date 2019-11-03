@@ -78,6 +78,8 @@ export default class Family extends Vue {
       document.body.scrollTop = document.documentElement.scrollTop = 0;
       await this.initialize();
       document.body.scrollTop = document.documentElement.scrollTop = 0;
+
+      store.dispatch('updateRouteLoaded');
     }
 
     private route(state: string) {

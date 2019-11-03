@@ -15,6 +15,7 @@ interface IState {
     people: Person[];
     relations: Relation[];
     currentGallery: Gallery | null;
+    initialRoute: string;
 }
 
 export default IState;

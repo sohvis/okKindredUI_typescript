@@ -109,6 +109,8 @@ export default class UploadImages extends Vue {
         this.$nextTick(() => {
             this.selectFilesClick();
         });
+
+        store.dispatch('updateRouteLoaded');
     }
 
     private selectFilesClick() {

@@ -1,6 +1,5 @@
 import Person from '../models/data/person';
 import Relation from '../models/data/relation';
-import Gallery from '../models/data/gallery';
 import IState from './IState';
 
 
@@ -26,6 +25,8 @@ const state: IState = {
     people: new Array<Person>(),
     relations: new Array<Relation>(),
     currentGallery: null,
+
+    initialRoute: '',
 };
 
 export default state;

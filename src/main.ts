@@ -28,6 +28,7 @@ export const i18n = new VueI18n({
   messages, // set locale messages
 });
 
+
 // Add vue js to global variables so callable outside app
 (window as any).viewModel = new Vue({
   i18n,
@@ -36,15 +37,7 @@ export const i18n = new VueI18n({
   render: (h) => h(App),
 }).$mount('#app');
 
-
 (window as any).viewModel.navigateTo = (route: string) => {
-
-  const vm = (window as any).viewModel as Vue;
-
-  // Hacky
-  vm.$nextTick(() => {
-    const app = vm.$children[0] as any;
-    window.console.log(app);
-    app.navigateTo(route);
-  });
+  const vm = (window as any).viewModel as any;
+  vm.$store.dispatch('setInitialRoute', route);
 };

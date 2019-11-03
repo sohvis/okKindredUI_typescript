@@ -156,6 +156,8 @@ export default class SignUp extends Vue {
 
         // window.console.log(`language: ${language}`);
         i18n.locale = localeMatch.match(language);
+
+        store.dispatch('updateRouteLoaded');
     }
 }
 </script>

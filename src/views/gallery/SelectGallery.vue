@@ -51,6 +51,7 @@ export default class SelectGallery extends Vue {
             await store.dispatch('restoreSession');
             await this.loadData();
 
+            store.dispatch('updateRouteLoaded');
         } catch (ex) {
             // window.console.log(`ex: ${ex}`);
             this.$router.push(`/accounts/login/?next=${this.$router.currentRoute.fullPath}`);
