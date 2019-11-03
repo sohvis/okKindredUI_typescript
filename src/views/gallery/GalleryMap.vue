@@ -59,6 +59,8 @@ export default class GalleryMap extends Vue {
           const newMapDivTop = mapDiv.getBoundingClientRect().top;
           this.monitorHeightChange(newMapDivTop);
         }
+
+        store.dispatch('updateRouteLoaded');
     }
 
     private initializeSize() {

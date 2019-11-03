@@ -6,6 +6,7 @@ import { i18n } from '../main';
 import Person from '../models/data/person';
 import Relation from '../models/data/relation';
 import Gallery from '../models/data/gallery';
+import router from '../router';
 
 const actions: ActionTree<IState, IState> = {
     changeLanguage(context, payload) {
@@ -328,6 +329,17 @@ const actions: ActionTree<IState, IState> = {
 
     updateCurrentGallery(context, gallery: Gallery) {
         context.commit('changeCurrentGallery', gallery);
+    },
+
+    setInitialRoute(context, route: string) {
+        context.commit('setInitialRoute', route);
+    },
+
+    updateRouteLoaded(context) {
+        const currentRoute = router.currentRoute.path;
+        if (context.state.initialRoute.startsWith(currentRoute)) {
+            context.commit('setInitialRoute', '');
+        }
     },
 };
 

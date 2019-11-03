@@ -44,6 +44,8 @@ export default class NewProfilePhoto extends Vue {
     protected async mounted() {
       // window.console.log('NewProfilePhoto.vue mounted() call');
       this.chooseFile();
+
+      store.dispatch('updateRouteLoaded');
     }
 
     private chooseFile() {

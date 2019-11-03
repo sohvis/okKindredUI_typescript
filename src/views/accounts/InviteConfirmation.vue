@@ -143,6 +143,8 @@ export default class InviteConfirmation extends Vue {
             this.emailAddress = invite.email_address;
             this.userWhoInvitedYou = invite.username_who_invited_person;
             this.loaded = true;
+
+            store.dispatch('updateRouteLoaded');
         } catch (error) {
 
             this.errorMessage = error.toString();

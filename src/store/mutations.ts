@@ -5,6 +5,7 @@ import { i18n } from '../main';
 import Person from '../models/data/person';
 import Relation from '../models/data/relation';
 import Gallery from '../models/data/gallery';
+import router from '../router';
 
 const mutations: MutationTree<IState> = {
     // Set when a component starts and finishes loading
@@ -109,6 +110,14 @@ const mutations: MutationTree<IState> = {
 
     changeCurrentGallery(state, newGallery: Gallery) {
         state.currentGallery = newGallery;
+    },
+
+    setInitialRoute(state, route: string) {
+        state.initialRoute = route;
+
+        if (route) {
+            router.push(route);
+        }
     },
 };
 

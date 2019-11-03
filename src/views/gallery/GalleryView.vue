@@ -119,6 +119,9 @@ export default class GalleryView extends Vue {
             window.addEventListener('resize', this.setDisplaySizes);
             window.onresize = () => this.setDisplaySizes();
 
+            window.console.log(`store.dispatch('updateRouteLoaded');`);
+            store.dispatch('updateRouteLoaded');
+
         } catch (ex) {
             window.console.log(`ex: ${ex}`);
             this.$router.push(`/accounts/login/?next=${this.$router.currentRoute.fullPath}`);
