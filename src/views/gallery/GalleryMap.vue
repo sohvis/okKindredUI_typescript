@@ -107,7 +107,7 @@ export default class GalleryMap extends Vue {
 
             if (pageCount > 1) {
                 const tasks = new Array<Promise<PagedResult<Image>>>();
-                for (let page = 2; page < pageCount; page++) {
+                for (let page = 2; page <= pageCount; page++) {
                     tasks.push(this.loadImageFromPage(page));
                 }
 
