@@ -107,7 +107,12 @@ export default class UploadImages extends Vue {
         }
 
         this.$nextTick(() => {
-            this.selectFilesClick();
+
+            if (store.state.filesToUpload.length === 0) {
+                this.selectFilesClick();
+            } else {
+                this.processFiles(store.state.filesToUpload);
+            }
         });
 
         store.dispatch('updateRouteLoaded');
@@ -123,6 +128,10 @@ export default class UploadImages extends Vue {
         // window.console.log(e);
 
         const files = e.target.files || e.dataTransfer.files;
+        this.processFiles(files);
+    }
+
+    private processFiles(files: File[]) {
         if (files.length === 0) {
             this.$router.push(`/gallery/${this.galleryId}/?page=${this.page}`);
         } else {
@@ -139,6 +148,7 @@ export default class UploadImages extends Vue {
 
         store.commit('updateLoading', true);
 
+        store.dispatch('setFilesToUpload', []);
         this.failedCount = 0;
         this.successCount = 0;
 

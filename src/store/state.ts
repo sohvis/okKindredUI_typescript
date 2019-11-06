@@ -27,6 +27,7 @@ const state: IState = {
     currentGallery: null,
 
     initialRoute: '',
+    filesToUpload: [],
 };
 
 export default state;
