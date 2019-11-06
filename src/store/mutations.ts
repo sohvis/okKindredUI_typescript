@@ -119,6 +119,10 @@ const mutations: MutationTree<IState> = {
             router.push(route);
         }
     },
+
+    setFilesToUpload(state, files: File[]){
+        state.filesToUpload = files;
+    },
 };
 
 export default mutations;

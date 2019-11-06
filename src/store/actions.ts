@@ -1,4 +1,4 @@
-import { ActionTree } from 'vuex';
+import { ActionTree, ActionContext } from 'vuex';
 import * as request from 'request-promise-native';
 import { configs } from '../config';
 import IState from './IState';
@@ -340,6 +340,10 @@ const actions: ActionTree<IState, IState> = {
         if (context.state.initialRoute.startsWith(currentRoute)) {
             context.commit('setInitialRoute', '');
         }
+    },
+
+    setFilesToUpload(context, files: File[]) {
+        context.commit('setFilesToUpload', files);
     },
 };
 

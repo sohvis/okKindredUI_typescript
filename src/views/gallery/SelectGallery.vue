@@ -40,11 +40,10 @@ export default class SelectGallery extends Vue {
         return store.getters.loading;
     }
 
-
     public galleries: Gallery[] = [];
 
     protected async mounted() {
-        // window.console.log('GalleryList.vue mounted() call');
+        // window.console.log('SelectGallery.vue mounted() call');
 
         try {
             // Load jwt from cookie and login
@@ -59,7 +58,7 @@ export default class SelectGallery extends Vue {
     }
 
     private async loadData() {
-        // window.console.log(`GalleryList.loadData()`);
+        // window.console.log(`SelectGallery.loadData()`);
 
         store.commit('updateLoading', true);
 
@@ -111,6 +110,7 @@ export default class SelectGallery extends Vue {
 
    private selectGallery(gallery: Gallery) {
         window.console.log(`GalleryList.selectGallery(galleryId: ${gallery.id})`);
+        this.$router.push(`/gallery/${gallery.id}/upload/`);
    }
 }
 </script>

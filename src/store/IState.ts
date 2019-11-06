@@ -16,6 +16,7 @@ interface IState {
     relations: Relation[];
     currentGallery: Gallery | null;
     initialRoute: string;
+    filesToUpload: File[];
 }
 
 export default IState;
