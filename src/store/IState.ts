@@ -17,6 +17,7 @@ interface IState {
     currentGallery: Gallery | null;
     initialRoute: string;
     filesToUpload: File[];
+    userAgent: string;
 }
 
 export default IState;

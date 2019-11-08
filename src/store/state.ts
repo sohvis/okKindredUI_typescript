@@ -28,6 +28,7 @@ const state: IState = {
 
     initialRoute: '',
     filesToUpload: [],
+    userAgent: navigator.userAgent,
 };
 
 export default state;

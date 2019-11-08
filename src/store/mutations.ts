@@ -120,8 +120,12 @@ const mutations: MutationTree<IState> = {
         }
     },
 
-    setFilesToUpload(state, files: File[]){
+    setFilesToUpload(state, files: File[]) {
         state.filesToUpload = files;
+    },
+
+    setUserAgent(state, userAgent: string) {
+        state.userAgent = userAgent;
     },
 };
 

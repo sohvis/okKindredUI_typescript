@@ -1,11 +1,17 @@
+import store from '../store/store';
+
 export default class BrowserDetection {
 
+    public static isXamarinApp(): boolean {
+        return store.state.userAgent.toLowerCase().indexOf('xamarin') > -1;
+    }
+
     public static isAndroid(): boolean {
-        return navigator.userAgent.toLowerCase().indexOf('android') > -1;
+        return store.state.userAgent.toLowerCase().indexOf('android') > -1;
     }
 
     public static isFirefox(): boolean {
-        return navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+        return store.state.userAgent.toLowerCase().indexOf('firefox') > -1;
     }
 
     public static is_iOS(): boolean {
@@ -15,7 +21,7 @@ export default class BrowserDetection {
             }
         }
 
-        return false;
+        return store.state.userAgent.toLowerCase().indexOf('ios') > -1;
     }
 
     public static isMobileMenuOpen(): boolean {
