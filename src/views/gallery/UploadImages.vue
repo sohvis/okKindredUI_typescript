@@ -108,9 +108,19 @@ export default class UploadImages extends Vue {
 
         this.$nextTick(() => {
 
+            // No files to upload in state
             if (store.state.filesToUpload.length === 0) {
-                this.selectFilesClick();
+
+                if (BrowserDetection.isXamarinApp() && BrowserDetection.isAndroid()) {
+                    // Xamarin Android App should pick up this route
+                    window.location.href = `/gallery/${this.galleryId}/upload/?page=${this.page}&title=${this.title}`;
+
+                } else {
+                    // Normal Browser
+                    this.selectFilesClick();
+                }
             } else {
+                // Upload files stored in state
                 this.processFiles(store.state.filesToUpload);
             }
         });
@@ -148,6 +158,7 @@ export default class UploadImages extends Vue {
 
         store.commit('updateLoading', true);
 
+        // Clear the files in state to be uploaded
         store.dispatch('setFilesToUpload', []);
         this.failedCount = 0;
         this.successCount = 0;

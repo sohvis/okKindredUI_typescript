@@ -345,6 +345,10 @@ const actions: ActionTree<IState, IState> = {
     setFilesToUpload(context, files: File[]) {
         context.commit('setFilesToUpload', files);
     },
+
+    setUserAgent(context, userAgent: string) {
+        context.commit('setUserAgent', userAgent);
+    },
 };
 
 export default actions;

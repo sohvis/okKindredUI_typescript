@@ -23,7 +23,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 import store from '../../store/store';
 import configs from '../../config';
 import Person from '../../models/data/person';
-
+import BrowserDetection from '../../models/browserDetection';
 
 @Component
 export default class ChooseFile extends Vue {
@@ -53,8 +53,15 @@ export default class ChooseFile extends Vue {
 
   // Opens input file
   private buttonClick() {
-    const input = document.getElementById('file-input') as HTMLInputElement;
-    input.click();
+
+    if (BrowserDetection.isXamarinApp() && BrowserDetection.isAndroid()) {
+        // Xamarin Android App should pick up this route
+        window.location.href = `/new_profile_photo/?person_id=${store.getters.selectedPerson.id}`;
+
+     } else {
+      const input = document.getElementById('file-input') as HTMLInputElement;
+      input.click();
+    }
   }
 
   private fileSelected(e: any) {
