@@ -113,6 +113,6 @@ export default class App extends Vue {
 
   .site-logo {
     height: 23px;
-    margin-right: 4px;
+    margin-right: 10px;
   }
 </style>
