@@ -1,44 +1,81 @@
+import store from './store/store';
 import AndroidImage from './models/data/android_image';
 
+interface ViewModelApi {
+  navigateTo(route: string): void;
+  uploadSharedFiles(androidImages: AndroidImage[]): Promise<void>;
+  setUserAgent(userAgent: string): void;
+  uploadFileToRoute(androidImages: AndroidImage[], route: string): Promise<void>;
+}
+
 /// Defines external API to web app.  Allows native aps to interact with it
-export default class MainApi {
+export default class MainApi implements ViewModelApi {
 
-  public static Setup(viewModel: any) {
+  public static Setup(viewModel: ViewModelApi) {
 
-    // Navigate to
-    viewModel.navigateTo = (route: string) => {
-      viewModel.$store.dispatch('setInitialRoute', route);
-    };
+    const funcs = new MainApi();
+    viewModel.navigateTo = funcs.navigateTo;
+    viewModel.uploadSharedFiles = funcs.uploadSharedFiles;
+    viewModel.setUserAgent = funcs.setUserAgent;
+  }
 
-    // Upload Files
-    viewModel.uploadFiles = async (androidImages: AndroidImage[]) => {
+  // Navigate to
+  public navigateTo(route: string): void {
+    store.dispatch('setInitialRoute', route);
+  }
 
-      try {
-        viewModel.$store.commit('updateLoading', true);
+  // Uploading files via android share, need to select gallery
+  public async uploadSharedFiles(androidImages: AndroidImage[]): Promise<void> {
+    try {
+      store.commit('updateLoading', true);
 
-        viewModel.navigateTo('/select_gallery/');
+      this.navigateTo('/select_gallery/');
 
-        const files = new Array<File>();
-        for (const androidImage of androidImages) {
+      const files = new Array<File>();
+      for (const androidImage of androidImages) {
 
-          const res = await fetch(androidImage.base64Image);
-          const blob = await res.arrayBuffer();
+        const res = await fetch(androidImage.base64Image);
+        const blob = await res.arrayBuffer();
 
-          const file = new File([blob], androidImage.fileName, {type: androidImage.mimeType});
+        const file = new File([blob], androidImage.fileName, {type: androidImage.mimeType});
 
-          files.push(file);
-        }
-
-        viewModel.$store.dispatch('setFilesToUpload', files);
-
-      } finally {
-        viewModel.$store.commit('updateLoading', false);
+        files.push(file);
       }
-    };
 
-    // Set User Agent
-    viewModel.setUserAgent = (userAgent: string) => {
-      viewModel.$store.dispatch('setUserAgent', userAgent);
-    };
+      store.dispatch('setFilesToUpload', files);
+
+    } finally {
+      store.commit('updateLoading', false);
+    }
+  }
+
+  // Sets user agent, used by native apps
+  public setUserAgent(userAgent: string): void {
+    store.dispatch('setUserAgent', userAgent);
+  }
+
+  // Upload files, we should know the route already
+  public async uploadFileToRoute(androidImages: AndroidImage[], route: string): Promise<void> {
+    try {
+      store.commit('updateLoading', true);
+
+      const files = new Array<File>();
+      for (const androidImage of androidImages) {
+
+        const res = await fetch(androidImage.base64Image);
+        const blob = await res.arrayBuffer();
+
+        const file = new File([blob], androidImage.fileName, {type: androidImage.mimeType});
+
+        files.push(file);
+      }
+
+      store.dispatch('setFilesToUpload', files);
+
+      this.navigateTo(route);
+
+    } finally {
+      store.commit('updateLoading', false);
+    }
   }
 }

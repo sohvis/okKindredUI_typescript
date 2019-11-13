@@ -50,7 +50,14 @@ export default class NewProfilePhoto extends Vue {
 
     private chooseFile() {
       (this.$refs.cropFile as CropFile).resetRotation();
-      this.setState('ChooseFile');
+
+
+      if (store.state.filesToUpload.length === 0) {
+        this.setState('ChooseFile');
+
+      } else {
+        this.fileSelected(store.state.filesToUpload[0]);
+      }
     }
 
     private fileSelected(file: File) {
@@ -69,6 +76,9 @@ export default class NewProfilePhoto extends Vue {
 
     private async uploadFile(cropArgs: CropArgs) {
       this.setState('ImageUpload');
+
+      // Clear the files in state to be uploaded
+      store.dispatch('setFilesToUpload', []);
 
       await (this.$refs.imageUpload as ImageUpload).upload(cropArgs);
     }
