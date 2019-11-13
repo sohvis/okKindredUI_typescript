@@ -55,7 +55,7 @@ export default class MainApi implements ViewModelApi {
   }
 
   // Upload files, we should know the route already
-  public async uploadFileToRoute(androidImages: AndroidImage[], route: string): Promise<void> {
+  public async uploadFileToRoute(androidImages: AndroidImage[]): Promise<void> {
     try {
       store.commit('updateLoading', true);
 
@@ -71,8 +71,6 @@ export default class MainApi implements ViewModelApi {
       }
 
       store.dispatch('setFilesToUpload', files);
-
-      this.navigateTo(route);
 
     } finally {
       store.commit('updateLoading', false);
