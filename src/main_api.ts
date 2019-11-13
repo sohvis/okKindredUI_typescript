@@ -4,8 +4,8 @@ import AndroidImage from './models/data/android_image';
 interface ViewModelApi {
   navigateTo(route: string): void;
   uploadSharedFiles(androidImages: AndroidImage[]): Promise<void>;
+  uploadFileFromExternalPicker(androidImages: AndroidImage[]): Promise<void>;
   setUserAgent(userAgent: string): void;
-  uploadFileToRoute(androidImages: AndroidImage[], route: string): Promise<void>;
 }
 
 /// Defines external API to web app.  Allows native aps to interact with it
@@ -17,6 +17,7 @@ export default class MainApi implements ViewModelApi {
     viewModel.navigateTo = funcs.navigateTo;
     viewModel.uploadSharedFiles = funcs.uploadSharedFiles;
     viewModel.setUserAgent = funcs.setUserAgent;
+    viewModel.uploadFileFromExternalPicker = funcs.uploadFileFromExternalPicker;
   }
 
   // Navigate to
@@ -55,7 +56,7 @@ export default class MainApi implements ViewModelApi {
   }
 
   // Upload files, we should know the route already
-  public async uploadFileToRoute(androidImages: AndroidImage[]): Promise<void> {
+  public async uploadFileFromExternalPicker(androidImages: AndroidImage[]): Promise<void> {
     try {
       store.commit('updateLoading', true);
 
