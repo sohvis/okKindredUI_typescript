@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h2>{{ $t('message.NewProfilePhoto') }}</h2>
+    <h2 id="new-profile-photo-header">{{ $t('message.NewProfilePhoto') }}</h2>
 
     <ChooseFile 
         v-show="state==='ChooseFile'" 
@@ -21,7 +21,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Watch} from 'vue-property-decorator';
 import * as request from 'request-promise-native';
 import store from '../store/store';
 import { configs } from '../config';
@@ -41,6 +41,10 @@ export default class NewProfilePhoto extends Vue {
 
     public state: string = 'ChooseFile';
 
+    public get appFilesToUpload(): File[] {
+        return store.state.filesToUpload;
+    }
+
     protected async mounted() {
       // window.console.log('NewProfilePhoto.vue mounted() call');
       this.chooseFile();
@@ -58,6 +62,18 @@ export default class NewProfilePhoto extends Vue {
       } else {
         this.fileSelected(store.state.filesToUpload[0]);
       }
+    }
+
+    @Watch('appFilesToUpload')
+    private filesUploadedFromApp() {
+        // check component is showing
+        const header = document.getElementById('new-profile-photo-header') as HTMLHtmlElement;
+        if (header.offsetParent) {
+
+            if ( this.appFilesToUpload.length > 0) {
+                this.fileSelected(this.appFilesToUpload[0]);
+            }
+        }
     }
 
     private fileSelected(file: File) {

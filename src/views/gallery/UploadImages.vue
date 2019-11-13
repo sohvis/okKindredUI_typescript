@@ -22,6 +22,7 @@
             {{ $t('message.UploadImages') }}
         </h2>
         <button 
+            id="file-input-button"
             v-if="!uploading"
             class="btn btn-lg btn-success" 
             @click="selectFilesClick">
@@ -94,6 +95,10 @@ export default class UploadImages extends Vue {
         }
     }
 
+    public get appFilesToUpload(): File[] {
+        return store.state.filesToUpload;
+    }
+
     public failedCount: number = 0;
 
     public successCount: number = 0;
@@ -107,30 +112,38 @@ export default class UploadImages extends Vue {
         }
 
         this.$nextTick(() => {
-
-            // No files to upload in state
-            if (store.state.filesToUpload.length === 0) {
-
-                if (BrowserDetection.isXamarinApp() && BrowserDetection.isAndroid()) {
-                    // Xamarin Android App should pick up this route
-                    window.location.href = `/gallery/${this.galleryId}/upload/?page=${this.page}&title=${this.title}`;
-
-                } else {
-                    // Normal Browser
-                    this.selectFilesClick();
-                }
+            if ( this.appFilesToUpload.length > 0) {
+                this.processFiles(this.appFilesToUpload);
             } else {
-                // Upload files stored in state
-                this.processFiles(store.state.filesToUpload);
+                this.selectFilesClick();
             }
         });
 
         store.dispatch('updateRouteLoaded');
     }
 
+    @Watch('appFilesToUpload')
+    private filesUploadedFromApp() {
+        // check component is showing
+        const button = document.getElementById('file-input-button') as HTMLButtonElement;
+        if (button.offsetParent) {
+
+            if ( this.appFilesToUpload.length > 0) {
+                this.processFiles(this.appFilesToUpload);
+            }
+        }
+    }
+
     private selectFilesClick() {
-        const input = document.getElementById('file-input') as HTMLInputElement;
-        input.click();
+
+        if (BrowserDetection.isXamarinApp() && BrowserDetection.isAndroid()) {
+            // Xamarin Android App should pick up this route
+            window.location.href = `/gallery/${this.galleryId}/upload/?page=${this.page}&title=${this.title}`;
+
+        } else {
+            const input = document.getElementById('file-input') as HTMLInputElement;
+            input.click();
+        }
     }
 
     private filesSelected(e: any) {
