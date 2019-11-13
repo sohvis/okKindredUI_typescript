@@ -56,7 +56,7 @@ export default class ChooseFile extends Vue {
 
     if (BrowserDetection.isXamarinApp() && BrowserDetection.isAndroid()) {
         // Xamarin Android App should pick up this route
-        window.location.href = `/new_profile_photo/?person_id=${store.getters.selectedPerson.id}`;
+        window.location.href = `/xamarin_external_filepicker/`;
 
      } else {
       const input = document.getElementById('file-input') as HTMLInputElement;

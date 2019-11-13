@@ -124,6 +124,7 @@ export default class UploadImages extends Vue {
 
     @Watch('appFilesToUpload')
     private filesUploadedFromApp() {
+
         // check component is showing
         const button = document.getElementById('file-input-button') as HTMLButtonElement;
         if (button.offsetParent) {
@@ -138,7 +139,7 @@ export default class UploadImages extends Vue {
 
         if (BrowserDetection.isXamarinApp() && BrowserDetection.isAndroid()) {
             // Xamarin Android App should pick up this route
-            window.location.href = `/gallery/${this.galleryId}/upload/?page=${this.page}&title=${this.title}`;
+            window.location.href = `/xamarin_external_filepicker_multiple/`;
 
         } else {
             const input = document.getElementById('file-input') as HTMLInputElement;
