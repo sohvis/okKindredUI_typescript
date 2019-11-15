@@ -79,7 +79,9 @@
             </div>
 
             <b-alert variant="danger" v-model="showError">
-                {{ errorMessage }}
+                {{ errorMessage }} <br/>
+                {{ $t("message.AlreadySignedUp") }}
+                <router-link to="/accounts/login/">{{ $t("message.Login") }}</router-link>
             </b-alert>
 
             <b-button type="submit" variant="primary">{{$t('message.Confirm')}}</b-button>

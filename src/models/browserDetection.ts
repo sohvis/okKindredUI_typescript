@@ -6,6 +6,10 @@ export default class BrowserDetection {
         return store.state.userAgent.toLowerCase().indexOf('xamarin') > -1;
     }
 
+    public static isAndroidWebView(): boolean {
+        return store.state.userAgent.toLowerCase().indexOf('; wv') > -1;
+    }
+
     public static isAndroid(): boolean {
         return store.state.userAgent.toLowerCase().indexOf('android') > -1;
     }
