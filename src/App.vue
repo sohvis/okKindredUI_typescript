@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    
     <b-navbar id="navbar" toggleable="md" type="dark" 
         variant="primary" v-bind:sticky="false" class="navbar-background">
       <b-navbar-brand to="/">
@@ -78,11 +77,11 @@ import Search from './components/search/Search.vue';
 export default class App extends Vue {
 
   // Computed properties
-  get logged_in() {
+  public get logged_in() {
     return store.state.logged_in;
   }
 
-  get loading() {
+  public get loading() {
     return store.getters.loading;
   }
 

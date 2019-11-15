@@ -15,6 +15,7 @@ import Loading from '@/components/common/Loading.vue';
 import Introduction from '@/components/Introduction.vue';
 import AboutComponent from '@/components/AboutComponent.vue';
 import store from '../store/store';
+import BrowserDetection from '../models/browserDetection';
 
 @Component({
   components: {
@@ -42,6 +43,11 @@ export default class Home extends Vue {
     } catch {
         // not logged in, set language from browser
         i18n.locale = localeMatch.match(navigator.language);
+
+        // Just go to sign up screen if app
+        if (BrowserDetection.isXamarinApp()) {
+          this.$router.push('/accounts/sign_up/');
+        } 
     }
 
     this.loaded = true;
