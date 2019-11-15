@@ -6,6 +6,10 @@ export default class BrowserDetection {
         return store.state.userAgent.toLowerCase().indexOf('xamarin') > -1;
     }
 
+    public static isAndroidWebView(): boolean {
+        return store.state.userAgent.toLowerCase().indexOf('; wv') > -1;
+    }
+
     public static isAndroid(): boolean {
         return store.state.userAgent.toLowerCase().indexOf('android') > -1;
     }
@@ -26,7 +30,18 @@ export default class BrowserDetection {
 
     public static isMobileMenuOpen(): boolean {
         const mobileMenu = document.getElementById('nav_collapse') as HTMLDivElement;
-        return mobileMenu.clientHeight > 80;
+        if (!mobileMenu) {
+            return false;
+        } else {
+            return mobileMenu.clientHeight > 80;
+        }
+    }
+
+    public static debugState(): string {
+        return `isXamarinApp: ${BrowserDetection.isXamarinApp()}
+        isAndroid: ${BrowserDetection.isAndroid()}
+        isFirefox: ${BrowserDetection.isFirefox()}
+        isMobileMenuOpen: ${BrowserDetection.isMobileMenuOpen()}`;
     }
 
     private static iDevices: string[] = [
