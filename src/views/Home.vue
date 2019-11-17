@@ -44,7 +44,7 @@ export default class Home extends Vue {
         // not logged in, set language from browser
         i18n.locale = localeMatch.match(navigator.language);
 
-        // If on an app, then 
+        // If on an app, then
         if (BrowserDetection.isAndroidWebView()) {
           this.$router.push('/accounts/sign_up/');
         }

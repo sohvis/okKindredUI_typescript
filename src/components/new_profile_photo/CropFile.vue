@@ -171,6 +171,9 @@ export default class CropFile extends Vue {
     // reset the rotation if going back
     this.resetRotation();
 
+    // Clear the files in state to be uploaded
+    store.dispatch('setFilesToUpload', []);
+
     this.$emit('back');
   }
 

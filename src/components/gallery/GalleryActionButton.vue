@@ -127,6 +127,9 @@ export default class GalleryActionButton extends Vue {
 
     public addImages() {
         if (this.gallery) {
+            // Clear the files in state to be uploaded
+            store.dispatch('setFilesToUpload', []);
+
             this.$router.push(`/gallery/${this.gallery.id}/upload/?page=${this.page}&title=${this.gallery.title}`);
         }
     }

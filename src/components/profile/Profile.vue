@@ -415,6 +415,9 @@ export default class Profile extends Vue {
   }
 
   private uploadNewPhoto() {
+    // Clear the files in state to be uploaded
+    store.dispatch('setFilesToUpload', []);
+
     this.$router.push('/new_profile_photo/');
   }
 }
