@@ -118,7 +118,9 @@ export default class AddGallery extends Vue {
             this.$emit('galleryCreated', response);
             (this.$refs.modal as any).hide();
 
-            this.$router.push(`/gallery/${response.id}/`);
+            if (this.$router.currentRoute.name === 'GalleryList') {
+                this.$router.push(`/gallery/${response.id}/`);
+            }
 
         } catch (ex) {
             this.errorMessage = ex.toString();

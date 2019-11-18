@@ -1,10 +1,27 @@
 <!-- used only in Xamarin for chosing a gallery -->
 <template>
     <div class="container" id="gallerylist-container">
-        <h1>
-            {{ $t('message.SelectGallery') }}
-        </h1>
-
+        <div class="select-gallery-header">
+            <div class="title-description">
+                <h1>
+                    {{ $t('message.SelectGallery') }}
+                </h1>
+            </div>
+            <div class="add-gallery-container">
+                <b-button
+                    variant="success"
+                    :title="$t('message.CreateNewGallery')"
+                    class="select-gallery-add-button"
+                    @click="addGallery">
+                    <sup>
+                        <small>
+                            <span class="oi oi-plus"></span>
+                        </small>
+                    </sup>
+                    <span class="oi oi-folder"></span>
+                </b-button>
+            </div>
+        </div>
         <div class="table-responsive">
             <table class="table table-striped table-hover">
                 <tbody>
@@ -19,6 +36,16 @@
                 </tbody>
             </table>
         </div>
+
+        <div v-if="showNoImagesMessage"
+            class="no-images-message">
+            {{ $t('message.NoGalleries') }}
+            <a href="#" @click="addGallery">{{ $t('message.AddNewGallery') }}</a>
+        </div>
+
+        <AddGallery 
+            ref="addGallery" 
+            @galleryCreated="galleryCreated" />
     </div>
 </template>
 
@@ -29,12 +56,16 @@ import store from '../../store/store';
 import config from '../../config';
 import PagedResult from '../../models/data/paged_results';
 import Gallery from '../../models/data/gallery';
+import AddGallery from '../../components/gallery_list/AddGallery.vue';
 
 @Component({
   components: {
+      AddGallery,
   },
 })
 export default class SelectGallery extends Vue {
+
+    public showNoImagesMessage: boolean = false;
 
     public get loading(): boolean {
         return store.getters.loading;
@@ -88,6 +119,9 @@ export default class SelectGallery extends Vue {
                 this.galleries.push(...pagedResult.results);
             }
 
+            if (this.galleries.length === 0) {
+                this.showNoImagesMessage = true;
+            }
 
         } catch (ex) {
             store.commit('setErrorMessage', ex);
@@ -108,15 +142,59 @@ export default class SelectGallery extends Vue {
         return result;
     }
 
-   private selectGallery(gallery: Gallery) {
-        window.console.log(`GalleryList.selectGallery(galleryId: ${gallery.id})`);
-        this.$router.push(`/gallery/${gallery.id}/upload/`);
-   }
+    private selectGallery(gallery: Gallery) {
+            window.console.log(`GalleryList.selectGallery(galleryId: ${gallery.id})`);
+            this.$router.push(`/gallery/${gallery.id}/upload/`);
+    }
+
+    private addGallery() {
+        (this.$refs.addGallery as AddGallery).show();
+    }
+
+    private galleryCreated(newGallery: Gallery) {
+        this.galleries.unshift(newGallery);
+        this.showNoImagesMessage = false;
+    }
 }
 </script>
 
 <style scoped>
-    .select-gallery-row{
-        cursor: pointer;
-    }
+.select-gallery-header {
+    position: relative;
+    min-height: 70px;
+}
+
+.title-description {
+    margin-right: 50px;
+}
+
+.add-gallery-container {
+    float: right; 
+    right: 0;  
+    top: 0px;
+    z-index: 5;
+    position: absolute;
+}
+
+.select-gallery-add-button {
+    font-size: 1.2em;
+    border-radius: 50%;
+    margin-right:5px;
+    margin-left:5px;
+    margin-top: 5px;
+    padding-left: 9px;
+    padding-right: 11px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.select-gallery-row{
+    cursor: pointer;
+}
+
+.no-images-message {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    text-align: center;
+}
 </style>

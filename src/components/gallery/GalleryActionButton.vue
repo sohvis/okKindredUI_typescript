@@ -1,6 +1,6 @@
 <template>
 
-    <div class="controls-container">
+    <div class="gallery-action-container">
         <transition name="slide-fade">
             <b-button
                 v-if="opened"
@@ -184,12 +184,12 @@ export default class GalleryActionButton extends Vue {
 
 <style scoped>
 
-.controls-container {
+.gallery-action-container {
     float: right; 
     right: 0;  
     top: 40px;
     z-index: 5;
-    position: absolute !important;
+    position: absolute;
 }
 
 .gallery-button {
