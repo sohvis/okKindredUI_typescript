@@ -159,12 +159,10 @@ export default class Biography extends Vue {
 <style>
   .biography-editor {
     min-height: 500px;
-    margin-bottom: 50px;
   }
 
   .biography-paragraph {
-    min-height: 500px;
-    margin-bottom: 50px;
+    min-height: 200px;
   }
 
   .tox-statusbar__branding {

@@ -264,7 +264,10 @@
         v-bind:locked="isLocked"
         @biographyUpdated="personUpdated"/>
     </div>
-    
+
+    <hr/>
+    <CoreFamilyMembers :personId="person.id"/>
+
   </div>
 </template>
 
@@ -285,6 +288,7 @@ import NumberField from './NumberField.vue';
 import BooleanField from './BooleanField.vue';
 import GenderDropDown from './GenderDropDown.vue';
 import ProfileEmitArgs from '../../models/profile_emit_args';
+import CoreFamilyMembers from './CoreFamilyMembers.vue';
 
 @Component({
   components: {
@@ -296,6 +300,7 @@ import ProfileEmitArgs from '../../models/profile_emit_args';
       NumberField,
       GenderDropDown,
       BooleanField,
+      CoreFamilyMembers,
   },
 })
 export default class Profile extends Vue {
