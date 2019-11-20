@@ -49,7 +49,7 @@ export default class Level0Positioner implements TreePositioner {
 
         for (const sibling of this.tree.siblings) {
             sibling.setXYPosition(xLeft + selectNodeGroup.spacing,  selectNodeGroup.y);
-            xLeft += sibling.rightMarginEnd;
+            xLeft = sibling.rightMarginEnd;
         }
     }
 }
