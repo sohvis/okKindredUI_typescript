@@ -168,7 +168,10 @@ export default class CoreFamilyMembers extends Vue {
         && parentIds.includes(relation.from_person_id)
         && currentPersonId !== relation.to_person_id) {
           const sibling = peopleById[relation.to_person_id.toString()];
-          this.siblings.push(sibling);
+
+          if (!this.siblings.includes(sibling)) {
+            this.siblings.push(sibling);
+          }
       }
     }
   }
@@ -181,6 +184,6 @@ export default class CoreFamilyMembers extends Vue {
  }
 
  .member-separator{
-   margin-top: 20px;
+   margin-top: 25px;
  }
 </style>
