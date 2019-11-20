@@ -75,6 +75,7 @@ export default class CoreFamilyMember extends Vue {
 
 .core-family-member {
   margin-left: 15px;
+  margin-bottom: 15px;
   border-style: solid;
   border-color: #ddd;
   border-width: 1px;
