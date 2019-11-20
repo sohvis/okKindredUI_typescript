@@ -38,4 +38,18 @@ export default class Level0Positioner implements TreePositioner {
         partnerNode.updateWidth();
         partnerNode.setXYPosition(partnerNode.mainNode.leftMarginStart, partnerNode.mainNode.y);
     }
+
+    public positionSiblings() {
+        // window.console.log('position siblings');
+        // window.console.log(this.tree.treeLevelsByLevel['0'].groups);
+        // Position siblings
+
+        const selectNodeGroup = this.tree.treeLevelsByLevel['0'].groups[0];
+        let xLeft = selectNodeGroup.rightMarginEnd;
+
+        for (const sibling of this.tree.siblings) {
+            sibling.setXYPosition(xLeft + selectNodeGroup.spacing,  selectNodeGroup.y);
+            xLeft += sibling.rightMarginEnd;
+        }
+    }
 }
