@@ -51,6 +51,7 @@
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 import store from '../../store/store';
 import Person from '../../models/data/person';
+import Relation from '../../models/data/relation';
 import configs from '../../config';
 import * as request from 'request-promise-native';
 import RelationTypes from '../../models/data/relation_types';
@@ -68,8 +69,7 @@ export default class CoreFamilyMembers extends Vue {
   public partners: Person[] = [];
   public children: Person[] = [];
 
-  @Prop()
-  public personId?: string;
+  public personId: string = '';
 
   public get showParents(): boolean {
     return this.parents.length > 0;
@@ -87,10 +87,9 @@ export default class CoreFamilyMembers extends Vue {
     return this.children.length > 0;
   }
 
-  @Watch('personId')
-  protected async personChanged() {
-    window.console.log('CoreFamilyMembers.vue mounted() called');
+  public async initialise(personId: string) {
 
+    this.personId = personId;
     this.parents = [];
     this.siblings = [];
     this.partners = [];
@@ -106,46 +105,50 @@ export default class CoreFamilyMembers extends Vue {
 
       const currentPersonId = Number(this.personId);
 
-      const peopleById: { [id: string]: Person; } = {};
-      for (const person of people) {
-        peopleById[person.id] = person;
-      } 
+      this.buildArrays(people, relations, currentPersonId);
+    }
+  }
 
-      for (const relation of relations) {
-        if (relation.from_person_id === currentPersonId) {
+  private buildArrays(people: Person[] , relations: Relation[], currentPersonId: number) {
+    const peopleById: { [id: string]: Person; } = {};
+    for (const person of people) {
+      peopleById[person.id] = person;
+    }
 
-          const toPerson = peopleById[relation.to_person_id];
+    for (const relation of relations) {
+      if (relation.from_person_id === currentPersonId) {
 
-          switch (relation.relation_type) {
-            case RelationTypes.RAISED:
-              this.children.push(toPerson);
-              break;
+        const toPerson = peopleById[relation.to_person_id];
 
-            case RelationTypes.RAISED_BY:
-              this.parents.push(toPerson);
-              break;
+        switch (relation.relation_type) {
+          case RelationTypes.RAISED:
+            this.children.push(toPerson);
+            break;
 
-            case RelationTypes.PARTNERED:
-              this.partners.push(toPerson);
-              break;
-          }
+          case RelationTypes.RAISED_BY:
+            this.parents.push(toPerson);
+            break;
 
-        } else if (relation.to_person_id === currentPersonId) {
-          const fromPerson = peopleById[relation.from_person_id];
+          case RelationTypes.PARTNERED:
+            this.partners.push(toPerson);
+            break;
+        }
 
-          switch (relation.relation_type) {
-            case RelationTypes.RAISED:
-              this.parents.push(fromPerson);
-              break;
+      } else if (relation.to_person_id === currentPersonId) {
+        const fromPerson = peopleById[relation.from_person_id];
 
-            case RelationTypes.RAISED_BY:
-              this.children.push(fromPerson);
-              break;
+        switch (relation.relation_type) {
+          case RelationTypes.RAISED:
+            this.parents.push(fromPerson);
+            break;
 
-            case RelationTypes.PARTNERED:
-              this.partners.push(fromPerson);
-              break;
-          }
+          case RelationTypes.RAISED_BY:
+            this.children.push(fromPerson);
+            break;
+
+          case RelationTypes.PARTNERED:
+            this.partners.push(fromPerson);
+            break;
         }
       }
     }

@@ -266,7 +266,7 @@
     </div>
 
     <hr/>
-    <CoreFamilyMembers :personId="person.id"/>
+    <CoreFamilyMembers v-show="person" ref="coreFamilyMembers"/>
 
   </div>
 </template>
@@ -405,6 +405,8 @@ export default class Profile extends Vue {
       } else {
         this.profileImage = 'img/portrait_200.png';
       }
+
+      await (this.$refs.coreFamilyMembers as CoreFamilyMembers).initialise(this.person.id);
     }
 
     store.commit('updateLoading', false);
