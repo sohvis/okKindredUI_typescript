@@ -172,6 +172,12 @@ export const english = {
       ClickToEdit: `Click to Edit`,
       UploadNewPhoto: `Upload New Photo`,
 
+      CoreFamilyMembers: `Core Family Members`,
+      Parents: `Parents`,
+      Siblings: `Siblings`,
+      Partners: `Partners`,
+      Children: `Children`,
+
       // Map
       LocationForPersonNotSpecified: `Location not specified for person`,
 

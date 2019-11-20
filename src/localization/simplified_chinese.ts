@@ -216,6 +216,12 @@ export const simplifiedChinese = {
       ClickToEdit: `点击编辑`,
       UploadNewPhoto: `上传新照片`,
 
+      CoreFamilyMembers: `亲密的家庭成员`,
+      Parents: `父母`,
+      Siblings: `兄弟姐妹`,
+      Partners: `丈夫`,
+      Children: `儿女`,
+
       // Map
       LocationForPersonNotSpecified: `未为人指定位置`,
 

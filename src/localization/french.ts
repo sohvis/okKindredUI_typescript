@@ -235,6 +235,12 @@ export const french = {
       ClickToEdit: `Cliquez pour éditer`,
       UploadNewPhoto: `Télécharger une nouvelle photo`,
 
+      CoreFamilyMembers: `Membres Proches de la famille`,
+      Parents: `Parents`,
+      Siblings: `Frères et Sœurs`,
+      Partners: `Partenaires`,
+      Children: `Enfants`,
+
       // Map
       LocationForPersonNotSpecified: `Lieu non spécifié pour personne`,
 

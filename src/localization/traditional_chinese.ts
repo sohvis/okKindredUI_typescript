@@ -213,6 +213,12 @@ export const traditionalChinese = {
       ClickToEdit: `點擊編輯`,
       UploadNewPhoto: `上傳新照片`,
 
+      CoreFamilyMembers: `親密的家庭成員`,
+      Parents: `父母`,
+      Siblings: `兄弟姐妹`,
+      Partners: `伴侶`,
+      Children: `兒女`,
+
       // Map
       LocationForPersonNotSpecified: `未為人指定位置`,
 

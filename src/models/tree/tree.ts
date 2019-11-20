@@ -24,6 +24,8 @@ export default class Tree {
     public hoverNode: TreeNode | null;
     public disabled: boolean;
     public selectedPersonId: string = '';
+    // Handle siblings separately
+    public siblings: TreeNode[];
 
     constructor(canvas: HTMLCanvasElement, people: Person[], relations: Relation[]) {
 
@@ -47,6 +49,7 @@ export default class Tree {
         this.treeLevels = [];
         this.treeLevelsByLevel = {};
         this.raisedRelationsById = {};
+        this.siblings = [];
         this.disabled = false;
 
         // Create tree node lookup
@@ -117,9 +120,16 @@ export default class Tree {
         const descendantPositioner = new TreeDescendantPositioner(this);
         descendantPositioner.position(clearAll);
 
+        this.addSiblings();
+        level0Positioner.positionSiblings();
+
         // window.console.log(`Rendering levels`);
         for (const treeLevel of this.treeLevels) {
             treeLevel.render();
+        }
+
+        for (const sibling of this.siblings) {
+            sibling.render();
         }
 
         Object.values(this.raisedRelationsById).forEach((relation) => {
@@ -206,6 +216,10 @@ export default class Tree {
             }
         }
 
+        for (const sibling of this.siblings) {
+            result.push(sibling);
+        }
+
         return result;
     }
 
@@ -214,6 +228,12 @@ export default class Tree {
         for (const treeLevel of this.treeLevels) {
             treeLevel.clearRenderValues(clearAll);
         }
+
+        for (const sibling of this.siblings) {
+            sibling.clearRenderValues();
+        }
+
+        this.siblings = [];
 
         if (clearAll) {
             this.treeLevelsByLevel = {};
@@ -323,6 +343,27 @@ export default class Tree {
 
             frontier = newFrontier;
             level++;
+        }
+    }
+
+    private addSiblings() {
+        const level0 = this.treeLevelsByLevel['0'];
+        let xLeft = level0.rightMarginEnd;
+
+        for (const parent of this.selectedNode.ancestors) {
+            for (const sibling of parent.descendants) {
+                if (sibling.id !== this.selectedNode.id) {
+
+                    if (sibling.addToTree === false) {
+                        sibling.addToTree = true;
+                        sibling.setXYPosition(xLeft, level0.y);
+                        this.siblings.push(sibling);
+                        xLeft = sibling.rightMarginEnd;
+                    }
+
+                    this.createRelations(sibling);
+                }
+            }
         }
     }
 

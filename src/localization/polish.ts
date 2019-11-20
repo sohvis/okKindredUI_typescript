@@ -245,6 +245,12 @@ export const polish = {
       ClickToEdit: `Kliknij aby edytowac`,
       UploadNewPhoto: `Prześlij nowe zdjęcie`,
 
+      CoreFamilyMembers: `Bliscy Członkowie Rodziny`,
+      Parents: `Rodzice`,
+      Siblings: `Rodzeństwo`,
+      Partners: `Wzmacniacz`,
+      Children: `Synowie i Córki`,
+
       // Map
       LocationForPersonNotSpecified: `Lokalizacja nieokreślona dla osoby`,
 

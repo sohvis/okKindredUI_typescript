@@ -264,7 +264,10 @@
         v-bind:locked="isLocked"
         @biographyUpdated="personUpdated"/>
     </div>
-    
+
+    <hr/>
+    <CoreFamilyMembers v-show="person" ref="coreFamilyMembers"/>
+
   </div>
 </template>
 
@@ -285,6 +288,7 @@ import NumberField from './NumberField.vue';
 import BooleanField from './BooleanField.vue';
 import GenderDropDown from './GenderDropDown.vue';
 import ProfileEmitArgs from '../../models/profile_emit_args';
+import CoreFamilyMembers from './CoreFamilyMembers.vue';
 
 @Component({
   components: {
@@ -296,6 +300,7 @@ import ProfileEmitArgs from '../../models/profile_emit_args';
       NumberField,
       GenderDropDown,
       BooleanField,
+      CoreFamilyMembers,
   },
 })
 export default class Profile extends Vue {
@@ -400,6 +405,8 @@ export default class Profile extends Vue {
       } else {
         this.profileImage = 'img/portrait_200.png';
       }
+
+      await (this.$refs.coreFamilyMembers as CoreFamilyMembers).initialise(this.person.id);
     }
 
     store.commit('updateLoading', false);
@@ -415,6 +422,9 @@ export default class Profile extends Vue {
   }
 
   private uploadNewPhoto() {
+    // Clear the files in state to be uploaded
+    store.dispatch('setFilesToUpload', []);
+
     this.$router.push('/new_profile_photo/');
   }
 }

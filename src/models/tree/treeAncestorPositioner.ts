@@ -39,8 +39,10 @@ export default class TreeAncestorPositioner implements TreePositioner {
             const descLevelId = (level.level + 1).toString();
             const descLevel = this.tree.treeLevelsByLevel[descLevelId];
 
-            this.positionAncestorGroups(descLevel, 0, overlap / 2);
-            this.expandIfOverlap(descLevel);
+            if (descLevel) {
+                this.positionAncestorGroups(descLevel, 0, overlap / 2);
+                this.expandIfOverlap(descLevel);
+            }
 
             this.positionAncestorGroups(level, 0, 0);
         }
