@@ -1,5 +1,5 @@
 <template>
-    <div class="col-lg-3 col-md-4 col-sm-6">
+    <div class="col-lg-3 col-md-4 col-sm-6 col-8 core-family-member" @click="onClick">
       <div class="row">
         <div class="col-pixel-width-80">
           <img :src="imageUrl" />
@@ -50,6 +50,12 @@ export default class CoreFamilyMember extends Vue {
   protected async mounted() {
     // window.console.log('CoreFamilyMembers.vue mounted() called');
   }
+
+  private onClick() {
+    if (this.person) {
+      store.dispatch('changePerson', this.person.id);
+    }
+  }
 }
 </script>
 
@@ -58,9 +64,26 @@ export default class CoreFamilyMember extends Vue {
   flex: 0 0 80px;
   margin-left: 15px;
   margin-top: 15px;
+  margin-bottom: 15px;
 }
 
 .member-name {
   margin-top: 30px;
+  margin-bottom: 15px;
+  margin-right: 15px;
 }
+
+.core-family-member {
+  margin-left: 15px;
+  border-style: solid;
+  border-color: #ddd;
+  border-width: 1px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.core-family-member:hover {
+  background: #ddd;
+}
+
 </style>

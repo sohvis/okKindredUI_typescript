@@ -109,24 +109,26 @@ export default class CoreFamilyMembers extends Vue {
     }
   }
 
-  private buildArrays(people: Person[] , relations: Relation[], currentPersonId: number) {
+  private createPersonLookup(people: Person[]): { [id: string]: Person; } {
     const peopleById: { [id: string]: Person; } = {};
     for (const person of people) {
       peopleById[person.id] = person;
     }
 
+    return peopleById;
+  }
+
+  private buildArrays(people: Person[] , relations: Relation[], currentPersonId: number) {
+    const peopleById = this.createPersonLookup(people);
+
     for (const relation of relations) {
       if (relation.from_person_id === currentPersonId) {
 
-        const toPerson = peopleById[relation.to_person_id];
+        const toPerson = peopleById[relation.to_person_id.toString()];
 
         switch (relation.relation_type) {
           case RelationTypes.RAISED:
             this.children.push(toPerson);
-            break;
-
-          case RelationTypes.RAISED_BY:
-            this.parents.push(toPerson);
             break;
 
           case RelationTypes.PARTNERED:
@@ -135,21 +137,38 @@ export default class CoreFamilyMembers extends Vue {
         }
 
       } else if (relation.to_person_id === currentPersonId) {
-        const fromPerson = peopleById[relation.from_person_id];
+        const fromPerson = peopleById[relation.from_person_id.toString()];
 
         switch (relation.relation_type) {
           case RelationTypes.RAISED:
             this.parents.push(fromPerson);
             break;
 
-          case RelationTypes.RAISED_BY:
-            this.children.push(fromPerson);
-            break;
-
           case RelationTypes.PARTNERED:
             this.partners.push(fromPerson);
             break;
         }
+      }
+    }
+
+    if (this.parents.length > 0) {
+      this.buildSiblings(relations, currentPersonId, peopleById);
+    }
+  }
+
+  private buildSiblings(relations: Relation[], currentPersonId: number, peopleById: { [id: string]: Person; }) {
+
+    const parentIds: number[] = [];
+    for (const parent of this.parents) {
+      parentIds.push(Number(parent.id));
+    }
+
+    for (const relation of relations) {
+      if (relation.relation_type === RelationTypes.RAISED
+        && parentIds.includes(relation.from_person_id)
+        && currentPersonId !== relation.to_person_id) {
+          const sibling = peopleById[relation.to_person_id.toString()];
+          this.siblings.push(sibling);
       }
     }
   }

@@ -175,6 +175,14 @@ export const finnish = {
       ClickToEdit: `Klikkaa muokataksesi`,
       UploadNewPhoto: `Lataa uusi valokuva`,
 
+      CoreFamilyMembers: `Perheen Keskeiset Jäsenet`,
+      Parents: `Vanhemmat`,
+      Siblings: `Sisarukset`,
+      Partners: `Kumppanit`,
+      Children: `Jälkeläinen
+
+      `,
+
       // Map
       LocationForPersonNotSpecified: `Sijaintia ei ole määritetty henkilölle`,
 
