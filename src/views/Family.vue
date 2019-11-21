@@ -82,6 +82,11 @@ export default class Family extends Vue {
       store.dispatch('updateRouteLoaded');
     }
 
+    private route(state: string) {
+        this.$router.push(`/family/${state}/${this.personId}/`);
+        this.state = state;
+    }
+
     @Watch('state')
     private onStateChange() {
         // window.console.log('Family.onStateChange()');
