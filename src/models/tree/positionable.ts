@@ -83,6 +83,11 @@ export default abstract class Positionable {
         this.updateMargins();
     }
 
+    public updateMargins() {
+        this.leftMarginStart = this.x - this.spacing;
+        this.rightMarginEnd = this.xRight + this.spacing;
+    }
+
     public showBordersForDebugging(ctx: CanvasRenderingContext2D) {
 
         ctx.beginPath();
@@ -145,10 +150,4 @@ export default abstract class Positionable {
 
         return (c);
     }
-
-    private updateMargins() {
-        this.leftMarginStart = this.x - this.spacing;
-        this.rightMarginEnd = this.xRight + this.spacing;
-    }
-
 }
