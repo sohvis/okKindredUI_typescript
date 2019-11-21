@@ -116,7 +116,7 @@ const mutations: MutationTree<IState> = {
         state.initialRoute = route;
 
         if (route) {
-            router.push(route);
+            router.replace(route);
         }
     },
 
