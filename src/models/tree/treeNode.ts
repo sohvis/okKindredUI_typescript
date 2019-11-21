@@ -3,6 +3,7 @@ import store from '../../store/store';
 import Positionable from './positionable';
 import Point from './point';
 import TreePartnerNode from './treePartnerNode';
+import MoreArrowBuilder from './MoreArrowBuilder';
 
 // Represents a person in the family tree
 export default class TreeNode extends  Positionable {
@@ -13,7 +14,7 @@ export default class TreeNode extends  Positionable {
     public static RECT_STROKE_STYLE = '#2e6f9a';
     public static DISABLED_RECT_STROKE_STYLE = '#444';
     public static RECT_LINE_WIDTH = 4;
-    public static SELECTED_RECT_LINE_WIDTH = 16;
+    public static SELECTED_RECT_LINE_WIDTH = 18;
     public static RECT_ROUNDED_CORNER_RADIUS = 15;
     public static LEFT_MARGIN = 25;
     public static RECT_FILL_STYLE = '#EEEAEA';
@@ -135,12 +136,8 @@ export default class TreeNode extends  Positionable {
             };
         }
 
-        // Any relations not show
-        if (this.descendants.some((x) => !x.addToTree)
-            || this.partners.some((x) => !x.addToTree)
-            || this.ancestors.some((x) => !x.addToTree)) {
-            this.drawArrow();
-        }
+        // Any relations not showing
+        MoreArrowBuilder.createMoreArrows(this, this.ctx);
 
         // this.showBordersForDebugging(this.ctx);
     }
@@ -222,43 +219,6 @@ export default class TreeNode extends  Positionable {
         this.ctx.quadraticCurveTo(this.x, this.y, this.x + radius, this.y);
         this.ctx.stroke();
         this.ctx.fillStyle = fillstyle;
-        this.ctx.fill();
-    }
-
-    private drawArrow() {
-
-        const point1 = new Point(
-            this.xRight + TreeNode.MORE_ARROW_SPACING,
-            this.yMid - TreeNode.MORE_ARROW_WIDTH,
-        );
-
-        const point2 = new Point(
-            point1.x + TreeNode.MORE_ARROW_HEIGHT,
-            point1.y + TreeNode.MORE_ARROW_WIDTH,
-        );
-
-        const point3 = new Point(
-            point1.x,
-            point2.y + TreeNode.MORE_ARROW_WIDTH,
-        );
-
-        let fillstyle = TreeNode.RECT_FILL_STYLE;
-        let strokeStyle = TreeNode.RECT_STROKE_STYLE;
-
-        if (this.disabled) {
-            fillstyle = TreeNode.DISABLED_RECT_FILL_STYLE;
-            strokeStyle = TreeNode.DISABLED_RECT_STROKE_STYLE;
-        }
-
-        this.ctx.beginPath();
-        this.ctx.strokeStyle = fillstyle;
-        this.ctx.lineWidth = 1;
-        this.ctx.moveTo(point1.x, point1.y);
-        this.ctx.lineTo(point2.x, point2.y);
-        this.ctx.lineTo(point3.x, point3.y);
-        this.ctx.lineTo(point1.x, point1.y);
-        this.ctx.stroke();
-        this.ctx.fillStyle = strokeStyle;
         this.ctx.fill();
     }
 }

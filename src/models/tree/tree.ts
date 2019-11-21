@@ -85,6 +85,10 @@ export default class Tree {
             treeLevel.setDisabled(disabled);
         }
 
+        for (const sibling of this.siblings) {
+            sibling.setDisabled(disabled);
+        }
+
         Object.values(this.raisedRelationsById).forEach((relation) => {
             relation.disabled = disabled;
         });
