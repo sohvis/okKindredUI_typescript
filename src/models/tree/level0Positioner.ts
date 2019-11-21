@@ -45,18 +45,4 @@ export default class Level0Positioner implements TreePositioner {
         this.level0.xRight = xLeft;
         this.level0.updateMargins();
     }
-
-    public positionSiblings() {
-        // window.console.log('position siblings');
-        // window.console.log(this.tree.treeLevelsByLevel['0'].groups);
-        // Position siblings
-
-        const selectedNodeGroup = this.level0.groups[0];
-        let xLeft = this.level0.rightMarginEnd + selectedNodeGroup.spacing;
-
-        for (const sibling of this.tree.siblings) {
-            sibling.setXYPosition(xLeft + selectedNodeGroup.spacing,  selectedNodeGroup.y);
-            xLeft = sibling.rightMarginEnd;
-        }
-    }
 }
