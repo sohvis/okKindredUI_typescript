@@ -8,7 +8,7 @@ export default class MoreArrowBuilder {
 
     public static STROKE_STYLE = '#2e6f9a';
     public static DISABLED_STROKE_STYLE = '#444';
-    public static MORE_ARROW_SPACING = 3;
+    public static MORE_ARROW_SPACING = 4;
     public static MORE_ARROW_HEIGHT = 12;
     public static MORE_ARROW_WIDTH = 8;
 

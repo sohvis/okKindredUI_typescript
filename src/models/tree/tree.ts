@@ -9,6 +9,7 @@ import TreeAncestorPositioner from './treeAncestorPositioner';
 import TreeDescendantPositioner from './treeDescendantPositioner';
 import Level0Positioner from './level0Positioner';
 import RelationTypes from '../data/relation_types';
+import SiblingNodeGroup from './siblingNodeGroup';
 
 export default class Tree {
 
@@ -24,8 +25,7 @@ export default class Tree {
     public hoverNode: TreeNode | null;
     public disabled: boolean;
     public selectedPersonId: string = '';
-    // Handle siblings separately
-    public siblings: TreeNode[];
+    public siblingNodeGroup: SiblingNodeGroup;
 
     constructor(canvas: HTMLCanvasElement, people: Person[], relations: Relation[]) {
 
@@ -49,8 +49,8 @@ export default class Tree {
         this.treeLevels = [];
         this.treeLevelsByLevel = {};
         this.raisedRelationsById = {};
-        this.siblings = [];
         this.disabled = false;
+        this.siblingNodeGroup = new SiblingNodeGroup(this);
 
         // Create tree node lookup
         for (const person of people) {
@@ -85,9 +85,7 @@ export default class Tree {
             treeLevel.setDisabled(disabled);
         }
 
-        for (const sibling of this.siblings) {
-            sibling.setDisabled(disabled);
-        }
+        this.siblingNodeGroup.setDisabled(disabled);
 
         Object.values(this.raisedRelationsById).forEach((relation) => {
             relation.disabled = disabled;
@@ -124,17 +122,15 @@ export default class Tree {
         const descendantPositioner = new TreeDescendantPositioner(this);
         descendantPositioner.position(clearAll);
 
-        this.addSiblings();
-        level0Positioner.positionSiblings();
+        this.siblingNodeGroup.addSiblings(this.selectedNode);
+        this.siblingNodeGroup.positionSiblings();
 
         // window.console.log(`Rendering levels`);
         for (const treeLevel of this.treeLevels) {
             treeLevel.render();
         }
 
-        for (const sibling of this.siblings) {
-            sibling.render();
-        }
+        this.siblingNodeGroup.render();
 
         Object.values(this.raisedRelationsById).forEach((relation) => {
             relation.render();
@@ -220,9 +216,7 @@ export default class Tree {
             }
         }
 
-        for (const sibling of this.siblings) {
-            result.push(sibling);
-        }
+        result.push(...this.siblingNodeGroup.nodes);
 
         return result;
     }
@@ -233,11 +227,7 @@ export default class Tree {
             treeLevel.clearRenderValues(clearAll);
         }
 
-        for (const sibling of this.siblings) {
-            sibling.clearRenderValues();
-        }
-
-        this.siblings = [];
+        this.siblingNodeGroup.ClearRenderValues();
 
         if (clearAll) {
             this.treeLevelsByLevel = {};
@@ -347,27 +337,6 @@ export default class Tree {
 
             frontier = newFrontier;
             level++;
-        }
-    }
-
-    private addSiblings() {
-        const level0 = this.treeLevelsByLevel['0'];
-        let xLeft = level0.rightMarginEnd;
-
-        for (const parent of this.selectedNode.ancestors) {
-            for (const sibling of parent.descendants) {
-                if (sibling.id !== this.selectedNode.id) {
-
-                    if (sibling.addToTree === false) {
-                        sibling.addToTree = true;
-                        sibling.setXYPosition(xLeft, level0.y);
-                        this.siblings.push(sibling);
-                        xLeft = sibling.rightMarginEnd;
-                    }
-
-                    this.createRelations(sibling);
-                }
-            }
         }
     }
 
