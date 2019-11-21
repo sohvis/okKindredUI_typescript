@@ -1,34 +1,9 @@
-# okkindred_typescript
+ok!Kindred Frontend
+===================
 
-## Project setup
-```
-npm install
-```
+This is a frontend for https://www.okkindred.com
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+It is written using Vue and Typescript.  It uses Vuex for state management and also vue-router.
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Run your unit tests
-```
-npm run test:unit
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+For more information on the architecture of ok!Kindred please checkout the readme for the backend:
+https://github.com/JustinWingChungHui/okKindred/blob/master/README.rst
