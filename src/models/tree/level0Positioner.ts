@@ -1,18 +1,21 @@
 import TreePositioner from './treePositioner';
 import Tree from './tree';
 import TreeNode from './treeNode';
+import TreeLevel from './treeLevel';
 
 export default class Level0Positioner implements TreePositioner {
 
     public tree: Tree;
+    public level0: TreeLevel;
 
     constructor(tree: Tree) {
         this.tree = tree;
+        this.level0 = this.tree.treeLevelsByLevel['0'];
     }
 
     public position() {
 
-        const partnerNode = this.tree.treeLevelsByLevel['0'].groups[0].partnerNodes[0];
+        const partnerNode = this.level0.groups[0].partnerNodes[0];
 
         if (!partnerNode) {
             throw new Error('Nodes not set up properly on Level 0');
@@ -22,6 +25,7 @@ export default class Level0Positioner implements TreePositioner {
         if (!partnerNode.mainNode.hasYValue) {
             const x = (this.tree.canvas.width / this.tree.dpr  - TreeNode.WIDTH) / 2;
             const y = (this.tree.canvas.height / this.tree.dpr - TreeNode.HEIGHT) / 2;
+            // partnerNode.updateWidth();
             partnerNode.mainNode.setXYPosition(x, y);
         }
 
@@ -31,12 +35,15 @@ export default class Level0Positioner implements TreePositioner {
 
             if (partnerNode.mainNode.hasXValue) {
                 partner.setXYPosition(xLeft + partnerNode.spacing, partnerNode.mainNode.y);
-                xLeft = partnerNode.rightMarginEnd;
+                xLeft = partner.rightMarginEnd;
             }
         }
 
         partnerNode.updateWidth();
         partnerNode.setXYPosition(partnerNode.mainNode.leftMarginStart, partnerNode.mainNode.y);
+
+        this.level0.xRight = xLeft;
+        this.level0.updateMargins();
     }
 
     public positionSiblings() {
@@ -44,11 +51,11 @@ export default class Level0Positioner implements TreePositioner {
         // window.console.log(this.tree.treeLevelsByLevel['0'].groups);
         // Position siblings
 
-        const selectNodeGroup = this.tree.treeLevelsByLevel['0'].groups[0];
-        let xLeft = selectNodeGroup.rightMarginEnd;
+        const selectedNodeGroup = this.level0.groups[0];
+        let xLeft = this.level0.rightMarginEnd + selectedNodeGroup.spacing;
 
         for (const sibling of this.tree.siblings) {
-            sibling.setXYPosition(xLeft + selectNodeGroup.spacing,  selectNodeGroup.y);
+            sibling.setXYPosition(xLeft + selectedNodeGroup.spacing,  selectedNodeGroup.y);
             xLeft = sibling.rightMarginEnd;
         }
     }
