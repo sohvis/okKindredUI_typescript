@@ -38,7 +38,7 @@ export default class Home extends Vue {
         }
 
         if (!store.state.initialRoute) {
-          this.$router.push('/family/tree/');
+          this.$router.replace('/family/tree/');
         }
     } catch {
         // not logged in, set language from browser
@@ -46,7 +46,7 @@ export default class Home extends Vue {
 
         // If on an app, then
         if (BrowserDetection.isAndroidWebView()) {
-          this.$router.push('/accounts/sign_up/');
+          this.$router.replace('/accounts/sign_up/');
         }
     }
 

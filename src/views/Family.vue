@@ -82,12 +82,6 @@ export default class Family extends Vue {
       store.dispatch('updateRouteLoaded');
     }
 
-    private route(state: string) {
-        this.$router.push(`/family/${state}/${this.personId}/`);
-        this.state = state;
-    }
-
-
     @Watch('state')
     private onStateChange() {
         // window.console.log('Family.onStateChange()');
@@ -126,7 +120,7 @@ export default class Family extends Vue {
             }
 
             if (!this.personId) {
-                this.$router.push(`/family/${this.urlState}/${store.state.person_id}/`);
+                this.$router.replace(`/family/${this.urlState}/${store.state.person_id}/`);
             }
 
             const tabIndex = this.tabIndexByState[this.urlState];
@@ -138,7 +132,7 @@ export default class Family extends Vue {
             if (personInFamily) {
                 await store.dispatch('changePerson', this.personId);
             } else {
-                this.$router.push(`/family/${this.urlState}/${store.state.person_id}/`);
+                this.$router.replace(`/family/${this.urlState}/${store.state.person_id}/`);
             }
 
             this.state = this.urlState;
