@@ -18,6 +18,10 @@ export default abstract class Positionable {
     public spacing: number;
     protected disabled: boolean;
 
+    public get isDisabled(): boolean {
+        return this.disabled;
+    }
+
     constructor(width: number, height: number, spacing: number) {
         this.x = 0;
         this.xMid = 0;
