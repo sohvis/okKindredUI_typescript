@@ -73,6 +73,10 @@ export default class Family extends Vue {
         map: 2,
     };
 
+    private get selectPersonId(): string {
+        return store.state.person_id;
+    }
+
     protected async mounted() {
       // window.console.log('Family.vue mounted() call');
       document.body.scrollTop = document.documentElement.scrollTop = 0;
@@ -87,9 +91,33 @@ export default class Family extends Vue {
         this.state = state;
     }
 
+    @Watch('selectPersonId')
+    private onSelectedPersonIdChange() {
+        if (this.personId && this.selectPersonId !== this.personId) {
+            this.$router.push(`/family/${this.urlState}/${this.selectPersonId}/`);
+        }
+    }
+
+    @Watch('personId')
+    private async onPersonIdChange() {
+        if (this.personId && this.selectPersonId !== this.personId) {
+            await store.dispatch('changePerson', this.personId);
+        }
+    }
+
+    @Watch('urlState')
+    private onUrlStateChange() {
+        window.console.log('Family.onUrlStateChange()');
+        if (this.urlState && this.urlState !== this.state) {
+            const tabIndex = this.tabIndexByState[this.urlState];
+            this.tabIndex = tabIndex;
+            this.state = this.urlState;
+        }
+    }
+
     @Watch('state')
     private onStateChange() {
-        // window.console.log('Family.onStateChange()');
+        window.console.log('Family.onStateChange()');
 
         if (store.state.people.length > 0) {
             switch (this.state) {
@@ -110,7 +138,7 @@ export default class Family extends Vue {
     }
 
     private async initialize() {
-        // window.console.log('Family.initialize()');
+        window.console.log('Family.initialize()');
 
         if (!this.urlState) {
             return;

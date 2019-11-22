@@ -25,17 +25,7 @@ Vue.use(Router);
 export default new Router({
   routes: [
     {
-      path: '/family/',
-      redirect: '/family/tree/',
-    },
-    {
-      path: '/family/:urlState/',
-      name: 'FamilyState',
-      component: Family,
-      props: true,
-    },
-    {
-      path: '/family/:urlState/:personId/',
+      path: '/family/:urlState?/:personId?/',
       name: 'FamilyState',
       component: Family,
       props: true,
