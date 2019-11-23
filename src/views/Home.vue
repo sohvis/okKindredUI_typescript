@@ -46,7 +46,7 @@ export default class Home extends Vue {
 
         // If on an app, then
         if (BrowserDetection.isAndroidWebView()) {
-          this.$router.replace('/accounts/sign_up/');
+          this.$router.replace('/accounts/login/');
         }
     }
 

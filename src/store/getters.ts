@@ -29,6 +29,12 @@ const getters: GetterTree<IState, IState> = {
             }
         }
 
+        for (const person of state.people) {
+            if (Number(state.users_person_id) === Number(person.id)) {
+                return person;
+            }
+        }
+
         return null;
     },
 };

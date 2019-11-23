@@ -18,11 +18,23 @@ const actions: ActionTree<IState, IState> = {
 
     async changePerson(context, payload) {
         // window.console.log(`changePerson called new person id: ${payload}`);
-        context.commit('changePerson', payload);
+        let personId = payload;
+
+        // if people loaded into state, make sure person exists inloaded people
+        if (context.state.people.length > 0) {
+            personId = context.state.users_person_id;
+            for (const person of context.state.people) {
+                if (Number(person.id) === Number(payload)) {
+                    personId = person.id;
+                }
+            }
+        }
+
+        context.commit('changePerson', personId);
 
         // Make sure local storage is done asynchronously
         await null;
-        window.localStorage.setItem('person_id', payload);
+        window.localStorage.setItem('person_id', personId);
     },
 
     async restoreSession(context) {
@@ -233,6 +245,9 @@ const actions: ActionTree<IState, IState> = {
 
             context.commit('setPeople', people);
             context.commit('setRelations', relations);
+
+            // Ensure selected person id is in people
+            context.commit('changePerson', context.state.person_id);
 
         } catch (error) {
             // window.console.log(`: ${error}`);
