@@ -107,7 +107,7 @@ export default class Family extends Vue {
 
     @Watch('urlState')
     private onUrlStateChange() {
-        window.console.log('Family.onUrlStateChange()');
+        // window.console.log('Family.onUrlStateChange()');
         if (this.urlState && this.urlState !== this.state) {
             const tabIndex = this.tabIndexByState[this.urlState];
             this.tabIndex = tabIndex;
@@ -117,7 +117,7 @@ export default class Family extends Vue {
 
     @Watch('state')
     private onStateChange() {
-        window.console.log('Family.onStateChange()');
+        // window.console.log('Family.onStateChange()');
 
         if (store.state.people.length > 0) {
             switch (this.state) {
@@ -138,7 +138,7 @@ export default class Family extends Vue {
     }
 
     private async initialize() {
-        window.console.log('Family.initialize()');
+        // window.console.log('Family.initialize()');
 
         if (!this.urlState) {
             return;

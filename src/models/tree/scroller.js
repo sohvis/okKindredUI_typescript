@@ -102,7 +102,7 @@ export const Scroller = {
         const offset = Scroller.canvasOffset();
         Scroller.lastPoint.x = evt.pageX - offset.left;
         Scroller.lastPoint.y = evt.pageY - offset.top;
-        let pt = Scroller.ctx.transformedPoint(Scroller.lastPoint.x,Scroller.lastPoint.y);
+        let pt = Scroller.ctx.transformedPoint(Scroller.lastPoint.x, Scroller.lastPoint.y);
 
         if (Scroller.dragStart[0]){
             
@@ -393,6 +393,18 @@ export const Scroller = {
         scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
         scrollTop = window.pageYOffset || document.documentElement.scrollTop;
         return { top: rect.top + scrollTop, left: rect.left + scrollLeft }
+    },
+
+    getViewBoundary() {
+        const topLeft = Scroller.ctx.transformedPoint(0, 0);
+        const bottomRight = Scroller.ctx.transformedPoint(this.canvas.width, this.canvas.height);
+
+        return {
+            top: topLeft.y,
+            left: topLeft.x,
+            bottom: bottomRight.y,
+            right: bottomRight.x,
+        };
     }
 }
 

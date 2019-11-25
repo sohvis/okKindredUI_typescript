@@ -432,6 +432,10 @@ export default class Profile extends Vue {
 
 <!-- "scoped" attribute removed to fill screen -->
 <style scoped>
+  #profile-image {
+    height: 200px;
+    width: 200px;
+  }
 
   .photo-column {
     max-width:300px;

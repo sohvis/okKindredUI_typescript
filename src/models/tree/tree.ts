@@ -94,7 +94,7 @@ export default class Tree {
 
     public render(clearAll = true) {
 
-        // window.console.log(`Tree.Render()`);
+        window.console.log(`Tree.Render()`);
         // window.console.log(`Clearing Canvas`);
         this.clearCanvas(clearAll);
 
@@ -142,9 +142,18 @@ export default class Tree {
 
         const node = this.getNodeAtXY(x, y);
         if (node) {
-            this.changeSelectedPerson(node.id.toString());
-            this.render(true);
+            store.dispatch('changePerson', node.id.toString());
         }
+    }
+
+    public changeSelectedPerson(newPersonId: string, oldPersonId: string) {
+        // window.console.log(`state.changeSelectedPerson(newPersonId: ${newPersonId})`);
+
+        this.nodesById[oldPersonId].selected = false;
+        this.selectedPersonId = newPersonId;
+        this.nodesById[newPersonId].selected = true;
+
+        this.render(true);
     }
 
     public hover(x: number, y: number) {
@@ -186,20 +195,6 @@ export default class Tree {
         }
 
         return null;
-    }
-
-    private changeSelectedPerson(newPersonId: string) {
-        // window.console.log(`state.changeSelectedPerson(newPersonId: ${newPersonId})`);
-
-        // Get old selected id
-        const oldSelectedId = store.state.person_id;
-
-        if (oldSelectedId !== newPersonId) {
-            this.nodesById[oldSelectedId].selected = false;
-            this.selectedPersonId = newPersonId;
-            store.dispatch('changePerson', newPersonId);
-            this.nodesById[newPersonId].selected = true;
-        }
     }
 
     private getDrawnNodes(): TreeNode[] {

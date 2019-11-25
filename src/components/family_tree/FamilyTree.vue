@@ -112,14 +112,28 @@ export default class FamilyTree extends Vue {
     }
 
     @Watch('selectedPersonId')
-    private onSelectedPersonChange() {
-      // window.console.log(`FamilyTree.onSelectedPersonChange()`);
+    private onSelectedPersonChange(value: string, oldValue: string) {
+      window.console.log(`FamilyTree.onSelectedPersonChange()`);
 
       const canvas = document.getElementById('tree-canvas') as HTMLCanvasElement;
       if (canvas.offsetParent && canvas.clientHeight > 0) {
         const tree = (Scroller as any).tree as Tree;
-        if (tree && tree.selectedPersonId !== this.selectedPersonId) {
-          this.initializeTree();
+        if (tree && tree.selectedPersonId !== value) {
+          tree.changeSelectedPerson(value, oldValue);
+
+          // Check selected node is inside view
+          const boundary = (Scroller as any).getViewBoundary();
+          window.console.log(`boundary top: ${boundary.top}, left: ${boundary.left}, bottom: ${boundary.bottom}, right: ${boundary.right}`);
+          window.console.log(`selected node x: ${tree.selectedNode.x}, y: ${tree.selectedNode.y}`);
+
+          const node = tree.selectedNode;
+          if (boundary.left > node.xMid || boundary.right < node.xMid ||
+              boundary.top > node.yMid || boundary.bottom < node.yMid ) {
+
+            // if node is not visible, redraw the tree
+            this.initializeTree();
+          }
+
         }
       }
     }
