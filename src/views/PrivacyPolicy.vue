@@ -52,7 +52,7 @@ export default class PrivacyPolicy extends Vue {}
 </script>
 <style scoped>
     .contact-details {
-      background-color: lightgrey;
+      background-color: #f0f0f0;
       margin-top: 10px;
       margin-bottom: 10px;
       padding-top: 15px;

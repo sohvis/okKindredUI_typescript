@@ -443,13 +443,15 @@ export const polish = {
       Kopie zapasowe danych mogą być przechowywane do 2 tygodni.`,
 
       YourDataProtectionRights: `Twoje Prawa do Ochrony Danych`,
-      YourDataProtectionRightsDescription: `Masz prawo poprosić nas o kopie danych osobowych i sprostować informacje, które uważasz za niedokładne.
+      YourDataProtectionRightsDescription: `Masz prawo poprosić nas o kopie swoich danych osobowych i
+      aby poprawić informacje, które uważasz za niedokładne.
       Masz również prawo poprosić nas o uzupełnienie informacji, które uważasz za niekompletne.
-      Masz prawo poprosić nas o usunięcie twoich danych osobowych w określonych okolicznościach.
-      Masz prawo poprosić nas o ograniczenie przetwarzania twoich informacji w określonych okolicznościach.
-      Masz prawo w określonych okolicznościach sprzeciwić się przetwarzaniu twoich danych osobowych.
-      Masz prawo poprosić, abyśmy przekazali informacje, które nam przekazałeś, do innej organizacji lub do Ciebie, w pewnych okolicznościach.
-      Nie musisz płacić żadnych opłat za wykonywanie swoich praw. Jeśli złożysz prośbę, mamy jeden miesiąc na udzielenie odpowiedzi.`,
+      Masz prawo poprosić nas o usunięcie danych osobowych.
+      Masz prawo poprosić nas o ograniczenie przetwarzania twoich informacji.
+      Masz prawo sprzeciwić się przetwarzaniu twoich danych osobowych.
+      Masz prawo poprosić nas o przekazanie informacji, które nam przekazałeś, do innej organizacji lub do ciebie.
+      Nie musisz płacić żadnych opłat za wykonywanie swoich praw. Jeśli złożysz prośbę, mamy jeden miesiąc na udzielenie odpowiedzi.
+      Możemy odmówić tych praw tylko w przypadku dochodzenia karnego lub jeśli jest to konieczne do ustalenia, dochodzenia lub obrony roszczeń prawnych.`,
 
       LinksToOtherWebsites: `Linki do Innych Stron Internetowych`,
       LinksToOtherWebsitesDescription: `Ta strona zawiera linki do innych stron internetowych.

@@ -431,13 +431,15 @@ export const french = {
       Les sauvegardes de données peuvent être conservées jusqu'à 2 semaines.`,
 
       YourDataProtectionRights: `Vos Droits de Protection des Données`,
-      YourDataProtectionRightsDescription: `Vous avez le droit de nous demander des copies de vos informations personnelles et de rectifier les informations que vous jugez inexactes.
+      YourDataProtectionRightsDescription: `Vous avez le droit de nous demander des copies de vos informations personnelles et
+      pour rectifier les informations que vous jugez inexactes.
       Vous avez également le droit de nous demander de compléter des informations que vous jugez incomplètes.
-      Vous avez le droit de nous demander d'effacer vos informations personnelles dans certaines circonstances.
-      Vous avez le droit de nous demander de limiter le traitement de vos informations dans certaines circonstances.
-      Vous avez le droit de vous opposer au traitement de vos données personnelles dans certaines circonstances.
-      Vous avez le droit de demander que nous transmettions les informations que vous nous avez données à une autre organisation ou à vous-même, dans certaines circonstances.
-      Vous n'êtes pas tenu de payer des frais pour l'exercice de vos droits. Si vous faites une demande, nous avons un mois pour vous répondre.`,
+      Vous avez le droit de nous demander d'effacer vos informations personnelles.
+      Vous avez le droit de nous demander de limiter le traitement de vos informations.
+      Vous avez le droit de vous opposer au traitement de vos données personnelles.
+      Vous avez le droit de demander que nous transmettions les informations que vous nous avez données à une autre organisation ou à vous.
+      Vous n'êtes pas tenu de payer des frais pour l'exercice de vos droits. Si vous faites une demande, nous avons un mois pour vous répondre.
+      Nous ne pouvons refuser ces droits qu'en cas d'enquête judiciaire ou si cela est nécessaire pour établir, exercer ou défendre des actions en justice.`,
 
       LinksToOtherWebsites: `Liens vers d'autres Sites Web`,
       LinksToOtherWebsitesDescription: `Ce site contient des liens vers d'autres sites.

@@ -379,12 +379,12 @@ export const english = {
       YourDataProtectionRightsDescription: `You have the right to ask us for copies of your personal information and
       to rectify information you think is inaccurate.
       You also have the right to ask us to complete information you think is incomplete.
-      You have the right to ask us to erase your personal information in certain circumstances.
-      You have the right to ask us to restrict the processing of your information in certain circumstances.
-      You have the the right to object to the processing of your personal data in certain circumstances.
-      You have the right to ask that we transfer the information you gave us to another organisation, or to you,
-      in certain circumstances.
-      You are not required to pay any charge for exercising your rights. If you make a request, we have one month to respond to you.`,
+      You have the right to ask us to erase your personal information.
+      You have the right to ask us to restrict the processing of your information.
+      You have the the right to object to the processing of your personal data.
+      You have the right to ask that we transfer the information you gave us to another organisation, or to you.
+      You are not required to pay any charge for exercising your rights. If you make a request, we have one month to respond to you.
+      We can only refuse these rights in the event of a criminal investigation, or if it is necessary for establishing, exercising or defending legal claims.`,
 
       LinksToOtherWebsites: `Links To Other Websites`,
       LinksToOtherWebsitesDescription: `This site contains links to other websites.
