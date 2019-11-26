@@ -1,6 +1,5 @@
 <template>
   <div class="home">
-    <Loading v-if="!loaded" />
     <Introduction v-if="loaded" />
     <AboutComponent v-if="loaded" />
   </div>
@@ -32,6 +31,10 @@ export default class Home extends Vue {
     // window.console.log(`Home.mounted()`);
 
     try {
+
+        store.commit('updateLoading', true);
+        this.loaded = false;
+
         // Load jwt from cookie and login
         if (!store.state.initialRoute) {
           await store.dispatch('restoreSession');
@@ -50,7 +53,10 @@ export default class Home extends Vue {
         }
     }
 
-    this.loaded = true;
+    this.$nextTick(() => {
+      store.commit('updateLoading', false);
+      this.loaded = true;
+    });
   }
 }
 </script>
