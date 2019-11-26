@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import Router from 'vue-router';
+import VueRouter from 'vue-router';
 import Home from './views/Home.vue';
 import Login from './views/accounts/Login.vue';
 import About from './views/About.vue';
@@ -19,10 +19,9 @@ import InviteConfirmation from './views/accounts/InviteConfirmation.vue';
 import PrivacyPolicy from './views/PrivacyPolicy.vue';
 import SelectGallery from './views/gallery/SelectGallery.vue';
 
+Vue.use(VueRouter);
 
-Vue.use(Router);
-
-export default new Router({
+export default new VueRouter({
   routes: [
     {
       path: '/family/:urlState?/:personId?/',
@@ -128,4 +127,14 @@ export default new Router({
       component: SelectGallery,
     },
   ],
+
+  // Returning the savedPosition will result in a native-like behavior when navigating with back/forward buttons:
+  // Default got to top of page
+  scrollBehavior (to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition
+    } else {
+      return { x: 0, y: 0 }
+    }
+  },  
 });

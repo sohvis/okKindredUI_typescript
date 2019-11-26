@@ -373,15 +373,15 @@ export const finnish = {
       Tietojen varmuuskopioita voidaan säilyttää jopa 2 viikkoa`,
 
       YourDataProtectionRights: `Tietosuojaoikeutesi`,
-      YourDataProtectionRightsDescription: `Sinulla on oikeus pyytää meiltä kopioita henkilökohtaisista tiedoistasi ja oikaista tiedot,
-      jotka sinun mielestäsi ovat epätarkkoja.
+      YourDataProtectionRightsDescription: `Sinulla on oikeus pyytää meiltä kopioita henkilökohtaisista tiedoistasi ja
+      oikaistaksesi tiedot, jotka ovat mielestäsi epätarkkoja.
       Sinulla on myös oikeus pyytää meitä antamaan täydelliset tiedot, jotka arvelet puutteellisiksi.
-      Sinulla on oikeus pyytää meitä poistamaan henkilökohtaiset tietosi tietyissä olosuhteissa.
-      Sinulla on oikeus pyytää meitä rajoittamaan tietosi käsittelyä tietyissä olosuhteissa.
-      Sinulla on oikeus tietyissä olosuhteissa vastustaa henkilötietojesi käsittelyä.
-      Sinulla on oikeus pyytää, että siirrämme meille antamasi tiedot toiselle organisaatiolle tai sinulle tietyissä olosuhteissa.
-      Sinun ei tarvitse maksaa mitään maksua oikeuksien käyttämisestä.
-      Jos teet pyynnön, meillä on kuukausi aikaa vastata sinulle.`,
+      Sinulla on oikeus pyytää meitä poistamaan henkilökohtaiset tietosi.
+      Sinulla on oikeus pyytää meitä rajoittamaan tietosi käsittelyä.
+      Sinulla on oikeus vastustaa henkilötietojesi käsittelyä.
+      Sinulla on oikeus pyytää, että siirrämme meille antamasi tiedot toiselle organisaatiolle tai sinulle.
+      Sinun ei tarvitse maksaa mitään maksua oikeuksien käyttämisestä. Jos teet pyynnön, meillä on kuukausi aikaa vastata sinulle.
+      Voimme kieltää nämä oikeudet vain rikostutkinnan yhteydessä tai jos se on tarpeen laillisten vaatimusten perustamiseksi, käyttämiseksi tai puolustamiseksi.`,
 
       LinksToOtherWebsites: `Linkit Muille Verkkosivustoille`,
       LinksToOtherWebsitesDescription: `Tämä sivusto sisältää linkkejä muille verkkosivustoille.
