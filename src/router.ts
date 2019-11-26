@@ -130,11 +130,11 @@ export default new VueRouter({
 
   // Returning the savedPosition will result in a native-like behavior when navigating with back/forward buttons:
   // Default got to top of page
-  scrollBehavior (to, from, savedPosition) {
+  scrollBehavior(to, from, savedPosition) {
     if (savedPosition) {
-      return savedPosition
+      return savedPosition;
     } else {
-      return { x: 0, y: 0 }
+      return { x: 0, y: 0 };
     }
-  },  
+  },
 });
