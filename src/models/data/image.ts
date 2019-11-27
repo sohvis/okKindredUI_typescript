@@ -17,6 +17,7 @@ export default interface Image {
     longitude: number;
     creation_date: Date;
     last_updated_date: Date;
+    uploaded_by: string;
 
     // Rendering only
     display_height: number;

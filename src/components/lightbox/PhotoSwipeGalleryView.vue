@@ -77,7 +77,15 @@
             <div class="pswp__caption">
                 <div class="pswp__caption__center"></div>
                 <div class="caption-center">
-                    <span id="caption-description"></span>
+                    <div id="caption-description"></div>
+                    <div>
+                        <strong>{{ $t('message.DateTaken') }}: </strong>
+                        <span id="caption-date"></span>
+                    </div>
+                    <div id="caption-uploaded-by-wrapper">
+                        <strong>{{ $t('message.UploadedBy') }}: </strong>
+                        <span id="caption-uploaded-by"></span>
+                    </div>
                 </div>
             </div>
 
@@ -104,6 +112,7 @@ import PhotoSwipeWrapper from '../../models/lightbox/photoswipeWrapper';
 import MapPopUp from './MapPopUp.vue';
 import EditImage from './EditImage.vue';
 import TaggingOverlay from './TaggingOverlay.vue';
+
 
 @Component({
   components: {
@@ -166,8 +175,24 @@ export default class PhotoSwipeGalleryView extends Vue {
             const image = (this.photoswipeWrapper.photoswipe.currItem as PhotoSwipeItem).image;
 
             // Update stuff vue binding doesn't seeem to work
-            const span = document.getElementById('caption-description') as HTMLSpanElement;
-            span.innerHTML = image.description;
+            const span = document.getElementById('caption-description') as HTMLElement;
+            if (image.description) {
+                span.innerHTML = `${image.description} `;
+            } else {
+                span.innerHTML = '';
+            }
+
+            const captionSpan = document.getElementById('caption-date') as HTMLElement;
+            captionSpan.innerHTML = image.date_taken.toLocaleString(store.getters.language);
+
+            const uploadedByWrapper = document.getElementById('caption-uploaded-by-wrapper') as HTMLElement;
+            if (image.uploaded_by) {
+                const uploadedSpan = document.getElementById('caption-uploaded-by') as HTMLElement;
+                uploadedSpan.innerHTML = image.uploaded_by;
+                uploadedByWrapper.style.display = 'block';
+            } else {
+                uploadedByWrapper.style.display = 'none';
+            }
 
             this.displayMap = !(image.latitude === 0 && image.longitude === 0);
 

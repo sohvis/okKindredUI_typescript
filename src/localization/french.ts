@@ -355,6 +355,8 @@ export const french = {
       Il supprimera également toutes les images qu’il contient.`,
       DeleteImages: `Suppression d'image`,
       DeleteImagesDesc: `Êtes-vous sûr de vouloir supprimer les images sélectionnées?`,
+      DateTaken: `Date Prise`,
+      UploadedBy: `Telechargé par`,
 
       // Select Gallery
       SelectGallery: `Sélectionnez une Galerie`,

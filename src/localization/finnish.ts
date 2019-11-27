@@ -297,6 +297,8 @@ export const finnish = {
       Se poistaa myös kaikki niissä olevat kuvat.`,
       DeleteImages: `Poista Kuvat`,
       DeleteImagesDesc: `Haluatko varmasti jättää valitut kuvat poistamaan?`,
+      DateTaken: `Päivämäärä Otettu`,
+      UploadedBy: `Lähettäjä`,
 
       // Select Gallery
       SelectGallery: `Valitse Galleria`,

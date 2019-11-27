@@ -292,6 +292,8 @@ export const english = {
       It will also delete all the images in them.`,
       DeleteImages: `Delete Images`,
       DeleteImagesDesc: `Are you sure you want to leave delete the selected images?`,
+      DateTaken: `Date Taken`,
+      UploadedBy: `Uploaded By`,
 
       // Select Gallery
       SelectGallery: `Select Gallery`,
