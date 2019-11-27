@@ -76,11 +76,18 @@
             <div class="pswp__caption">
                 <div class="pswp__caption__center"></div>
                 <div class="caption-center">
-                    <span id="caption-description"></span>
-                    &nbsp;
-                    <span class="go-to-gallery" @click="goToGallery">
+                    <div id="caption-description"></div>
+                    <div>
+                        <strong>{{ $t('message.DateTaken') }}: </strong>
+                        <span id="caption-date"></span>
+                    </div>
+                    <div id="caption-uploaded-by-wrapper">
+                        <strong>{{ $t('message.UploadedBy') }}: </strong>
+                        <span id="caption-uploaded-by"></span>
+                    </div>
+                    <div class="go-to-gallery" @click="goToGallery">
                         {{ $t('message.GoToGallery') }} >>
-                    </span>
+                    </div>
                 </div>
             </div>
 
@@ -167,8 +174,20 @@ export default class PhotoSwipeGalleryView extends Vue {
             const image = (this.photoswipeWrapper.photoswipe.currItem as PhotoSwipeItem).image;
 
             // Update stuff vue binding doesn't seeem to work
-            const span = document.getElementById('caption-description') as HTMLSpanElement;
+            const span = document.getElementById('caption-description') as HTMLElement;
             span.innerHTML = image.description;
+
+            const captionSpan = document.getElementById('caption-date') as HTMLElement;
+            captionSpan.innerHTML = image.date_taken.toLocaleString(store.getters.language);
+
+            const uploadedByWrapper = document.getElementById('caption-uploaded-by-wrapper') as HTMLElement;
+            if (image.uploaded_by) {
+                const uploadedSpan = document.getElementById('caption-uploaded-by') as HTMLElement;
+                uploadedSpan.innerHTML = image.uploaded_by;
+                uploadedByWrapper.style.display = 'block';
+            } else {
+                uploadedByWrapper.style.display = 'none';
+            }
 
             this.displayMap = !(image.latitude === 0 && image.longitude === 0);
 

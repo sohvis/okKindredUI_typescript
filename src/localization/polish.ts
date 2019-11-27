@@ -365,6 +365,8 @@ export const polish = {
       Spowoduje to również usunięcie wszystkich zawartych w nich obrazów.`,
       DeleteImages: `Usuń Obrazy`,
       DeleteImagesDesc: `Czy na pewno chcesz usunąć wybrane galerie?`,
+      DateTaken: `Data Wykonania`,
+      UploadedBy: `Przesłane Przez`,
 
       // Select Gallery
       SelectGallery: `Wybierz Galerię`,

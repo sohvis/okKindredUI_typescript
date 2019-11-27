@@ -336,6 +336,8 @@ export const simplifiedChinese = {
       它还将删除其中的所有图像。`,
       DeleteImages: `删除图像`,
       DeleteImagesDesc: `您确定要删除所选的画廊吗？`,
+      DateTaken: `拍摄日期`,
+      UploadedBy: `上传者`,
 
       // Select Gallery
       SelectGallery: `选择图库`,
@@ -374,54 +376,54 @@ export const simplifiedChinese = {
       CannotFindInvite: `ok!Kindred 没有找到邀请`,
       CannotFindInviteDescription: `请与向您发送邀请的人确认，并注意邀请在2周后过期。`,
 
-        // Privacy Policy
-        PrivacyPolicy: `隐私政策`,
-        WhoAreWe: `我们是谁`,
-        WhoAreWeDescription: `ok!Kindred 由 Tech Luminaire Ltd 经营:`,
-        CompanyContactEmail: `我们所有 ok!kindred 咨询的电子邮件是 info@okkindred.com`,
-        CompanyContactTelephone: `我们的电话号码是+44 2476982000。请注意，我们不通过电话提供技术支持。`,
-        CompanyNumber: `我们在英格兰和威尔士注册为公司08864499。`,
-        CompanyVATNumber: `增值税号：207242637`,
+      // Privacy Policy
+      PrivacyPolicy: `隐私政策`,
+      WhoAreWe: `我们是谁`,
+      WhoAreWeDescription: `ok!Kindred 由 Tech Luminaire Ltd 经营:`,
+      CompanyContactEmail: `我们所有 ok!kindred 咨询的电子邮件是 info@okkindred.com`,
+      CompanyContactTelephone: `我们的电话号码是+44 2476982000。请注意，我们不通过电话提供技术支持。`,
+      CompanyNumber: `我们在英格兰和威尔士注册为公司08864499。`,
+      CompanyVATNumber: `增值税号：207242637`,
 
-        WhatInformationWeCollect: `我们收集什么信息`,
-        WhatInformationWeCollectDescription: `我们收集数据以建立家谱和您家谱中人员的资料。这是您选择存储在网站上的信息，
-        包括姓名，出生年月，位置，联系方式和图像`,
-        WhatInformationWeCollectDescription2: `还将收集自动信息，例如用于将设备连接到Internet的Internet协议（IP）地址，
-        连接信息（例如浏览器类型和版本），有关设备的信息（包括设备类型和设备标识符）。`,
+      WhatInformationWeCollect: `我们收集什么信息`,
+      WhatInformationWeCollectDescription: `我们收集数据以建立家谱和您家谱中人员的资料。这是您选择存储在网站上的信息，
+      包括姓名，出生年月，位置，联系方式和图像`,
+      WhatInformationWeCollectDescription2: `还将收集自动信息，例如用于将设备连接到Internet的Internet协议（IP）地址，
+      连接信息（例如浏览器类型和版本），有关设备的信息（包括设备类型和设备标识符）。`,
 
-        WhatWeDoWithInformation: `我们如何处理您的信息`,
-        WhatWeDoWithInformationDescription: `我们不会将您的数据出售给任何第三方。
-        您与网站共享的信息用于创建您的家谱/网络。自动化信息用于帮助我们监视和改进服务。
-        您的照片用于训练服务，以帮助您标记自己的照片。
-        您在个人资料上提交的位置信息将发送到Google或Microsoft的地理位置服务，以将该人放置在地图上。
-        该位置不会发送其他信息。
-        您的家庭网络外部的任何公众都无法看到您与服务共享的家谱数据。`,
+      WhatWeDoWithInformation: `我们如何处理您的信息`,
+      WhatWeDoWithInformationDescription: `我们不会将您的数据出售给任何第三方。
+      您与网站共享的信息用于创建您的家谱/网络。自动化信息用于帮助我们监视和改进服务。
+      您的照片用于训练服务，以帮助您标记自己的照片。
+      您在个人资料上提交的位置信息将发送到Google或Microsoft的地理位置服务，以将该人放置在地图上。
+      该位置不会发送其他信息。
+      您的家庭网络外部的任何公众都无法看到您与服务共享的家谱数据。`,
 
-        HowWeStoreYourInformation: `我们如何存储您的信息`,
-        HowWeStoreYourInformationDescription: `我们的服务在PythonAnywhere（https://www.pythonanywhere.com）上运行，
-        您的数据存储在其服务器上。他们在美国操作由Amazon Web Services管理的服务器，该服务器已通过欧盟-美国隐私保护框架认证。
-        这为处理您的个人数据提供了保障。照片无需通过PythonAnywhere即可直接存储到Amazon Web Services。您的数据不会传输给任何其他第三方。`,
-        HowWeStoreYourInformationDescription2: `如果您是家庭网络中的唯一用户，则通常在删除帐户后即会删除您的数据。
-        如果您的家庭网络中有很多用户，则将您视为数据的共同所有者。删除帐户时，您可以选择删除个人资料。
-        当您的家庭网络中的所有用户删除其帐户时，整个家庭网络信息都将被删除。数据备份最多可以保留2周。`,
+      HowWeStoreYourInformation: `我们如何存储您的信息`,
+      HowWeStoreYourInformationDescription: `我们的服务在PythonAnywhere（https://www.pythonanywhere.com）上运行，
+      您的数据存储在其服务器上。他们在美国操作由Amazon Web Services管理的服务器，该服务器已通过欧盟-美国隐私保护框架认证。
+      这为处理您的个人数据提供了保障。照片无需通过PythonAnywhere即可直接存储到Amazon Web Services。您的数据不会传输给任何其他第三方。`,
+      HowWeStoreYourInformationDescription2: `如果您是家庭网络中的唯一用户，则通常在删除帐户后即会删除您的数据。
+      如果您的家庭网络中有很多用户，则将您视为数据的共同所有者。删除帐户时，您可以选择删除个人资料。
+      当您的家庭网络中的所有用户删除其帐户时，整个家庭网络信息都将被删除。数据备份最多可以保留2周。`,
 
-        YourDataProtectionRights: `您的数据保护权利`,
-        YourDataProtectionRightsDescription: `您有权要求我们提供您的个人信息的副本，以及
-        纠正您认为不正确的信息。
-        您也有权要求我们完成您认为不完整的信息。
-        您有权要求我们删除您的个人信息。
-        您有权要求我们限制您信息的处理。
-        您有权反对处理您的个人数据。
-        您有权要求我们将您提供给我们的信息转移给另一个组织或您。
-        您无需为行使权利而支付任何费用。 如果您提出要求，我们有一个月的时间回复您。
-        我们只有在进行刑事调查时，或者在确立，行使或捍卫法律主张所必需的情况下，才能拒绝这些权利。`,
+      YourDataProtectionRights: `您的数据保护权利`,
+      YourDataProtectionRightsDescription: `您有权要求我们提供您的个人信息的副本，以及
+      纠正您认为不正确的信息。
+      您也有权要求我们完成您认为不完整的信息。
+      您有权要求我们删除您的个人信息。
+      您有权要求我们限制您信息的处理。
+      您有权反对处理您的个人数据。
+      您有权要求我们将您提供给我们的信息转移给另一个组织或您。
+      您无需为行使权利而支付任何费用。 如果您提出要求，我们有一个月的时间回复您。
+      我们只有在进行刑事调查时，或者在确立，行使或捍卫法律主张所必需的情况下，才能拒绝这些权利。`,
 
-        LinksToOtherWebsites: `链接到其他网站`,
-        LinksToOtherWebsitesDescription: `该网站包含指向其他网站的链接。
-        我们对其他网站的内容或它们如何处理个人信息概不负责。`,
+      LinksToOtherWebsites: `链接到其他网站`,
+      LinksToOtherWebsitesDescription: `该网站包含指向其他网站的链接。
+      我们对其他网站的内容或它们如何处理个人信息概不负责。`,
 
-        HowToComplain: `如何投诉`,
-        HowToComplainDescription: `如果您对我们如何处理您的个人信息有任何投诉，请通过上面的电子邮件地址与我们联系。
-        如果您对我们的答复不满意或认为我们没有依法处理您的个人信息，则可以向信息专员办公室（ICO）投诉：`,
+      HowToComplain: `如何投诉`,
+      HowToComplainDescription: `如果您对我们如何处理您的个人信息有任何投诉，请通过上面的电子邮件地址与我们联系。
+      如果您对我们的答复不满意或认为我们没有依法处理您的个人信息，则可以向信息专员办公室（ICO）投诉：`,
     },
 };
