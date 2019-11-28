@@ -23,7 +23,6 @@ import store from '../store/store';
 import Person from '../models/data/person';
 import MapMarkerOptions from '../models/map/map_marker_options';
 import config from '../config';
-import { mapGetters } from 'vuex';
 import BrowserDetection from '../models/browserDetection';
 
 

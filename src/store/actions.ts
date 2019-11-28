@@ -1,4 +1,4 @@
-import { ActionTree, ActionContext } from 'vuex';
+import { ActionTree } from 'vuex';
 import * as request from 'request-promise-native';
 import { configs } from '../config';
 import IState from './IState';
