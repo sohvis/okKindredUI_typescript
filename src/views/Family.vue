@@ -1,7 +1,7 @@
 <template>
 <b-card no-body>
     <b-tabs card justified v-model="tabIndex">
-        <b-tab @click="route('tree')" active>
+        <b-tab @click="route('tree')" active class="no-select-border">
             <template slot="title">
                 <span class="oi oi-people" aria-hidden="true"></span>
                 {{ $t('message.Tree') }}
@@ -11,7 +11,7 @@
                     ref="tree" />
             </b-card-text>
         </b-tab>
-        <b-tab @click="route('profile')">
+        <b-tab @click="route('profile')" class="no-select-border">
             <template slot="title">
                 <span class="oi oi-person" aria-hidden="true"></span>
                 {{ $t('message.Profile') }}
@@ -21,7 +21,7 @@
                     ref="profile" />
             </b-card-text>
         </b-tab>
-        <b-tab @click="route('map')">
+        <b-tab @click="route('map')" class="no-select-border">
             <template slot="title">
                 <span class="oi oi-map" aria-hidden="true"></span>
                 {{ $t('message.Map') }}
@@ -189,7 +189,19 @@ export default class Family extends Vue {
 
 <!-- "scoped" attribute removed to fill screen -->
 <style scoped>
-.card-body{
+.card-body {
     padding: 0.25em !important;
+}
+
+.no-select-border {
+  /* https://stackoverflow.com/questions/5796512/how-to-disable-select-for-html5-canvas-element */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  outline: none;
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0); /* mobile webkit */
 }
 </style>

@@ -266,7 +266,7 @@
     </div>
 
     <hr/>
-    <CoreFamilyMembers v-show="person" ref="coreFamilyMembers"/>
+    <CoreFamilyMembers v-show="person && !editMode" ref="coreFamilyMembers"/>
 
   </div>
 </template>
