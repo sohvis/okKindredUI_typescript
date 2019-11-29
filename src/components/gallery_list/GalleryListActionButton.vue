@@ -1,6 +1,6 @@
 <template>
-
-    <div class="action-button-container">
+    <div id="action-button-container" class="action-button-container" 
+        v-bind:style="actionButtonRightStyle">
         <transition name="slide-fade">
             <b-button
                 v-if="opened"
@@ -85,8 +85,28 @@ export default class GalleryListActionButton extends Vue {
 
     public opened: boolean = false;
 
+    public actionButtonRightStyle: any = {
+        right: '0px',
+    };
+
     public addGallery() {
         (this.$refs.addGallery as AddGallery).show();
+    }
+
+    private mounted() {
+        window.addEventListener('resize', () => this.positionContainer(), false);
+        this.positionContainer();
+    }
+
+    private positionContainer() {
+        // Positions the floating action button
+        window.console.log(`GalleryListActionButton.positionContainer()`);
+        const actionContainer = document.getElementById('action-button-container') as HTMLDivElement;
+        const container = document.getElementsByClassName('container')[0] as HTMLDivElement;
+
+        const rect = container.getBoundingClientRect();
+
+        this.actionButtonRightStyle.right = `${rect.left + 15}px`;
     }
 
     private menuButtonClicked() {
@@ -128,10 +148,9 @@ export default class GalleryListActionButton extends Vue {
 
 .action-button-container {
     float: right; 
-    right: 0;  
-    top: 0;
+    top: 60px;
     z-index: 5;
-    position: absolute;
+    position: fixed;
 }
 
 .gallery-list-button {
@@ -147,6 +166,7 @@ export default class GalleryListActionButton extends Vue {
     padding-right: 14px;
     padding-top: 10px;
     padding-bottom: 10px;
+    background-color: white;
 }
 
 .close-button {

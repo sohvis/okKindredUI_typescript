@@ -1,6 +1,6 @@
 <template>
-
-    <div class="gallery-action-container">
+    <div id="gallery-action-container" class="gallery-action-container" 
+        v-bind:style="actionButtonRightStyle">
         <transition name="slide-fade">
             <b-button
                 v-if="opened"
@@ -122,8 +122,11 @@ export default class GalleryActionButton extends Vue {
         }
     }
 
-
     public opened: boolean = false;
+
+    public actionButtonRightStyle: any = {
+        right: '0px',
+    };
 
     public addImages() {
         if (this.gallery) {
@@ -132,6 +135,22 @@ export default class GalleryActionButton extends Vue {
 
             this.$router.push(`/gallery/${this.gallery.id}/upload/?page=${this.page}&title=${this.gallery.title}`);
         }
+    }
+
+    private mounted() {
+        window.addEventListener('resize', () => this.positionContainer(), false);
+        this.positionContainer();
+    }
+
+    private positionContainer() {
+        // Positions the floating action button
+        // window.console.log(`GalleryActionButton.positionContainer()`);
+        const actionContainer = document.getElementById('gallery-action-container') as HTMLDivElement;
+        const container = document.getElementsByClassName('container')[0] as HTMLDivElement;
+
+        const rect = container.getBoundingClientRect();
+
+        this.actionButtonRightStyle.right = `${rect.left + 15}px`;
     }
 
     private menuButtonClicked() {
@@ -185,11 +204,10 @@ export default class GalleryActionButton extends Vue {
 <style scoped>
 
 .gallery-action-container {
-    float: right; 
-    right: 0;  
-    top: 40px;
+    float: right;  
+    top: 96px;
     z-index: 5;
-    position: absolute;
+    position: fixed;
 }
 
 .gallery-button {
@@ -205,6 +223,8 @@ export default class GalleryActionButton extends Vue {
     padding-right: 14px;
     padding-top: 10px;
     padding-bottom: 10px;
+    background-color: white;
+
 }
 
 .edit-button {
