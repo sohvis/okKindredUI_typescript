@@ -224,7 +224,10 @@ export default class GalleryActionButton extends Vue {
     padding-top: 10px;
     padding-bottom: 10px;
     background-color: white;
+}
 
+.action-button:hover {
+    background-color: #007bff;
 }
 
 .edit-button {

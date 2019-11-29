@@ -169,6 +169,11 @@ export default class GalleryListActionButton extends Vue {
     background-color: white;
 }
 
+.action-button:hover {
+    background-color: #007bff;
+}
+
+
 .close-button {
     padding-left: 16px;
     padding-right: 15px;
