@@ -254,6 +254,7 @@ export default class GalleryList extends Vue {
 
 .gallery-title {
     float: left;
+    overflow-wrap: break-word;
 }
 
 .gallery-header {

@@ -46,10 +46,18 @@ export const Scroller = {
         canvas.addEventListener('DOMMouseScroll', Scroller.handleScroll,false);
         canvas.addEventListener('mousewheel',Scroller.handleScroll,false);
 
+        canvas.addEventListener('dblclick', Scroller.onDoubleClick, false);
+
         // window.console.log(`Scroller.canvas.offsetTop: ${Scroller.canvas.offsetTop}`);
         // window.console.log(`Scroller.canvasOffset().top: ${Scroller.canvasOffset().top}`);
         // window.console.log(`Scroller.tree.dpr: ${Scroller.tree.dpr}`);
 
+    },
+
+    onDoubleClick: (evt) => {
+        const offset = Scroller.canvasOffset();
+        const pt = Scroller.ctx.transformedPoint(evt.clientX - offset.left, evt.clientY - offset.top);
+        Scroller.tree.doubleClick(pt.x, pt.y);
     },
 
     mousedown: (evt) => {
@@ -270,8 +278,12 @@ export const Scroller = {
         
         // Select if quick single tap
         if(elapsedClickTime < 150 && !Scroller.dragStart[1]) {
-            var pt = Scroller.ctx.transformedPoint(Scroller.lastPoint.x, Scroller.lastPoint.y);
-            Scroller.tree.click(pt.x, pt.y);
+            const pt = Scroller.ctx.transformedPoint(Scroller.lastPoint.x, Scroller.lastPoint.y);
+
+            const newPosition = Scroller.tree.clickRequiresMove(pt.x, pt.y);
+            if (newPosition) {
+                Scroller.smoothTranslateTo(newPosition.x, newPosition.y);
+            }
         } 
 
         Scroller.dragStart[0] = null;

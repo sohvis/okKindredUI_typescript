@@ -1,6 +1,6 @@
 <template>
-
-    <div class="gallery-action-container">
+    <div id="gallery-action-container" class="gallery-action-container" 
+        v-bind:style="actionButtonRightStyle">
         <transition name="slide-fade">
             <b-button
                 v-if="opened"
@@ -122,8 +122,11 @@ export default class GalleryActionButton extends Vue {
         }
     }
 
-
     public opened: boolean = false;
+
+    public actionButtonRightStyle: any = {
+        right: '0px',
+    };
 
     public addImages() {
         if (this.gallery) {
@@ -132,6 +135,22 @@ export default class GalleryActionButton extends Vue {
 
             this.$router.push(`/gallery/${this.gallery.id}/upload/?page=${this.page}&title=${this.gallery.title}`);
         }
+    }
+
+    private mounted() {
+        window.addEventListener('resize', () => this.positionContainer(), false);
+        this.positionContainer();
+    }
+
+    private positionContainer() {
+        // Positions the floating action button
+        // window.console.log(`GalleryActionButton.positionContainer()`);
+        const actionContainer = document.getElementById('gallery-action-container') as HTMLDivElement;
+        const container = document.getElementsByClassName('container')[0] as HTMLDivElement;
+
+        const rect = container.getBoundingClientRect();
+
+        this.actionButtonRightStyle.right = `${rect.left + 15}px`;
     }
 
     private menuButtonClicked() {
@@ -185,11 +204,10 @@ export default class GalleryActionButton extends Vue {
 <style scoped>
 
 .gallery-action-container {
-    float: right; 
-    right: 0;  
-    top: 40px;
+    float: right;  
+    top: 96px;
     z-index: 5;
-    position: absolute;
+    position: fixed;
 }
 
 .gallery-button {
@@ -205,11 +223,23 @@ export default class GalleryActionButton extends Vue {
     padding-right: 14px;
     padding-top: 10px;
     padding-bottom: 10px;
+    background-color: white;
 }
 
-.edit-button {
-    padding-left: 17px;
-    padding-right: 14px;
+.action-button:hover {
+    background-color: #007bff;
+}
+
+.close-button {
+    padding-left: 16px;
+    padding-right: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.map-button {
+    padding-left: 16px;
+    padding-right: 12px;
     padding-top: 10px;
     padding-bottom: 10px;
 }
@@ -221,9 +251,9 @@ export default class GalleryActionButton extends Vue {
     padding-bottom: 10px;
 }
 
-.close-button {
-    padding-left: 16px;
-    padding-right: 15px;
+.edit-button {
+    padding-left: 17px;
+    padding-right: 14px;
     padding-top: 10px;
     padding-bottom: 10px;
 }
@@ -235,12 +265,42 @@ export default class GalleryActionButton extends Vue {
     padding-bottom: 10px;
 }
 
-.map-button {
-    padding-left: 16px;
-    padding-right: 12px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+
+@media (max-width: 360px) {
+    .gallery-button {
+        border-radius: 50%;
+        font-size: 0.8em;
+        margin-right:5px;
+        margin-left:5px;
+        margin-top: 5px;
+    }
+
+    .action-button {
+        padding-left: 13px;
+        padding-right: 13px;
+    }
+
+    .close-button {
+        padding-left: 13px;
+        padding-right: 13px;
+    }
+
+    .map-button {
+        padding-left: 14px;
+        padding-right: 12px;
+    }
+
+    .delete-button {
+        padding-left: 15px;
+        padding-right: 13px;
+    }
+
+    .edit-button {
+        padding-left: 14px;
+        padding-right: 13px;
+    }
 }
+
 
 .slide-fade-enter, .slide-fade-leave-to {
     transform: translateX(10px);

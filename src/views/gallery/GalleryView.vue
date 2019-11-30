@@ -240,6 +240,10 @@ export default class GalleryView extends Vue {
 
     private editModeChanged(editMode: boolean) {
         this.editMode = editMode;
+
+        if (editMode) {
+            this.selectedImageIds = [];
+        }
     }
 
     private selectionChanged(imageId: number, checked: boolean) {

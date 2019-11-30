@@ -11,15 +11,15 @@
 
       <b-collapse is-nav id="nav_collapse">
         <b-navbar-nav>
-          <b-nav-item v-if="logged_in" to="/family/tree/" :disabled="loading">
+          <b-nav-item v-if="logged_in" to="/family/tree/">
             <span class="oi oi-people" aria-hidden="true"></span>
             {{ $t("message.Family") }}
           </b-nav-item>
-          <b-nav-item v-if="logged_in" to="/gallery/?page=1" :disabled="loading">
+          <b-nav-item v-if="logged_in" to="/gallery/?page=1">
             <span class="oi oi-image" aria-hidden="true"></span>
             {{ $t("message.Gallery") }}
           </b-nav-item>
-          <b-nav-item v-if="logged_in" @click="searchClicked" :disabled="loading">
+          <b-nav-item v-if="logged_in" @click="searchClicked">
             <span class="oi oi-magnifying-glass" aria-hidden="true"></span>
             {{ $t("message.Search") }}
           </b-nav-item>
@@ -27,19 +27,19 @@
 
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
-          <b-nav-item to="/about/" :disabled="loading">
+          <b-nav-item to="/about/">
             <span class="oi oi-info" aria-hidden="true"></span>
             {{ $t("message.About") }}
           </b-nav-item>
-          <b-nav-item v-if="logged_in" to="/accounts/settings/" :disabled="loading">
+          <b-nav-item v-if="logged_in" to="/accounts/settings/">
               <span class="oi oi-cog" aria-hidden="true"></span>
               {{ $t("message.Settings") }}
           </b-nav-item>
-          <b-nav-item v-if="logged_in" v-on:click="logout()" href="#" :disabled="loading">
+          <b-nav-item v-if="logged_in" v-on:click="logout()" href="#">
             <span class="oi oi-account-logout" aria-hidden="true"></span>
             {{ $t("message.Logout") }}
           </b-nav-item>
-          <b-nav-item v-if="!logged_in" to="/accounts/login/" :disabled="loading">
+          <b-nav-item v-if="!logged_in" to="/accounts/login/">
           <span class="oi oi-account-login" aria-hidden="true"></span>
             {{ $t("message.Login") }}
           </b-nav-item>
@@ -60,7 +60,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 import 'open-iconic/font/css/open-iconic-bootstrap.css';
 
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Watch } from 'vue-property-decorator';
 
 import Loading from '@/components/common/Loading.vue';
 import ErrorModal from './components/common/ErrorModal.vue';

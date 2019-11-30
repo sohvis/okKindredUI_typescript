@@ -17,10 +17,10 @@
         <!-- Title and description -->
         <div class="title-description">
             <h1>
-                <span>{{ title }}</span>
+                {{ title }}
             </h1>
             <p>
-                <span>{{ description }}</span>
+                {{ description }}
             </p>
         </div>
 
@@ -151,5 +151,6 @@ export default class GalleryHeader extends Vue {
 
 .title-description {
     margin-right: 50px;
+    overflow-wrap: break-word;
 }
 </style>

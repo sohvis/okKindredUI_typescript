@@ -56,10 +56,6 @@ export default class CropFile extends Vue {
 
   private jcrop: any;
 
-  constructor() {
-    super();
-  }
-
   public loadFile(file: File) {
     // window.console.log('ChooseFile.loadFile()');
 

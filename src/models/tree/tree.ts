@@ -10,6 +10,8 @@ import TreeDescendantPositioner from './treeDescendantPositioner';
 import Level0Positioner from './level0Positioner';
 import RelationTypes from '../data/relation_types';
 import SiblingNodeGroup from './siblingNodeGroup';
+import Point from './point';
+import router from '../../router';
 
 export default class Tree {
 
@@ -94,7 +96,7 @@ export default class Tree {
 
     public render(clearAll = true) {
 
-        window.console.log(`Tree.Render()`);
+        // window.console.log(`Tree.Render()`);
         // window.console.log(`Clearing Canvas`);
         this.clearCanvas(clearAll);
 
@@ -137,12 +139,28 @@ export default class Tree {
         });
     }
 
-    public click(x: number, y: number) {
+    public clickRequiresMove(x: number, y: number): Point | null {
         // window.console.log(`Tree.click(x:${x} , y:${y})`);
 
         const node = this.getNodeAtXY(x, y);
         if (node) {
-            store.dispatch('changePerson', node.id.toString());
+            if (node.selected) {
+                return new Point(node.xMid, node.yMid);
+            } else {
+                store.dispatch('changePerson', node.id.toString());
+                return null;
+            }
+        }
+
+        return null;
+    }
+
+    public doubleClick(x: number, y: number) {
+        const node = this.getNodeAtXY(x, y);
+        if (node) {
+            if (node.selected) {
+                router.push(`/family/profile/${node.id}/`);
+            }
         }
     }
 
