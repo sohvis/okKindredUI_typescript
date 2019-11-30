@@ -230,9 +230,16 @@ export default class GalleryActionButton extends Vue {
     background-color: #007bff;
 }
 
-.edit-button {
-    padding-left: 17px;
-    padding-right: 14px;
+.close-button {
+    padding-left: 16px;
+    padding-right: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.map-button {
+    padding-left: 16px;
+    padding-right: 12px;
     padding-top: 10px;
     padding-bottom: 10px;
 }
@@ -244,9 +251,9 @@ export default class GalleryActionButton extends Vue {
     padding-bottom: 10px;
 }
 
-.close-button {
-    padding-left: 16px;
-    padding-right: 15px;
+.edit-button {
+    padding-left: 17px;
+    padding-right: 14px;
     padding-top: 10px;
     padding-bottom: 10px;
 }
@@ -258,12 +265,42 @@ export default class GalleryActionButton extends Vue {
     padding-bottom: 10px;
 }
 
-.map-button {
-    padding-left: 16px;
-    padding-right: 12px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+
+@media (max-width: 360px) {
+    .gallery-button {
+        border-radius: 50%;
+        font-size: 0.8em;
+        margin-right:5px;
+        margin-left:5px;
+        margin-top: 5px;
+    }
+
+    .action-button {
+        padding-left: 13px;
+        padding-right: 13px;
+    }
+
+    .close-button {
+        padding-left: 13px;
+        padding-right: 13px;
+    }
+
+    .map-button {
+        padding-left: 14px;
+        padding-right: 12px;
+    }
+
+    .delete-button {
+        padding-left: 15px;
+        padding-right: 13px;
+    }
+
+    .edit-button {
+        padding-left: 14px;
+        padding-right: 13px;
+    }
 }
+
 
 .slide-fade-enter, .slide-fade-leave-to {
     transform: translateX(10px);
