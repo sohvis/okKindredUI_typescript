@@ -27,6 +27,9 @@ export const configs = {
     UserSettingsAPI: '/api/user_settings/',
     UsersAPI: '/api/users/',
 
+    // Azure function endpoints
+    DownloadImagesAPI: 'https://okkindreddownloadimages20191202033203.azurewebsites.net',
+
     // External APIs
     PwnedPasswordsAPI: 'https://api.pwnedpasswords.com/range/',
     MapboxTileAPi: 'https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token={token}',
