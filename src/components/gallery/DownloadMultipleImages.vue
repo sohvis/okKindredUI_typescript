@@ -106,15 +106,18 @@ export default class DownloadMultipleImages extends Vue {
     }
 
     private onLoad(e: any) {
-        const blob = new Blob([this.req.response], { type: 'application/zip' });
-        const link = document.createElement('a');
-        link.href = window.URL.createObjectURL(blob);
-        link.download = `${this.$t('message.Download')}.zip`;
-        link.click();
+        if (this.req.status === 200) {
+            const blob = new Blob([this.req.response], { type: 'application/zip' });
+            const link = document.createElement('a');
+            link.href = window.URL.createObjectURL(blob);
+            link.download = `${this.$t('message.Download')}.zip`;
+            link.click();
 
-        store.commit('updateLoading', false);
-        (this.$refs.downloadModal as BModal).hide();
-
+            store.commit('updateLoading', false);
+            (this.$refs.downloadModal as BModal).hide();
+        } else {
+            this.transferFailed(e);
+        }
     }
 
     private transferFailed(error: any) {
@@ -124,24 +127,26 @@ export default class DownloadMultipleImages extends Vue {
     }
 
     private updateProgress(progress: ProgressEvent) {
-        window.console.log('DownloadMultipleImages.updateProgress()');
         if (progress && progress.loaded) {
             this.downloadedMb = (progress.loaded / 1024 / 1024).toFixed(2);
         }
     }
 
     private async loadImagesFromGallery(galleryId: number): Promise<Image[]> {
+        window.console.log(`DownloadMultipleImages.updateProgress(galleryId: ${galleryId})`);
         const images = new Array<Image>();
-        const firstPage = await this.loadImagesFromGalleryPage(galleryId, 0);
+        const firstPage = await this.loadImagesFromGalleryPage(galleryId, 1);
 
         const totalPages = Math.max(1, Math.ceil(firstPage.count / config.PaginationPageSize));
+        window.console.log(`totalPages: ${totalPages}`);
 
         const tasks = new Array<Promise<PagedResult<Image>>>();
-        for (let pageNo = 1; pageNo < totalPages; pageNo++) {
+        for (let pageNo = 2; pageNo <= totalPages; pageNo++) {
             tasks.push(this.loadImagesFromGalleryPage(galleryId, pageNo));
         }
 
         const results = await Promise.all(tasks);
+        results.unshift(firstPage);
 
         for (const result of results) {
             images.push(...result.results);

@@ -22,9 +22,20 @@
                 variant="danger"
                 :title="$t('message.Delete')"
                 class="gallery-list-button delete-button"
-                :disabled="!deleteEnabled"
+                :disabled="!imagesSelected"
                 @click="deleteClicked">
                 <span class="oi oi-trash"></span>
+            </b-button>
+        </transition>
+        <transition name="slide-fade">
+            <b-button
+                v-if="opened"
+                variant="primary"
+                :title="$t('message.Download')"
+                class="gallery-list-button download-button"
+                :disabled="!imagesSelected"
+                @click="downloadClicked">
+                <span class="oi oi-data-transfer-download"></span>
             </b-button>
         </transition>
         <b-button
@@ -74,7 +85,7 @@ export default class GalleryListActionButton extends Vue {
     @Prop({ default: () => [] })
     public selectedGalleryIds?: number[];
 
-    public get deleteEnabled(): boolean {
+    public get imagesSelected(): boolean {
 
         if (this.selectedGalleryIds) {
             return this.selectedGalleryIds.length > 0;
@@ -141,6 +152,10 @@ export default class GalleryListActionButton extends Vue {
         this.toggleOpen();
         this.$emit('galleryCreated');
     }
+
+    private downloadClicked() {
+        this.$emit('downloadClicked');
+    }
 }
 </script>
 
@@ -195,6 +210,13 @@ export default class GalleryListActionButton extends Vue {
     padding-bottom: 10px;
 }
 
+.download-button {
+    padding-left: 15px;
+    padding-right: 16px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
 .slide-fade-enter, .slide-fade-leave-to {
   transform: translateX(10px);
   opacity: 0;
@@ -205,9 +227,14 @@ export default class GalleryListActionButton extends Vue {
   transition: all .3s ease;
 }
 
-/* Need to make danger button look more disabled */
+/* Need to make disabled buttons look more disabled */
 .btn-danger.disabled {
     background-color: #f99;
     border-color: #f99
+}
+
+.btn-primary.disabled {
+    background-color: rgb(80, 203, 255);
+    border-color: rgb(80, 203, 255);
 }
 </style>
