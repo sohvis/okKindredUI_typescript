@@ -28,7 +28,7 @@ export const configs = {
     UsersAPI: '/api/users/',
 
     // Azure function endpoints
-    DownloadImagesAPI: 'https://okkindreddownloadimages20191202033203.azurewebsites.net',
+    DownloadImagesAPI: 'https://okkindreddownloadimages20191202033203.azurewebsites.net/api/okkindred_download_images?code=eyGYn7POphCLmF8aqcxlaFpxd/33bVRXslNeTe6o2B3IotOaKwhiLw==',
 
     // External APIs
     PwnedPasswordsAPI: 'https://api.pwnedpasswords.com/range/',

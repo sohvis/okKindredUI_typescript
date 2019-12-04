@@ -36,6 +36,7 @@
             </b-pagination-nav>
         </div>
         <PhotoSwipeView ref="photoSwipeView" @imageEdited="imageEdited"/>
+        <DownloadMultipleImages ref="downloadMultipleImages"/>
     </div>
 </template>
 
@@ -50,7 +51,7 @@ import Image from '../../models/data/image';
 import ImageRow from '../../components/gallery/ImageRow.vue';
 import GalleryHeader from '../../components/gallery/GalleryHeader.vue';
 import PhotoSwipeView from '../../components/lightbox/PhotoSwipeGalleryView.vue';
-import DownloadImagesRequest from '../../models/data/download_images_request';
+import DownloadMultipleImages from '../../components/gallery/DownloadMultipleImages.vue';
 
 
 @Component({
@@ -58,6 +59,7 @@ import DownloadImagesRequest from '../../models/data/download_images_request';
       ImageRow,
       GalleryHeader,
       PhotoSwipeView,
+      DownloadMultipleImages,
   },
 })
 export default class GalleryView extends Vue {
@@ -354,36 +356,16 @@ export default class GalleryView extends Vue {
     }
 
     private async downloadClicked() {
-        
 
-        store.commit('updateLoading', true);
-
-        try {
-            const downloadImageRequest = new DownloadImagesRequest();
-            for (const image of this.images) {
-                if (this.selectedImageIds.includes(image.id)) {
-                    downloadImageRequest.images.push(image.original_image);
-                }
+        const images = Array<string>();
+        for (const image of this.images) {
+            if (this.selectedImageIds.includes(image.id)) {
+                images.push(image.original_image);
             }
-            const options = {
-                uri: `${config.DownloadImagesAPI}`,
-                headers: store.getters.ajaxHeader,
-                body: downloadImageRequest,
-                json: true,
-            };
-
-            const blob = await request.post(options) as Blob;
-            const link=document.createElement('a');
-            link.href=window.URL.createObjectURL(blob);
-            link.download = 'download.zip';
-            link.click();
-
-        } catch (ex) {
-            store.commit('setErrorMessage', ex);
         }
 
-        store.commit('updateLoading', false);
-
+        const downloadComponent = this.$refs.downloadMultipleImages as DownloadMultipleImages;
+        await downloadComponent.download(images);
     }
 }
 </script>

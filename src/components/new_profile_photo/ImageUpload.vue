@@ -34,7 +34,6 @@ import store from '../../store/store';
 import configs from '../../config';
 import CropArgs from '../../models/data/crop_args';
 import Person from '../../models/data/person';
-import fs from 'fs';
 
 @Component
 export default class ImageUpload extends Vue {

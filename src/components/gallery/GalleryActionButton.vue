@@ -321,6 +321,11 @@ export default class GalleryActionButton extends Vue {
         padding-left: 14px;
         padding-right: 13px;
     }
+
+    .download-button {
+        padding-left: 13px;
+        padding-right: 14px;
+    }
 }
 
 

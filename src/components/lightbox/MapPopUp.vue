@@ -10,7 +10,7 @@
         <span class="oi oi-x top-corner" @click="closeClicked"></span>
         <div id="map-div" v-bind:style="mapDivStyle"></div>
     </div>
-    </b-modal>
+</b-modal>
 </template>
 
 <script lang="ts">
