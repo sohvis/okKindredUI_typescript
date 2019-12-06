@@ -367,8 +367,17 @@ export default class GalleryView extends Vue {
             }
         }
 
-        const downloadComponent = this.$refs.downloadMultipleImages as DownloadMultipleImages;
-        await downloadComponent.download(images);
+        if (images.length > 1) {
+            const downloadComponent = this.$refs.downloadMultipleImages as DownloadMultipleImages;
+            await downloadComponent.download(images);
+
+        } else if (images.length === 1) {
+            const image = images[0];
+            const link = document.createElement('a');
+            link.download = image;
+            link.href = image;
+            link.click();
+        }
     }
 }
 </script>

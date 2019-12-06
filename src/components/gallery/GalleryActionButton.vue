@@ -267,8 +267,8 @@ export default class GalleryActionButton extends Vue {
 }
 
 .download-button {
-    padding-left: 15px;
-    padding-right: 16px;
+    padding-left: 17px;
+    padding-right: 14px;
     padding-top: 10px;
     padding-bottom: 10px;
 }
@@ -351,7 +351,7 @@ export default class GalleryActionButton extends Vue {
 }
 
 .btn-primary.disabled {
-    background-color: rgb(80, 203, 255);
-    border-color: rgb(80, 203, 255);
+    background-color: #76d1f7;
+    border-color: #76d1f7;
 }
 </style>
