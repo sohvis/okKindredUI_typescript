@@ -19,6 +19,17 @@
         <transition name="slide-fade">
             <b-button
                 v-if="opened"
+                variant="primary"
+                :title="$t('message.Download')"
+                class="gallery-button download-button"
+                :disabled="!imagesSelected"
+                @click="downloadClicked">
+                <span class="oi oi-data-transfer-download"></span>
+            </b-button>
+        </transition>
+        <transition name="slide-fade">
+            <b-button
+                v-if="opened"
                 variant="secondary"
                 :title="$t('message.EditGallery')"
                 class="gallery-button edit-button"
@@ -33,7 +44,7 @@
                 variant="danger"
                 :title="$t('message.DeleteImages')"
                 class="gallery-button delete-button"
-                :disabled="!deleteEnabled"
+                :disabled="!imagesSelected"
                 @click="deleteClicked">
                 <span class="oi oi-trash"></span>
             </b-button>
@@ -104,7 +115,7 @@ export default class GalleryActionButton extends Vue {
     @Prop({ default: () => [] })
     public selectedImageIds?: number[];
 
-    public get deleteEnabled(): boolean {
+    public get imagesSelected(): boolean {
 
         if (this.selectedImageIds) {
             return this.selectedImageIds.length > 0;
@@ -198,6 +209,10 @@ export default class GalleryActionButton extends Vue {
         }
     }
 
+    private downloadClicked() {
+        this.$emit('downloadClicked');
+    }
+
 }
 </script>
 
@@ -251,6 +266,13 @@ export default class GalleryActionButton extends Vue {
     padding-bottom: 10px;
 }
 
+.download-button {
+    padding-left: 15px;
+    padding-right: 16px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
 .edit-button {
     padding-left: 17px;
     padding-right: 14px;
@@ -299,6 +321,11 @@ export default class GalleryActionButton extends Vue {
         padding-left: 14px;
         padding-right: 13px;
     }
+
+    .download-button {
+        padding-left: 13px;
+        padding-right: 14px;
+    }
 }
 
 
@@ -312,7 +339,7 @@ export default class GalleryActionButton extends Vue {
     transition: all .3s ease;
 }
 
-/* Need to make danger button look more disabled */
+/* Need to make disabled buttons look more disabled */
 .btn-danger.disabled {
     background-color: #f99;
     border-color: #f99
@@ -321,5 +348,10 @@ export default class GalleryActionButton extends Vue {
 .btn-secondary.disabled {
     background-color: #9ca5ad;
     border-color: #9ca5ad;
+}
+
+.btn-primary.disabled {
+    background-color: rgb(80, 203, 255);
+    border-color: rgb(80, 203, 255);
 }
 </style>

@@ -6,7 +6,8 @@
             :galleryId="galleryId"
             :selectedImageIds="selectedImageIds"
             @editModeChanged="editModeChanged"
-            @imagesDeleted="imagesDeleted" />
+            @imagesDeleted="imagesDeleted" 
+            @downloadClicked="downloadClicked"/>
 
         <div id="image-container">
             <ImageRow 
@@ -35,6 +36,7 @@
             </b-pagination-nav>
         </div>
         <PhotoSwipeView ref="photoSwipeView" @imageEdited="imageEdited"/>
+        <DownloadMultipleImages ref="downloadMultipleImages"/>
     </div>
 </template>
 
@@ -49,6 +51,7 @@ import Image from '../../models/data/image';
 import ImageRow from '../../components/gallery/ImageRow.vue';
 import GalleryHeader from '../../components/gallery/GalleryHeader.vue';
 import PhotoSwipeView from '../../components/lightbox/PhotoSwipeGalleryView.vue';
+import DownloadMultipleImages from '../../components/gallery/DownloadMultipleImages.vue';
 
 
 @Component({
@@ -56,6 +59,7 @@ import PhotoSwipeView from '../../components/lightbox/PhotoSwipeGalleryView.vue'
       ImageRow,
       GalleryHeader,
       PhotoSwipeView,
+      DownloadMultipleImages,
   },
 })
 export default class GalleryView extends Vue {
@@ -119,6 +123,9 @@ export default class GalleryView extends Vue {
             window.addEventListener('resize', this.setDisplaySizes);
             window.onresize = () => this.setDisplaySizes();
             store.dispatch('updateRouteLoaded');
+
+            const downloadComponent = this.$refs.downloadMultipleImages as DownloadMultipleImages;
+            await downloadComponent.warmUpFunction();
 
         } catch (ex) {
             window.console.log(`ex: ${ex}`);
@@ -349,6 +356,19 @@ export default class GalleryView extends Vue {
                 store.commit('updateLoading', false);
             }
         }
+    }
+
+    private async downloadClicked() {
+
+        const images = Array<string>();
+        for (const image of this.images) {
+            if (this.selectedImageIds.includes(image.id)) {
+                images.push(image.original_image);
+            }
+        }
+
+        const downloadComponent = this.$refs.downloadMultipleImages as DownloadMultipleImages;
+        await downloadComponent.download(images);
     }
 }
 </script>

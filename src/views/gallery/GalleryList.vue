@@ -9,7 +9,8 @@
                 ref="galleryListActionButton"
                 :selectedGalleryIds="selectedGalleryIds"
                 @actionButtonClicked="actionButtonClicked" 
-                @galleriesDeleted="galleriesDeleted" />
+                @galleriesDeleted="galleriesDeleted" 
+                @downloadClicked="downloadClicked" />
         </div>
         <div id="gallery-container">
             <GalleryRow 
@@ -35,6 +36,7 @@
                 use-router>
             </b-pagination-nav>
         </div>
+        <DownloadMultipleImages ref="downloadMultipleImages"/>
     </div>
 </template>
 
@@ -47,11 +49,13 @@ import PagedResult from '../../models/data/paged_results';
 import Gallery from '../../models/data/gallery';
 import GalleryRow from '../../components/gallery_list/GalleryRow.vue';
 import GalleryListActionButton from '../../components/gallery_list/GalleryListActionButton.vue';
+import DownloadMultipleImages from '../../components/gallery/DownloadMultipleImages.vue';
 
 @Component({
   components: {
       GalleryRow,
       GalleryListActionButton,
+      DownloadMultipleImages,
   },
 })
 export default class GalleryList extends Vue {
@@ -229,6 +233,10 @@ export default class GalleryList extends Vue {
 
     private addGallery() {
         (this.$refs.galleryListActionButton as GalleryListActionButton).addGallery();
+    }
+
+    private async downloadClicked() {
+        await (this.$refs.downloadMultipleImages as DownloadMultipleImages).downloadGalleries(this.selectedGalleryIds);
     }
 }
 </script>

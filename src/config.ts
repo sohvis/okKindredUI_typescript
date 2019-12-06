@@ -27,13 +27,15 @@ export const configs = {
     UserSettingsAPI: '/api/user_settings/',
     UsersAPI: '/api/users/',
 
+    // Azure function endpoints
+    DownloadImagesAPI: 'https://okkindreddownloadimages20191202033203.azurewebsites.net/api/okkindred_download_images?code=eyGYn7POphCLmF8aqcxlaFpxd/33bVRXslNeTe6o2B3IotOaKwhiLw==',
+
     // External APIs
     PwnedPasswordsAPI: 'https://api.pwnedpasswords.com/range/',
     MapboxTileAPi: 'https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token={token}',
 
     // JS tokens
     MapboxToken: 'pk.eyJ1Ijoib2traW5kcmVkIiwiYSI6Ild2MnY5dDQifQ.EHr6blIYPYeg4bWmSStT-g',
-    TinyMceApiToken: 'enx50wn3zw6ekck6y0dsoz784z5mo5c936go697ncer7lpzb',
 
     // App config
     MinPasswordLength: 8,

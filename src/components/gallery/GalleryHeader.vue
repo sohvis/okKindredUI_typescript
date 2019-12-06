@@ -29,7 +29,8 @@
             :selectedImageIds="selectedImageIds"
             @galleryEdited="galleryEdited"
             @imagesDeleted="imagesDeleted"
-            @actionButtonClicked="actionButtonClicked"/>
+            @actionButtonClicked="actionButtonClicked"
+            @downloadClicked="downloadClicked"/>
     </div>
 
 </template>
@@ -134,6 +135,10 @@ export default class GalleryHeader extends Vue {
 
     private imagesDeleted() {
         this.$emit('imagesDeleted');
+    }
+
+    private downloadClicked() {
+        this.$emit('downloadClicked');
     }
 }
 </script>
