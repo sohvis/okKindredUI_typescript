@@ -124,6 +124,9 @@ export default class GalleryView extends Vue {
             window.onresize = () => this.setDisplaySizes();
             store.dispatch('updateRouteLoaded');
 
+            const downloadComponent = this.$refs.downloadMultipleImages as DownloadMultipleImages;
+            await downloadComponent.warmUpFunction();
+
         } catch (ex) {
             window.console.log(`ex: ${ex}`);
             this.$router.push(`/accounts/login/?next=${this.$router.currentRoute.fullPath}`);

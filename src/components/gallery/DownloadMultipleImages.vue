@@ -54,6 +54,21 @@ export default class DownloadMultipleImages extends Vue {
 
     private req: XMLHttpRequest = new XMLHttpRequest();
 
+    private warmedUp: boolean = false;
+
+    // This function will send nothing to the endpoint to
+    // warm it up so Azure provisions it
+    public async warmUpFunction() {
+
+        if (!this.warmedUp) {
+            const req = new XMLHttpRequest();
+            // Empty body
+            const body = { };
+            req.open('POST', `${config.DownloadImagesAPI}`);
+            req.send(JSON.stringify(body));
+        }
+    }
+
     public async downloadGalleries(galleryIds: number[]) {
         store.commit('updateLoading', true);
         this.gatheringImages = true;

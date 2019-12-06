@@ -27,7 +27,8 @@
                 <span class="oi oi-trash"></span>
             </b-button>
         </transition>
-        <transition name="slide-fade">
+        <!-- Currently service cannot handle more than 30+ images -->
+        <!-- <transition name="slide-fade">
             <b-button
                 v-if="opened"
                 variant="primary"
@@ -37,7 +38,7 @@
                 @click="downloadClicked">
                 <span class="oi oi-data-transfer-download"></span>
             </b-button>
-        </transition>
+        </transition> -->
         <b-button
             v-if="opened"
             variant="primary"
