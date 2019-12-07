@@ -114,9 +114,10 @@ export default class Biography extends Vue {
         window.clearTimeout(this.timeOutHandle);
       }
 
+      // Autosave every minute
       this.timeOutHandle = setTimeout(async () => {
         await this.save();
-      }, 3000);
+      }, 30000);
     }
   }
 
