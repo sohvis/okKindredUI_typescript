@@ -18,7 +18,7 @@
         </transition>
         <transition name="slide-fade">
             <b-button
-                v-if="opened"
+                v-if="opened && !Xamarin"
                 variant="primary"
                 :title="$t('message.Download')"
                 class="gallery-button download-button"
@@ -92,6 +92,7 @@ import config from '../../config';
 import EditGallery from './EditGallery.vue';
 import Gallery from '../../models/data/gallery';
 import DeleteImages from './DeleteImages.vue';
+import BrowserDetection from '../../models/browserDetection';
 
 @Component({
   components: {
@@ -138,6 +139,10 @@ export default class GalleryActionButton extends Vue {
     public actionButtonRightStyle: any = {
         right: '0px',
     };
+
+    public get Xamarin(): boolean {
+        return BrowserDetection.isAndroidWebView();
+    }
 
     public addImages() {
         if (this.gallery) {
