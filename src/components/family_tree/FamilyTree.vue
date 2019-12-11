@@ -84,7 +84,7 @@ export default class FamilyTree extends Vue {
 
       const canvas = document.getElementById('tree-canvas') as HTMLCanvasElement;
 
-      if (canvas.offsetParent) {
+      if (canvas && canvas.offsetParent) {
         this.setCanvasSize();
 
         if (this.people && this.relations && this.people.length > 0) {
@@ -141,20 +141,20 @@ export default class FamilyTree extends Vue {
 
       const canvas = document.getElementById('tree-canvas') as HTMLCanvasElement;
 
-      if (canvas) {
-        if (canvas.offsetParent) {
-          // If height has reduced, we need to redraw canvas
-          const newCanvasTop = canvas.getBoundingClientRect().top;
 
-          if (newCanvasTop + 10 < previousCanvasTop) {
-            this.initializeTree();
-          }
+      if (canvas && canvas.offsetParent) {
+        // If height has reduced, we need to redraw canvas
+        const newCanvasTop = canvas.getBoundingClientRect().top;
 
-          if (BrowserDetection.isMobileMenuOpen()) {
-            window.setTimeout(() => this.monitorHeightChange(newCanvasTop), 1000);
-          }
+        if (newCanvasTop + 10 < previousCanvasTop) {
+          this.initializeTree();
+        }
+
+        if (BrowserDetection.isMobileMenuOpen()) {
+          window.setTimeout(() => this.monitorHeightChange(newCanvasTop), 1000);
         }
       }
+
     }
 
     private zoomIn() {
@@ -214,7 +214,6 @@ export default class FamilyTree extends Vue {
       }
     }
 }
-
 </script>
 
 <!-- "scoped" attribute removed to fill screen -->

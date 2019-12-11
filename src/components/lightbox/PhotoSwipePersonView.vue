@@ -34,19 +34,22 @@
                 </button>
 
                 <button :title="$t('message.Download')"
+                    v-show="!isFullscreen" 
                     class="pswp__button pswp__button--download custom-button oi oi-data-transfer-download">
                 </button>
 
                 <button :title="$t('message.Map')"
-                    v-show="displayMap" 
+                    v-show="displayMap && !isFullscreen" 
                     class="pswp__button pswp__button--map custom-button oi oi-map">
                 </button>
 
                 <button :title="$t('message.EditImage')"
+                    v-show="!isFullscreen" 
                     class="pswp__button pswp__button--editimage custom-button oi oi-pencil">
                 </button>
 
                 <button :title="$t('message.Tags')"
+                    v-show="!isFullscreen" 
                     class="pswp__button pswp__button--tags custom-button oi oi-tag">
                 </button>
 
@@ -134,6 +137,8 @@ export default class PhotoSwipeGalleryView extends Vue {
 
     public displayMap: boolean = false;
 
+    public isFullscreen: boolean = false;
+
     public async init(
             images: Image[],
             selectedIndex: number,
@@ -154,6 +159,7 @@ export default class PhotoSwipeGalleryView extends Vue {
         this.photoswipeWrapper.photoswipe.listen('map', this.showMap);
         this.photoswipeWrapper.photoswipe.listen('editImage', this.editImage);
         this.photoswipeWrapper.photoswipe.listen('tags', this.toggleTagging);
+        this.photoswipeWrapper.photoswipe.listen('resize', this.onResize);
 
         const urlPrefix = `${config.BaseApiUrl}${config.ImageAPI}?person_id=${this.personId}&page=`;
         const getUrl = (pageNo: number) => urlPrefix + pageNo.toString();
@@ -203,6 +209,28 @@ export default class PhotoSwipeGalleryView extends Vue {
         if (this.photoswipeWrapper) {
             const link = (this.photoswipeWrapper.photoswipe.currItem as PhotoSwipeItem).image.original_image;
             window.open(link, `_blank`);
+        }
+    }
+
+    private onResize() {
+        // Hide certain buttons in fullscreen mode
+        if (this.photoswipeWrapper) {
+
+            window.setTimeout(() => {
+                const pswpContainers = document.getElementsByClassName('pswp');
+
+                if (pswpContainers && pswpContainers.length > 0) {
+                    const pswpContainer = pswpContainers[0];
+
+
+                    if (pswpContainer.classList.contains('pswp--fs')) {
+
+                        this.isFullscreen = true;
+                    } else {
+                        this.isFullscreen = false;
+                    }
+                }
+            }, 300);
         }
     }
 
