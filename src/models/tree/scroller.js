@@ -61,7 +61,7 @@ export const Scroller = {
     },
 
     mousedown: (evt) => {
-        // window.console.log(`mousedown`);
+        window.console.log(`mousedown`);
 
         if (Scroller.tree.disabled) {
             return;
@@ -76,7 +76,7 @@ export const Scroller = {
     },
 
     touchstart: (touchEvent) => {
-
+        window.console.log(`touchstart`);
         if (Scroller.tree.disabled) {
             return;
         }
@@ -269,15 +269,17 @@ export const Scroller = {
     },
 
     mouseUp: () => {
-
+        window.console.log(`mouseup`);
         if (Scroller.tree.disabled) {
             return;
         }
 
         var elapsedClickTime = new Date().getTime() - Scroller.dragStartTime;
+
+        window.console.log(`elapsedClickTime: ${elapsedClickTime}`);
         
         // Select if quick single tap
-        if(elapsedClickTime < 150 && !Scroller.dragStart[1]) {
+        if(elapsedClickTime < 300 && !Scroller.dragStart[1]) {
             const pt = Scroller.ctx.transformedPoint(Scroller.lastPoint.x, Scroller.lastPoint.y);
 
             const newPosition = Scroller.tree.clickRequiresMove(pt.x, pt.y);
