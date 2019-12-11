@@ -175,7 +175,7 @@ export default class FamilyMap extends Vue {
   private initializeSize() {
     const personMap = document.getElementById('person-map') as HTMLDivElement;
 
-    if (personMap.parentNode) {
+    if (personMap && personMap.parentNode) {
       const height = window.innerHeight - personMap.getBoundingClientRect().top - 10;
       personMap.style.height = `${height}px`;
       personMap.style.width = `${window.innerWidth - 10}px`;
