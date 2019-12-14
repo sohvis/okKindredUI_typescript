@@ -118,8 +118,13 @@ export default class App extends Vue {
   /* Small devices (landscape phones, 576px and up) */
   /* Smartphones (portrait) ----------- */
   @media only screen and (max-width : 576px) {
-     body {
-      font-size: 80%;
+    .modal {
+      font-size: 90%;
     }
+
+    .form-control {
+      font-size: 0.8rem;
+    }
+
   }
 </style>
