@@ -76,6 +76,7 @@ import Search from './components/search/Search.vue';
 })
 export default class App extends Vue {
 
+
   // Computed properties
   public get logged_in() {
     return store.state.logged_in;
@@ -85,12 +86,11 @@ export default class App extends Vue {
     return store.getters.loading;
   }
 
-  protected mounted() {
-    // window.console.log('App.vue mounted() call');
-
+  protected created() {
     // Reset loading count
     store.state.loading_count = 0;
   }
+
 
   private logout(this: any) {
     // window.console.log('logout clicked on');
