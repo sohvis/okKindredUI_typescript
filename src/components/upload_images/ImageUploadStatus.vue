@@ -96,8 +96,8 @@ export default class ImageUploadStatus extends Vue {
     private req: XMLHttpRequest = new XMLHttpRequest();
 
     public loadFile(file: File) {
-        // window.console.log('ImageUploadStatus.loadFile()');
-        // window.console.log(file);
+        window.console.log('ImageUploadStatus.loadFile()');
+        window.console.log(file);
 
         this.file = file;
         this.state = 'pending';
