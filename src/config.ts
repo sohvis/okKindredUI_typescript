@@ -22,6 +22,7 @@ export const configs = {
     PersonAPI: '/api/person/',
     ProfileImageAPI: '/api/profile_image/',
     RelationAPI: '/api/relation/',
+    RelationNamesAPI: '/api/relation_name/',
     SignUpAPI: '/api/sign_up/',
     SuggestedTaggingAPI: '/api/suggested_image_tagging/',
     UserSettingsAPI: '/api/user_settings/',
