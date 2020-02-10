@@ -19,6 +19,7 @@
 <script lang="ts">
 
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
+import store from '../../store/store';
 import ChineseRelationName from '../../models/data/chinese_relation_name';
 
 @Component
@@ -27,9 +28,11 @@ export default class ProfileRelationName extends Vue {
     @Prop({default: null})
     public relation?: ChineseRelationName;
 
+
+    // Do not translate for english or chinese
     public get relationName(): string {
         if (this.relation) {
-            return this.$t(this.relation.name).toString();
+            return this.$t(`message['${this.relation.name}']`).toString();
         } else {
             return '';
         }
@@ -38,7 +41,7 @@ export default class ProfileRelationName extends Vue {
     public get cantonese(): string {
 
         if (this.relation) {
-            return this.relation.cantonese.join(', ');
+            return this.relation.cantonese.join(' / ');
         } else {
             return '';
         }
@@ -47,7 +50,7 @@ export default class ProfileRelationName extends Vue {
     public get jyutping(): string {
 
         if (this.relation) {
-            return this.relation.cantonese_pronounciation.join(', ');
+            return this.relation.cantonese_pronounciation.join(' / ');
         } else {
             return '';
         }
@@ -56,7 +59,7 @@ export default class ProfileRelationName extends Vue {
     public get mandarin(): string {
 
         if (this.relation) {
-            return this.relation.mandarin.join(', ');
+            return this.relation.mandarin.join(' / ');
         } else {
             return '';
         }
@@ -65,7 +68,7 @@ export default class ProfileRelationName extends Vue {
     public get pinyin(): string {
 
         if (this.relation) {
-            return this.relation.mandarin_pronounciation.join(', ');
+            return this.relation.mandarin_pronounciation.join(' / ');
         } else {
             return '';
         }
