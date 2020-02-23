@@ -251,6 +251,8 @@
           </tbody>
         </table>
 
+        <ProfileRelationNames ref="profileRelationNames" />
+
       </div>
     </div>
 
@@ -289,6 +291,7 @@ import BooleanField from './BooleanField.vue';
 import GenderDropDown from './GenderDropDown.vue';
 import ProfileEmitArgs from '../../models/profile_emit_args';
 import CoreFamilyMembers from './CoreFamilyMembers.vue';
+import ProfileRelationNames from './ProfileRelationNames.vue';
 
 @Component({
   components: {
@@ -301,6 +304,7 @@ import CoreFamilyMembers from './CoreFamilyMembers.vue';
       GenderDropDown,
       BooleanField,
       CoreFamilyMembers,
+      ProfileRelationNames,
   },
 })
 export default class Profile extends Vue {
@@ -394,7 +398,8 @@ export default class Profile extends Vue {
         json: true,
     };
 
-    this.person = await request.get(options);
+    const personTask = request.get(options);
+    this.person = await personTask;
 
     if (this.person) {
       const genderBuilder = new GenderOptionsBuilder(this);
@@ -407,6 +412,7 @@ export default class Profile extends Vue {
       }
 
       await (this.$refs.coreFamilyMembers as CoreFamilyMembers).initialise(this.person.id);
+      await (this.$refs.profileRelationNames as ProfileRelationNames).initialise();
     }
 
     store.commit('updateLoading', false);
