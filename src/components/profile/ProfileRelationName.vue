@@ -32,7 +32,7 @@ export default class ProfileRelationName extends Vue {
     // Do not translate for english or chinese
     public get relationName(): string {
         if (this.relation) {
-            return this.$t(`message['${this.relation.name}']`).toString();
+            return this.$t(`message["${this.relation.name}"]`).toString();
         } else {
             return '';
         }

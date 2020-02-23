@@ -1,7 +1,7 @@
 <template>
     <div class="profile-relation-names" v-if="relations.length > 0 && !loading">
-        <h4 v-if="relations.length == 1" >{{ $t('message.RelationName') }}</h4>
-        <h4 v-if="relations.length > 1" >{{ $t('message.RelationNames') }}</h4>
+        <h5 v-if="relations.length == 1" >{{ $t('message.RelationName') }}</h5>
+        <h5 v-if="relations.length > 1" >{{ $t('message.RelationNames') }}</h5>
         <table class="table">
             <thead>
                 <tr>

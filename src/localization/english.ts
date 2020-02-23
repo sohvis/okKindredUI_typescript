@@ -1,4 +1,4 @@
-// tslint:disable:max-line-length
+// tslint:disable:max-line-length quotemark object-literal-key-quotes
 
 export const english = {
     message: {
@@ -204,6 +204,7 @@ export const english = {
       "Wife's Mother": "Wife's Mother",
       "Wife's Father": "Wife's Father",
       "Husband's Mother": "Husband's Mother",
+      "Husband's Father": "Husband's Father",
       Stepdaughter: 'Stepdaughter',
       Stepson: 'Stepson',
       'Daughter In Law': 'Daughter In Law',
