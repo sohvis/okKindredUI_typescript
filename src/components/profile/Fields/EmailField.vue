@@ -19,14 +19,14 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
-import store from '../../store/store';
-import Person from '../../models/data/person';
-import configs from '../../config';
+import store from '../../../store/store';
+import Person from '../../../models/data/person';
+import configs from '../../../config';
 import { setTimeout } from 'timers';
 import * as request from 'request-promise-native';
-import Guid from '../../models/guid';
-import ProfileEmitArgs from '../../models/profile_emit_args';
-import EmailHelper from '../../models/emailHelper';
+import Guid from '../../../models/guid';
+import ProfileEmitArgs from '../../../models/profile_emit_args';
+import EmailHelper from '../../../models/emailHelper';
 
 @Component({
   components: {

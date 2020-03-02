@@ -1,15 +1,15 @@
 <template>
     <div>
-      <a class="editable-link" v-if="value && !editMode" href="#" v-on:click="edit()">
+      <a class="editable-link" v-if="value != 0 && !editMode" href="#" v-on:click="edit()">
         {{value}}
       </a>
 
-      <a class="editable-link" v-if="!value && !editMode" href="#" v-on:click="edit()">
+      <a class="editable-link" v-if="value == 0 && !editMode" href="#" v-on:click="edit()">
         {{ $t('message.ClickToEdit') }}
       </a>
       <b-form-input 
           :id="id"
-          :maxlength="maxFieldLength"
+          type="number"
           v-show="editMode" 
           v-model="valueEdited"
           @blur="onBlur">
@@ -19,19 +19,19 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
-import store from '../../store/store';
-import Person from '../../models/data/person';
-import configs from '../../config';
+import store from '../../../store/store';
+import Person from '../../../models/data/person';
+import configs from '../../../config';
 import { setTimeout } from 'timers';
 import * as request from 'request-promise-native';
-import Guid from '../../models/guid';
-import ProfileEmitArgs from '../../models/profile_emit_args';
+import Guid from '../../../models/guid';
+import ProfileEmitArgs from '../../../models/profile_emit_args';
 
 @Component({
   components: {
   },
 })
-export default class TextField extends Vue {
+export default class NumberField extends Vue {
 
   public id: string;
 
@@ -44,10 +44,10 @@ export default class TextField extends Vue {
   @Prop({default: 10})
   public maxFieldLength?: number;
 
-  @Prop({default: ''})
-  public value?: string;
+  @Prop({default: 0})
+  public value?: number;
 
-  public valueEdited?: string = '';
+  public valueEdited?: number = 0;
 
   public editMode: boolean = false;
 
@@ -57,7 +57,7 @@ export default class TextField extends Vue {
   }
 
   protected mounted() {
-    // window.console.log('TextField.vue mounted() called');
+    // window.console.log('NumberField.vue mounted() called');
 
     const input = document.getElementById(this.id) as HTMLInputElement;
     if (input) {
@@ -66,13 +66,14 @@ export default class TextField extends Vue {
   }
 
   private async onKeyup(e: KeyboardEvent) {
+
     if (e.keyCode === 13) {
         await this.endEdit();
     }
   }
 
   private edit() {
-    // window.console.log(`TextField.edit() propertyName:${this.propertyName}`);
+    // window.console.log(`NumberField.edit() propertyName:${this.propertyName}`);
     this.valueEdited = this.value;
     this.editMode = true;
     const textbox = document.getElementById(this.id) as HTMLInputElement;
@@ -82,17 +83,17 @@ export default class TextField extends Vue {
         textbox.focus();
         textbox.select();
       }, 100);
+
     }
   }
 
   private async onBlur() {
-    // window.console.log(`TextField.onBlur() called`);
+    // window.console.log(`NumberField.onBlur() called`);
     await this.endEdit();
   }
 
   private async endEdit() {
     this.editMode = false;
-
     store.commit('updateLoading', true);
     await this.save();
     store.commit('updateLoading', false);
@@ -100,16 +101,21 @@ export default class TextField extends Vue {
 
   private async save() {
 
-    // window.console.log(`TextField.save() called`);
+    // window.console.log(`NumberField.save() called`);
 
     if (this.value !== this.valueEdited) {
+
+      let value = this.valueEdited;
+      if (!value) {
+        value = 0;
+      }
 
       const options = {
           uri: `${configs.BaseApiUrl}${configs.PersonAPI}${this.personId}/`,
           headers: store.getters.ajaxHeader,
           body: {
             fieldName: this.propertyName,
-            value: this.valueEdited,
+            value,
           },
           json: true,
       };
@@ -125,6 +131,7 @@ export default class TextField extends Vue {
 
         this.$emit('valueUpdated', param);
       } catch (ex) {
+        // window.console.log(ex);
         store.commit('setErrorMessage', ex);
       }
     }

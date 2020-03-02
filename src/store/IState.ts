@@ -18,6 +18,7 @@ interface IState {
     initialRoute: string;
     filesToUpload: File[];
     userAgent: string;
+    selectedChineseDialect: string;
 }
 
 export default IState;

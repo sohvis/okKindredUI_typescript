@@ -29,6 +29,8 @@ const state: IState = {
     initialRoute: '',
     filesToUpload: [],
     userAgent: navigator.userAgent,
+
+    selectedChineseDialect: 'cantonese',
 };
 
 export default state;
