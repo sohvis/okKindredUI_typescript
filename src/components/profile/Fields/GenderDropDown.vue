@@ -15,14 +15,14 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
-import store from '../../store/store';
-import Person from '../../models/data/person';
-import configs from '../../config';
+import store from '../../../store/store';
+import Person from '../../../models/data/person';
+import configs from '../../../config';
 import { setTimeout } from 'timers';
 import * as request from 'request-promise-native';
-import GenderOptionsBuilder from '../../models/data/gender_options_builder';
-import SelectOption from '../../models/data/select_option';
-import ProfileEmitArgs from '../../models/profile_emit_args';
+import GenderOptionsBuilder from '../../../models/data/gender_options_builder';
+import SelectOption from '../../../models/data/select_option';
+import ProfileEmitArgs from '../../../models/profile_emit_args';
 
 @Component({
   components: {

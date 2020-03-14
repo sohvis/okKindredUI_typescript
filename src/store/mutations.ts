@@ -127,6 +127,10 @@ const mutations: MutationTree<IState> = {
     setUserAgent(state, userAgent: string) {
         state.userAgent = userAgent;
     },
+
+    setSelectedChineseDialect(state, chineseDialect: string) {
+        state.selectedChineseDialect = chineseDialect;
+    },
 };
 
 export default mutations;

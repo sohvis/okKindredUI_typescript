@@ -251,7 +251,7 @@
           </tbody>
         </table>
 
-        <ProfileRelationNames ref="profileRelationNames" />
+        <ProfileRelationNames v-show="!editMode" ref="profileRelationNames" />
 
       </div>
     </div>
@@ -284,14 +284,14 @@ import { configs } from '../../config';
 import Biography from './Biography.vue';
 import ProfileInviteToJoinButton from './ProfileInviteToJoinButton.vue';
 import ProfileGalleryButton from './ProfileGalleryButton.vue';
-import TextField from './TextField.vue';
-import EmailField from './EmailField.vue';
-import NumberField from './NumberField.vue';
-import BooleanField from './BooleanField.vue';
-import GenderDropDown from './GenderDropDown.vue';
+import TextField from './Fields/TextField.vue';
+import EmailField from './Fields/EmailField.vue';
+import NumberField from './Fields/NumberField.vue';
+import BooleanField from './Fields/BooleanField.vue';
+import GenderDropDown from './Fields/GenderDropDown.vue';
 import ProfileEmitArgs from '../../models/profile_emit_args';
 import CoreFamilyMembers from './CoreFamilyMembers.vue';
-import ProfileRelationNames from './ProfileRelationNames.vue';
+import ProfileRelationNames from './RelationName/ProfileRelationNames.vue';
 
 @Component({
   components: {
@@ -390,34 +390,39 @@ export default class Profile extends Vue {
     this.person = null;
 
     store.commit('updateLoading', true);
-    const selectedPerson = store.state.person_id;
 
-    const options = {
-        uri: `${configs.BaseApiUrl}${configs.PersonAPI}${selectedPerson}/`,
-        headers: store.getters.ajaxHeader,
-        json: true,
-    };
+    try {
+      const selectedPerson = store.state.person_id;
 
-    const personTask = request.get(options);
-    this.person = await personTask;
+      const options = {
+          uri: `${configs.BaseApiUrl}${configs.PersonAPI}${selectedPerson}/`,
+          headers: store.getters.ajaxHeader,
+          json: true,
+      };
 
-    if (this.person) {
-      const genderBuilder = new GenderOptionsBuilder(this);
-      this.gender = genderBuilder.localisedGendersByKey[this.person.gender];
+      const personTask = request.get(options);
+      this.person = await personTask;
 
-      if (this.person.large_thumbnail) {
-        this.profileImage = this.person.large_thumbnail;
-      } else {
-        this.profileImage = 'img/portrait_200.png';
+      if (this.person) {
+        const genderBuilder = new GenderOptionsBuilder(this);
+        this.gender = genderBuilder.localisedGendersByKey[this.person.gender];
+
+        if (this.person.large_thumbnail) {
+          this.profileImage = this.person.large_thumbnail;
+        } else {
+          this.profileImage = 'img/portrait_200.png';
+        }
+
+        await (this.$refs.coreFamilyMembers as CoreFamilyMembers).initialise(this.person.id);
+        await (this.$refs.profileRelationNames as ProfileRelationNames).initialise();
       }
 
-      await (this.$refs.coreFamilyMembers as CoreFamilyMembers).initialise(this.person.id);
-      await (this.$refs.profileRelationNames as ProfileRelationNames).initialise();
+    } finally {
+
+      store.commit('updateLoading', false);
+
+      this.editMode = false;
     }
-
-    store.commit('updateLoading', false);
-
-    this.editMode = false;
   }
 
   private personUpdated(args: ProfileEmitArgs) {

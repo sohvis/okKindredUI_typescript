@@ -93,6 +93,18 @@ const actions: ActionTree<IState, IState> = {
         if (i18n.locale !== context.state.language) {
             i18n.locale = context.state.language;
         }
+
+        context.commit('setSelectedChineseDialect',
+                        window.localStorage.getItem('selectedChineseDialect') || 'cantonese');
+    },
+
+    async setChineseDialect(context, selectedChineseDialect) {
+
+        context.commit('setSelectedChineseDialect', selectedChineseDialect);
+
+        // Make sure local storage is done asynchronously
+        await null;
+        window.localStorage.setItem('setSelectedChineseDialect', context.state.selectedChineseDialect);
     },
 
     async login(context, payload) {
