@@ -59,6 +59,7 @@ const actions: ActionTree<IState, IState> = {
             try {
                 await context.dispatch('verifyToken');
             } catch {
+                context.commit('updateLoading', false);
                 throw new Error('Token verification failed');
             }
         }
