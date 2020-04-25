@@ -47,6 +47,16 @@
             @finishedProcessing="finishedProcessing">
         </ImageUploadStatus>
 
+        <AndroidImageUploadStatus v-for="(file, index) in androidFiles"
+            :key="index"
+            :galleryId="galleryId"
+            :uploadIndex="index"
+            :androidImage="file"
+            :ref="`androidImageUploadStatus_${index}`"
+            @finishedUpload="finishedAndroidUpload"
+            @finishedProcessing="finishedAndroidProcessing">
+        </AndroidImageUploadStatus>
+
         <UploadFinished 
             ref="uploadFinished"
             :failedCount="failedCount"
@@ -61,8 +71,10 @@ import * as request from 'request-promise-native';
 import store from '../../store/store';
 import config from '../../config';
 import ImageUploadStatus from '../../components/upload_images/ImageUploadStatus.vue';
+import AndroidImageUploadStatus from '../../components/upload_images/AndroidImageUploadStatus.vue';
 import UploadFinished from '../../components/upload_images/UploadFinished.vue';
 import BrowserDetection from '../../models/browserDetection';
+import AndroidImage from '../../models/data/android_image';
 
 @Component({
   components: {
@@ -76,6 +88,8 @@ export default class UploadImages extends Vue {
     public galleryId?: number;
 
     public files: File[] = [];
+
+    public androidFiles: AndroidImage[] = [];
 
     public uploading: boolean = false;
 
@@ -97,6 +111,10 @@ export default class UploadImages extends Vue {
 
     public get appFilesToUpload(): File[] {
         return store.state.filesToUpload;
+    }
+
+    public get androidFilesToUpload(): AndroidImage[] {
+        return store.state.androidImagesToUpload;
     }
 
     public failedCount: number = 0;
@@ -127,10 +145,23 @@ export default class UploadImages extends Vue {
 
         // check component is showing
         const button = document.getElementById('file-input-button') as HTMLButtonElement;
-        if (button.offsetParent) {
+        if (button && button.offsetParent) {
 
             if ( this.appFilesToUpload.length > 0) {
                 this.processFiles(this.appFilesToUpload);
+            }
+        }
+    }
+
+    @Watch('androidFilesToUpload')
+    private androidfilesUploadedFromApp() {
+        window.console.log(`UploadImages.androidfilesUploadedFromApp`);
+        // check component is showing
+        const button = document.getElementById('file-input-button') as HTMLButtonElement;
+        if (button && button.offsetParent) {
+
+            if ( this.androidFilesToUpload.length > 0) {
+                this.processAndroidFiles(this.androidFilesToUpload);
             }
         }
     }
@@ -167,13 +198,64 @@ export default class UploadImages extends Vue {
         }
     }
 
+    private processAndroidFiles(androidFiles: AndroidImage[]) {
+        window.console.log('UploadImages.processAndroidFiles()');
+        if (androidFiles.length === 0) {
+            this.$router.push(`/gallery/${this.galleryId}/?page=${this.page}`);
+        } else {
+            this.uploading = true;
+            this.uploadingIndex = 0;
+            this.androidFiles = ancdroi 
+            this.$nextTick(() => { this.startUpload(); });
+        }
+    }
+
     private startUpload() {
+        window.console.log('UploadImages.startUpload()');
+
+        // Clear the files in state to be uploaded
+        store.dispatch('setFilesToUpload', []);
+        this.failedCount = 0;
+        this.successCount = 0;
+
+        if (this.files.length > 0) {
+
+            store.commit('updateLoading', true);
+            for (let i = 0; i < this.files.length; i++) {
+                const ref = `imageUploadStatus_${i}`;
+                const file = this.files[i];
+
+                const uploadStatus = (this.$refs[ref] as Vue[])[0] as ImageUploadStatus;
+                if (uploadStatus) {
+                    uploadStatus.loadFile(file);
+                }
+            }
+
+            store.commit('updateLoading', false);
+            const firstUpload = (this.$refs[`imageUploadStatus_0`] as Vue[])[0] as ImageUploadStatus;
+            firstUpload.upload();
+        }
+
+        if (this.androidFilesToUpload.length > 0) {
+            const firstUpload = (this.$refs[`androidImageUploadStatus_0`] as Vue[])[0] as AndroidImageUploadStatus;
+            firstUpload.getFileData();
+        }
+    }
+
+    private finishedUpload(fileIndex: number) {
+        // window.console.log(`UploadImages.finishedUpload(fileIndex: ${fileIndex})`);
+
+        if (fileIndex < this.files.length - 1) {
+            const nextUpload = (this.$refs[`imageUploadStatus_${fileIndex + 1}`] as Vue[])[0]  as ImageUploadStatus;
+            nextUpload.upload();
+        }
+    }
+
+    private startAndroidUpload() {
         // window.console.log('UploadImages.startUpload()');
 
         store.commit('updateLoading', true);
 
-        // Clear the files in state to be uploaded
-        store.dispatch('setFilesToUpload', []);
         this.failedCount = 0;
         this.successCount = 0;
 
@@ -192,12 +274,13 @@ export default class UploadImages extends Vue {
         firstUpload.upload();
     }
 
-    private finishedUpload(fileIndex: number) {
+    private finishedAndroidUpload(fileIndex: number) {
         // window.console.log(`UploadImages.finishedUpload(fileIndex: ${fileIndex})`);
 
         if (fileIndex < this.files.length - 1) {
-            const nextUpload = (this.$refs[`imageUploadStatus_${fileIndex + 1}`] as Vue[])[0]  as ImageUploadStatus;
-            nextUpload.upload();
+            const nextUpload =
+                (this.$refs[`androidImageUploadStatus_${fileIndex + 1}`] as Vue[])[0] as AndroidImageUploadStatus;
+            nextUpload.getFileData();
         }
     }
 
@@ -211,6 +294,36 @@ export default class UploadImages extends Vue {
             const ref = `imageUploadStatus_${i}`;
 
             const uploadStatus = (this.$refs[ref] as Vue[])[0] as ImageUploadStatus;
+
+            if (uploadStatus.state === `failed`) {
+                failed++;
+
+            } else if (uploadStatus.state === `done`) {
+                success++;
+            }
+        }
+
+        // All finished done
+        if (failed + success === this.files.length) {
+            this.successCount = success;
+            this.failedCount = failed;
+
+            const uploadFinished = this.$refs.uploadFinished as UploadFinished;
+            uploadFinished.show();
+        }
+    }
+
+
+    private finishedAndroidProcessing(fileIndex: number) {
+        // window.console.log(`UploadImages.finishedAndroidProcessing(fileIndex: ${fileIndex})`);
+
+        let success = 0;
+        let failed = 0;
+
+        for (let i = 0; i < this.files.length; i++) {
+            const ref = `androidImageUploadStatus_${i}`;
+
+            const uploadStatus = (this.$refs[ref] as Vue[])[0] as AndroidImageUploadStatus;
 
             if (uploadStatus.state === `failed`) {
                 failed++;

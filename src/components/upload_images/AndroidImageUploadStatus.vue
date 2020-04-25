@@ -42,7 +42,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 import * as request from 'request-promise-native';
 import store from '../../store/store';
 import configs from '../../config';
@@ -50,9 +50,10 @@ import CropArgs from '../../models/data/crop_args';
 import Person from '../../models/data/person';
 import fs from 'fs';
 import BrowserDetection from '../../models/browserDetection';
+import AndroidImage from '../../models/data/android_image';
 
 @Component
-export default class ImageUploadStatus extends Vue {
+export default class AndroidImageUploadStatus extends Vue {
 
     @Prop({ default: 0 })
     public galleryId?: number;
@@ -64,7 +65,8 @@ export default class ImageUploadStatus extends Vue {
 
     public fileReader = new FileReader();
 
-    public file: File | null = null;
+    @Prop({ default: null })
+    public androidImage: AndroidImage | null = null;
 
     public showImage: boolean = false;
 
@@ -72,8 +74,16 @@ export default class ImageUploadStatus extends Vue {
     public progress: number = 0;
 
     public get fileName(): string {
-        if (this.file) {
-            return this.file.name;
+        if (this.androidImage && this.androidImage.file) {
+            return this.androidImage.file.name;
+        }
+
+        return '';
+    }
+
+    public get imageBase64Data(): string {
+        if (this.androidImage) {
+            return this.androidImage.base64Image;
         }
 
         return '';
@@ -107,35 +117,40 @@ export default class ImageUploadStatus extends Vue {
 
     private req: XMLHttpRequest = new XMLHttpRequest();
 
-    public loadFile(file: File) {
-        window.console.log('ImageUploadStatus.loadFile()');
-        window.console.log(file);
-
-        this.showImage = false;
-        this.file = file;
-        this.state = 'pending';
-        this.progress = 0;
+    public getFileData() {
+        if (BrowserDetection.isXamarinApp() && BrowserDetection.isAndroid() && this.androidImage) {
+            // Xamarin Android App should pick up this route
+            window.location.href = `/xamarin_request_data/(${this.androidImage.path})`;
+        }
     }
 
-    public upload() {
+    protected mounted() {
+        // window.console.log('ImageUploadStatus.vue mounted() called');
+    }
+
+    @Watch('imageBase64Data')
+    private async upload() {
         // window.console.log('ImageUploadStatus.upload()');
 
         // window.console.log(`this.galleryId: ${this.galleryId}`);
-        if (this.galleryId && this.file && this.state === 'pending') {
+        if (this.galleryId && this.androidImage &&
+                this.androidImage.file && this.state === 'pending'
+                && this.androidImage.base64Image) {
 
+            await this.androidImage.createFile(this.androidImage.base64Image);
             this.fileReader.onload = this.fileReaderOnLoad;
-            this.fileReader.readAsDataURL(this.file);
+            this.fileReader.readAsDataURL(this.androidImage.file);
 
             this.state = 'uploading';
 
-            this.fileSize = this.file.size;
+            this.fileSize = this.androidImage.file.size;
             this.progress = 1;
 
             this.req = new XMLHttpRequest();
             this.req.responseType = 'json';
             const formData = new FormData();
 
-            formData.append('picture', this.file);
+            formData.append('picture', this.androidImage.file);
             formData.append('gallery_id', this.galleryId.toString());
 
             this.req.onload = this.onLoad;
@@ -146,10 +161,6 @@ export default class ImageUploadStatus extends Vue {
             this.req.setRequestHeader('Authorization', `Bearer ${store.state.access_token}`);
             this.req.send(formData);
         }
-    }
-
-    protected mounted() {
-        // window.console.log('ImageUploadStatus.vue mounted() called');
     }
 
     private updateProgress(progress: any) {

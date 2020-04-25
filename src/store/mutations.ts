@@ -6,6 +6,7 @@ import Person from '../models/data/person';
 import Relation from '../models/data/relation';
 import Gallery from '../models/data/gallery';
 import router from '../router';
+import AndroidImage from '../models/data/android_image';
 
 const mutations: MutationTree<IState> = {
     // Set when a component starts and finishes loading
@@ -122,6 +123,19 @@ const mutations: MutationTree<IState> = {
 
     setFilesToUpload(state, files: File[]) {
         state.filesToUpload = files;
+    },
+
+    setandroidImagesToUpload(state, androidImage: AndroidImage[]) {
+        window.console.log(`store.mutation.setAndroidImagesToUpload`);
+        state.androidImagesToUpload = androidImage;
+    },
+
+    injectImageData(state, androidImage: AndroidImage) {
+        for (const existingImage of state.androidImagesToUpload) {
+            if (existingImage.fileName === androidImage.fileName) {
+                existingImage.base64Image = androidImage.base64Image;
+            }
+        }
     },
 
     setUserAgent(state, userAgent: string) {
