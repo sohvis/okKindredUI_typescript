@@ -27,6 +27,7 @@ const state: IState = {
     currentGallery: null,
 
     initialRoute: '',
+    androidImagesToUpload: [],
     filesToUpload: [],
     userAgent: navigator.userAgent,
 

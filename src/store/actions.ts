@@ -7,6 +7,7 @@ import Person from '../models/data/person';
 import Relation from '../models/data/relation';
 import Gallery from '../models/data/gallery';
 import router from '../router';
+import AndroidImage from '../models/data/android_image';
 
 const actions: ActionTree<IState, IState> = {
     changeLanguage(context, payload) {
@@ -372,6 +373,15 @@ const actions: ActionTree<IState, IState> = {
 
     setFilesToUpload(context, files: File[]) {
         context.commit('setFilesToUpload', files);
+    },
+
+    setAndroidImagesToUpload(context, androidImages: AndroidImage[]) {
+        window.console.log(`store.action.setAndroidImagesToUpload`);
+        context.commit('setandroidImagesToUpload', androidImages);
+    },
+
+    injectImageData(context, androidImage: AndroidImage) {
+        context.commit('injectImageData', androidImage);
     },
 
     setUserAgent(context, userAgent: string) {
