@@ -104,6 +104,7 @@ export default class AndroidUploadImages extends Vue {
         window.console.log(`UploadImages.finishedUpload(fileIndex: ${fileIndex})`);
 
         let processingCount = 0;
+        let uploading = 0;
 
         for (let i = 0; i < this.androidImagesToUpload.length; i++) {
             const ref = `androidImageUploadStatus_${i}`;
@@ -111,11 +112,13 @@ export default class AndroidUploadImages extends Vue {
 
             if (uploadStatus.state === `processing`) {
                 processingCount++;
+            } else if (uploadStatus.state === `uploading`) {
+                uploading++;
             }
         }
 
         // Limit number of processing files on android
-        if (processingCount < 2) {
+        if (processingCount + uploading < 2) {
             this.uploadNextFile();
         }
     }
@@ -164,6 +167,7 @@ export default class AndroidUploadImages extends Vue {
 
             if (uploadStatus.state === `pending`) {
                 uploadStatus.getFileData();
+                return;
             }
         }
     }
