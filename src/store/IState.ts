@@ -1,6 +1,7 @@
 import Person from '../models/data/person';
 import Relation from '../models/data/relation';
 import Gallery from '../models/data/gallery';
+import AndroidImage from '../models/data/android_image';
 
 interface IState {
     logged_in: boolean;
@@ -16,6 +17,8 @@ interface IState {
     relations: Relation[];
     currentGallery: Gallery | null;
     initialRoute: string;
+    androidImageIndexToUpload: number|null;
+    androidImagesToUpload: AndroidImage[];
     filesToUpload: File[];
     userAgent: string;
     selectedChineseDialect: string;

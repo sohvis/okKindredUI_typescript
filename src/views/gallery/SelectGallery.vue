@@ -143,8 +143,8 @@ export default class SelectGallery extends Vue {
     }
 
     private selectGallery(gallery: Gallery) {
-            window.console.log(`GalleryList.selectGallery(galleryId: ${gallery.id})`);
-            this.$router.push(`/gallery/${gallery.id}/upload/`);
+        window.console.log(`GalleryList.selectGallery(galleryId: ${gallery.id})`);
+        this.$router.push(`/gallery/${gallery.id}/android_upload/`);
     }
 
     private addGallery() {
