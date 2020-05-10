@@ -8,6 +8,7 @@ import Relation from '../models/data/relation';
 import Gallery from '../models/data/gallery';
 import router from '../router';
 import AndroidImage from '../models/data/android_image';
+import store from './store';
 
 const actions: ActionTree<IState, IState> = {
     changeLanguage(context, payload) {
@@ -377,11 +378,28 @@ const actions: ActionTree<IState, IState> = {
 
     setAndroidImagesToUpload(context, androidImages: AndroidImage[]) {
         window.console.log(`store.action.setAndroidImagesToUpload`);
+
+        context.commit('setAndroidImageIndexToUpload', null);
         context.commit('setandroidImagesToUpload', androidImages);
+
+        for (const image of store.state.androidImagesToUpload) {
+            window.console.log(`androidImage.index: ${image.index}`);
+            window.console.log(`androidImage.fileName: ${image.fileName}`);
+        }
     },
 
     injectImageData(context, androidImage: AndroidImage) {
+        window.console.log(`store.action.injectImageData`);
+        window.console.log(`androidImage.index: ${androidImage.index}`);
+        window.console.log(`androidImage.base64Image: ${androidImage.base64Image.substring(0, 50)}`);
+
         context.commit('injectImageData', androidImage);
+        context.commit('setAndroidImageIndexToUpload', androidImage.index);
+    },
+
+    resetAndroidImageUpload(context) {
+        context.commit('setAndroidImageIndexToUpload', null);
+        context.dispatch('setAndroidImagesToUpload', []);
     },
 
     setUserAgent(context, userAgent: string) {

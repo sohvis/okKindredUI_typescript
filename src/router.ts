@@ -13,6 +13,7 @@ import NewProfilePhoto from './views/NewProfilePhoto.vue';
 import GalleryList from './views/gallery/GalleryList.vue';
 import GalleryView from './views/gallery/GalleryView.vue';
 import UploadImages from './views/gallery/UploadImages.vue';
+import AndroidUploadImages from './views/gallery/AndroidUploadImages.vue';
 import PersonGalleryView from './views/gallery/PersonGalleryView.vue';
 import GalleryMap from './views/gallery/GalleryMap.vue';
 import InviteConfirmation from './views/accounts/InviteConfirmation.vue';
@@ -108,6 +109,12 @@ export default new VueRouter({
       path: '/gallery/:galleryId/upload/',
       name: 'UploadImages',
       component: UploadImages,
+      props: true,
+    },
+    {
+      path: '/gallery/:galleryId/android_upload/',
+      name: 'AndroidUploadImages',
+      component: AndroidUploadImages,
       props: true,
     },
     {

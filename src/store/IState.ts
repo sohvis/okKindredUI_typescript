@@ -17,6 +17,7 @@ interface IState {
     relations: Relation[];
     currentGallery: Gallery | null;
     initialRoute: string;
+    androidImageIndexToUpload: number|null;
     androidImagesToUpload: AndroidImage[];
     filesToUpload: File[];
     userAgent: string;

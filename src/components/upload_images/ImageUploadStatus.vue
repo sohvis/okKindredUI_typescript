@@ -108,8 +108,7 @@ export default class ImageUploadStatus extends Vue {
     private req: XMLHttpRequest = new XMLHttpRequest();
 
     public loadFile(file: File) {
-        window.console.log('ImageUploadStatus.loadFile()');
-        window.console.log(file);
+        // window.console.log('ImageUploadStatus.loadFile()');
 
         this.showImage = false;
         this.file = file;
@@ -120,7 +119,6 @@ export default class ImageUploadStatus extends Vue {
     public upload() {
         // window.console.log('ImageUploadStatus.upload()');
 
-        // window.console.log(`this.galleryId: ${this.galleryId}`);
         if (this.galleryId && this.file && this.state === 'pending') {
 
             this.fileReader.onload = this.fileReaderOnLoad;

@@ -131,11 +131,15 @@ const mutations: MutationTree<IState> = {
     },
 
     injectImageData(state, androidImage: AndroidImage) {
-        for (const existingImage of state.androidImagesToUpload) {
-            if (existingImage.fileName === androidImage.fileName) {
-                existingImage.base64Image = androidImage.base64Image;
-            }
-        }
+        window.console.log(`store.mutation.injectImageData`);
+        window.console.log(`androidImage.index: ${androidImage.index}`);
+        window.console.log(`androidImage.base64Image: ${androidImage.base64Image.substring(0, 50)}`);
+        state.androidImagesToUpload[androidImage.index].base64Image = androidImage.base64Image;
+    },
+
+    setAndroidImageIndexToUpload(state, androidImageIndexToUpload: number|null) {
+        window.console.log(`store.mutation.setAndroidImageIndexToUpload: ${androidImageIndexToUpload}`);
+        state.androidImageIndexToUpload = androidImageIndexToUpload;
     },
 
     setUserAgent(state, userAgent: string) {

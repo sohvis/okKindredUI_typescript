@@ -2,7 +2,7 @@
 <div>
     <div class="row align-items-center">
         <div class="col-2">
-            <img v-show="showImage" :id="`thumbnail-img-${uploadIndex}`" class="thumbnail" />
+            <img v-show="showImage" :id="`thumbnail-img-${index}`" class="thumbnail" />
         </div>
         <div class="col-6">
             <span>{{ fileName }}</span>
@@ -59,14 +59,19 @@ export default class AndroidImageUploadStatus extends Vue {
     public galleryId?: number;
 
     @Prop({ default: 0 })
-    public uploadIndex?: number;
+    public index?: number;
 
     public state: string = 'pending';
 
     public fileReader = new FileReader();
 
-    @Prop({ default: null })
-    public androidImage: AndroidImage | null = null;
+    public get androidImage(): AndroidImage | null {
+        if (this.index != null) {
+            return store.state.androidImagesToUpload[this.index];
+        }
+
+        return null;
+    }
 
     public showImage: boolean = false;
 
@@ -74,16 +79,20 @@ export default class AndroidImageUploadStatus extends Vue {
     public progress: number = 0;
 
     public get fileName(): string {
-        if (this.androidImage && this.androidImage.file) {
-            return this.androidImage.file.name;
+        if (this.androidImage) {
+            return this.androidImage.fileName;
         }
 
         return '';
     }
 
+    public get androidImageIndexToUpload() {
+        return store.state.androidImageIndexToUpload;
+    }
+
     public get imageBase64Data(): string {
-        if (this.androidImage) {
-            return this.androidImage.base64Image;
+        if (this.index != null) {
+            return store.state.androidImagesToUpload[this.index].base64Image;
         }
 
         return '';
@@ -118,72 +127,81 @@ export default class AndroidImageUploadStatus extends Vue {
     private req: XMLHttpRequest = new XMLHttpRequest();
 
     public getFileData() {
+        // window.console.log('AndroidImageUploadStatus.getFileData()');
+
         if (BrowserDetection.isXamarinApp() && BrowserDetection.isAndroid() && this.androidImage) {
             // Xamarin Android App should pick up this route
-            window.location.href = `/xamarin_request_data/(${this.androidImage.path})`;
+            // window.console.log(`requesting image data for ${this.androidImage.path}`);
+            window.location.href = `/xamarin_request_android_image_data/${this.androidImage.index}`;
         }
     }
 
     protected mounted() {
-        // window.console.log('ImageUploadStatus.vue mounted() called');
+        // window.console.log('AndroidImageUploadStatus.mounted() called');
     }
 
-    @Watch('imageBase64Data')
+    @Watch('androidImageIndexToUpload')
     private async upload() {
-        // window.console.log('ImageUploadStatus.upload()');
+        // window.console.log('AndroidImageUploadStatus.upload()');
 
-        // window.console.log(`this.galleryId: ${this.galleryId}`);
         if (this.galleryId && this.androidImage &&
-                this.androidImage.file && this.state === 'pending'
-                && this.androidImage.base64Image) {
+                this.index === this.androidImageIndexToUpload &&
+                this.state === 'pending' && this.androidImage.base64Image) {
 
-            await this.androidImage.createFile(this.androidImage.base64Image);
-            this.fileReader.onload = this.fileReaderOnLoad;
-            this.fileReader.readAsDataURL(this.androidImage.file);
 
-            this.state = 'uploading';
+                // window.console.log(`uploading android image`);
+                const res = await fetch(this.androidImage.base64Image);
+                const blob = await res.arrayBuffer();
+                const file = new File([blob], this.fileName, {type: this.androidImage.mimeType});
+                this.androidImage.file = file;
 
-            this.fileSize = this.androidImage.file.size;
-            this.progress = 1;
+                this.fileReader.onload = this.fileReaderOnLoad;
 
-            this.req = new XMLHttpRequest();
-            this.req.responseType = 'json';
-            const formData = new FormData();
+                this.fileReader.readAsDataURL(this.androidImage.file);
 
-            formData.append('picture', this.androidImage.file);
-            formData.append('gallery_id', this.galleryId.toString());
+                this.state = 'uploading';
 
-            this.req.onload = this.onLoad;
-            this.req.upload.onprogress = this.updateProgress;
-            this.req.onerror = this.transferFailed;
+                this.fileSize = this.androidImage.file.size;
+                this.progress = 1;
 
-            this.req.open('POST', `${configs.BaseApiUrl}${configs.ImageAPI}`);
-            this.req.setRequestHeader('Authorization', `Bearer ${store.state.access_token}`);
-            this.req.send(formData);
+                this.req = new XMLHttpRequest();
+                this.req.responseType = 'json';
+                const formData = new FormData();
+
+                formData.append('picture', this.androidImage.file);
+                formData.append('gallery_id', this.galleryId.toString());
+
+                this.req.onload = this.onLoad;
+                this.req.upload.onprogress = this.updateProgress;
+                this.req.onerror = this.transferFailed;
+
+                this.req.open('POST', `${configs.BaseApiUrl}${configs.ImageAPI}`);
+                this.req.setRequestHeader('Authorization', `Bearer ${store.state.access_token}`);
+                this.req.send(formData);
         }
     }
 
     private updateProgress(progress: any) {
-        // window.console.log('ImageUploadStatus.updateProgress()');
+        // window.console.log('AndroidImageUploadStatus.updateProgress()');
 
         this.progress = Math.min(100, progress.loaded / this.fileSize * 100);
 
         if (this.progress > 99) {
             this.state = 'processing';
-            this.$emit('finishedUpload', this.uploadIndex);
+            this.$emit('finishedUpload', this.index);
         }
     }
 
     private onLoad(e: any) {
-        // window.console.log('ImageUploadStatus.onLoad()');
+        // window.console.log('AndroidImageUploadStatus.onLoad()');
 
         if (this.req.status === 200) {
             this.state = 'done';
-            this.$emit('finishedProcessing', this.uploadIndex);
+            this.$emit('finishedProcessing', this.index);
 
             // Remove image to save memory
             if (BrowserDetection.isAndroid() || BrowserDetection.is_iOS()) {
-                const img = document.getElementById(`thumbnail-img-${this.uploadIndex}`) as HTMLImageElement;
+                const img = document.getElementById(`thumbnail-img-${this.index}`) as HTMLImageElement;
                 img.src = '';
                 this.showImage = false;
             }
@@ -195,15 +213,14 @@ export default class AndroidImageUploadStatus extends Vue {
 
     private transferFailed(e: any) {
         this.state = 'failed';
-        this.$emit('finishedUpload', this.uploadIndex);
-        this.$emit('finishedProcessing', this.uploadIndex);
+        this.$emit('finishedUpload', this.index);
+        this.$emit('finishedProcessing', this.index);
     }
 
     private fileReaderOnLoad(e: any) {
-        // window.console.log('ImageUploadStatus.fileReaderOnLoad()');
-        // window.console.log(e);
+        // window.console.log('AndroidImageUploadStatus.fileReaderOnLoad()');
 
-        const img = document.getElementById(`thumbnail-img-${this.uploadIndex}`) as HTMLImageElement;
+        const img = document.getElementById(`thumbnail-img-${this.index}`) as HTMLImageElement;
         img.src = e.target.result;
         this.showImage = true;
     }
