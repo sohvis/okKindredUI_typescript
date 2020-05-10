@@ -26,25 +26,26 @@ export default class MainApi implements ViewModelApi {
 
   // Sets user agent, used by native apps
   public setUserAgent(userAgent: string): void {
+    window.console.log(`mainApi.setUserAgent: ${userAgent}`);
+
     store.dispatch('setUserAgent', userAgent);
   }
 
   // Navigate to
   public navigateTo(route: string): void {
+    window.console.log(`mainApi.navigateTo: ${route}`);
     store.dispatch('setInitialRoute', route);
   }
 
   // Uploading files via android share, need to select gallery
   public async uploadAndroidSharedFiles(androidImages: AndroidImage[]): Promise<void> {
+    window.console.log(`mainApi.uploadAndroidSharedFiles`);
+
     try {
       store.commit('updateLoading', true);
 
       this.navigateTo('/select_gallery/');
-
-      const files = new Array<File>();
       store.dispatch('setAndroidImagesToUpload', androidImages);
-
-      store.dispatch('setFilesToUpload', files);
 
     } finally {
       store.commit('updateLoading', false);
@@ -54,7 +55,7 @@ export default class MainApi implements ViewModelApi {
   // Uploads a list of filenames of images to be uploaded later one by one
   public async uploadAndroidImageDetails(androidImages: AndroidImage[]): Promise<void> {
     window.console.log(`mainApi.uploadAndroidImageDetails`);
-    window.console.log(androidImages);
+
     try {
       store.commit('updateLoading', true);
 
@@ -68,6 +69,7 @@ export default class MainApi implements ViewModelApi {
   // Uploads the image data for requested image
   public async uploadAndroidImageData(androidImage: AndroidImage) {
     window.console.log(`mainApi.uploadAndroidImageData`);
+
     store.dispatch('injectImageData', androidImage);
   }
 }
