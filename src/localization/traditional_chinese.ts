@@ -226,6 +226,7 @@ export const traditionalChinese = {
       Mandarin: '普通話',
       Pinyin: '拼音',
 
+      // Chinese names are already given
       Mother: 'Mother',
       Father: 'Father',
       Daughter: 'Daughter',
@@ -289,6 +290,16 @@ export const traditionalChinese = {
       'Paternal Younger Female Cousin': 'Paternal Younger Female Cousin',
       'Paternal Elder Male Cousin': 'Paternal Elder Male Cousin',
       'Paternal Younger Male Cousin': 'Paternal Younger Male Cousin',
+      "Daughter's Granddaughter": "Daughter's Granddaughter",
+      "Daughter's Grandson": "Daughter's Grandson",
+      "Son's Granddaughter": "Son's Granddaughter",
+      "Son's Grandson": "Son's Grandson",
+      "Mother's Sister's Husband": "Mother's Sister's Husband",
+      "Mother's Brother's Wife": "Mother's Brother's Wife",
+      "Father's Elder Sister's Husband": "Father's Elder Sister's Husband",
+      "Father's Younger Sister's Husband": "Father's Younger Sister's Husband",
+      "Father's Elder Brother's Wife": "Father's Elder Brother's Wife",
+      "Father's Younger Brother's Wife": "Father's Younger Brother's Wife",
 
 
       // Map

@@ -250,6 +250,16 @@ export const finnish = {
       "Paternal Younger Female Cousin": "Isämpi nuorempi nainen serkku",
       "Paternal Elder Male Cousin": "Isän vanhin mies serkku",
       "Paternal Younger Male Cousin": "Isämpi nuorempi mies serkku",
+      "Daughter's Granddaughter": "Tytär tyttärentytär",
+      "Daughter's Grandson": "Tytär pojanpoika",
+      "Son's Granddaughter": "Pojan tyttärentytär",
+      "Son's Grandson": "Pojan pojanpoika",
+      "Mother's Sister's Husband": "Äidin siskon aviomies",
+      "Mother's Brother's Wife": "Äidin veljen vaimo",
+      "Father's Elder Sister's Husband": "Isän vanhemman siskon aviomies",
+      "Father's Younger Sister's Husband": "Isän nuoremman siskon aviomies",
+      "Father's Elder Brother's Wife": "Isän vanhemman veljen vaimo",
+      "Father's Younger Brother's Wife": "Isän nuoremman veljen vaimo",
 
 
       // Map
