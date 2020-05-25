@@ -320,6 +320,16 @@ export const polish = {
       "Paternal Younger Female Cousin": "Młodsza kuzynka ze strony ojca",
       "Paternal Elder Male Cousin": "Starszy kuzyn ze strony ojca",
       "Paternal Younger Male Cousin": "Młodszy kuzyn ze strony ojca",
+      "Daughter's Granddaughter": "Wnuczka córki",
+      "Daughter's Grandson": "Córka Wnuka",
+      "Son's Granddaughter": "Wnuczka syna",
+      "Son's Grandson": "Wnuk syna",
+      "Mother's Sister's Husband": "Mąż Siostry Matki",
+      "Mother's Brother's Wife": "Żona Brata Matki",
+      "Father's Elder Sister's Husband": "Mąż Starszej Siostry Ojca",
+      "Father's Younger Sister's Husband": "Mąż młodszej siostry ojca",
+      "Father's Elder Brother's Wife": "Żona Starszego Brata Ojca",
+      "Father's Younger Brother's Wife": "Żona młodszego brata ojca",
 
 
       // Map

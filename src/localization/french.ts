@@ -312,6 +312,16 @@ export const french = {
       "Paternal Younger Female Cousin": "Jeune Cousine Paternelle",
       "Paternal Elder Male Cousin": "Cousin Aîné Paternel",
       "Paternal Younger Male Cousin": "Jeune Cousin Paternel",
+      "Daughter's Granddaughter": "Petite-fille de la fille",
+      "Daughter's Grandson": "Petit-fils de la fille",
+      "Son's Granddaughter": "Petite-fille du fils",
+      "Son's Grandson": "Petit-fils du fils",
+      "Mother's Sister's Husband": "Mari de la sœur de la mère",
+      "Mother's Brother's Wife": "La femme du frère de la mère",
+      "Father's Elder Sister's Husband": "Mari de la sœur aînée du père",
+      "Father's Younger Sister's Husband": "Mari de la sœur cadette du père",
+      "Father's Elder Brother's Wife": "Épouse du frère aîné du père",
+      "Father's Younger Brother's Wife": "Épouse du frère cadet du père",
 
 
 
