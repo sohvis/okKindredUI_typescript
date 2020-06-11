@@ -229,6 +229,7 @@ export const simplifiedChinese = {
       Mandarin: '普通话',
       Pinyin: '拼音',
 
+      // Chinese names are already given
       Mother: 'Mother',
       Father: 'Father',
       Daughter: 'Daughter',
