@@ -29,6 +29,7 @@ import CropArgs from '../models/data/crop_args';
 import ChooseFile from '../components/new_profile_photo/ChooseFile.vue';
 import CropFile from '../components/new_profile_photo/CropFile.vue';
 import ImageUpload from '../components/new_profile_photo/ImageUpload.vue';
+import AndroidImage from '../models/data/android_image';
 
 @Component({
   components: {
@@ -41,8 +42,8 @@ export default class NewProfilePhoto extends Vue {
 
     public state: string = 'ChooseFile';
 
-    public get appFilesToUpload(): File[] {
-        return store.state.filesToUpload;
+    public get appFilesToUpload(): AndroidImage[] {
+        return store.state.androidImagesToUpload;
     }
 
     protected async mounted() {
@@ -65,13 +66,16 @@ export default class NewProfilePhoto extends Vue {
     }
 
     @Watch('appFilesToUpload')
-    private filesUploadedFromApp() {
+    private async filesUploadedFromApp() {
         // check component is showing
         const header = document.getElementById('new-profile-photo-header') as HTMLHtmlElement;
         if (header.offsetParent) {
-
             if ( this.appFilesToUpload.length > 0) {
-                this.fileSelected(this.appFilesToUpload[0]);
+                const androidImage = this.appFilesToUpload[0];
+                const res = await fetch(androidImage.base64Image);
+                const blob = await res.arrayBuffer();
+                const file = new File([blob], androidImage.fileName, {type: androidImage.mimeType});
+                this.fileSelected(file);
             }
         }
     }

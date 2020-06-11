@@ -15,8 +15,8 @@
     "@types/request-promise-native": "^1.0.17",
     "@types/sha1": "^1.1.2",
     "@types/vue2-editor": "^2.6.0",
-    "bootstrap": "^4.4.1",
-    "bootstrap-vue": "^2.13.1",
+    "bootstrap": "^4.5.0",
+    "bootstrap-vue": "^2.15.0",
     "core-js": "^3.6.5",
     "jcrop": "^3.0.1",
     "leaflet": "^1.6.0",
@@ -29,12 +29,12 @@
     "vue": "^2.6.11",
     "vue-class-component": "^7.2.3",
     "vue-config": "^1.0.0",
-    "vue-i18n": "^8.17.3",
+    "vue-i18n": "^8.18.2",
     "vue-localstorage": "^0.6.2",
     "vue-property-decorator": "^8.4.2",
-    "vue-router": "^3.1.6",
+    "vue-router": "^3.3.2",
     "vue2-editor": "^2.10.2",
-    "vuex": "^3.3.0"
+    "vuex": "^3.4.0"
   },
   "devDependencies": {
     "@types/jest": "^23.1.4",
@@ -46,7 +46,7 @@
     "babel-core": "7.0.0-bridge.0",
     "s3-deploy": "^1.4.0",
     "ts-jest": "^23.0.0",
-    "typescript": "^3.8.3",
+    "typescript": "^3.9.5",
     "vue-template-compiler": "^2.6.11"
   },
   "postcss": {
