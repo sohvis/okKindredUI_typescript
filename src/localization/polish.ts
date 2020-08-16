@@ -330,6 +330,26 @@ export const polish = {
       "Father's Younger Sister's Husband": "Mąż młodszej siostry ojca",
       "Father's Elder Brother's Wife": "Żona Starszego Brata Ojca",
       "Father's Younger Brother's Wife": "Żona młodszego brata ojca",
+      "Maternal Grandmother's Sister": "Siostra babci ze strony matki",
+      "Maternal Grandmother's Sister's Husband": "Mąż siostry babci ze strony matki",
+      "Maternal Grandmother's Brother": "Brat babci ze strony matki",
+      "Maternal Grandmother's Brother's Wife": "Żona brata babci ze strony matki",
+      "Maternal Grandfather's Sister": "Siostra dziadka ze strony matki",
+      "Maternal Grandfather's Sister's Husband": "Mąż siostry dziadka ze strony matki",
+      "Maternal Grandfather's Elder Brother": "Starszy brat dziadka ze strony matki",
+      "Maternal Grandfather's Elder Brother's Wife": "Żona starszego brata dziadka ze strony matki",
+      "Maternal Grandfather's Younger Brother": "Młodszy brat dziadka ze strony matki",
+      "Maternal Grandfather's Younger Brother's Wife": "Żona młodszego brata dziadka ze strony matki",
+      "Paternal Grandmother's Sister": "Siostra babci ze strony ojca",
+      "Paternal Grandmother's Sister's Husband": "Mąż siostry babci ze strony ojca",
+      "Paternal Grandmother's Brother": "Brat babci ze strony ojca",
+      "Paternal Grandmother's Brother's Wife": "Żona brata babci ze strony ojca",
+      "Paternal Grandfather's Sister": "Siostra dziadka ze strony ojca",
+      "Paternal Grandfather's Sister's Husband": "Mąż siostry dziadka ze strony ojca",
+      "Paternal Grandfather's Elder Brother": "Starszy brat dziadka ze strony ojca",
+      "Paternal Grandfather's Younger Brother": "Młodszy brat dziadka ze strony ojca",
+      "Paternal Grandfather's Younger Brother's Wife": "Żona młodszego brata dziadka ze strony ojca",
+
 
 
       // Map
