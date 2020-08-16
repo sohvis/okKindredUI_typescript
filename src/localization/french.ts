@@ -322,6 +322,26 @@ export const french = {
       "Father's Younger Sister's Husband": "Mari de la sœur cadette du père",
       "Father's Elder Brother's Wife": "Épouse du frère aîné du père",
       "Father's Younger Brother's Wife": "Épouse du frère cadet du père",
+      "Maternal Grandmother's Sister": "Sœur de la grand-mère maternelle",
+      "Maternal Grandmother's Sister's Husband": "Mari de la sœur de la grand-mère maternelle",
+      "Maternal Grandmother's Brother": "Frère de la grand-mère maternelle",
+      "Maternal Grandmother's Brother's Wife": "La femme du frère de la grand-mère maternelle",
+      "Maternal Grandfather's Sister": "Sœur du grand-père maternel",
+      "Maternal Grandfather's Sister's Husband": "Mari de la sœur du grand-père maternel",
+      "Maternal Grandfather's Elder Brother": "Frère aîné du grand-père maternel",
+      "Maternal Grandfather's Elder Brother's Wife": "Épouse du frère aîné du grand-père maternel",
+      "Maternal Grandfather's Younger Brother": "Frère cadet du grand-père maternel",
+      "Maternal Grandfather's Younger Brother's Wife": "Épouse du jeune frère du grand-père maternel",
+      "Paternal Grandmother's Sister": "Sœur de la grand-mère paternelle ",
+      "Paternal Grandmother's Sister's Husband": "Mari de la sœur de la grand-mère paternelle",
+      "Paternal Grandmother's Brother": "Frère de la grand-mère paternelle",
+      "Paternal Grandmother's Brother's Wife": "La femme du frère de la grand-mère paternelle",
+      "Paternal Grandfather's Sister": "Sœur du grand-père paternel",
+      "Paternal Grandfather's Sister's Husband": "Mari de la sœur du grand-père paternel",
+      "Paternal Grandfather's Elder Brother": "Frère aîné du grand-père paternel",
+      "Paternal Grandfather's Younger Brother": "Frère cadet du grand-père paternel",
+      "Paternal Grandfather's Younger Brother's Wife": "Épouse du frère cadet du grand-père paternel",
+
 
 
 

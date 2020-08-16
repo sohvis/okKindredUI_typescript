@@ -303,6 +303,26 @@ export const simplifiedChinese = {
       "Father's Younger Sister's Husband": "Father's Younger Sister's Husband",
       "Father's Elder Brother's Wife": "Father's Elder Brother's Wife",
       "Father's Younger Brother's Wife": "Father's Younger Brother's Wife",
+      "Maternal Grandmother's Sister": "Maternal Grandmother's Sister",
+      "Maternal Grandmother's Sister's Husband": "Maternal Grandmother's Sister's Husband",
+      "Maternal Grandmother's Brother": "Maternal Grandmother's Brother",
+      "Maternal Grandmother's Brother's Wife": "Maternal Grandmother's Brother's Wife",
+      "Maternal Grandfather's Sister": "Maternal Grandfather's Sister",
+      "Maternal Grandfather's Sister's Husband": "Maternal Grandfather's Sister's Husband",
+      "Maternal Grandfather's Elder Brother": "Maternal Grandfather's Elder Brother",
+      "Maternal Grandfather's Elder Brother's Wife": "Maternal Grandfather's Elder Brother's Wife",
+      "Maternal Grandfather's Younger Brother": "Maternal Grandfather's Younger Brother",
+      "Maternal Grandfather's Younger Brother's Wife": "Maternal Grandfather's Younger Brother's Wife",
+      "Paternal Grandmother's Sister": "Paternal Grandmother's Sister",
+      "Paternal Grandmother's Sister's Husband": "Paternal Grandmother's Sister's Husband",
+      "Paternal Grandmother's Brother": "Paternal Grandmother's Brother",
+      "Paternal Grandmother's Brother's Wife": "Paternal Grandmother's Brother' Wife",
+      "Paternal Grandfather's Sister": "Paternal Grandfather's Sister",
+      "Paternal Grandfather's Sister's Husband": "Paternal Grandfather's Sister's Husband",
+      "Paternal Grandfather's Elder Brother": "Paternal Grandfather's Elder Brother",
+      "Paternal Grandfather's Younger Brother": "Paternal Grandfather's Younger Brother",
+      "Paternal Grandfather's Younger Brother's Wife": "Paternal Grandfather's Younger Brother's Wife",
+
 
 
       // Map

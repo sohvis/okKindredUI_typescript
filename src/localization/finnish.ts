@@ -260,6 +260,26 @@ export const finnish = {
       "Father's Younger Sister's Husband": "Isän nuoremman siskon aviomies",
       "Father's Elder Brother's Wife": "Isän vanhemman veljen vaimo",
       "Father's Younger Brother's Wife": "Isän nuoremman veljen vaimo",
+      "Maternal Grandmother's Sister": "Äidin isoäidin siskor",
+      "Maternal Grandmother's Sister's Husband": "Äidin isoäidin siskon aviomies",
+      "Maternal Grandmother's Brother": "Äidin isoäidin veli",
+      "Maternal Grandmother's Brother's Wife": "Äidin isoäidin veljen vaimo",
+      "Maternal Grandfather's Sister": "Äitiinisäisen sisar",
+      "Maternal Grandfather's Sister's Husband": "Äidin isoisän sisar aviomies",
+      "Maternal Grandfather's Elder Brother": "Äitiinisäisen vanhempi veli",
+      "Maternal Grandfather's Elder Brother's Wife": "Äitiinisäisen vanhemman veljen vaimo",
+      "Maternal Grandfather's Younger Brother": "Äitiinisäisen nuorempi veli",
+      "Maternal Grandfather's Younger Brother's Wife": "Äitiinisäisen nuoremman veljen vaimo",
+      "Paternal Grandmother's Sister": "Isän isoäidin sisko",
+      "Paternal Grandmother's Sister's Husband": "Isän isoäidin siskon aviomies",
+      "Paternal Grandmother's Brother": "Isän isoäidin veli",
+      "Paternal Grandmother's Brother's Wife": "Isän isoäidin veljen vaimo",
+      "Paternal Grandfather's Sister": "Isänisän isä",
+      "Paternal Grandfather's Sister's Husband": "Isänisän isoisän siskon aviomies",
+      "Paternal Grandfather's Elder Brother": "Isänisän isoisän vanhempi veli",
+      "Paternal Grandfather's Younger Brother": "Isänisän isoisän nuorempi veli",
+      "Paternal Grandfather's Younger Brother's Wife": "Isänisän isoisän nuoremman veljen vaimo",
+
 
 
       // Map
