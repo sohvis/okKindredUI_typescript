@@ -54,8 +54,9 @@
                     class="pswp__button pswp__button--tags custom-button oi oi-tag">
                 </button>
 
-                <!-- fullscreen -->
+                <!-- fullscreen not needed for xamarin app-->
                 <button :title="$t('message.Fullscreen')"
+                    v-show="!isXamarin"
                     class="pswp__button pswp__button--fs">
                 </button>
 
@@ -115,6 +116,7 @@ import PhotoSwipeWrapper from '../../models/lightbox/photoswipeWrapper';
 import MapPopUp from './MapPopUp.vue';
 import EditImage from './EditImage.vue';
 import TaggingOverlay from './TaggingOverlay.vue';
+import BrowserDetection from '../../models/browserDetection';
 
 
 @Component({
@@ -135,6 +137,10 @@ export default class PhotoSwipeGalleryView extends Vue {
     public displayMap: boolean = false;
 
     public isFullscreen: boolean = false;
+
+    public get isXamarin(): boolean {
+        return BrowserDetection.isXamarinApp();
+    }
 
     public async init(
             images: Image[],
@@ -231,10 +237,15 @@ export default class PhotoSwipeGalleryView extends Vue {
 
     private download() {
         // window.console.log(`PhotoSwipeGalleryView.download()`);
-
         if (this.photoswipeWrapper) {
             const link = (this.photoswipeWrapper.photoswipe.currItem as PhotoSwipeItem).image.original_image;
-            window.open(link, `_blank`);
+
+            if (this.isXamarin) {
+                window.location.href = link;
+            } else {
+                window.open(link, `_blank`);
+            }
+
             (this.$refs.taggingOverlay as TaggingOverlay).destroy();
         }
     }

@@ -111,7 +111,6 @@ import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 import store from '../../store/store';
 import config from '../../config';
 import * as request from 'request-promise-native';
-
 import Image from '../../models/data/image';
 import PhotoSwipeItem from '../../models/lightbox/photoswipe_item';
 import PagedResult from '../../models/data/paged_results';
@@ -119,6 +118,7 @@ import PhotoSwipeWrapper from '../../models/lightbox/photoswipeWrapper';
 import MapPopUp from './MapPopUp.vue';
 import EditImage from './EditImage.vue';
 import TaggingOverlay from './TaggingOverlay.vue';
+import BrowserDetection from '../../models/browserDetection';
 
 @Component({
   components: {
@@ -138,6 +138,10 @@ export default class PhotoSwipeGalleryView extends Vue {
     public displayMap: boolean = false;
 
     public isFullscreen: boolean = false;
+
+    public get isXamarin(): boolean {
+        return BrowserDetection.isXamarinApp();
+    }
 
     public async init(
             images: Image[],
