@@ -12,7 +12,7 @@
         </div>
         <div class="alert alert-danger" v-show="loginInvalid">{{ $t("message.InvalidLogin") }}</div>
         <div class="alert alert-danger" v-show="accountLocked">{{ $t("message.AccountLocked") }}</div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">{{ $t("message.SignIn") }}</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" v-show="!accountLocked">{{ $t("message.SignIn") }}</button>
 
         <router-link to="/accounts/password_reset/">{{ $t("message.IForgotMyPassword") }}</router-link>
     </form>
@@ -99,11 +99,10 @@ export default class Login extends Vue {
             };
 
             const isLocked =  await request.get(options) as boolean;
-
             return isLocked;
+
         } catch (error) {
-            store.commit('setErrorMessage', error);
-            return false;
+            return true;
         } finally {
             store.commit('updateLoading', false);
         }
