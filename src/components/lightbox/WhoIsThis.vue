@@ -53,7 +53,7 @@
 
 <script lang="ts">
 import { Component, Vue, Watch} from 'vue-property-decorator';
-import * as request from 'request-promise-native';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import Person from '../../models/data/person';
 import Image from '../../models/data/image';
 import store from '../../store/store';
@@ -199,10 +199,10 @@ export default class WhoIsThis extends Vue {
             this.loading = true;
 
             try {
-                const options = {
-                    uri: `${config.BaseApiUrl}${config.ImageTaggingAPI}`,
+                const options: AxiosRequestConfig = {
+                    url: `${config.BaseApiUrl}${config.ImageTaggingAPI}`,
                     headers: store.getters.ajaxHeader,
-                    body: {
+                    data: {
                         x1: this.x1,
                         x2: this.x2,
                         y1: this.y1,
@@ -210,11 +210,12 @@ export default class WhoIsThis extends Vue {
                         image_id: this.image.id,
                         person_id: person.id,
                     },
-                    json: true,
+                    method: 'POST',
+                    responseType: 'json',
                 };
 
-                const tag = await request.post(options) as Tag;
-                this.$emit('tagCreated', tag);
+                const response = await axios.request(options) as AxiosResponse<Tag>;
+                this.$emit('tagCreated', response.data);
 
                 (this.$refs.whoIsThisModal as BModal).hide();
 

@@ -1,5 +1,5 @@
 import { ActionTree } from 'vuex';
-import * as request from 'request-promise-native';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { configs } from '../config';
 import IState from './IState';
 import { i18n } from '../main';
@@ -115,27 +115,28 @@ const actions: ActionTree<IState, IState> = {
         // window.console.log('login() action called');
         context.commit('updateLoading', true);
 
-        const options = {
-            uri: `${configs.BaseApiUrl}${configs.ObtainTokenAPI}`,
-            body: {
+        const options: AxiosRequestConfig = {
+            url: `${configs.BaseApiUrl}${configs.ObtainTokenAPI}`,
+            data: {
                 email: payload.email,
                 password: payload.password,
             },
-            json: true,
+            method: 'POST',
+            responseType: 'json',
         };
 
         try {
-            const response = await request.post(options);
+            const response = await axios.request(options) as AxiosResponse;
             // window.console.log(`login response:`);
             // window.console.log(response);
 
             // Save access tokens in state
             context.commit('login', {
-                access_token: response.access,
-                refresh_token: response.refresh,
-                language: response.language,
-                person_id: response.person_id,
-                users_person_id: response.person_id,
+                access_token: response.data.access,
+                refresh_token: response.data.refresh,
+                language: response.data.language,
+                person_id: response.data.person_id,
+                users_person_id: response.data.person_id,
             });
 
             // Save access tokens in session
@@ -163,16 +164,17 @@ const actions: ActionTree<IState, IState> = {
         // window.console.log(`verifyToken() Called`);
         context.commit('updateLoading', true);
 
-        const options = {
-            uri: `${configs.BaseApiUrl}${configs.VerifyTokenAPI}`,
-            body: {
+        const options: AxiosRequestConfig = {
+            url: `${configs.BaseApiUrl}${configs.VerifyTokenAPI}`,
+            data: {
                 token: context.state.access_token,
             },
-            json: true,
+            method: 'POST',
+            responseType: 'json',
         };
 
         try {
-            const response = await request.post(options);
+            const response = await axios.request(options) as AxiosResponse;
             // window.console.log(response);
             // window.console.log(`Token Verified`);
             context.commit('login', {
@@ -203,22 +205,23 @@ const actions: ActionTree<IState, IState> = {
         // window.console.log(`refreshToken() Called`);
         context.commit('updateLoading', true);
 
-        const options = {
-            uri: `${configs.BaseApiUrl}${configs.RefreshTokenAPI}`,
-            body: {
+        const options: AxiosRequestConfig = {
+            url: `${configs.BaseApiUrl}${configs.RefreshTokenAPI}`,
+            data: {
                 refresh: context.state.refresh_token,
             },
-            json: true,
+            method: 'POST',
+            responseType: 'json',
         };
 
         try {
-            const response = await request.post(options);
+            const response = await axios.request(options) as AxiosResponse;
             // window.console.log(response);
 
             // window.console.log(`Token Refreshed: ${response.access}`);
 
             context.commit('login', {
-                access_token: response.access,
+                access_token: response.data.access,
                 refresh_token: context.state.refresh_token,
                 language: context.state.language,
                 person_id: context.state.person_id,
@@ -239,24 +242,26 @@ const actions: ActionTree<IState, IState> = {
         // window.console.log(`loadTreeData() Called`);
         context.commit('updateLoading', true);
 
-        const optionsPerson = {
-            uri: `${configs.BaseApiUrl}${configs.PersonAPI}`,
+        const optionsPerson: AxiosRequestConfig = {
+            url: `${configs.BaseApiUrl}${configs.PersonAPI}`,
             headers: context.getters.ajaxHeader,
-            json: true,
+            method: 'GET',
+            responseType: 'json',
         };
 
-        const optionsRelation = {
-            uri: `${configs.BaseApiUrl}${configs.RelationAPI}`,
+        const optionsRelation: AxiosRequestConfig = {
+            url: `${configs.BaseApiUrl}${configs.RelationAPI}`,
             headers: context.getters.ajaxHeader,
-            json: true,
+            method: 'GET',
+            responseType: 'json',
         };
 
         try {
-            const personTask = request.get(optionsPerson);
-            const relationTask = request.get(optionsRelation);
+            const personTask = axios.request(optionsPerson);
+            const relationTask = axios.request(optionsRelation);
 
-            const people = (await personTask) as Person[];
-            const relations = (await relationTask) as Relation[];
+            const people = (await personTask as AxiosResponse<Person[]>).data;
+            const relations = (await relationTask as AxiosResponse<Relation[]>).data;
 
             context.commit('setPeople', people);
             context.commit('setRelations', relations);
@@ -339,16 +344,17 @@ const actions: ActionTree<IState, IState> = {
         if (!context.state.currentGallery || context.state.currentGallery.id !== galleryId) {
             context.commit('updateLoading', true);
 
-            const options = {
-                uri: `${configs.BaseApiUrl}${configs.GalleryAPI}${galleryId}/`,
+            const options: AxiosRequestConfig = {
+                url: `${configs.BaseApiUrl}${configs.GalleryAPI}${galleryId}/`,
                 headers: context.getters.ajaxHeader,
-                json: true,
+                method: 'GET',
+                responseType: 'json',
             };
 
             try {
-                const response = await request.get(options) as Gallery;
+                const response = await axios.request(options) as AxiosResponse<Gallery>;
 
-                context.commit('changeCurrentGallery', response);
+                context.commit('changeCurrentGallery', response.data);
             } catch (error) {
                 throw error;
             } finally {

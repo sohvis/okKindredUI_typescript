@@ -26,7 +26,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import * as request from 'request-promise-native';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import store from '../../store/store';
 import { configs } from '../../config';
 import TreeNode from '../../models/tree/treeNode';
@@ -83,13 +83,14 @@ export default class SplitRelations extends Vue {
 
     try {
       this.loading = true;
-      const options = {
-          uri: `${configs.BaseApiUrl}${configs.RelationAPI}${relation.id}/`,
+      const options: AxiosRequestConfig = {
+          url: `${configs.BaseApiUrl}${configs.RelationAPI}${relation.id}/`,
           headers: store.getters.ajaxHeader,
-          json: true,
+          method: 'DELETE',
+          responseType: 'json',
       };
 
-      const response = await request.delete(options);
+      await axios.request(options);
 
       store.dispatch('removeRelations', [relation.relation]);
 

@@ -34,7 +34,7 @@ import store from '../../store/store';
 import Person from '../../models/data/person';
 import configs from '../../config';
 import { setTimeout } from 'timers';
-import * as request from 'request-promise-native';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import ProfileEmitArgs from '../../models/profile_emit_args';
 import { VueEditor } from 'vue2-editor';
 
@@ -128,20 +128,21 @@ export default class Biography extends Vue {
     if (this.biography !== this.biographyEdited) {
 
       try {
-        const options = {
-            uri: `${configs.BaseApiUrl}${configs.PersonAPI}${this.personId}/`,
+        const options: AxiosRequestConfig = {
+            url: `${configs.BaseApiUrl}${configs.PersonAPI}${this.personId}/`,
             headers: store.getters.ajaxHeader,
-            body: {
+            data: {
               fieldName: 'biography',
               value: this.biographyEdited,
             },
-            json: true,
+            method: 'PATCH',
+            responseType: 'json',
         };
 
-        const response = await request.patch(options) as Person;
+        const response = await axios.request(options) as AxiosResponse<Person>;
         // window.console.log(response);
         const param = new ProfileEmitArgs(
-                      response,
+                      response.data,
                       'biography',
                       this.biographyEdited,
                       this.biography);

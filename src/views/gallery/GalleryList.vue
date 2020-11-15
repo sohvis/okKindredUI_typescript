@@ -42,7 +42,7 @@
 
 <script lang="ts">
 import { Component, Vue, Watch, Prop} from 'vue-property-decorator';
-import * as request from 'request-promise-native';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import store from '../../store/store';
 import config from '../../config';
 import PagedResult from '../../models/data/paged_results';
@@ -129,16 +129,17 @@ export default class GalleryList extends Vue {
         try {
             this.showNoImagesMessage = false;
 
-            const options = {
-                uri: `${config.BaseApiUrl}${config.GalleryAPI}?page=${this.page}`,
+            const options: AxiosRequestConfig = {
+                url: `${config.BaseApiUrl}${config.GalleryAPI}?page=${this.page}`,
                 headers: store.getters.ajaxHeader,
-                json: true,
+                method: 'GET',
+                responseType: 'json',
             };
 
-            const response = await request.get(options) as PagedResult<Gallery>;
-            this.galleries = response.results;
+            const response = await axios.request(options) as AxiosResponse<PagedResult<Gallery>>;
+            this.galleries = response.data.results;
 
-            this.totalCount = response.count;
+            this.totalCount = response.data.count;
             if (this.totalCount === 0) {
                 this.showNoImagesMessage = true;
             }

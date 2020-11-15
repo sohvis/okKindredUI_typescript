@@ -95,8 +95,8 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { BModal } from 'bootstrap-vue';
-import * as request from 'request-promise-native';
 import config from '../../config';
 import store from '../../store/store';
 import Image from '../../models/data/image';
@@ -177,23 +177,24 @@ export default class EditImage extends Vue {
 
         try {
             this.busy = true;
-            const options = {
-                uri: `${config.BaseApiUrl}${config.ImageAPI}${this.image.id}/`,
+            const options: AxiosRequestConfig = {
+                url: `${config.BaseApiUrl}${config.ImageAPI}${this.image.id}/`,
                 headers: store.getters.ajaxHeader,
-                body: {
+                data: {
                     title: this.form.title,
                     description: this.form.description,
                     anticlockwise_angle: 360 - this.clockwiseRotation,
                     latitude: (this.$refs.editLocation as EditLocation).latitude,
                     longitude: (this.$refs.editLocation as EditLocation).longitude,
                 },
-                json: true,
+                method: 'PATCH',
+                responseType: 'json',
             };
 
-            const response = await request.patch(options) as Image;
+            const response = await axios.request(options) as AxiosResponse<Image>;
             // window.console.log(response);
 
-            this.$emit('imageEdited', response);
+            this.$emit('imageEdited', response.data);
 
             await this.updateGalleryThumbnail();
 
@@ -220,18 +221,19 @@ export default class EditImage extends Vue {
                     thumbnail = this.image.id.toString();
                 }
 
-                const options = {
-                    uri: `${config.BaseApiUrl}${config.GalleryAPI}${this.image.gallery_id}/`,
+                const options: AxiosRequestConfig = {
+                    url: `${config.BaseApiUrl}${config.GalleryAPI}${this.image.gallery_id}/`,
                     headers: store.getters.ajaxHeader,
-                    body: {
+                    data: {
                         thumbnail_id: thumbnail,
                     },
-                    json: true,
+                    method: 'PATCH',
+                    responseType: 'json',
                 };
 
-                const response = await request.patch(options) as Gallery;
+                const response = await axios.request(options) as AxiosResponse<Gallery>;
 
-                store.dispatch('updateCurrentGallery', response);
+                store.dispatch('updateCurrentGallery', response.data);
             }
         }
     }

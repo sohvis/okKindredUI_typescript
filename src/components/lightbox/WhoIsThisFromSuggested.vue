@@ -54,7 +54,7 @@
 
 <script lang="ts">
 import { Component, Vue, Watch} from 'vue-property-decorator';
-import * as request from 'request-promise-native';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import Person from '../../models/data/person';
 import Image from '../../models/data/image';
 import store from '../../store/store';
@@ -222,17 +222,18 @@ export default class WhoIsThisFromSuggested extends Vue {
             this.loading = true;
 
             try {
-                const options = {
-                    uri: `${config.BaseApiUrl}${config.SuggestedTaggingAPI}${this.suggestedTag.id}/`,
+                const options: AxiosRequestConfig = {
+                    url: `${config.BaseApiUrl}${config.SuggestedTaggingAPI}${this.suggestedTag.id}/`,
                     headers: store.getters.ajaxHeader,
-                    body: {
+                    data: {
                         person_id: person.id,
                     },
-                    json: true,
+                    method: 'PATCH',
+                    responseType: 'json',
                 };
 
-                const newTag = await request.patch(options) as Tag;
-                this.$emit('suggestedTagConverted', this.suggestedTag, newTag);
+                const response = await axios.request(options) as AxiosResponse<Tag>;
+                this.$emit('suggestedTagConverted', this.suggestedTag, response.data);
 
                 (this.$refs.whoIsThisFromSuggestedModal as BModal).hide();
 

@@ -26,10 +26,10 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import Loading from './../common/Loading.vue';
 import Gallery from '../../models/data/gallery';
 import config from '../../config';
-import * as request from 'request-promise-native';
 import store from '../../store/store';
 
 @Component({
@@ -90,13 +90,13 @@ export default class DeleteImages extends Vue {
 
     private async deleteImage(imageId: number) {
 
-        const options = {
-            uri: `${config.BaseApiUrl}${config.ImageAPI}${imageId}/`,
+        const options: AxiosRequestConfig = {
+            url: `${config.BaseApiUrl}${config.ImageAPI}${imageId}/`,
             headers: store.getters.ajaxHeader,
-            json: true,
+            method: 'DELETE',
         };
 
-        const response = await request.delete(options);
+        await axios.request(options);
         // window.console.log(response);
     }
 }

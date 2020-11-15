@@ -28,7 +28,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import * as request from 'request-promise-native';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import PwnedPasswordChecker from '../../models/pwnedPasswordChecker';
 import store from '../../store/store';
 import ErrorModal from '../../components/common/ErrorModal.vue';
@@ -93,13 +93,14 @@ export default class Login extends Vue {
     private async isIpLocked(): Promise<boolean> {
         try {
             store.commit('updateLoading', true);
-            const options = {
-                uri: `${config.BaseApiUrl}${config.IsLockedAPI}`,
-                json: true,
+            const options: AxiosRequestConfig = {
+                url: `${config.BaseApiUrl}${config.IsLockedAPI}`,
+                method: 'GET',
+                responseType: 'json',
             };
 
-            const isLocked =  await request.get(options) as boolean;
-            return isLocked;
+            const response =  await axios.request(options) as AxiosResponse<boolean>;
+            return response.data;
 
         } catch (error) {
             return true;

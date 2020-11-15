@@ -23,7 +23,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
-import * as request from 'request-promise-native';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import store from '../../store/store';
 import { configs } from '../../config';
 import Relation from '../../models/data/relation';
@@ -56,20 +56,21 @@ export default class ExistingRelative extends Vue {
         try {
             const fromPersonId = Number(store.state.person_id);
 
-            const options = {
-                uri: `${configs.BaseApiUrl}${configs.RelationAPI}`,
+            const options: AxiosRequestConfig = {
+                url: `${configs.BaseApiUrl}${configs.RelationAPI}`,
                 headers: store.getters.ajaxHeader,
-                body: {
+                data: {
                     from_person_id: fromPersonId,
                     to_person_id: Number(this.selectedPerson.id),
                     relation_type: this.relationType,
                 },
-                json: true,
+                responseType: 'json',
+                method: 'POST',
             };
 
-            const relation = await request.post(options) as Relation;
+            const response = await axios.request(options) as AxiosResponse<Relation>;
 
-            store.dispatch('addRelations', [relation]);
+            store.dispatch('addRelations', [response.data]);
 
             this.$emit('relationCreated');
 

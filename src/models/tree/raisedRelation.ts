@@ -1,7 +1,6 @@
 import TreeNode from './treeNode';
 import TreeRelation from './treeRelation';
 import Point from './point';
-import PartneredRelation from './partneredRelation';
 
 export default class RaisedRelation implements TreeRelation {
 

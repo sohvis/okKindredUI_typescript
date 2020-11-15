@@ -47,8 +47,8 @@
 </template>
 
 <script lang="ts">
-import * as request from 'request-promise-native';
 import { Component, Vue, Prop} from 'vue-property-decorator';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import store from '../../store/store';
 import { configs } from '../../config';
 import PwnedPasswordChecker from '../../models/pwnedPasswordChecker';
@@ -112,17 +112,18 @@ export default class ChangePassword extends Vue {
 
             try {
                 const textbox = document.getElementById('search-box') as HTMLInputElement;
-                const options = {
-                    uri: `${configs.BaseApiUrl}${configs.PasswordChangeAPI}`,
+                const options: AxiosRequestConfig = {
+                    url: `${configs.BaseApiUrl}${configs.PasswordChangeAPI}`,
                     headers: store.getters.ajaxHeader,
-                    body: {
+                    data: {
                         old_password: this.oldPassword,
                         new_password: this.password,
                     },
-                    json: true,
+                    method: 'POST',
+                    responseType: 'json',
                 };
 
-                const result = await request.post(options);
+                const response = await axios.request(options);
                 this.saved = true;
 
             } catch (ex) {

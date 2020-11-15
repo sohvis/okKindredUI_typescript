@@ -64,7 +64,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
-import * as request from 'request-promise-native';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import store from '../../store/store';
 import ErrorModal from '../../components/common/ErrorModal.vue';
 import config from '../../config';
@@ -130,18 +130,19 @@ export default class InviteConfirmation extends Vue {
 
         try {
 
-            const options = {
-                uri: `${config.BaseApiUrl}${config.InviteEmailConfirmationAPI}${this.confirmationToken}/`,
-                json: true,
+            const options: AxiosRequestConfig = {
+                url: `${config.BaseApiUrl}${config.InviteEmailConfirmationAPI}${this.confirmationToken}/`,
+                method: 'GET',
+                responseType: 'json',
             };
 
-            const invite = await request.get(options) as InviteEmail;
+            const response = await axios.request(options) as AxiosResponse<InviteEmail>;
             // window.console.log(invite);
 
-            i18n.locale = localeMatch.match(invite.language);
-            this.name = invite.person_name;
-            this.emailAddress = invite.email_address;
-            this.userWhoInvitedYou = invite.username_who_invited_person;
+            i18n.locale = localeMatch.match(response.data.language);
+            this.name = response.data.person_name;
+            this.emailAddress = response.data.email_address;
+            this.userWhoInvitedYou = response.data.username_who_invited_person;
             this.loaded = true;
 
             store.dispatch('updateRouteLoaded');
@@ -174,15 +175,16 @@ export default class InviteConfirmation extends Vue {
 
             try {
 
-                const options = {
-                    uri: `${config.BaseApiUrl}${config.InviteEmailConfirmationAPI}${this.confirmationToken}/`,
-                    body: {
+                const options: AxiosRequestConfig = {
+                    url: `${config.BaseApiUrl}${config.InviteEmailConfirmationAPI}${this.confirmationToken}/`,
+                    data: {
                         password: this.password,
                     },
-                    json: true,
+                    method: 'PATCH',
+                    responseType: 'json',
                 };
 
-                const invite = await request.patch(options) as InviteEmail;
+                const response = await axios.request(options) as AxiosResponse<InviteEmail>;
                 // window.console.log(invite);
 
                 await this.$store.dispatch('login', {

@@ -29,7 +29,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
-import * as request from 'request-promise-native';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import store from '../../store/store';
 import { configs } from '../../config';
 import RelationPrediction from '../../models/relation_predicter/relation_prediction';
@@ -71,19 +71,20 @@ export default class SuggestedRelative extends Vue {
 
         const selectedPersonId = store.state.person_id;
 
-        const options = {
-            uri: `${configs.BaseApiUrl}${configs.RelationAPI}`,
+        const options: AxiosRequestConfig = {
+            url: `${configs.BaseApiUrl}${configs.RelationAPI}`,
             headers: store.getters.ajaxHeader,
-            body: {
+            data: {
                 from_person_id: this.relationPrediction.fromPerson.id,
                 relation_type: this.relationPrediction.relationType,
                 to_person_id: this.relationPrediction.toPerson.id,
             },
-            json: true,
+            method: 'POST',
+            responseType: 'json',
         };
 
-        const relation = await request.post(options) as Relation;
-        store.dispatch('addRelations', [relation]);
+        const response = await axios.request(options) as AxiosResponse<Relation>;
+        store.dispatch('addRelations', [response.data]);
     }
 
     protected mounted() {

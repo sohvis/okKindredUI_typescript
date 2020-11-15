@@ -14,13 +14,10 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
-
-import { Promise } from 'q';
 import store from '../../store/store';
 import Person from '../../models/data/person';
 import Relation from '../../models/data/relation';
 import Tree from '../../models/tree/tree';
-import * as request from 'request-promise-native';
 import Scroller from '../../models/tree/scroller.js';
 import TreeNavControls from './TreeNavControls.vue';
 import TreeEditControl from './TreeEditControl.vue';

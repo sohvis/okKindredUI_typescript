@@ -53,7 +53,6 @@ import store from '../../store/store';
 import Person from '../../models/data/person';
 import Relation from '../../models/data/relation';
 import configs from '../../config';
-import * as request from 'request-promise-native';
 import RelationTypes from '../../models/data/relation_types';
 import CoreFamilyMember from './CoreFamilyMember.vue';
 

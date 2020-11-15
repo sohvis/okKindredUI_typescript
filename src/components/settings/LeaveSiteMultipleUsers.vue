@@ -45,8 +45,8 @@
 </template>
 
 <script lang="ts">
-import * as request from 'request-promise-native';
 import { Component, Vue, Prop } from 'vue-property-decorator';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import store from '../../store/store';
 import { configs } from '../../config';
 import PasswordBox from '../common/PasswordBox.vue';
@@ -80,17 +80,18 @@ export default class LeaveSiteMultipleUsers extends Vue {
       store.commit('updateLoading', true);
 
       try {
-        const options = {
-            uri: `${configs.BaseApiUrl}${configs.LeaveSiteAPI}`,
-            body: {
+        const options: AxiosRequestConfig = {
+            url: `${configs.BaseApiUrl}${configs.LeaveSiteAPI}`,
+            data: {
               delete_profile: this.deleteProfile,
               password: this.password,
             },
             headers: store.getters.ajaxHeader,
-            json: true,
+            method: 'POST',
+            responseType: 'json',
         };
 
-        await request.post(options);
+        await axios.request(options);
 
         await this.$store.dispatch('logout');
         this.$router.push('/');

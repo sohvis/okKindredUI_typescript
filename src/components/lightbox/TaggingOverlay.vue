@@ -40,7 +40,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
-import * as request from 'request-promise-native';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import config from '../../config';
 import Image from '../../models/data/image';
 import Tag from '../../models/data/tag';
@@ -139,22 +139,25 @@ export default class TaggingOverlay extends Vue {
 
     private async loadData(image: Image) {
       try {
-          const tagOptions = {
-              uri: `${config.BaseApiUrl}${config.ImageTaggingAPI}?image_id=${image.id}`,
+          const tagOptions: AxiosRequestConfig = {
+              url: `${config.BaseApiUrl}${config.ImageTaggingAPI}?image_id=${image.id}`,
               headers: store.getters.ajaxHeader,
-              json: true,
+              method: 'GET',
+              responseType: 'json',
           };
 
-          const suggestedTagOptions = {
-              uri: `${config.BaseApiUrl}${config.SuggestedTaggingAPI}?image_id=${image.id}`,
+          const suggestedTagOptions: AxiosRequestConfig = {
+              url: `${config.BaseApiUrl}${config.SuggestedTaggingAPI}?image_id=${image.id}`,
               headers: store.getters.ajaxHeader,
-              json: true,
+              method: 'GET',
+              responseType: 'json',
           };
 
-          const tagTask = request.get(tagOptions);
-          const suggestedTagTask = request.get(suggestedTagOptions);
-          this.tags = await tagTask as Tag[];
-          this.suggestedTags = await suggestedTagTask as SuggestedTag[];
+          const tagTask = axios.request(tagOptions) as Promise<AxiosResponse<Tag[]>>;
+          const suggestedTagTask = axios.request(suggestedTagOptions) as Promise<AxiosResponse<SuggestedTag[]>>;
+
+          this.tags = (await tagTask).data;
+          this.suggestedTags = (await suggestedTagTask).data;
 
       } finally {
 

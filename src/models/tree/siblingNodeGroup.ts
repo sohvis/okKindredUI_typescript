@@ -1,6 +1,5 @@
 import Tree from './tree';
 import TreeNode from './treeNode';
-import Relation from '../data/relation';
 import RaisedRelation from './raisedRelation';
 import TreeNodeGroup from './treeNodeGroup';
 

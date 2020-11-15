@@ -49,10 +49,10 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import Loading from './../common/Loading.vue';
 import Gallery from '../../models/data/gallery';
 import config from '../../config';
-import * as request from 'request-promise-native';
 import store from '../../store/store';
 
 @Component({
@@ -102,24 +102,25 @@ export default class AddGallery extends Vue {
 
         try {
             this.busy = true;
-            const options = {
-                uri: `${config.BaseApiUrl}${config.GalleryAPI}`,
+            const options: AxiosRequestConfig = {
+                url: `${config.BaseApiUrl}${config.GalleryAPI}`,
                 headers: store.getters.ajaxHeader,
-                body: {
+                data: {
                     title: this.form.title,
                     description: this.form.description,
                 },
-                json: true,
+                method: 'POST',
+                responseType: 'json',
             };
 
-            const response = await request.post(options) as Gallery;
+            const response = await axios.request(options) as AxiosResponse<Gallery>;
             // window.console.log(response);
 
-            this.$emit('galleryCreated', response);
+            this.$emit('galleryCreated', response.data);
             (this.$refs.modal as any).hide();
 
             if (this.$router.currentRoute.name === 'GalleryList') {
-                this.$router.push(`/gallery/${response.id}/`);
+                this.$router.push(`/gallery/${response.data.id}/`);
             }
 
         } catch (ex) {

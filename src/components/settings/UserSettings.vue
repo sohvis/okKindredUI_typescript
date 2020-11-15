@@ -48,8 +48,8 @@
 </template>
 
 <script lang="ts">
-import * as request from 'request-promise-native';
 import { Component, Vue } from 'vue-property-decorator';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import store from '../../store/store';
 import { configs } from '../../config';
 import UserProperties from '../../models/data/user_properties';
@@ -87,13 +87,15 @@ export default class UserSettings extends Vue {
         store.commit('updateLoading', true);
 
         try {
-            const options = {
-                uri: `${configs.BaseApiUrl}${configs.UserSettingsAPI}`,
+            const options: AxiosRequestConfig = {
+                url: `${configs.BaseApiUrl}${configs.UserSettingsAPI}`,
                 headers: store.getters.ajaxHeader,
-                json: true,
+                method: 'GET',
+                responseType: 'json',
             };
 
-            this.userProperties = await request.get(options) as UserProperties;
+            const response = await axios.request(options) as AxiosResponse<UserProperties>;
+            this.userProperties = response.data;
 
         } catch (ex) {
             store.commit('setErrorMessage', ex);
@@ -136,14 +138,15 @@ export default class UserSettings extends Vue {
         const previousLanguage = this.userProperties.language;
 
         try {
-            const options = {
-                uri: `${configs.BaseApiUrl}${configs.UserSettingsAPI}`,
+            const options: AxiosRequestConfig = {
+                url: `${configs.BaseApiUrl}${configs.UserSettingsAPI}`,
                 headers: store.getters.ajaxHeader,
-                body: this.userProperties,
-                json: true,
+                data: this.userProperties,
+                method: 'PATCH',
+                responseType: 'json',
             };
 
-            await request.patch(options);
+            await axios.request(options);
 
             this.saved = true;
 

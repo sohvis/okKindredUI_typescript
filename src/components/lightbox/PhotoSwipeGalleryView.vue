@@ -109,7 +109,6 @@ import 'photoswipe/dist/default-skin/default-skin.css';
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 import store from '../../store/store';
 import config from '../../config';
-import * as request from 'request-promise-native';
 import Image from '../../models/data/image';
 import PhotoSwipeItem from '../../models/lightbox/photoswipe_item';
 import PhotoSwipeWrapper from '../../models/lightbox/photoswipeWrapper';

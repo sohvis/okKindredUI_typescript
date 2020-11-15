@@ -55,7 +55,7 @@
 
 <script lang="ts">
 import { Component, Vue, Watch, Prop} from 'vue-property-decorator';
-import * as request from 'request-promise-native';
+import axios, { AxiosProxyConfig, AxiosRequestConfig, AxiosResponse } from 'axios';
 import store from '../../store/store';
 import config from '../../config';
 import PagedResult from '../../models/data/paged_results';
@@ -177,18 +177,19 @@ export default class GalleryView extends Vue {
         store.commit('updateLoading', true);
 
         try {
-            const options = {
-                uri: `${config.BaseApiUrl}${config.ImageAPI}?person_id=${this.personId}&page=${this.page}`,
+            const options: AxiosRequestConfig = {
+                url: `${config.BaseApiUrl}${config.ImageAPI}?person_id=${this.personId}&page=${this.page}`,
                 headers: store.getters.ajaxHeader,
-                json: true,
+                method: 'GET',
+                responseType: 'json',
             };
 
-            const response = await request.get(options) as PagedResult<Image>;
+            const response = await axios.request(options) as AxiosResponse<PagedResult<Image>>;
 
-            this.images = response.results;
+            this.images = response.data.results;
             this.setDisplaySizes();
 
-            this.totalCount = response.count;
+            this.totalCount = response.data.count;
 
         } catch (ex) {
             store.commit('setErrorMessage', ex);

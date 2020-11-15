@@ -51,7 +51,7 @@ import { Component, Vue, Prop } from 'vue-property-decorator';
 import Loading from './../common/Loading.vue';
 import Gallery from '../../models/data/gallery';
 import config from '../../config';
-import * as request from 'request-promise-native';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import store from '../../store/store';
 
 @Component({
@@ -107,21 +107,22 @@ export default class EditGallery extends Vue {
 
         try {
             this.busy = true;
-            const options = {
-                uri: `${config.BaseApiUrl}${config.GalleryAPI}${this.form.id}/`,
+            const options: AxiosRequestConfig = {
+                url: `${config.BaseApiUrl}${config.GalleryAPI}${this.form.id}/`,
                 headers: store.getters.ajaxHeader,
-                body: {
+                data: {
                     title: this.form.title,
                     description: this.form.description,
                 },
-                json: true,
+                method: 'PATCH',
+                responseType: 'json',
             };
 
-            const response = await request.patch(options) as Gallery;
+            const response = await axios.request(options) as AxiosResponse<Gallery>;
 
-            store.dispatch('updateCurrentGallery', response);
+            store.dispatch('updateCurrentGallery', response.data);
 
-            this.$emit('galleryEdited', response);
+            this.$emit('galleryEdited', response.data);
             (this.$refs.modal as any).hide();
 
         } catch (ex) {

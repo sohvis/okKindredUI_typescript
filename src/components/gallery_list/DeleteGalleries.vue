@@ -28,10 +28,10 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import Loading from './../common/Loading.vue';
 import Gallery from '../../models/data/gallery';
 import config from '../../config';
-import * as request from 'request-promise-native';
 import store from '../../store/store';
 
 @Component({
@@ -91,13 +91,14 @@ export default class DeleteGalleries extends Vue {
 
     private async deleteGallery(galleryId: number) {
 
-        const options = {
-            uri: `${config.BaseApiUrl}${config.GalleryAPI}${galleryId}/`,
+        const options: AxiosRequestConfig = {
+            url: `${config.BaseApiUrl}${config.GalleryAPI}${galleryId}/`,
             headers: store.getters.ajaxHeader,
-            json: true,
+            method: 'DELETE',
+            responseType: 'json',
         };
 
-        const response = await request.delete(options);
+        const response = await axios.request(options);
         // window.console.log(response);
     }
 }

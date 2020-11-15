@@ -1,7 +1,6 @@
 import Person from '../data/person';
 import store from '../../store/store';
 import Positionable from './positionable';
-import Point from './point';
 import TreePartnerNode from './treePartnerNode';
 import MoreArrowBuilder from './MoreArrowBuilder';
 

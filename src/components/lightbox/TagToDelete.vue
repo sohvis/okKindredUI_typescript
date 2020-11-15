@@ -18,7 +18,7 @@
 
 <script lang="ts">
 import { Component, Vue, Watch, Prop} from 'vue-property-decorator';
-import * as request from 'request-promise-native';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import store from '../../store/store';
 import config from '../../config';
 import { BModal } from 'bootstrap-vue';
@@ -48,13 +48,14 @@ export default class TagToDelete extends Vue {
                 this.saving = true;
                 const tagId = this.tag.id;
 
-                const options = {
-                    uri: `${config.BaseApiUrl}${config.ImageTaggingAPI}${tagId}/`,
+                const options: AxiosRequestConfig = {
+                    url: `${config.BaseApiUrl}${config.ImageTaggingAPI}${tagId}/`,
                     headers: store.getters.ajaxHeader,
-                    json: true,
+                    method: 'DELETE',
+                    responseType: 'json',
                 };
 
-                const response = await request.delete(options);
+                await axios.request(options);
                 this.$emit('tagDeleted', tagId);
 
             } finally {

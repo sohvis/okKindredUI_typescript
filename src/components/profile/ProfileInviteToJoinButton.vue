@@ -16,10 +16,9 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
-import { Promise } from 'q';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import Person from '../../models/data/person';
 import InviteEmail from '../../models/data/invite_email';
-import * as request from 'request-promise-native';
 import store from '../../store/store';
 import { configs } from '../../config';
 import EmailModal from './EmailModal.vue';
@@ -83,20 +82,21 @@ export default class ProfileInviteToJoinButton extends Vue {
     } else {
 
         // Check if any pending email invites
-        const options = {
-            uri: `${configs.BaseApiUrl}${configs.InviteEmailAPI}${this.personId}/`,
+        const options: AxiosRequestConfig = {
+            url: `${configs.BaseApiUrl}${configs.InviteEmailAPI}${this.personId}/`,
             headers: store.getters.ajaxHeader,
-            json: true,
+            method: 'GET',
+            responseType: 'json',
         };
 
         try {
-            const inviteEmail = await request.get(options) as InviteEmail;
-            // window.console.log(inviteEmail);
-            this.pendingInvite = inviteEmail;
+            const response = await axios.request(options) as AxiosResponse<InviteEmail>;
+            // window.console.log(response);
+            this.pendingInvite = response.data;
             const email = this.email || '';
 
             // Allow invite if email address is different
-            return email !== inviteEmail.email_address;
+            return email !== response.data.email_address;
 
         } catch (error) {
             // window.console.log(error);
@@ -121,19 +121,20 @@ export default class ProfileInviteToJoinButton extends Vue {
   private async createInvite() {
     // window.console.log('ProfileInviteToJoinButton.createInvite()');
 
-    const options = {
-        uri: `${configs.BaseApiUrl}${configs.InviteEmailAPI}`,
+    const options: AxiosRequestConfig = {
+        url: `${configs.BaseApiUrl}${configs.InviteEmailAPI}`,
         headers: store.getters.ajaxHeader,
-        body: {
+        data: {
             person_id: this.personId,
           },
-        json: true,
+        method: 'POST',
+        responseType: 'json',
       };
 
     try {
       store.commit('updateLoading', true);
-      const inviteEmail = await request.post(options) as InviteEmail;
-      // window.console.log(inviteEmail);
+      const response = await axios.request(options) as AxiosResponse<InviteEmail>;
+      // window.console.log(response);
       this.displayButton = false;
 
     } catch (error) {

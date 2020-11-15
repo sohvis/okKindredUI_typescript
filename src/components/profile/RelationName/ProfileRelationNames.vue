@@ -20,7 +20,7 @@
 <script lang="ts">
 
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
-import * as request from 'request-promise-native';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 import { configs } from '../../../config';
 import store from '../../../store/store';
@@ -59,13 +59,15 @@ export default class ProfileRelationNames extends Vue {
         // window.console.log(`ProfileRelationNames.initialise()`);
 
         if (store.state.users_person_id !== store.state.person_id) {
-            const options = {
-                uri: `${configs.BaseApiUrl}${configs.RelationNamesAPI}${store.state.users_person_id}/${store.state.person_id}/`,
+            const options: AxiosRequestConfig = {
+                url: `${configs.BaseApiUrl}${configs.RelationNamesAPI}${store.state.users_person_id}/${store.state.person_id}/`,
                 headers: store.getters.ajaxHeader,
-                json: true,
+                method: 'GET',
+                responseType: 'json',
             };
 
-            this.relations = await request.get(options) as ChineseRelationName[];
+            const response = await axios.request(options) as AxiosResponse<ChineseRelationName[]>;
+            this.relations = response.data;
         } else {
             this.relations = [];
         }

@@ -10,8 +10,8 @@
 </template>
 
 <script lang="ts">
-import * as request from 'request-promise-native';
 import { Component, Vue } from 'vue-property-decorator';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import store from '../../store/store';
 import { configs } from '../../config';
 import User from '../../models/data/user';
@@ -48,13 +48,15 @@ export default class LeaveSite extends Vue {
         store.commit('updateLoading', true);
 
         try {
-            const options = {
-                uri: `${configs.BaseApiUrl}${configs.UsersAPI}`,
+            const options: AxiosRequestConfig = {
+                url: `${configs.BaseApiUrl}${configs.UsersAPI}`,
                 headers: store.getters.ajaxHeader,
-                json: true,
+                method: 'GET',
+                responseType: 'json',
             };
 
-            this.users = await request.get(options) as User[];
+            const response = await axios.request(options) as AxiosResponse<User[]>;
+            this.users = response.data;
             this.showOptions = true;
 
         } catch (ex) {

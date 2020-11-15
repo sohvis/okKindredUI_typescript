@@ -38,8 +38,8 @@
 </template>
 
 <script lang="ts">
-import * as request from 'request-promise-native';
 import { Component, Vue, Prop} from 'vue-property-decorator';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import store from '../../store/store';
 import { configs } from '../../config';
 import PwnedPasswordChecker from '../../models/pwnedPasswordChecker';
@@ -112,16 +112,17 @@ export default class PasswordResetConfirmation extends Vue {
 
             try {
                 const textbox = document.getElementById('search-box') as HTMLInputElement;
-                const options = {
-                    uri: `${configs.BaseApiUrl}${configs.PasswordResetAPI}confirm/`,
-                    body: {
+                const options: AxiosRequestConfig = {
+                    url: `${configs.BaseApiUrl}${configs.PasswordResetAPI}confirm/`,
+                    data: {
                         password: this.password,
                         token: this.token,
                     },
-                    json: true,
+                    method: 'POST',
+                    responseType: 'json',
                 };
 
-                const result = await request.post(options);
+                const response = await axios.request(options);
                 this.$router.push('/accounts/login/');
 
             } catch (ex) {

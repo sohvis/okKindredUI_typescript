@@ -47,7 +47,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
-import * as request from 'request-promise-native';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import store from '../../store/store';
 import ErrorModal from '../../components/common/ErrorModal.vue';
 import config from '../../config';
@@ -114,19 +114,20 @@ export default class SignUp extends Vue {
 
             try {
 
-                const options = {
-                    uri: `${config.BaseApiUrl}${config.SignUpAPI}${this.confirmationToken}/`,
-                    body: {
+                const options: AxiosRequestConfig = {
+                    url: `${config.BaseApiUrl}${config.SignUpAPI}${this.confirmationToken}/`,
+                    data: {
                         password: this.password,
                     },
-                    json: true,
+                    method: 'PUT',
+                    responseType: 'json',
                 };
 
-                const user = await request.put(options) as User;
+                const response = await axios.request(options) as AxiosResponse<User>;
                 // window.console.log(user);
 
                 await this.$store.dispatch('login', {
-                    email: user.email,
+                    email: response.data.email,
                     password: this.password,
                 });
 

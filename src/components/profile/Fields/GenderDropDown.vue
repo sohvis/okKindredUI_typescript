@@ -19,7 +19,7 @@ import store from '../../../store/store';
 import Person from '../../../models/data/person';
 import configs from '../../../config';
 import { setTimeout } from 'timers';
-import * as request from 'request-promise-native';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import GenderOptionsBuilder from '../../../models/data/gender_options_builder';
 import SelectOption from '../../../models/data/select_option';
 import ProfileEmitArgs from '../../../models/profile_emit_args';
@@ -79,21 +79,23 @@ export default class GenderDropDown extends Vue {
 
     if (this.value !== this.valueEdited) {
 
-      const options = {
-          uri: `${configs.BaseApiUrl}${configs.PersonAPI}${this.personId}/`,
+      const options: AxiosRequestConfig = {
+          url: `${configs.BaseApiUrl}${configs.PersonAPI}${this.personId}/`,
           headers: store.getters.ajaxHeader,
-          body: {
+          data: {
             fieldName: GenderDropDown.propertyName,
             value: this.valueEdited,
           },
-          json: true,
+          method: 'PATCH',
+          responseType: 'json',
       };
 
       try {
-        const response = await request.patch(options) as Person;
+        const response = await axios.request(options) as AxiosResponse<Person>;
+
         // window.console.log(response);
         const param = new ProfileEmitArgs(
-                            response,
+                            response.data,
                             GenderDropDown.propertyName,
                             this.valueEdited,
                             this.value);

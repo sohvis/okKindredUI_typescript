@@ -36,7 +36,7 @@
 <script lang="ts">
 import { Component, Vue, Watch, Prop} from 'vue-property-decorator';
 import { BModal } from 'bootstrap-vue';
-import * as request from 'request-promise-native';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import store from '../../store/store';
 import config from '../../config';
 import Image from '../../models/data/image';
@@ -171,15 +171,16 @@ export default class DownloadMultipleImages extends Vue {
     }
 
     private async loadImagesFromGalleryPage(galleryId: number, page: number): Promise<PagedResult<Image>> {
-        const options = {
-            uri: `${config.BaseApiUrl}${config.ImageAPI}?gallery_id=${galleryId}&page=${page}`,
+        const options: AxiosRequestConfig = {
+            url: `${config.BaseApiUrl}${config.ImageAPI}?gallery_id=${galleryId}&page=${page}`,
             headers: store.getters.ajaxHeader,
-            json: true,
+            method: 'GET',
+            responseType: 'json',
         };
 
-        const response = await request.get(options) as PagedResult<Image>;
+        const response = await axios.request(options) as AxiosResponse<PagedResult<Image>>;
 
-        return response;
+        return response.data;
     }
 }
 </script>

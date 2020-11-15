@@ -1,8 +1,9 @@
 // https://github.com/preludek/pwnedpasswords/blob/master/src/App.js
 
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import sha1 from 'sha1';
 import { configs } from '../config';
-import * as request from 'request-promise-native';
+
 
 /*
  Class to use the Pwned Password Checker.
@@ -37,12 +38,10 @@ export default class PwnedPasswordChecker {
     private static async fetchPasswords(beginningHash: string): Promise<string[]> {
 
         try {
-            const options = {
-                uri: `${configs.PwnedPasswordsAPI}${beginningHash}`,
-            };
+            const url = `${configs.PwnedPasswordsAPI}${beginningHash}`;
 
-            const response = await request.get(options);
-            return response.split('\n');
+            const response = await axios.get(url) as AxiosResponse<string>;
+            return response.data.split('\n');
 
         } catch (ex) {
             // window.console.log(ex);

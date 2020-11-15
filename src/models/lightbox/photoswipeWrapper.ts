@@ -1,6 +1,6 @@
 import PhotoSwipe from 'photoswipe';
 import PhotoSwipeUI_Default from './photoswipe-ui-default';
-import * as request from 'request-promise-native';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import store from '../../store/store';
 import config from '../../config';
 import Image from '../../models/data/image';
@@ -106,14 +106,15 @@ export default class PhotoSwipeWrapper {
     }
 
     private async loadImageFromPage(pageNo: number, urlFunction: (pageNo: number) => string): Promise<Image[]> {
-        const options = {
-            uri: urlFunction(pageNo),
+        const options: AxiosRequestConfig = {
+            url: urlFunction(pageNo),
             headers: store.getters.ajaxHeader,
-            json: true,
+            method: 'GET',
+            responseType: 'json',
         };
 
-        const response = await request.get(options) as PagedResult<Image>;
-        const images = response.results as Image[];
+        const response = await axios.request(options) as AxiosResponse<PagedResult<Image>>;
+        const images = response.data.results as Image[];
 
         return images;
     }

@@ -25,13 +25,13 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { BModal } from 'bootstrap-vue';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import config from '../../config';
 import Loading from '../../components/common/Loading.vue';
 import store from '../../store/store';
-import * as request from 'request-promise-native';
 import Location from '../../models/data/location';
 
 @Component({
@@ -126,19 +126,20 @@ export default class EditLocation extends Vue {
         try {
             this.errorMessage = '';
             this.busy = true;
-            const options = {
-                uri: `${config.BaseApiUrl}${config.LocationApi}?address=${this.address}`,
+            const options: AxiosRequestConfig = {
+                url: `${config.BaseApiUrl}${config.LocationApi}?address=${this.address}`,
                 headers: store.getters.ajaxHeader,
-                json: true,
+                method: 'GET',
+                responseType: 'json',
             };
 
-            const response = await request.get(options) as Location;
+            const response = await axios.request(options) as AxiosResponse<Location>;
             // window.console.log(response);
 
-            this.latitude = response.latitude;
-            this.longitude = response.longitude;
+            this.latitude = response.data.latitude;
+            this.longitude = response.data.longitude;
 
-            this.$emit('locationChanged', response);
+            this.$emit('locationChanged', response.data);
 
             if (this.map && this.marker) {
                 this.map.removeLayer(this.marker);

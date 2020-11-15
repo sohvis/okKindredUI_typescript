@@ -51,7 +51,7 @@
 
 <script lang="ts">
 import { Component, Vue, Watch, Prop} from 'vue-property-decorator';
-import * as request from 'request-promise-native';
+import axios, { AxiosProxyConfig, AxiosRequestConfig, AxiosResponse } from 'axios';
 import store from '../../store/store';
 import config from '../../config';
 import PagedResult from '../../models/data/paged_results';
@@ -131,15 +131,16 @@ export default class SelectGallery extends Vue {
     }
 
     private async loadDatafromPage(page: number): Promise<PagedResult<Gallery>> {
-        const pageOptions = {
-                    uri: `${config.BaseApiUrl}${config.GalleryAPI}?page=${page}`,
-                    headers: store.getters.ajaxHeader,
-                    json: true,
-                };
+        const pageOptions: AxiosRequestConfig = {
+            url: `${config.BaseApiUrl}${config.GalleryAPI}?page=${page}`,
+            headers: store.getters.ajaxHeader,
+            method: 'GET',
+            responseType: 'json',
+        };
 
-        const result = await request.get(pageOptions) as PagedResult<Gallery>;
+        const result = await axios.request(pageOptions) as AxiosResponse<PagedResult<Gallery>>;
 
-        return result;
+        return result.data;
     }
 
     private selectGallery(gallery: Gallery) {

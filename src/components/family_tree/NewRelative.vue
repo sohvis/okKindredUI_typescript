@@ -48,7 +48,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
-import * as request from 'request-promise-native';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import store from '../../store/store';
 import { configs } from '../../config';
 import GenderOptionsBuilder from '../../models/data/gender_options_builder';
@@ -86,10 +86,10 @@ export default class NewRelative extends Vue {
         try {
             const selectedPersonId = store.state.person_id;
 
-            const options = {
-                uri: `${configs.BaseApiUrl}${configs.PersonAPI}`,
+            const options: AxiosRequestConfig = {
+                url: `${configs.BaseApiUrl}${configs.PersonAPI}`,
                 headers: store.getters.ajaxHeader,
-                body: {
+                data: {
                     from_person_id: selectedPersonId,
                     relation_type: this.relationType,
                     name: this.form.name,
@@ -97,14 +97,15 @@ export default class NewRelative extends Vue {
                     birth_year: this.form.birthYear,
                     address: this.form.location,
                 },
-                json: true,
+                method: 'POST',
+                responseType: 'json',
             };
 
-            const response = await request.post(options) as NewPersonResponse;
-            store.dispatch('addPeople', [response.person]);
-            store.dispatch('addRelations', [response.relation]);
+            const response = await axios.request(options) as AxiosResponse<NewPersonResponse>;
+            store.dispatch('addPeople', [response.data.person]);
+            store.dispatch('addRelations', [response.data.relation]);
 
-            this.$emit('personCreated', response.person);
+            this.$emit('personCreated', response.data.person);
 
         } catch (ex) {
             // window.console.log(ex);

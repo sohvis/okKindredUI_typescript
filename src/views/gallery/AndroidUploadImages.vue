@@ -24,7 +24,6 @@
 
 <script lang="ts">
 import { Component, Vue, Watch, Prop} from 'vue-property-decorator';
-import * as request from 'request-promise-native';
 import store from '../../store/store';
 import config from '../../config';
 import AndroidImageUploadStatus from '../../components/upload_images/AndroidImageUploadStatus.vue';
