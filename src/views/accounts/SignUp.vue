@@ -102,7 +102,7 @@
 
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator';
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
 import store from '../../store/store';
 import ErrorModal from '../../components/common/ErrorModal.vue';
 import config from '../../config';
@@ -165,21 +165,18 @@ export default class SignUp extends Vue {
                     language: this.form.language,
                 },
                 method: 'POST',
-                responseType: 'json',
+                responseType: 'text',
             };
 
             await axios.request(options);
             this.formSubmitted = true;
 
         } catch (error) {
-
-            if (error.toString().includes('Email in Use')) {
+            if (error?.response?.data?.toString().includes('Email in Use')) {
                 this.errorMessage = this.$t('message.EmailInUse').toString();
             } else {
                 this.errorMessage = error.toString();
             }
-            // window.console.log(error);
-
         }
 
         store.commit('updateLoading', false);
