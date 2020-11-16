@@ -120,7 +120,7 @@ export default class SignUp extends Vue {
                         password: this.password,
                     },
                     method: 'PUT',
-                    responseType: 'json',
+                    responseType: 'text',
                 };
 
                 const response = await axios.request(options) as AxiosResponse<User>;

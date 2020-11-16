@@ -128,7 +128,7 @@ export default class ProfileInviteToJoinButton extends Vue {
             person_id: this.personId,
           },
         method: 'POST',
-        responseType: 'json',
+        responseType: 'text',
       };
 
     try {
@@ -138,7 +138,7 @@ export default class ProfileInviteToJoinButton extends Vue {
       this.displayButton = false;
 
     } catch (error) {
-        store.commit('setErrorMessage', error);
+        store.commit('setErrorMessage', error?.response?.data);
     }
 
     store.commit('updateLoading', false);

@@ -148,7 +148,7 @@ export default class InviteConfirmation extends Vue {
             store.dispatch('updateRouteLoaded');
         } catch (error) {
 
-            this.errorMessage = error.toString();
+            this.errorMessage = error?.response?.data?.toString();
             // window.console.log(error);
             this.confirmationTokenInvalid = true;
         }
@@ -181,7 +181,7 @@ export default class InviteConfirmation extends Vue {
                         password: this.password,
                     },
                     method: 'PATCH',
-                    responseType: 'json',
+                    responseType: 'text',
                 };
 
                 const response = await axios.request(options) as AxiosResponse<InviteEmail>;
@@ -196,7 +196,7 @@ export default class InviteConfirmation extends Vue {
 
             } catch (error) {
 
-                this.errorMessage = error.toString();
+                this.errorMessage = error?.response?.data?.toString();
                 // window.console.log(error);
             }
         }
