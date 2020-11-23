@@ -124,7 +124,7 @@ export default class AddGallery extends Vue {
             }
 
         } catch (ex) {
-            this.errorMessage = ex.toString();
+            this.errorMessage = ex?.response?.data?.toString();
         }
 
         this.busy = false;
