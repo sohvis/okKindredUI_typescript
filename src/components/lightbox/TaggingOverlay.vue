@@ -40,7 +40,8 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
+import APIException from '@/models/data/api_exception';
 import config from '../../config';
 import Image from '../../models/data/image';
 import Tag from '../../models/data/tag';

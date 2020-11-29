@@ -47,7 +47,8 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
+import APIException from '@/models/data/api_exception';
 import store from '../../store/store';
 import ErrorModal from '../../components/common/ErrorModal.vue';
 import config from '../../config';
@@ -134,9 +135,8 @@ export default class SignUp extends Vue {
                 this.$router.push('/family/tree/');
 
             } catch (error) {
-
-                this.errorMessage = error.toString();
-                // window.console.log(error);
+                const axiosError = error as AxiosError<APIException>;
+                this.errorMessage =  axiosError?.response?.data?.detail || error.toString();
             }
         }
 

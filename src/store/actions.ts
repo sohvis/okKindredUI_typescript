@@ -1,5 +1,6 @@
 import { ActionTree } from 'vuex';
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
+import APIException from '@/models/data/api_exception';
 import { configs } from '../config';
 import IState from './IState';
 import { i18n } from '../main';
@@ -144,7 +145,9 @@ const actions: ActionTree<IState, IState> = {
 
         } catch (error) {
             // window.console.log(error);
-            throw error;
+            const axiosError = error as AxiosError<APIException>;
+            const message =  axiosError?.response?.data?.detail || error.toString();
+            throw message;
 
         } finally {
             context.commit('updateLoading', false);
@@ -270,8 +273,8 @@ const actions: ActionTree<IState, IState> = {
             context.commit('changePerson', context.state.person_id);
 
         } catch (error) {
-            // window.console.log(`: ${error}`);
-            context.commit('setErrorMessage', error);
+            const axiosError = error as AxiosError<APIException>;
+            context.commit('setErrorMessage', axiosError?.response?.data?.detail || error.toString());
         }
 
         context.commit('updateLoading', false);

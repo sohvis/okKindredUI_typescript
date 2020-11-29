@@ -25,7 +25,8 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
+import APIException from '@/models/data/api_exception';
 import { BModal } from 'bootstrap-vue';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -148,7 +149,8 @@ export default class EditLocation extends Vue {
             }
 
         } catch (ex) {
-            this.errorMessage = ex.toString();
+            const axiosError = ex as AxiosError<APIException>;
+            this.errorMessage = axiosError?.response?.data?.detail || ex.toString();
         }
 
         this.busy = false;

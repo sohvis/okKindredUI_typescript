@@ -1,6 +1,6 @@
 // https://github.com/preludek/pwnedpasswords/blob/master/src/App.js
 
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import sha1 from 'sha1';
 import { configs } from '../config';
 

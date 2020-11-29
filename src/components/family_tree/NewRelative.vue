@@ -48,7 +48,8 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
+import APIException from '@/models/data/api_exception';
 import store from '../../store/store';
 import { configs } from '../../config';
 import GenderOptionsBuilder from '../../models/data/gender_options_builder';
@@ -108,8 +109,8 @@ export default class NewRelative extends Vue {
             this.$emit('personCreated', response.data.person);
 
         } catch (ex) {
-            // window.console.log(ex);
-            this.$emit('onError', ex);
+            const axiosError = ex as AxiosError<APIException>;
+            this.$emit('onError', axiosError?.response?.data?.detail);
         }
 
     }

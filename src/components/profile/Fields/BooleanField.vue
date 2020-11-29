@@ -15,7 +15,8 @@ import store from '../../../store/store';
 import Person from '../../../models/data/person';
 import configs from '../../../config';
 import { setTimeout } from 'timers';
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
+import APIException from '@/models/data/api_exception';
 import Guid from '../../../models/guid';
 import ProfileEmitArgs from '../../../models/profile_emit_args';
 
@@ -78,7 +79,8 @@ export default class BooleanField extends Vue {
 
         this.$emit('valueUpdated', param);
       } catch (ex) {
-        store.commit('setErrorMessage', ex);
+        const axiosError = ex as AxiosError<APIException>;
+        store.commit('setErrorMessage', axiosError?.response?.data?.detail || ex.toString());
       }
     }
 

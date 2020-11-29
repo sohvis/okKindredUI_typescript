@@ -53,7 +53,8 @@
 
 <script lang="ts">
 import { Component, Vue, Watch} from 'vue-property-decorator';
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
+import APIException from '@/models/data/api_exception';
 import Person from '../../models/data/person';
 import Image from '../../models/data/image';
 import store from '../../store/store';
@@ -187,7 +188,8 @@ export default class WhoIsThis extends Vue {
             }
 
         } catch (ex) {
-            store.commit('setErrorMessage', ex);
+            const axiosError = ex as AxiosError<APIException>;
+            store.commit('setErrorMessage', axiosError?.response?.data?.detail || ex.toString());
         }
 
         this.loadingResults = false;

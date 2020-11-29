@@ -55,7 +55,8 @@
 
 <script lang="ts">
 import { Component, Vue, Watch, Prop} from 'vue-property-decorator';
-import axios, { AxiosProxyConfig, AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
+import APIException from '@/models/data/api_exception';
 import store from '../../store/store';
 import config from '../../config';
 import PagedResult from '../../models/data/paged_results';
@@ -166,7 +167,8 @@ export default class GalleryView extends Vue {
             }
 
         } catch (ex) {
-            store.commit('setErrorMessage', ex);
+            const axiosError = ex as AxiosError<APIException>;
+            store.commit('setErrorMessage', axiosError?.response?.data?.detail || ex.toString());
         }
 
         store.commit('updateLoading', false);
@@ -192,7 +194,8 @@ export default class GalleryView extends Vue {
             this.totalCount = response.data.count;
 
         } catch (ex) {
-            store.commit('setErrorMessage', ex);
+            const axiosError = ex as AxiosError<APIException>;
+            store.commit('setErrorMessage', axiosError?.response?.data?.detail || ex.toString());
         }
 
         store.commit('updateLoading', false);

@@ -39,7 +39,8 @@
 
 <script lang="ts">
 import { Component, Vue, Prop} from 'vue-property-decorator';
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
+import APIException from '@/models/data/api_exception';
 import store from '../../store/store';
 import { configs } from '../../config';
 import PwnedPasswordChecker from '../../models/pwnedPasswordChecker';
@@ -126,7 +127,8 @@ export default class PasswordResetConfirmation extends Vue {
                 this.$router.push('/accounts/login/');
 
             } catch (ex) {
-                store.commit('setErrorMessage', ex);
+                const axiosError = ex as AxiosError<APIException>;
+                store.commit('setErrorMessage', axiosError?.response?.data?.detail || ex.toString());
             }
         }
         store.commit('updateLoading', false);

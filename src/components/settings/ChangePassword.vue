@@ -48,7 +48,8 @@
 
 <script lang="ts">
 import { Component, Vue, Prop} from 'vue-property-decorator';
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
+import APIException from '@/models/data/api_exception';
 import store from '../../store/store';
 import { configs } from '../../config';
 import PwnedPasswordChecker from '../../models/pwnedPasswordChecker';
@@ -128,7 +129,8 @@ export default class ChangePassword extends Vue {
 
             } catch (ex) {
 
-                let message: string = ex.toString();
+                const axiosError = ex as AxiosError<APIException>;
+                let message = axiosError?.response?.data?.detail || ex.toString();
 
                 // Various error messages based on exception
                 if (ex.toString().includes('Incorrect previous password')) {

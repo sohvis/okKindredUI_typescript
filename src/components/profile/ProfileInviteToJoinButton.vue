@@ -16,7 +16,8 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
+import APIException from '@/models/data/api_exception';
 import Person from '../../models/data/person';
 import InviteEmail from '../../models/data/invite_email';
 import store from '../../store/store';
@@ -138,7 +139,8 @@ export default class ProfileInviteToJoinButton extends Vue {
       this.displayButton = false;
 
     } catch (error) {
-        store.commit('setErrorMessage', error?.response?.data);
+      const axiosError = error as AxiosError<APIException>;
+      store.commit('setErrorMessage', axiosError?.response?.data?.detail || error.toString());
     }
 
     store.commit('updateLoading', false);

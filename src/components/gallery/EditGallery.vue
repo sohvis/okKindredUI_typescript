@@ -51,7 +51,8 @@ import { Component, Vue, Prop } from 'vue-property-decorator';
 import Loading from './../common/Loading.vue';
 import Gallery from '../../models/data/gallery';
 import config from '../../config';
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
+import APIException from '@/models/data/api_exception';
 import store from '../../store/store';
 
 @Component({
@@ -126,7 +127,8 @@ export default class EditGallery extends Vue {
             (this.$refs.modal as any).hide();
 
         } catch (ex) {
-            this.errorMessage = ex.toString();
+            const axiosError = ex as AxiosError<APIException>;
+            this.errorMessage = axiosError?.response?.data?.detail || ex.toString();
         }
 
         this.busy = false;

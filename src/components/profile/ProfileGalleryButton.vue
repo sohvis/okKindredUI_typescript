@@ -8,7 +8,8 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
+import APIException from '@/models/data/api_exception';
 import Image from '../../models/data/image';
 import PagedResult from '../../models/data/paged_results';
 import store from '../../store/store';
@@ -53,7 +54,8 @@ export default class ProfileGalleryButton extends Vue {
         return response.data.count > 0;
 
     } catch (error) {
-        store.commit('setErrorMessage', error);
+        const axiosError = error as AxiosError<APIException>;
+        store.commit('setErrorMessage', axiosError?.response?.data?.detail || error.toString());
         return false;
     }
 

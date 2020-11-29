@@ -1,6 +1,7 @@
 import PhotoSwipe from 'photoswipe';
 import PhotoSwipeUI_Default from './photoswipe-ui-default';
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
+import APIException from '@/models/data/api_exception';
 import store from '../../store/store';
 import config from '../../config';
 import Image from '../../models/data/image';
@@ -101,7 +102,8 @@ export default class PhotoSwipeWrapper {
             }
 
         } catch (ex) {
-            store.commit('setErrorMessage', ex);
+            const axiosError = ex as AxiosError<APIException>;
+            store.commit('setErrorMessage', axiosError?.response?.data?.detail || ex.toString());
         }
     }
 

@@ -103,6 +103,7 @@
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
+import APIException from '@/models/data/api_exception';
 import store from '../../store/store';
 import ErrorModal from '../../components/common/ErrorModal.vue';
 import config from '../../config';
@@ -172,7 +173,9 @@ export default class SignUp extends Vue {
             this.formSubmitted = true;
 
         } catch (error) {
-            if (error?.response?.data?.toString().includes('Email in Use')) {
+            const axiosError = error as AxiosError<APIException>;
+            const message =  axiosError?.response?.data?.detail || error.toString();
+            if (message.includes('Email in Use')) {
                 this.errorMessage = this.$t('message.EmailInUse').toString();
             } else {
                 this.errorMessage = error.toString();

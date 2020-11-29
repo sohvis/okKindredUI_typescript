@@ -8,7 +8,8 @@
 
 <script lang="ts">
 import { Component, Vue, Watch, Prop} from 'vue-property-decorator';
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
+import APIException from '@/models/data/api_exception';
 import L from 'leaflet';
 import 'leaflet.markercluster';
 import 'leaflet/dist/leaflet.css';
@@ -87,7 +88,8 @@ export default class GalleryMap extends Vue {
             await imageTask;
 
         } catch (ex) {
-            store.commit('setErrorMessage', ex);
+          const axiosError = ex as AxiosError<APIException>;
+          store.commit('setErrorMessage', axiosError?.response?.data?.detail || ex.toString());
         }
 
         store.commit('updateLoading', false);
@@ -119,7 +121,8 @@ export default class GalleryMap extends Vue {
             }
 
         } catch (ex) {
-            store.commit('setErrorMessage', ex);
+          const axiosError = ex as AxiosError<APIException>;
+          store.commit('setErrorMessage', axiosError?.response?.data?.detail || ex.toString());
         }
     }
 
