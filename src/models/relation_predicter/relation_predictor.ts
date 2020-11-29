@@ -2,7 +2,6 @@ import Person from '../data/person';
 import Relation from '../data/relation';
 import RelationTypes from '../data/relation_types';
 import PersonAndRelationships from './person_and_relationships';
-import store from '../../store/store';
 import RelationPrediction from './relation_prediction';
 
 export default class RelationPredictor {

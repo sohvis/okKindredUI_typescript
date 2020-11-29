@@ -39,7 +39,6 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
-import * as request from 'request-promise-native';
 import store from '../../store/store';
 import { configs } from '../../config';
 import RelationPrediction from '../../models/relation_predicter/relation_prediction';

@@ -14,7 +14,6 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
-import * as request from 'request-promise-native';
 import config from '../../config';
 import Tag from '../../models/data/tag';
 import store from '../../store/store';

@@ -34,7 +34,8 @@ import store from '../../store/store';
 import Person from '../../models/data/person';
 import configs from '../../config';
 import { setTimeout } from 'timers';
-import * as request from 'request-promise-native';
+import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
+import APIException from '@/models/data/api_exception';
 import ProfileEmitArgs from '../../models/profile_emit_args';
 import { VueEditor } from 'vue2-editor';
 
@@ -128,20 +129,21 @@ export default class Biography extends Vue {
     if (this.biography !== this.biographyEdited) {
 
       try {
-        const options = {
-            uri: `${configs.BaseApiUrl}${configs.PersonAPI}${this.personId}/`,
+        const options: AxiosRequestConfig = {
+            url: `${configs.BaseApiUrl}${configs.PersonAPI}${this.personId}/`,
             headers: store.getters.ajaxHeader,
-            body: {
+            data: {
               fieldName: 'biography',
               value: this.biographyEdited,
             },
-            json: true,
+            method: 'PATCH',
+            responseType: 'json',
         };
 
-        const response = await request.patch(options) as Person;
+        const response = await axios.request(options) as AxiosResponse<Person>;
         // window.console.log(response);
         const param = new ProfileEmitArgs(
-                      response,
+                      response.data,
                       'biography',
                       this.biographyEdited,
                       this.biography);
@@ -149,7 +151,8 @@ export default class Biography extends Vue {
         this.$emit('biographyUpdated', param);
 
       } catch (ex) {
-        store.commit('setErrorMessage', ex);
+        const axiosError = ex as AxiosError<APIException>;
+        store.commit('setErrorMessage', axiosError?.response?.data?.detail || ex.toString());
       }
     }
   }

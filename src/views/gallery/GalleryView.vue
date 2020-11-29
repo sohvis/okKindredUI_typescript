@@ -42,7 +42,8 @@
 
 <script lang="ts">
 import { Component, Vue, Watch, Prop} from 'vue-property-decorator';
-import * as request from 'request-promise-native';
+import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
+import APIException from '@/models/data/api_exception';
 import store from '../../store/store';
 import config from '../../config';
 import PagedResult from '../../models/data/paged_results';
@@ -158,7 +159,8 @@ export default class GalleryView extends Vue {
                 }
 
             } catch (ex) {
-                store.commit('setErrorMessage', ex);
+                const axiosError = ex as AxiosError<APIException>;
+                store.commit('setErrorMessage', axiosError?.response?.data?.detail || ex.toString());
             }
 
             store.commit('updateLoading', false);
@@ -170,20 +172,22 @@ export default class GalleryView extends Vue {
         store.commit('updateLoading', true);
 
         try {
-            const options = {
-                uri: `${config.BaseApiUrl}${config.ImageAPI}?page=${page}&gallery_id=${this.galleryId}`,
+            const options: AxiosRequestConfig = {
+                url: `${config.BaseApiUrl}${config.ImageAPI}?page=${page}&gallery_id=${this.galleryId}`,
                 headers: store.getters.ajaxHeader,
-                json: true,
+                method: 'GET',
+                responseType: 'json',
             };
 
-            const response = await request.get(options) as PagedResult<Image>;
+            const response = await axios.request(options) as AxiosResponse<PagedResult<Image>>;
 
-            this.images = response.results;
+            this.images = response.data.results;
             this.additionalImages.push(...this.images);
-            this.totalCount = response.count;
+            this.totalCount = response.data.count;
 
         } catch (ex) {
-            store.commit('setErrorMessage', ex);
+            const axiosError = ex as AxiosError<APIException>;
+            store.commit('setErrorMessage', axiosError?.response?.data?.detail || ex.toString());
         }
 
         store.commit('updateLoading', false);

@@ -275,10 +275,10 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
-import { Promise } from 'q';
+import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
+import APIException from '@/models/data/api_exception';
 import Person from '../../models/data/person';
 import GenderOptionsBuilder from '../../models/data/gender_options_builder';
-import * as request from 'request-promise-native';
 import store from '../../store/store';
 import { configs } from '../../config';
 import Biography from './Biography.vue';
@@ -394,14 +394,15 @@ export default class Profile extends Vue {
     try {
       const selectedPerson = store.state.person_id;
 
-      const options = {
-          uri: `${configs.BaseApiUrl}${configs.PersonAPI}${selectedPerson}/`,
+      const options: AxiosRequestConfig = {
+          url: `${configs.BaseApiUrl}${configs.PersonAPI}${selectedPerson}/`,
           headers: store.getters.ajaxHeader,
-          json: true,
+          method: 'GET',
+          responseType: 'json',
       };
 
-      const personTask = request.get(options);
-      this.person = await personTask;
+      const response = await axios.request(options) as AxiosResponse<Person>;
+      this.person = response.data;
 
       if (this.person) {
         const genderBuilder = new GenderOptionsBuilder(this);

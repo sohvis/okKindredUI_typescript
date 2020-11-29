@@ -102,7 +102,8 @@
 
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator';
-import * as request from 'request-promise-native';
+import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
+import APIException from '@/models/data/api_exception';
 import store from '../../store/store';
 import ErrorModal from '../../components/common/ErrorModal.vue';
 import config from '../../config';
@@ -154,9 +155,9 @@ export default class SignUp extends Vue {
         try {
             store.commit('updateLoading', true);
 
-            const options = {
-                uri: `${config.BaseApiUrl}${config.SignUpAPI}`,
-                body: {
+            const options: AxiosRequestConfig = {
+                url: `${config.BaseApiUrl}${config.SignUpAPI}`,
+                data: {
                     name: this.form.name,
                     email: this.form.email,
                     gender: this.form.gender,
@@ -164,21 +165,21 @@ export default class SignUp extends Vue {
                     address: this.form.location,
                     language: this.form.language,
                 },
-                json: true,
+                method: 'POST',
+                responseType: 'text',
             };
 
-            await request.post(options);
+            await axios.request(options);
             this.formSubmitted = true;
 
         } catch (error) {
-
-            if (error.toString().includes('Email in Use')) {
+            const axiosError = error as AxiosError<APIException>;
+            const message =  axiosError?.response?.data?.detail || error.toString();
+            if (message.includes('Email in Use')) {
                 this.errorMessage = this.$t('message.EmailInUse').toString();
             } else {
                 this.errorMessage = error.toString();
             }
-            // window.console.log(error);
-
         }
 
         store.commit('updateLoading', false);

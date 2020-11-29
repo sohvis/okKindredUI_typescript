@@ -8,10 +8,10 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
-import { Promise } from 'q';
+import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
+import APIException from '@/models/data/api_exception';
 import Image from '../../models/data/image';
 import PagedResult from '../../models/data/paged_results';
-import * as request from 'request-promise-native';
 import store from '../../store/store';
 import { configs } from '../../config';
 
@@ -42,18 +42,20 @@ export default class ProfileGalleryButton extends Vue {
     }
 
     // Check if any pending email invites
-    const options = {
-        uri: `${configs.BaseApiUrl}${configs.ImageAPI}?person_id=${this.personId}`,
+    const options: AxiosRequestConfig = {
+        url: `${configs.BaseApiUrl}${configs.ImageAPI}?person_id=${this.personId}`,
         headers: store.getters.ajaxHeader,
-        json: true,
+        method: 'GET',
+        responseType: 'json',
     };
 
     try {
-        const images = await request.get(options) as PagedResult<Image>;
-        return images.count > 0;
+        const response = await axios.request(options) as AxiosResponse<PagedResult<Image>>;
+        return response.data.count > 0;
 
     } catch (error) {
-        store.commit('setErrorMessage', error);
+        const axiosError = error as AxiosError<APIException>;
+        store.commit('setErrorMessage', axiosError?.response?.data?.detail || error.toString());
         return false;
     }
 

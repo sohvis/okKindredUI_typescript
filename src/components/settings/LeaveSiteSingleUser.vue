@@ -22,8 +22,9 @@
 </template>
 
 <script lang="ts">
-import * as request from 'request-promise-native';
 import { Component, Vue } from 'vue-property-decorator';
+import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
+import APIException from '@/models/data/api_exception';
 import store from '../../store/store';
 import { configs } from '../../config';
 import PasswordBox from '../common/PasswordBox.vue';
@@ -51,22 +52,24 @@ export default class LeaveSiteSingleUser extends Vue {
         store.commit('updateLoading', true);
 
         try {
-            const options = {
-                uri: `${configs.BaseApiUrl}${configs.LeaveSiteAPI}`,
+            const options: AxiosRequestConfig = {
+                url: `${configs.BaseApiUrl}${configs.LeaveSiteAPI}`,
                 headers: store.getters.ajaxHeader,
-                body: {
+                data: {
                     password: this.password,
                 },
-                json: true,
+                method: 'POST',
+                responseType: 'json',
             };
 
-            await request.post(options);
+            await axios.request(options);
 
             await this.$store.dispatch('logout');
             this.$router.push('/');
 
         } catch (ex) {
-            store.commit('setErrorMessage', ex);
+            const axiosError = ex as AxiosError<APIException>;
+            store.commit('setErrorMessage', axiosError?.response?.data?.detail || ex.toString());
         }
 
         store.commit('updateLoading', false);

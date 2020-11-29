@@ -22,7 +22,8 @@
 </template>
 
 <script lang="ts">
-import * as request from 'request-promise-native';
+import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
+import APIException from '@/models/data/api_exception';
 import { Component, Vue } from 'vue-property-decorator';
 import store from '../../store/store';
 import { configs } from '../../config';
@@ -40,19 +41,21 @@ export default class PasswordReset extends Vue {
         store.commit('updateLoading', true);
         try {
             const textbox = document.getElementById('search-box') as HTMLInputElement;
-            const options = {
-                uri: `${configs.BaseApiUrl}${configs.PasswordResetAPI}`,
-                body: {
+            const options: AxiosRequestConfig = {
+                url: `${configs.BaseApiUrl}${configs.PasswordResetAPI}`,
+                data: {
                     email: this.email,
                 },
-                json: true,
+                method: 'POST',
+                responseType: 'json',
             };
 
-            const result = await request.post(options);
+            const response = await axios.request(options);
             this.submitted = true;
 
         } catch (ex) {
-            store.commit('setErrorMessage', ex);
+            const axiosError = ex as AxiosError<APIException>;
+            store.commit('setErrorMessage', axiosError?.response?.data?.detail || ex.toString());
         }
 
         store.commit('updateLoading', false);

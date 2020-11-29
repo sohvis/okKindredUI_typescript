@@ -37,7 +37,6 @@
 
 <script lang="ts">
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
-import * as request from 'request-promise-native';
 import FamilyTree from '../components/family_tree/FamilyTree.vue';
 import FamilyMap from '../components/FamilyMap.vue';
 import Profile from '../components/profile/Profile.vue';

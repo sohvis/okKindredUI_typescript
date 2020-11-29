@@ -29,7 +29,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import * as request from 'request-promise-native';
+
 import store from '../../store/store';
 import configs from '../../config';
 import CropArgs from '../../models/data/crop_args';

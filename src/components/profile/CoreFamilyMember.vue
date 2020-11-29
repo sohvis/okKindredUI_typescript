@@ -16,7 +16,6 @@ import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 import store from '../../store/store';
 import Person from '../../models/data/person';
 import configs from '../../config';
-import * as request from 'request-promise-native';
 import RelationTypes from '../../models/data/relation_types';
 
 @Component({

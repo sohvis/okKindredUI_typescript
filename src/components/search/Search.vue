@@ -45,7 +45,6 @@
 
 <script lang="ts">
 import { Component, Vue, Watch} from 'vue-property-decorator';
-import * as request from 'request-promise-native';
 import Person from '../../models/data/person';
 import store from '../../store/store';
 import { configs } from '../../config';

@@ -22,11 +22,13 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import * as request from 'request-promise-native';
+import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
+import APIException from '@/models/data/api_exception';
 import store from '../../store/store';
 import { configs } from '../../config';
 import TreeNode from '../../models/tree/treeNode';
 import Person from '../../models/data/person';
+
 
 @Component
 export default class DeletePerson extends Vue {
@@ -59,18 +61,20 @@ export default class DeletePerson extends Vue {
       store.commit('updateLoading', true);
       const selectedPersonId = store.state.person_id;
 
-      const options = {
-          uri: `${configs.BaseApiUrl}${configs.PersonAPI}${selectedPersonId}/`,
-          headers: store.getters.ajaxHeader,
-          json: true,
+      const options: AxiosRequestConfig = {
+        url: `${configs.BaseApiUrl}${configs.PersonAPI}${selectedPersonId}/`,
+        headers: store.getters.ajaxHeader,
+        method: 'DELETE',
+        responseType: 'json',
       };
 
-      await request.delete(options);
+      await axios.request(options);
       await store.dispatch('removePerson', selectedPersonId);
 
-} catch (ex) {
+    } catch (ex) {
         // window.console.log(ex);
-        store.commit('setErrorMessage', ex);
+        const axiosError = ex as AxiosError<APIException>;
+        store.commit('setErrorMessage', axiosError?.response?.data?.detail);
     }
     store.commit('updateLoading', false);
     (this.$refs.modal as any).hide();
@@ -81,15 +85,16 @@ export default class DeletePerson extends Vue {
 
     const selectedPerson = store.state.person_id;
 
-    const options = {
-        uri: `${configs.BaseApiUrl}${configs.PersonAPI}${selectedPerson}/`,
+    const options: AxiosRequestConfig  = {
+        url: `${configs.BaseApiUrl}${configs.PersonAPI}${selectedPerson}/`,
         headers: store.getters.ajaxHeader,
-        json: true,
+        method: 'GET',
+        responseType: 'json',
     };
 
-    const person = await request.get(options) as Person;
+    const response = await axios.request(options) as AxiosResponse<Person>;
     // window.console.log(person);
-    if (!person.user_id) {
+    if (!response.data.user_id) {
       this.deleteAllowed = true;
     }
   }

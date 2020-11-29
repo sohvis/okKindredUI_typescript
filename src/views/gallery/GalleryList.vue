@@ -42,7 +42,8 @@
 
 <script lang="ts">
 import { Component, Vue, Watch, Prop} from 'vue-property-decorator';
-import * as request from 'request-promise-native';
+import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
+import APIException from '@/models/data/api_exception';
 import store from '../../store/store';
 import config from '../../config';
 import PagedResult from '../../models/data/paged_results';
@@ -129,16 +130,17 @@ export default class GalleryList extends Vue {
         try {
             this.showNoImagesMessage = false;
 
-            const options = {
-                uri: `${config.BaseApiUrl}${config.GalleryAPI}?page=${this.page}`,
+            const options: AxiosRequestConfig = {
+                url: `${config.BaseApiUrl}${config.GalleryAPI}?page=${this.page}`,
                 headers: store.getters.ajaxHeader,
-                json: true,
+                method: 'GET',
+                responseType: 'json',
             };
 
-            const response = await request.get(options) as PagedResult<Gallery>;
-            this.galleries = response.results;
+            const response = await axios.request(options) as AxiosResponse<PagedResult<Gallery>>;
+            this.galleries = response.data.results;
 
-            this.totalCount = response.count;
+            this.totalCount = response.data.count;
             if (this.totalCount === 0) {
                 this.showNoImagesMessage = true;
             }
@@ -146,7 +148,8 @@ export default class GalleryList extends Vue {
             this.setDisplaySizes();
 
         } catch (ex) {
-            store.commit('setErrorMessage', ex);
+            const axiosError = ex as AxiosError<APIException>;
+            store.commit('setErrorMessage', axiosError?.response?.data?.detail || ex.toString());
         }
 
         store.commit('updateLoading', false);

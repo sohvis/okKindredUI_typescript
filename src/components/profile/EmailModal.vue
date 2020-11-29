@@ -39,8 +39,9 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
+import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
+import APIException from '@/models/data/api_exception';
 import Person from '../../models/data/person';
-import * as request from 'request-promise-native';
 import store from '../../store/store';
 import { configs } from '../../config';
 import Loading from '../common/Loading.vue';
@@ -131,20 +132,21 @@ export default class EmailModal extends Vue {
 
   private async updatePersonDetail(property: string, value: string): Promise<Person> {
 
-    const options = {
-        uri: `${configs.BaseApiUrl}${configs.PersonAPI}${this.personId}/`,
+    const options: AxiosRequestConfig = {
+        url: `${configs.BaseApiUrl}${configs.PersonAPI}${this.personId}/`,
         headers: store.getters.ajaxHeader,
-        body: {
+        data: {
           fieldName: property,
           value,
         },
-        json: true,
+        method: 'PATCH',
+        responseType: 'json',
     };
 
-    const response = await request.patch(options) as Person;
+    const response = await axios.request(options) as AxiosResponse<Person>;
     // window.console.log(response);
 
-    return response;
+    return response.data;
   }
 
 

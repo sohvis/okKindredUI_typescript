@@ -18,7 +18,6 @@ import 'leaflet.markercluster';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet.markercluster/dist/MarkerCluster.css';
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
-import * as request from 'request-promise-native';
 import store from '../store/store';
 import Person from '../models/data/person';
 import MapMarkerOptions from '../models/map/map_marker_options';

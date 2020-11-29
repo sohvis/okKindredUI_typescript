@@ -8,7 +8,8 @@
 
 <script lang="ts">
 import { Component, Vue, Watch, Prop} from 'vue-property-decorator';
-import * as request from 'request-promise-native';
+import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
+import APIException from '@/models/data/api_exception';
 import L from 'leaflet';
 import 'leaflet.markercluster';
 import 'leaflet/dist/leaflet.css';
@@ -87,7 +88,8 @@ export default class GalleryMap extends Vue {
             await imageTask;
 
         } catch (ex) {
-            store.commit('setErrorMessage', ex);
+          const axiosError = ex as AxiosError<APIException>;
+          store.commit('setErrorMessage', axiosError?.response?.data?.detail || ex.toString());
         }
 
         store.commit('updateLoading', false);
@@ -119,21 +121,23 @@ export default class GalleryMap extends Vue {
             }
 
         } catch (ex) {
-            store.commit('setErrorMessage', ex);
+          const axiosError = ex as AxiosError<APIException>;
+          store.commit('setErrorMessage', axiosError?.response?.data?.detail || ex.toString());
         }
     }
 
     private async loadImageFromPage(pageNo: number): Promise<PagedResult<Image>> {
         // window.console.log(`GalleryMap.loadImageFromPage(pageNo: ${pageNo})`);
-        const options = {
-            uri: `${config.BaseApiUrl}${config.ImageAPI}?page=${pageNo}&gallery_id=${this.galleryId}`,
+        const options: AxiosRequestConfig = {
+            url: `${config.BaseApiUrl}${config.ImageAPI}?page=${pageNo}&gallery_id=${this.galleryId}`,
             headers: store.getters.ajaxHeader,
-            json: true,
+            method: 'GET',
+            responseType: 'json',
         };
 
-        const response = await request.get(options) as PagedResult<Image>;
+        const response = await axios.request(options) as AxiosResponse<PagedResult<Image>>;
         // window.console.log(response);
-        return response;
+        return response.data;
     }
 
     private renderMap() {
