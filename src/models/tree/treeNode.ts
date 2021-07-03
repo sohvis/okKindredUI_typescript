@@ -118,9 +118,7 @@ export default class TreeNode extends  Positionable {
         //                     left, top + (TreeNode.FONT_SIZE + 5) * (this.wrappedName.length + 4));
 
         if (this.photo) {
-            this.ctx.globalAlpha = imageOpacity;
-            this.ctx.drawImage(this.photo, this.x + TreeNode.LEFT_MARGIN, this.y + TreeNode.TOP_IMAGE_MARGIN);
-            this.ctx.globalAlpha = 1.0;
+            this.drawImage(imageOpacity);
         } else {
             this.photo = new Image();
             this.photo.src = this.imagePath;
@@ -128,9 +126,7 @@ export default class TreeNode extends  Positionable {
             // Have to wait for photo to load before drawing it
             this.photo.onload = () => {
                 if (this.addToTree) {
-                    this.ctx.globalAlpha = imageOpacity;
-                    this.ctx.drawImage(this.photo, this.x + TreeNode.LEFT_MARGIN, this.y + TreeNode.TOP_IMAGE_MARGIN);
-                    this.ctx.globalAlpha = 1.0;
+                    this.drawImage(imageOpacity);
                 }
             };
         }
@@ -151,6 +147,21 @@ export default class TreeNode extends  Positionable {
             this.spacing = TreeNode.MIN_SPACING;
             this.addToTree = false;
             this.parent = null;
+        }
+    }
+
+    private drawImage(imageOpacity: number) {
+        try {
+            this.ctx.globalAlpha = imageOpacity;
+            this.ctx.drawImage(this.photo, this.x + TreeNode.LEFT_MARGIN, this.y + TreeNode.TOP_IMAGE_MARGIN);
+            this.ctx.globalAlpha = 1.0;
+        } catch {
+            // Error loading image show stock
+            this.photo = new Image();
+            this.photo.src = 'img/portrait_80.png';
+            this.ctx.globalAlpha = imageOpacity;
+            this.ctx.drawImage(this.photo, this.x + TreeNode.LEFT_MARGIN, this.y + TreeNode.TOP_IMAGE_MARGIN);
+            this.ctx.globalAlpha = 1.0;
         }
     }
 

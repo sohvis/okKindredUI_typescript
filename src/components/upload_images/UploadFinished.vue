@@ -66,6 +66,7 @@ export default class UploadFinished extends Vue {
         // window.console.log(`UploadFinished.ok()`);
 
         if (this.backLink &&  (!this.failedCount || this.failedCount === 0)) {
+            store.dispatch('resetAndroidImageUpload');
             this.$router.push(this.backLink);
         }
     }
