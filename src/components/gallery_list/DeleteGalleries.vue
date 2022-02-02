@@ -84,7 +84,7 @@ export default class DeleteGalleries extends Vue {
 
             this.$emit('galleriesDeleted');
         } catch (ex) {
-            this.errorMessage = ex.toString();
+            this.errorMessage = (ex as Error).toString();
         }
 
         this.busy = false;

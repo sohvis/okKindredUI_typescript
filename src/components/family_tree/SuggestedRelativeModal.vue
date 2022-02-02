@@ -111,7 +111,7 @@ export default class SuggestedRelativeModal extends Vue {
 
         } catch (ex) {
             // window.console.log(ex);
-            this.errorMessage = ex.toString();
+            this.errorMessage = (ex as Error).toString();
         }
 
         this.busy = false;

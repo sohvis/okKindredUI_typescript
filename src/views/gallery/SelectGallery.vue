@@ -126,7 +126,7 @@ export default class SelectGallery extends Vue {
 
         } catch (ex) {
             const axiosError = ex as AxiosError<APIException>;
-            store.commit('setErrorMessage', axiosError?.response?.data?.detail || ex.toString());
+            store.commit('setErrorMessage', axiosError?.response?.data?.detail || (ex as Error).toString());
         }
 
         store.commit('updateLoading', false);

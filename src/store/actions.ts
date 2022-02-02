@@ -146,7 +146,7 @@ const actions: ActionTree<IState, IState> = {
         } catch (error) {
             // window.console.log(error);
             const axiosError = error as AxiosError<APIException>;
-            const message =  axiosError?.response?.data?.detail || error.toString();
+            const message =  axiosError?.response?.data?.detail || (error as Error).toString();
             throw message;
 
         } finally {
@@ -274,7 +274,7 @@ const actions: ActionTree<IState, IState> = {
 
         } catch (error) {
             const axiosError = error as AxiosError<APIException>;
-            context.commit('setErrorMessage', axiosError?.response?.data?.detail || error.toString());
+            context.commit('setErrorMessage', axiosError?.response?.data?.detail || (error as Error).toString());
         }
 
         context.commit('updateLoading', false);
