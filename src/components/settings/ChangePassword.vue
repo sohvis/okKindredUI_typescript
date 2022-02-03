@@ -130,10 +130,10 @@ export default class ChangePassword extends Vue {
             } catch (ex) {
 
                 const axiosError = ex as AxiosError<APIException>;
-                let message = axiosError?.response?.data?.detail || ex.toString();
+                let message = axiosError?.response?.data?.detail || (ex as Error).toString();
 
                 // Various error messages based on exception
-                if (ex.toString().includes('Incorrect previous password')) {
+                if (axiosError?.toString()?.includes('Incorrect previous password')) {
                     message = this.$t('message.IncorrectOldPassword').toString();
                 }
                 store.commit('setErrorMessage', message);

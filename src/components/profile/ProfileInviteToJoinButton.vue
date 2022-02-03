@@ -140,7 +140,7 @@ export default class ProfileInviteToJoinButton extends Vue {
 
     } catch (error) {
       const axiosError = error as AxiosError<APIException>;
-      store.commit('setErrorMessage', axiosError?.response?.data?.detail || error.toString());
+      store.commit('setErrorMessage', axiosError?.response?.data?.detail || (error as Error).toString());
     }
 
     store.commit('updateLoading', false);

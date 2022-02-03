@@ -136,7 +136,7 @@ export default class SignUp extends Vue {
 
             } catch (error) {
                 const axiosError = error as AxiosError<APIException>;
-                this.errorMessage =  axiosError?.response?.data?.detail || error.toString();
+                this.errorMessage =  axiosError?.response?.data?.detail || (error as Error).toString();
             }
         }
 

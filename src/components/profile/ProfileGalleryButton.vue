@@ -55,7 +55,7 @@ export default class ProfileGalleryButton extends Vue {
 
     } catch (error) {
         const axiosError = error as AxiosError<APIException>;
-        store.commit('setErrorMessage', axiosError?.response?.data?.detail || error.toString());
+        store.commit('setErrorMessage', axiosError?.response?.data?.detail || (error as Error).toString());
         return false;
     }
 

@@ -203,7 +203,7 @@ export default class EditImage extends Vue {
 
         } catch (ex) {
             const axiosError = ex as AxiosError<APIException>;
-            this.errorMessage = axiosError?.response?.data?.detail || ex.toString();
+            this.errorMessage = axiosError?.response?.data?.detail || (ex as Error).toString();
         }
 
         this.busy = false;
