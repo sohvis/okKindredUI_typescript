@@ -6,7 +6,7 @@
         v-on:submit.prevent="OnSubmit()">
         <h2>{{ $t("message.PasswordReset") }}</h2>
         <p>{{ $t("message.PasswordResetDescription") }}</p>
-        <div class="form-group form-password-reset">
+        <div class="mb-3 form-password-reset">
             <label for="username">{{ $t("message.EmailAddress") }}</label>
             <input type="email" id="username" name="username" class="form-control" v-model="email" required autofocus>
         </div>

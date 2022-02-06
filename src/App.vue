@@ -26,7 +26,7 @@
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->
-        <b-navbar-nav class="ml-auto">
+        <b-navbar-nav class="ms-auto">
           <b-nav-item to="/about/">
             <span class="oi oi-info" aria-hidden="true"></span>
             {{ $t("message.About") }}
@@ -113,6 +113,10 @@ export default class App extends Vue {
   .site-logo {
     height: 23px;
     margin-right: 10px;
+  }
+
+  .form-group {
+    margin-bottom: 1em;
   }
 
   /* Small devices (landscape phones, 576px and up) */

@@ -8,17 +8,17 @@
         role="form" 
         v-on:submit.prevent="OnSubmit()">
 
-        <div class="form-group">
+        <div class="mb-3">
             <label for="old_password">{{ $t("message.OldPassword") }}</label>
             <PasswordBox v-model="oldPassword" />
         </div>
 
-        <div class="form-group">
+        <div class="mb-3">
             <label for="password">{{ $t("message.NewPassword") }}</label>
             <PasswordBox v-model="password" />
         </div>
 
-        <div class="form-group">
+        <div class="mb-3">
             <label for="password2">{{ $t("message.PasswordConfirmation") }}</label>
             <PasswordBox v-model="password2" />
         </div>
