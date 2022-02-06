@@ -13,7 +13,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
-import L from 'leaflet';
+import L, { Icon } from 'leaflet';
 import 'leaflet.markercluster';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet.markercluster/dist/MarkerCluster.css';
@@ -204,6 +204,7 @@ export default class FamilyMap extends Vue {
 
         const options = new MapMarkerOptions(loc.id);
         options.title = loc.name;
+        options.icon = new Icon.Default();
         const marker = L.marker(new L.LatLng(loc.latitude, loc.longitude), options);
         marker.bindPopup(html);
         markers.addLayer(marker);
