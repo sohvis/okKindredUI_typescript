@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <b-navbar id="navbar" toggleable="md" type="dark" 
-        variant="primary" v-bind:sticky="false" class="navbar-background">
+    <b-navbar id="navbar" class="ps-3 pe-3 navbar-background" toggleable="md" type="dark" 
+        variant="primary" v-bind:sticky="false">
       <b-navbar-brand to="/">
         <img src="img/logo.png" class="site-logo"/>
         <strong>ok!Kindred</strong>
@@ -26,7 +26,7 @@
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->
-        <b-navbar-nav class="ms-auto">
+        <b-navbar-nav class="ms-3 ms-auto">
           <b-nav-item to="/about/">
             <span class="oi oi-info" aria-hidden="true"></span>
             {{ $t("message.About") }}
