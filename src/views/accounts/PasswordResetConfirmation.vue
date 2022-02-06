@@ -10,11 +10,11 @@
         v-on:submit.prevent="OnSubmit()"
         class="form-password-reset">
 
-        <div class="form-group">
+        <div class="mb-3">
             <label for="password">{{ $t("message.Password") }}</label>
             <PasswordBox v-model="password" />
         </div>
-        <div class="form-group">
+        <div class="mb-3">
             <label for="password2">{{ $t("message.PasswordConfirmation") }}</label>
             <PasswordBox v-model="password2" />
         </div>

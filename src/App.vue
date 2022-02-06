@@ -115,6 +115,10 @@ export default class App extends Vue {
     margin-right: 10px;
   }
 
+  .form-group {
+    margin-bottom: 1em;
+  }
+
   /* Small devices (landscape phones, 576px and up) */
   /* Smartphones (portrait) ----------- */
   @media only screen and (max-width : 576px) {
