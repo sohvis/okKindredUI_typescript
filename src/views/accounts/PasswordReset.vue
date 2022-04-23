@@ -24,6 +24,7 @@
 <script lang="ts">
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
 import APIException from '@/models/data/api_exception';
+import EmailException from '@/models/data/email_exception';
 import { Component, Vue } from 'vue-property-decorator';
 import store from '../../store/store';
 import { configs } from '../../config';
@@ -54,8 +55,13 @@ export default class PasswordReset extends Vue {
             this.submitted = true;
 
         } catch (ex) {
-            const axiosError = ex as AxiosError<APIException>;
-            store.commit('setErrorMessage', axiosError?.response?.data?.detail || (ex as Error).toString());
+            const emailError = ex as AxiosError<EmailException>;
+            if (emailError?.response?.data?.email) {
+                 store.commit('setErrorMessage', emailError?.response?.data?.email[0]);
+            } else {
+                const axiosError = ex as AxiosError<APIException>;
+                store.commit('setErrorMessage', axiosError?.response?.data?.detail || (ex as Error).toString());
+            }
         }
 
         store.commit('updateLoading', false);
