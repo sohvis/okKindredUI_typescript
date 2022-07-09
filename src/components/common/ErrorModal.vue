@@ -1,19 +1,13 @@
 <template>
   <div class="error-overlay" v-show="true">
-    <div class="container">
-      <b-alert class="alert-position"
-          variant="danger" 
-          dismissible
-          @dismissed="onDismissed"
-          v-model="showStandardError">
-        {{ errorMessage }}
-      </b-alert>
 
-      <b-alert class="alert-position"
-          variant="danger" 
-          dismissible
-          @dismissed="onDismissed"
-          v-model="showPasswordBreach">
+    <div class="container">
+      <div v-show="showStandardError" class="alert alert-danger alert-position alert-dismissible fade show" role="alert">
+        {{ errorMessage }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" @click="onDismissed"></button>
+      </div>
+
+      <div v-show="showPasswordBreach" class="alert alert-danger alert-position alert-dismissible fade show" role="alert">
         <strong>{{ $t('message.PasswordBreach1') }}</strong>
         <div>{{ $t('message.PasswordBreach2') }}</div>
         <div>
@@ -24,7 +18,8 @@
           {{ $t('message.ForMoreInformation') }}
           <a href="https://haveibeenpwned.com/Passwords">https://haveibeenpwned.com/Passwords</a>
         </div>
-      </b-alert>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" @click="onDismissed"></button>
+      </div>
     </div>
   </div>
 </template>
