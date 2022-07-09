@@ -38,7 +38,7 @@ import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 import store from '../../store/store';
 import configs from '../../config';
 import Jcrop from 'jcrop';
-import 'jcrop/dist/jcrop.css';
+import 'jcrop/build/css/jcrop.css';
 import CropArgs from '../../models/data/crop_args';
 
 @Component

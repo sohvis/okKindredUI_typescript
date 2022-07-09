@@ -13,7 +13,7 @@
     "bootstrap": "^4.6.1",
     "bootstrap-vue": "^2.22.0",
     "core-js": "^3.22.8",
-    "jcrop": "https://github.com/JustinWingChungHui/Jcrop.git",
+    "jcrop": "https://github.com/JustinWingChungHui/Jcrop.git#justin",
     "leaflet": "^1.7.1",
     "leaflet.markercluster": "^1.5.3",
     "open-iconic": "^1.1.1",
