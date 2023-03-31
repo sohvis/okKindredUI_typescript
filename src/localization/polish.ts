@@ -12,7 +12,7 @@ export const polish = {
       Close: `Zamknąć`,
       Yes: `Tak`,
       No: `Nie`,
-      Confirm: `Potwierdzać`,
+      Confirm: `Potwierdź`,
       Back: `Powrót`,
       Title: `Tytuł`,
       Description: `Opis`,
@@ -49,86 +49,83 @@ export const polish = {
 
       // Introduction
       Slide1Header: 'Witamy w ok!Kindred',
-      Slide1Desc: 'Wolna i open source współpracy drzewo genealogiczne i udostępnianie zdjęć www',
+      Slide1Desc: 'Drzewo genealogiczne (wolne i open source) do współpracy i udostępniania zdjęć www',
       Slide2Header: 'Tworzenie i udostępnianie',
       Slide2Desc: 'Tworzenie i udostępnianie wielojęzycznej drzewo genealogiczne z rodziną i zaprosić członków rodziny, by go zobaczyć i dodać do niej',
-      Slide3Header: 'Mapa swoją rodzinę',
-      Slide3Desc: 'Wykreślić położenie każdego z krewnych na mapie',
-      Slide4Header: 'Dzielić się zdjęciami',
+      Slide3Header: 'Zmapuj Swoją rodzinę',
+      Slide3Desc: 'Wykreśl położenie każdego z krewnych na mapie',
+      Slide4Header: 'Podziel się zdjęciami',
       Slide4Desc: 'Udostępnianie zdjęć prywatnie między rodziną i naklejki członków rodziny',
       SignUpButton: 'Zapisz się',
 
       // About
       ViewDetails: 'Pokaż szczegóły',
       OurStory: 'Nasza historia',
-      OurStoryStub: 'Chciałbyś poznać historię, jak i dlaczego stworzyliśmy tę stronę?',
+      OurStoryStub: 'Chcielibyście poznać historię, jak i dlaczego stworzyliśmy tę stronę?',
       ContactUs: 'Skontaktuj się z nami',
-      ContactUsStub: `Jeśli masz jakieś pytania, chcesz zgłosić błąd, prosić o funkcji lub
+      ContactUsStub: `Jeśli masz jakieś pytania, chcesz zgłosić błąd, prosić o funkcję lub
       przyczynić się do kodu źródłowego.`,
       FAQ: 'FAQ',
       FAQStub: 'Często Zadawane Pytania',
 
       StoryHeading: 'Jak to się zaczęło',
-      StoryText1: `Cześć. Jestem Justin po lewej stronie. I jestem Adrian po prawej stronie.`,
-      StoryText2: `Jest to strona, aby nagrać nasze drzewo genealogiczne i działają trochę jak
-      sieci społecznej. Można utrzymywać profil tutaj i zobacz, jak daleko sięga
+      StoryText1: `Cześć. To my, Justin (po lewej stronie) i Adrian (po prawej stronie).`,
+      StoryText2: `Jest to strona, którą zbudowaliśmy, aby stworzyć nasze drzewo genealogiczne i przy okazji działa ona trochę jak
+      sieć społeczna. Możesz tu stworzyć swój profil i zobaczyć, jak daleko sięga Twoje
       drzewo!
-      Jako osoba zostanie dodana do drzewa genealogicznego, otrzymują
-      e-mail, więc mogą one zostać użytkownikiem i dodać do niej więcej ludzi.
-      Witryna została zainspirowana przez naszych rodzinnych spotkań i
-      trudności wyjaśniając, jak wszyscy jesteśmy spokrewnieni. Nasza rodzina jest
-      bardzo zróżnicowany z wielu grup etnicznych i rozprzestrzenił się na całym
+      Jak zaprosisz nową osobę do swojego drzewa genealogicznego, otrzyma ona
+      e-mail, aby mogła ona zostać użytkownikiem i dodawać do niej więcej ludzi.
+      Witryna została zainspirowana przez nasze rodzinne spotkanie i
+      związane z nimi trudności w wyjaśnianiu jak wszyscy jesteśmy spokrewnieni. Nasza rodzina jest
+      bardzo zróżnicowany, składa się z wielu grup etnicznych i rozprzestrzeniła się na całym
       świecie.
-      Jako rodzina rośnie i ewoluuje, chcieliśmy sposób dokumentowania
-      wszystkich i pozostać w kontakcie.`,
+      Nasza rodzina rośnie i ewoluuje, ta strona jest naszym sposobem na pozostanie w kontakcie.`,
 
       ContactHeading: 'Kontakt',
       ContactEmail: `Skontaktuj się z nami poprzez e-mail <a href="mailto:info@okkindred.com">info@okkindred.com</a>`,
-      ContactText1: `Jeśli jesteś w naszej rodzinie chcemy usłyszeć od ciebie i zapraszamy do
-      odwiedzenia i pobyt rundy w każdej chwili.
-      Jeśli masz login do tego miejscu i są częścią mojej rodziny,
-      można dostać mój numer telefonu i adres z mojego profilu!`,
-      ContactText2: `Ewentualnie, jeśli szukasz jakiejś pomocy z tej witryny, a nawet jeśli
+      ContactText1: `Jeśli jesteś w naszej rodzinie chcemy usłyszeć od Ciebie i zapraszamy do
+      odwiedzin w każdej chwili.
+      Jeśli masz login do tej strony i jesteś częścią mojej rodziny,
+      możesz znaleźć mój numer telefonu i adres na moim profilu!`,
+      ContactText2: `Ewentualnie, jeśli szukasz pomocy odnośnie tej strony, lub jeśli
       chcesz nam pomóc założyć własną podobna strona prosimy daj nam znać!`,
-      ContactText3: `Jesteśmy bardzo mili ludzie i lubisz rozmawiać z ludźmi zainteresowanych
-      sames rzeczy jesteśmy Geek Stuff, oprogramowania, muzyki i szalony pan
-      globalnych chińskich rodzin ...`,
+      ContactText3: `Jesteśmy bardzo mili i lubimy rozmawiać z ludźmi o podobnych 
+      zainteresowaniach: Geek Stuff, oprogramowania, muzyki i szalone
+      globalne rodziny ...`,
 
       FAQHeading: 'Często Zadawane Pytania',
-      Question1: 'Czy ktoś może zobaczyć informacje na mojej rodziny?',
-      Answer1: `Nie, tylko ludzie w swoim drzewie genealogicznym, które zostały zaproszone
-      mogą zobaczyć informacje wejściowe. Informacja nie jest również przeszukiwać
-      przez zewnętrznych użytkowników i wyszukiwarek.`,
+      Question1: 'Czy każdy może zobaczyć informacje mojej rodziny?',
+      Answer1: `Nie, tylko osoby w Twoim drzewie genealogicznym, które zaprosiliście mogą
+      zobaczyć informacje o Twojej rodzinie. Zewnętrzni użytkownicy i wyszukiwarki nie mają dostępu do Waszych informacji.`,
 
       Question2: `Czy moje dane są bezpieczne?`,
       Answer2: `Traktujemy bezpieczeństwo i prywatność bardzo poważnie. Trzymamy szczegóły
-      naszej rodziny na tej stronie, a my nigdy nie zrobi nic, aby zaszkodzić te
-      dane!
-      Tylko własne członkowie rodziny, które zapraszają do dzielenia
-      drzewa są w stanie zobaczyć informacje, które należy wpisać na stronie.
-      Ponadto, nie sprzedawać, ani nie wynajmujemy osobistych
-      informacji identyfikacyjnych dla innych.`,
-      Answer2a: `Witryna jest utrzymywana z
+      naszej rodziny na tej stronie i nigdy nie zrobimy czegoś, co zaszkodziłoby
+      danym naszej rodziny!
+      Tylko członkowie Twojej własnej rodziny, których zaprasisz do swojego
+      drzewa są w stanie zobaczyć informacje, które wpiszesz na naszej stronie.
+      Ponadto, nie sprzedajemy, nie wynajmujemy i nie handlujemy Waszymi osobistymi
+      informacjami.`,
+      Answer2a: `Witryna jest utrzymywana na
       <a href="https://www.pythonanywhere.com/?affiliate_id=00022aed">PythonAnywhere</a>
-      którzy sami podejmują prywatność bardzo poważnie.
-      Używamy również <a href="https://aws.amazon.com/s3/">Amazon S3</a>
-      przechowywać żadnych obrazów, które przesyłasz.
-      Robimy korzystać z usług TRZECIĄ
+      oni również traktują prywatność bardzo poważnie.
+      Korzystamy z usug stron trzecich <a href="https://aws.amazon.com/s3/">Amazon S3</a>
+      do przechowywania zdjęć, które dodasz do swojego profilu.
+      Korzystamy z usług stron TRZECICH
       <a href="https://en.wikipedia.org/wiki/Geocoding">geokodowanie</a>
-      (Google i Microsoft). To jest
-      konwersja lokalizację na długości i szerokości geograficznej, dzięki czemu
-      możemy wykreślić go na mapie.
-      Jednak żadne inne identyfikujące fragmenty informacji (na przykład nazwa)
-      dostarczane są z tego miejsca do tych stron trzecich.
-      Tak na przykład wyślemy jedynie termin "Hongkongu" do Google,
-      który będzie następnie dać nam szerokości i długości geograficznej, dzięki
-      czemu możemy wykreślić go na mapie.`,
+      (Google i Microsoft), które przekształcą lokalizację waszego profilu na długość i szerokość geograficzną, dzięki czemu
+      możemy wykreślić ją na mapie.
+      Żadne inne informacje, które mogą zostać użyte do zidentyfikowania Was (na przykład: imię)
+      nie są przekazywane stronom trzecim razem z lokacją.
+      Tak na przykład wyślemy jedynie termin "Hongkong" do Google,
+      który następnie da nam szerokość i długość geograficzną, dzięki
+      czemu wykreślimy waszą lokalizację na mapie.`,
       Answer2b: `Jeśli obawiasz się, że witryna jest całkowicie open source, więc można wziąć
       kopię kodu źródłowego (patrz poniżej), spojrzeć w jaki sposób informacje są
       przechowywane lub nawet gościć własną wersję tej strony.
       Będziemy bardziej niż szczęśliwi, aby pomóc Ci go skonfigurować.`,
 
-      Question3: `Mogę zobaczyć kod źródłowy?`,
+      Question3: `Czy mogę zobaczyć kod źródłowy?`,
       Answer3: `Kod źródłowy znajduje się na stronie
       <a href="https://github.com/JustinWingChungHui/okKindred">Github.com</a>.
       Co widać na okKindred.com pochodzi z "production" oddział.`,
@@ -248,8 +245,8 @@ export const polish = {
       CoreFamilyMembers: `Bliscy Członkowie Rodziny`,
       Parents: `Rodzice`,
       Siblings: `Rodzeństwo`,
-      Partners: `Wzmacniacz`,
-      Children: `Synowie i Córki`,
+      Partners: `Partnerzy`,
+      Children: `Dzieci`,
 
       RelationName: 'Nazwa Relacji',
       RelationNames: 'Nazwy Relacji',
@@ -258,29 +255,29 @@ export const polish = {
       Mandarin: 'Mandaryński',
       Pinyin: 'Pinyin',
 
-      "Mother": "Matka",
-      "Father": "Ojciec",
+      "Mother": "Mama",
+      "Father": "Tata",
       "Daughter": "Córka",
       "Son": "Syn",
       "Wife": "Żona",
       "Husband": "Mąż",
-      "Maternal Grandmother": "Babcia ze strony matki",
+      "Maternal Grandmother": "Babcia od strony matki",
       "Maternal Grandfather": "Dziadek od strony matki",
-      "Paternal Grandmother": "Babcia ze strony ojca",
+      "Paternal Grandmother": "Babcia od strony ojca",
       "Paternal Grandfather": "Dziadek od strony ojca",
-      "Stepmother": "Przybrana rodzina",
-      "Stepfather": "Przybrana rodzina",
+      "Stepmother": "Przybrana mama",
+      "Stepfather": "Przybrany tata",
       "Elder Sister": "Starsza siostra",
       "Younger Sister": "Młodsza siostra",
       "Elder Brother": "Starszy brat",
-      "Younger Brother": "Younger Brother",
-      "Wife's Mother": "Matka żony",
-      "Wife's Father": "Ojciec żony",
-      "Husband's Mother": "Matka męża",
-      "Stepdaughter": "Przybrana rodzina",
-      "Stepson": "Przybrana rodzina",
-      "Daughter In Law": "synowa",
-      "Son In Law": "zięć",
+      "Younger Brother": "Młodszy brat",
+      "Wife's Mother": "Mama żony",
+      "Wife's Father": "Tata żony",
+      "Husband's Mother": "Mama męża",
+      "Stepdaughter": "Przybrana córka ",
+      "Stepson": "Przybrany syn",
+      "Daughter In Law": "Synowa",
+      "Son In Law": "Szwagier",
       "Granddaughter Daughter's Side": "Strona córki wnuczki",
       "Grandson Daughter's Side": "Strona córki wnuka",
       "Granddaughter Son's Side": "Strona wnuczki syna",
@@ -384,7 +381,7 @@ export const polish = {
       UserSettingsSaved: `Zapisane Ustawienia Użytkownika`,
 
       // Password breach
-      PasswordBreach1: `To hasło jest niebezpieczne!`,
+      PasswordBreach1: `To hasło jest słabe, a wręcz niebezpieczne!`,
       PasswordBreach2: `Został on wykorzystany w innych witrynach, które miały naruszenia prywatności i powinny być
       zmienione, aby zapewnić bezpieczeństwo konta ok!Kindred`,
       PasswordBreach3: `Zmień hasło, przechodząc do `,
