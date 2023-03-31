@@ -89,7 +89,7 @@ export const polish = {
       możesz znaleźć mój numer telefonu i adres na moim profilu!`,
       ContactText2: `Ewentualnie, jeśli szukasz pomocy odnośnie tej strony, lub jeśli
       chcesz nam pomóc założyć własną podobna strona prosimy daj nam znać!`,
-      ContactText3: `Jesteśmy bardzo mili i lubimy rozmawiać z ludźmi o podobnych 
+      ContactText3: `Jesteśmy bardzo mili i lubimy rozmawiać z ludźmi o podobnych
       zainteresowaniach: Geek Stuff, oprogramowania, muzyki i szalone
       globalne rodziny ...`,
 
