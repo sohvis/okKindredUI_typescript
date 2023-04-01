@@ -414,6 +414,10 @@ const actions: ActionTree<IState, IState> = {
     setUserAgent(context, userAgent: string) {
         context.commit('setUserAgent', userAgent);
     },
+
+    setDebugMessage(context, message: string) {
+        context.commit('setDebugMessage', message);
+    },
 };
 
 export default actions;

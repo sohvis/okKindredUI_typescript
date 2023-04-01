@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <div v-for="(message, index) in debugMessage" :key="index">{{ message }}</div>
     <b-navbar id="navbar" class="ps-3 pe-3 navbar-background" toggleable="md" type="dark" 
         variant="primary" v-bind:sticky="false">
       <b-navbar-brand to="/">
@@ -84,6 +85,10 @@ export default class App extends Vue {
 
   public get loading() {
     return store.getters.loading;
+  }
+
+  public get debugMessage() {
+    return store.state.debug_message;
   }
 
   protected created() {

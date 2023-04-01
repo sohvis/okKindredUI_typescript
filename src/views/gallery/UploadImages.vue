@@ -34,8 +34,7 @@
           id="file-input" 
           type="file" 
           :multiple="uploadMultiple"
-          hidden 
-          accept="image/x-png,image/gif,image/jpeg"
+          hidden
           @change="filesSelected" />
 
         <ImageUploadStatus v-for="(file, index) in files" 
@@ -58,7 +57,6 @@
 <script lang="ts">
 import { Component, Vue, Watch, Prop} from 'vue-property-decorator';
 import store from '../../store/store';
-import config from '../../config';
 import ImageUploadStatus from '../../components/upload_images/ImageUploadStatus.vue';
 import UploadFinished from '../../components/upload_images/UploadFinished.vue';
 import BrowserDetection from '../../models/browserDetection';

@@ -20,7 +20,7 @@ const state: IState = {
     users_person_id: '',
 
     error_message: '',
-    debug_message: '',
+    debug_message: [],
 
     people: new Array<Person>(),
     relations: new Array<Relation>(),
