@@ -106,6 +106,8 @@ export default class ImageUploadStatus extends Vue {
 
     private req: XMLHttpRequest = new XMLHttpRequest();
 
+    private acceptedFileTypes = ['image/x-png', 'image/png', 'image/gif', 'image/jpeg', 'image/jpg'];
+
     public loadFile(file: File) {
         // window.console.log('ImageUploadStatus.loadFile()');
 
@@ -117,8 +119,9 @@ export default class ImageUploadStatus extends Vue {
 
     public upload() {
         // window.console.log('ImageUploadStatus.upload()');
-
-        if (this.galleryId && this.file && this.state === 'pending') {
+        if (!this.acceptedFileTypes.includes(this.file?.type as string)) {
+            this.transferFailed({ message: `Invalid file type ${this.file?.type}` });
+        } else if (this.galleryId && this.file && this.state === 'pending') {
 
             this.fileReader.onload = this.fileReaderOnLoad;
             this.fileReader.readAsDataURL(this.file);
@@ -161,8 +164,6 @@ export default class ImageUploadStatus extends Vue {
     }
 
     private onLoad(e: any) {
-        // window.console.log('ImageUploadStatus.onLoad()');
-
         if (this.req.status === 200) {
             this.state = 'done';
             this.$emit('finishedProcessing', this.uploadIndex);
@@ -186,9 +187,6 @@ export default class ImageUploadStatus extends Vue {
     }
 
     private fileReaderOnLoad(e: any) {
-        // window.console.log('ImageUploadStatus.fileReaderOnLoad()');
-        // window.console.log(e);
-
         const img = document.getElementById(`thumbnail-img-${this.uploadIndex}`) as HTMLImageElement;
         img.src = e.target.result;
         this.showImage = true;

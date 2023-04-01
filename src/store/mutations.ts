@@ -71,7 +71,7 @@ const mutations: MutationTree<IState> = {
 
     setDebugMessage(state, message: string) {
         // window.console.log(message);
-        state.debug_message = message;
+        state.debug_message.push(message);
     },
 
     setPeople(state, people: Person[]) {

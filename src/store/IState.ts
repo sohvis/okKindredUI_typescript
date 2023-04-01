@@ -12,7 +12,7 @@ interface IState {
     person_id: string;
     users_person_id: string;
     error_message: string;
-    debug_message: string;
+    debug_message: string[];
     people: Person[];
     relations: Relation[];
     currentGallery: Gallery | null;
