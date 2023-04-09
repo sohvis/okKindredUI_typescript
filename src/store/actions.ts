@@ -418,6 +418,9 @@ const actions: ActionTree<IState, IState> = {
     setDebugMessage(context, message: string) {
         context.commit('setDebugMessage', message);
     },
+    setErrorMessage(context, message: string) {
+        context.commit('setErrorMessage', message);
+    },
 };
 
 export default actions;

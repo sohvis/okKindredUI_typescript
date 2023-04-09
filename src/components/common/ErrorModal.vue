@@ -4,7 +4,9 @@
     <div class="container">
       <div v-show="showStandardError" class="alert alert-danger alert-position alert-dismissible fade show" role="alert">
         {{ errorMessage }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" @click="onDismissed"></button>
+        <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close" @click="onDismissed">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
 
       <div v-show="showPasswordBreach" class="alert alert-danger alert-position alert-dismissible fade show" role="alert">
@@ -18,15 +20,16 @@
           {{ $t('message.ForMoreInformation') }}
           <a href="https://haveibeenpwned.com/Passwords">https://haveibeenpwned.com/Passwords</a>
         </div>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" @click="onDismissed"></button>
+        <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close" @click="onDismissed">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
-import { mapState } from 'vuex';
+import { Component, Vue } from 'vue-property-decorator';
 import store from '../../store/store';
 
 @Component({})
@@ -54,7 +57,7 @@ export default class ErrorModal extends Vue {
 
   set showStandardError(value: boolean) {
     if (!value) {
-      store.commit('setErrorMessage', '');
+      store.dispatch('setErrorMessage', '');
     }
   }
 
@@ -62,11 +65,10 @@ export default class ErrorModal extends Vue {
      return store.state.error_message === ErrorModal.passwordBreached;
   }
 
-  private onDismissed() {
+  public onDismissed() {
     // Reset error message
-    store.commit('setErrorMessage', '');
+    store.dispatch('setErrorMessage', '');
   }
-
 }
 </script>
 
