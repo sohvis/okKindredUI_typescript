@@ -23,7 +23,7 @@ export default class PhotoSwipeWrapper {
             const items = new Array<PhotoSwipeItem>();
 
             for (const image of images) {
-                const item = new PhotoSwipeItem(image);
+                const item = new PhotoSwipeItem(image, window.screen.width, window.screen.height);
                 items.push(item);
             }
             // window.console.log(items);
@@ -50,7 +50,7 @@ export default class PhotoSwipeWrapper {
         for (index = 0; index < this.photoswipe.items.length; index++) {
             const item = this.photoswipe.items[index] as PhotoSwipeItem;
             if (image.id === item.image.id) {
-                const newItem = new PhotoSwipeItem(image);
+                const newItem = new PhotoSwipeItem(image, window.screen.width, window.screen.height);
                 this.photoswipe.items[index] = newItem;
                 // sets a flag that slides should be updated
                 this.photoswipe.invalidateCurrItems();
@@ -89,7 +89,7 @@ export default class PhotoSwipeWrapper {
 
                 for (const imageList of imageLists) {
                     for (const image of imageList) {
-                        const item = new PhotoSwipeItem(image);
+                        const item = new PhotoSwipeItem(image, window.screen.width, window.screen.height);
                         this.photoswipe.items.push(item);
                     }
                 }
