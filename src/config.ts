@@ -1,6 +1,6 @@
 export const configs = {
-    BaseApiUrl: 'https://api.okkindred.com',
-    // BaseApiUrl: 'https://justinhui.pythonanywhere.com',
+    // BaseApiUrl: 'https://api.okkindred.com',
+    BaseApiUrl: 'https://justinhui.pythonanywhere.com',
 
     // Auth
     ObtainTokenAPI: '/api/auth/obtain_token/',
@@ -29,7 +29,7 @@ export const configs = {
     UsersAPI: '/api/users/',
 
     // Azure function endpoints
-    DownloadImagesAPI: 'https://okkindreddownloadimagesproduction.azurewebsites.net/api/okkindred_download_images?code=sWPS4x1buCfF4akBBXuVe2OHIeTPjl2Ct4WnyuxcgLe1461SuQEeug==',
+    DownloadImagesAPI: 'https://okkindreddownloadimages20191202033203.azurewebsites.net/api/okkindred_download_images?code=eyGYn7POphCLmF8aqcxlaFpxd/33bVRXslNeTe6o2B3IotOaKwhiLw==',
 
     // External APIs
     PwnedPasswordsAPI: 'https://api.pwnedpasswords.com/range/',
