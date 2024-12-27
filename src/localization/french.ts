@@ -36,6 +36,7 @@ export const french = {
       Previous: `Reculer`,
       Next: `Avancer`,
       ShowPassword: `Montrer le Mot de Passe`,
+      Slideshow: `Diaporama`,
 
       // Login
       PleaseSignIn: 'S\'il vous plaît vous connecter',

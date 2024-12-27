@@ -35,6 +35,7 @@ export const polish = {
       Previous: `Poprzedni`,
       Next: `Następny`,
       ShowPassword: `Pokaż Hasło`,
+      Slideshow: `Pokaz Slajdów`,
 
       // Login
       PleaseSignIn: 'Zaloguj się',

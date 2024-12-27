@@ -35,6 +35,7 @@ export const traditionalChinese = {
       Previous: `前`,
       Next: `下面`,
       ShowPassword: `顯示密碼`,
+      Slideshow: `幻燈片放映`,
 
       // Login
       PleaseSignIn: '請登錄',

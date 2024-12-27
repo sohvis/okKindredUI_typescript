@@ -9,4 +9,5 @@ export default class PhotoSwipeOptions implements PhotoSwipeUI_Default.Options {
     public mapEl: boolean = true;
     public editImageEl: boolean = true;
     public tagsEl: boolean = true;
+    public slideshowEl: boolean = true;
 }

@@ -36,6 +36,7 @@ export const simplifiedChinese = {
       Previous: `以前`,
       Next: `未来`,
       ShowPassword: `显示密码`,
+      Slideshow: `幻灯片`,
 
       // Login
       PleaseSignIn: '请登录',

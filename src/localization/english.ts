@@ -35,6 +35,7 @@ export const english = {
       Previous: `Previous`,
       Next: `Next`,
       ShowPassword: `Show Password`,
+      Slideshow: `Slideshow`,
 
       // Login
       PleaseSignIn: 'Please sign in',

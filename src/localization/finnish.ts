@@ -35,6 +35,7 @@ export const finnish = {
       Previous: `Edellinen`,
       Next: `Seuraava`,
       ShowPassword: `Näytä salasana`,
+      Slideshow: `Diaesitys`,
 
       // Login
       PleaseSignIn: 'Ole hyvä ja kirjaudu sisään',

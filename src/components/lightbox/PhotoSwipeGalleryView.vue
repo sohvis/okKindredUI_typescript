@@ -54,6 +54,16 @@
                     class="pswp__button pswp__button--tags custom-button oi oi-tag">
                 </button>
 
+                <button :title="$t('message.Slideshow')"
+                    v-show="!this.slideshowEnabled"
+                    class="pswp__button pswp__button--slideshow custom-button oi oi-media-play">
+                </button>
+
+                <button :title="$t('message.Slideshow')"
+                    v-show="this.slideshowEnabled"
+                    class="pswp__button pswp__button--slideshow custom-button oi oi-media-pause">
+                </button>
+
                 <!-- fullscreen not needed for xamarin app-->
                 <button :title="$t('message.Fullscreen')"
                     v-show="!isXamarin"
@@ -137,6 +147,8 @@ export default class PhotoSwipeGalleryView extends Vue {
 
     public isFullscreen: boolean = false;
 
+    public slideshowEnabled: boolean = false;
+
     public get isXamarin(): boolean {
         return BrowserDetection.isXamarinApp();
     }
@@ -164,6 +176,7 @@ export default class PhotoSwipeGalleryView extends Vue {
         this.photoswipeWrapper.photoswipe.listen('editImage', this.editImage);
         this.photoswipeWrapper.photoswipe.listen('tags', this.toggleTagging);
         this.photoswipeWrapper.photoswipe.listen('resize', this.onResize);
+        this.photoswipeWrapper.photoswipe.listen('slideshow', this.onSlideshow);
 
         const urlPrefix = `${config.BaseApiUrl}${config.ImageAPI}?gallery_id=${this.galleryId}&page=`;
         const getUrl = (pageNo: number) => urlPrefix + pageNo.toString();
@@ -173,6 +186,16 @@ export default class PhotoSwipeGalleryView extends Vue {
             this.loadingMore = true;
             await this.photoswipeWrapper.loadImagesFromOtherPages(currentPage, totalItems, getUrl);
             this.loadingMore = false;
+        }
+    }
+
+    private onSlideshow() {
+        this.slideshowEnabled = !this.slideshowEnabled;
+
+        if (this.slideshowEnabled) {
+            this.photoswipeWrapper?.enableSlideshow();
+        } else {
+            this.photoswipeWrapper?.disableSlideshow();
         }
     }
 
@@ -228,7 +251,7 @@ export default class PhotoSwipeGalleryView extends Vue {
             this.displayMap = !(image.latitude === 0 && image.longitude === 0);
 
             const taggingOverlay = this.$refs.taggingOverlay as TaggingOverlay;
-            if (taggingOverlay.showTagging) {
+            if (taggingOverlay?.showTagging) {
                 await taggingOverlay.switchImage(image);
             }
         }

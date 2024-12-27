@@ -12,6 +12,8 @@ import PagedResult from '../../models/data/paged_results';
 export default class PhotoSwipeWrapper {
 
     public photoswipe: PhotoSwipe<PhotoSwipeUI_Default.Options>;
+    private interval: number = 0;
+
 
     constructor(
         images: Image[],
@@ -107,6 +109,16 @@ export default class PhotoSwipeWrapper {
         }
     }
 
+    public enableSlideshow() {
+        this.interval = window.setInterval(() => this.nextImage(), 10000);
+    }
+
+    public disableSlideshow() {
+        if (this.interval) {
+            window.clearInterval(this.interval);
+        }
+    }
+
     private async loadImageFromPage(pageNo: number, urlFunction: (pageNo: number) => string): Promise<Image[]> {
         const options: AxiosRequestConfig = {
             url: urlFunction(pageNo),
@@ -119,5 +131,9 @@ export default class PhotoSwipeWrapper {
         const images = response.data.results as Image[];
 
         return images;
+    }
+
+    private nextImage() {
+        this.photoswipe.next();
     }
 }

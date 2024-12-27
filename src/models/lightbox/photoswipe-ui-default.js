@@ -504,6 +504,13 @@ var PhotoSwipeUI_Default =
 				pswp.shout('tags');
 			}
 		},
+		{
+			name: 'button--slideshow',
+			option: 'slideshowEl',
+			onTap: function() {  
+				pswp.shout('slideshow');
+			}
+		},
 
 	];
 
